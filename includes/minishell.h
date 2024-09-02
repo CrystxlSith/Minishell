@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/08/31 10:53:42 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/02 16:17:24 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-# define MINISHELL_h
+# define MINISHELL_H
 
 # include "../libft/libft.h"
+# include "token.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
@@ -30,4 +31,5 @@ typedef struct s_minishell
     char    *line_read;
 }   t_minishell;
 
+void	tokenize();
 # endif

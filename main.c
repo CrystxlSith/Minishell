@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/08/31 10:42:45 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/02 16:20:43 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
-
-t_minishell	minishell;
+#include "includes/token.h"
 
 int main(int argc, char const *argv[], char const *env[])
 {
+	t_minishell	minishell;
+
 	if (argc || argv || env)
 		ft_memset(&minishell ,0 , sizeof(t_minishell));
 	
