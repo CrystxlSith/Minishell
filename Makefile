@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kali <kali@student.42.fr>                  +#+  +:+       +#+         #
+#    By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:34:26 by kali              #+#    #+#              #
-#    Updated: 2024/08/31 10:39:55 by kali             ###   ########.fr        #
+#    Updated: 2024/09/03 09:20:12 by jopfeiff         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = token/token.c main.c
+SRCS = token/token.c token/init_token.c main.c
 CC = cc
 CFLAGS = -g3 -Wall -Wextra -Werror -I./includes/
 RM = rm -rf

@@ -6,27 +6,51 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:01:37 by kali              #+#    #+#             */
-/*   Updated: 2024/09/02 16:38:46 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/03 09:20:41 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_token *create_new_token(t_token_type  type, char *data)
+void	print_tokens(t_token *tokens)
 {
-    t_token *new_token = malloc(sizeof(t_token));
-    if (!new_token)
-        return (NULL);
-    new_token->type = type;
-    new_token->data = ft_strdup(data);
-    new_token->next = NULL;
-    
+	t_token *tmp = tokens;
+	while (tmp)
+	{
+		printf("Type: %d, Data: %s\n", tmp->type, tmp->data);
+		tmp = tmp->next;
+	}
+}
+static void	check_tokens(char **str, t_token **tokens)
+{
+	if (**str == '|')
+		new_token(tokens, create_new_token(E_PIPE, "|"));
+	else if (**str == '<')
+		new_token(tokens, create_new_token(E_REDIR_IN, "<"));
+	else if (**str == '>')
+		new_token(tokens, create_new_token(E_REDIR_OUT, ">"));
+	else if (**str == ' ')
+		new_token(tokens, create_new_token(E_SPACES, " "));
+	else if (**str == '\'')
+		new_token(tokens, create_new_token(E_S_QUOTE, "'"));
+	else if (**str == '"')
+		new_token(tokens, create_new_token(E_D_QUOTE, "\""));
+	else
+		new_token(tokens, create_new_token(E_UNKNOWN, *str));
 }
 
 void	tokenize(char *str)
 {
-    t_token *tokens = NULL;
-	while (*str && ft_isspace(*str) || ft_strchr(SPACE_CHAR, *str))
-        str++;
-    new_token(*tokens);
+	t_token *tokens = NULL;
+	int	i;
+
+	i = 0;
+	while (*str)
+	{
+		while (ft_isspace(*str))
+			str++;
+		check_tokens(&str, &tokens);
+		str++;
+	}
+	print_tokens(tokens);
 }
