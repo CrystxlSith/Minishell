@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:01:37 by kali              #+#    #+#             */
-/*   Updated: 2024/09/03 11:08:39 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:11:39 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,16 @@ static void	check_cmd(char **str, t_token **tokens)
 
 	i = 0;
 	cmd = *str;
-	while (**str && !ft_isspace(**str))
+	while (**str && !ft_isspace(**str) && !ft_strchr(IS_TOKEN, **str))
 	{
-		if (ft_strchr(IS_TOKEN, **str))
-		{
-			// (*str)--; // Go back to the token
-			break;
-		}
+	
 		(*str)++;
 		i++;
 	}
 	cmd[i] = '\0';
-	if (!ft_isspace(**str))
-		new_token(tokens, create_new_token(E_CMD, ft_strdup(cmd)));
+	new_token(tokens, create_new_token(E_CMD, ft_strdup(cmd)));
+	 if (ft_strchr(IS_TOKEN, **str))
+	 	check_tokens(str, tokens);
 }
 
 // static void	check_arg(char **str, t_token **tokens)
@@ -107,7 +104,7 @@ t_token	*tokenize(char *str)
 			check_cmd(&str, &tokens);
 		// if 
 		// check_arg(&str, &tokens);
-		// str++;
+		str++;
 	}
 	print_tokens(tokens);
 	return (tokens);
