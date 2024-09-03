@@ -6,12 +6,13 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:16:44 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/03 09:18:43 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/03 09:43:44 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+// Create a new token
 t_token *create_new_token(t_token_type  type, char *data)
 {
 	t_token *new_token = malloc(sizeof(t_token));
@@ -23,6 +24,7 @@ t_token *create_new_token(t_token_type  type, char *data)
 	return (new_token);	
 }
 
+// Add a new token to the list
 void	new_token(t_token **tokens, t_token *new_node)
 {
 	t_token *tmp = *tokens;

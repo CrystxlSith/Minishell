@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/03 09:19:15 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/03 10:09:56 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_minishell
     char    *line_read;
 }   t_minishell;
 
-void	tokenize();
+t_token	*tokenize(char *str);
 t_token *create_new_token(t_token_type  type, char *data);
 void	new_token(t_token **tokens, t_token *new_node);
 # endif

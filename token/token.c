@@ -6,12 +6,13 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:01:37 by kali              #+#    #+#             */
-/*   Updated: 2024/09/03 09:20:41 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:08:39 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+// Create a new token
 void	print_tokens(t_token *tokens)
 {
 	t_token *tmp = tokens;
@@ -21,25 +22,77 @@ void	print_tokens(t_token *tokens)
 		tmp = tmp->next;
 	}
 }
-static void	check_tokens(char **str, t_token **tokens)
+
+// Check if the character is a token and create a new token
+static int	check_tokens(char **str, t_token **tokens)
 {
+	
 	if (**str == '|')
-		new_token(tokens, create_new_token(E_PIPE, "|"));
-	else if (**str == '<')
-		new_token(tokens, create_new_token(E_REDIR_IN, "<"));
+		return (new_token(tokens, create_new_token(E_PIPE, "|")), (*str)++, 1);
 	else if (**str == '>')
-		new_token(tokens, create_new_token(E_REDIR_OUT, ">"));
-	else if (**str == ' ')
-		new_token(tokens, create_new_token(E_SPACES, " "));
+	{
+		if (*(*str + 1) == '>')
+			return (new_token(tokens, create_new_token(E_REDIR_APP, ">>")), (*str)++, 1);
+		return (new_token(tokens, create_new_token(E_REDIR_OUT, ">")), 1);
+	}
+	else if (**str == '<')
+	{
+		if (*(*str + 1) == '<')
+			return (new_token(tokens, create_new_token(E_REDIR_DEL, "<<")), (*str)++, 1);
+		return (new_token(tokens, create_new_token(E_REDIR_IN, "<")), 1);
+	}
+	else if (**str == '>')
+		return (new_token(tokens, create_new_token(E_REDIR_OUT, ">")), 1);
+	// else if (**str == ' ')
+	// 	return (new_token(tokens, create_new_token(E_SPACES, " ")), 1);
 	else if (**str == '\'')
-		new_token(tokens, create_new_token(E_S_QUOTE, "'"));
+		return (new_token(tokens, create_new_token(E_S_QUOTE, "'")), 1);
 	else if (**str == '"')
-		new_token(tokens, create_new_token(E_D_QUOTE, "\""));
-	else
-		new_token(tokens, create_new_token(E_UNKNOWN, *str));
+		return (new_token(tokens, create_new_token(E_D_QUOTE, "\"")), 1);
+	return (0);
 }
 
-void	tokenize(char *str)
+static void	check_cmd(char **str, t_token **tokens)
+{
+	char	*cmd;
+	int	i;
+
+	i = 0;
+	cmd = *str;
+	while (**str && !ft_isspace(**str))
+	{
+		if (ft_strchr(IS_TOKEN, **str))
+		{
+			// (*str)--; // Go back to the token
+			break;
+		}
+		(*str)++;
+		i++;
+	}
+	cmd[i] = '\0';
+	if (!ft_isspace(**str))
+		new_token(tokens, create_new_token(E_CMD, ft_strdup(cmd)));
+}
+
+// static void	check_arg(char **str, t_token **tokens)
+// {
+// 	char	*arg;
+// 	int	i;
+
+// 	i = 0;
+// 	arg = *str;
+// 	while (**str && !ft_isspace(**str))
+// 	{
+// 		(*str)++;
+// 		i++;
+// 	}
+// 	arg[i] = '\0';
+// 	if (!check_tokens(str, tokens) && !ft_isspace(**str))
+// 		new_token(tokens, create_new_token(E_ARG, ft_strdup(arg)));
+// }
+
+// Tokenize the input string
+t_token	*tokenize(char *str)
 {
 	t_token *tokens = NULL;
 	int	i;
@@ -50,7 +103,12 @@ void	tokenize(char *str)
 		while (ft_isspace(*str))
 			str++;
 		check_tokens(&str, &tokens);
-		str++;
+		if (ft_isalpha(*str))
+			check_cmd(&str, &tokens);
+		// if 
+		// check_arg(&str, &tokens);
+		// str++;
 	}
 	print_tokens(tokens);
+	return (tokens);
 }
