@@ -6,25 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:00:25 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/04 10:29:22 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:10:15 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	find_line(char **envp)
-{
-	int	index;
-
-	index = 0;
-	while (envp[index])
-	{
-		if (ft_strncmp(envp[index], "PWD=", 4) == 0)
-			break ;
-		index++;
-	}
-	return (index);
-}
 
 char	*get_filepath(char **envp)
 {
@@ -32,7 +18,7 @@ char	*get_filepath(char **envp)
 	char	*path;
 	char	*trim_path;
 
-	index = find_line(envp);
+	index = find_line(envp, "PWD");
 	if (index == -1)
 		return (NULL);
 	path = ft_strdup(envp[index]);

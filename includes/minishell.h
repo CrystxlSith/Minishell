@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/04 10:52:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:19:53 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,18 @@ void	new_token(t_token **tokens, t_token *new_node);
 
 //BUILTINS ---> ECHO
 int		count_words(char **str);
-int		get_index(char **str);
+int		get_index(char **str, char *chr);
 int		count_letters(char **str);
 void	free_all(char **s);
+char	*echo(char **input, char **envp);
 
 //BUILTINS ---> PWD
-int		find_line(char **envp);
+int		find_line(char **envp, char *chr);
 char	*get_filepath(char **envp);
 void	pwd(char **envp);
+
+//BUILTINS ---> ENV
+char	*find_environment(char **input, char **envp);
+void	env(char **envp);
 
 #endif

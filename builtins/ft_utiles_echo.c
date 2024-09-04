@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 09:29:32 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/04 10:55:32 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:35:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,35 @@ int	count_words(char **str)
 	return (0);
 }
 
-int	get_index(char **str)
+int	get_index(char **str, char *chr)
 {
-	int	i;
+	int		i;
+	int		len;
+	char	*result;
 
-	i = 0;
-	while (str[i])
+	len = ft_strlen(chr);
+	result = NULL;
+	i = -1;
+	if (len == 1)
 	{
-		if (ft_strncmp(str[i], "echo", 4) == 0)
-			return (i);
-		i++;
+		while (str[++i])
+		{
+			printf("STR %s\n", str[i]);
+			if (ft_strchr(str[i], chr[0]))
+				result = ft_strchr(str[i], chr[0]);
+			printf("RESULT %s\n", result);
+		}
 	}
-	return (0);
+	else if (len > 1 || result != NULL)
+	{
+		i = -1;
+		while (str[++i])
+		{
+			if (ft_strncmp(str[i], chr, len) == 0)
+				return (i);
+		}
+	}
+	return (i);
 }
 
 int	count_letters(char **str)
@@ -79,4 +96,18 @@ void	free_all(char **s)
 		i++;
 	}
 	free(s);
+}
+
+int	find_line(char **envp, char *chr)
+{
+	int	index;
+
+	index = 0;
+	while (envp[index])
+	{
+		if (ft_strncmp(envp[index], chr, ft_strlen(chr)) == 0)
+			break ;
+		index++;
+	}
+	return (index);
 }
