@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/03 10:09:56 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:26:08 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ typedef struct s_minishell
 }   t_minishell;
 
 t_token	*tokenize(char *str);
-t_token *create_new_token(t_token_type  type, char *data);
+t_token	*create_new_token(t_token_type type, char *data);
 void	new_token(t_token **tokens, t_token *new_node);
-# endif
+
+//BUILTINS ---> ECHO
+int		count_words(char **str);
+int		get_index(char **str);
+int		count_letters(char **str);
+
+//BUILTINS ---> PWD
+int		find_line(char **envp);
+char	*get_filepath(char **envp);
+void	pwd(char **envp);
+
+#endif

@@ -6,67 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/03 17:20:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:24:15 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	count_words(char **str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (ft_strncmp(str[i], "echo", 4) == 0)
-		{
-			i++;
-			while (str[i])
-			{
-				count++;
-				i++;
-			}
-			return (count);
-		}
-		i++;
-	}
-	return (0);
-}
-
-int	get_index(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_strncmp(str[i], "echo", 4) == 0)
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
-int	count_letters(char **str)
-{
-	int	i;
-	int	count;
-	int	letters;
-
-	i = 0;
-	count = count_words(str);
-	letters = 0;
-	while (str[i])
-	{
-		letters += ft_strlen(str[i]);
-		i++;
-	}
-	letters += count - 1;
-	return (letters);
-}
 
 char	*echo(char **input)
 {
@@ -95,9 +39,21 @@ char	*echo(char **input)
 	return (NULL);
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envp)
 {
-	(void)ac;
-	echo(av);
+	int	i;
+
+	if (ac > 1)
+	{
+		i = 0;
+		while (i < ac)
+		{
+			if (ft_strncmp(av[i], "echo", 4) == 0)
+				echo(av);
+			else if (ft_strncmp(av[i], "pwd", 4) == 0)
+				pwd(envp);
+			i++;
+		}
+	}
 	return (0);
 }
