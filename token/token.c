@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:01:37 by kali              #+#    #+#             */
-/*   Updated: 2024/09/03 12:11:39 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/04 07:52:07 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,47 @@ void	print_tokens(t_token *tokens)
 	{
 		printf("Type: %d, Data: %s\n", tmp->type, tmp->data);
 		tmp = tmp->next;
+	}
+}
+
+void	quotes_handler(t_token **tokens, char **str)
+{
+	char	quote;
+
+	quote = **str;
+	if (quote == '\'')
+	{
+		char	*data;
+		int	i;
+
+		i = 0;
+		(*str)++;
+		data = *str;
+		while (**str && **str != quote)
+		{
+			(*str)++;
+			i++;
+		}
+		data[i] = '\0';
+		new_token(tokens, create_new_token(E_S_QUOTE, ft_strdup(data)));
+		(*str)++;
+	}
+	else if (quote == '"')
+	{
+		char	*data;
+		int	i;
+
+		i = 0;
+		(*str)++;
+		data = *str;
+		while (**str && **str != quote)
+		{
+			(*str)++;
+			i++;
+		}
+		data[i] = '\0';
+		new_token(tokens, create_new_token(E_D_QUOTE, ft_strdup(data)));
+		(*str)++;
 	}
 }
 
@@ -45,10 +86,8 @@ static int	check_tokens(char **str, t_token **tokens)
 		return (new_token(tokens, create_new_token(E_REDIR_OUT, ">")), 1);
 	// else if (**str == ' ')
 	// 	return (new_token(tokens, create_new_token(E_SPACES, " ")), 1);
-	else if (**str == '\'')
-		return (new_token(tokens, create_new_token(E_S_QUOTE, "'")), 1);
-	else if (**str == '"')
-		return (new_token(tokens, create_new_token(E_D_QUOTE, "\"")), 1);
+	else if (**str == '\'' || **str == '"')
+		return (quotes_handler(tokens, str), 1);
 	return (0);
 }
 
@@ -71,23 +110,6 @@ static void	check_cmd(char **str, t_token **tokens)
 	 	check_tokens(str, tokens);
 }
 
-// static void	check_arg(char **str, t_token **tokens)
-// {
-// 	char	*arg;
-// 	int	i;
-
-// 	i = 0;
-// 	arg = *str;
-// 	while (**str && !ft_isspace(**str))
-// 	{
-// 		(*str)++;
-// 		i++;
-// 	}
-// 	arg[i] = '\0';
-// 	if (!check_tokens(str, tokens) && !ft_isspace(**str))
-// 		new_token(tokens, create_new_token(E_ARG, ft_strdup(arg)));
-// }
-
 // Tokenize the input string
 t_token	*tokenize(char *str)
 {
@@ -102,8 +124,6 @@ t_token	*tokenize(char *str)
 		check_tokens(&str, &tokens);
 		if (ft_isalpha(*str))
 			check_cmd(&str, &tokens);
-		// if 
-		// check_arg(&str, &tokens);
 		str++;
 	}
 	print_tokens(tokens);
