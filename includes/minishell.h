@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/04 10:26:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/04 10:52:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	new_token(t_token **tokens, t_token *new_node);
 int		count_words(char **str);
 int		get_index(char **str);
 int		count_letters(char **str);
+void	free_all(char **s);
 
 //BUILTINS ---> PWD
 int		find_line(char **envp);
