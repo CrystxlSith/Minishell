@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:01:37 by kali              #+#    #+#             */
-/*   Updated: 2024/09/04 15:14:55 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/04 15:22:01 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	quotes_handler(t_token **tokens, char **str)
 			i++;
 		}
 		data[i] = '\0';
-		new_token(tokens, create_new_token(E_S_QUOTE, ft_strdup(data), tokens));
+		create_new_token(E_S_QUOTE, ft_strdup(data), tokens);
 		(*str)++;
 	}
 	else if (quote == '"')
@@ -64,7 +64,7 @@ void	quotes_handler(t_token **tokens, char **str)
 			i++;
 		}
 		data[i] = '\0';
-		new_token(tokens, create_new_token(E_D_QUOTE, ft_strdup(data), tokens));
+		create_new_token(E_D_QUOTE, ft_strdup(data), tokens);
 		(*str)++;
 	}
 }
@@ -74,18 +74,18 @@ static int	check_tokens(char **str, t_token **tokens)
 {
 	
 	if (**str == '|')
-		return (new_token(tokens, create_new_token(E_PIPE, "|", tokens)), (*str)++, 1);
+		return (create_new_token(E_PIPE, "|", tokens), (*str)++, 1);
 	else if (**str == '>')
 	{
 		if (*(*str + 1) == '>')
-			return (new_token(tokens, create_new_token(E_REDIR_APP, ">>", tokens)), (*str) += 2, 1);
-		return (new_token(tokens, create_new_token(E_REDIR_OUT, ">", tokens)), (*str)++, 1);
+			return (create_new_token(E_REDIR_APP, ">>", tokens), (*str) += 2, 1);
+		return (create_new_token(E_REDIR_OUT, ">", tokens), (*str)++, 1);
 	}
 	else if (**str == '<')
 	{
 		if (*(*str + 1) == '<')
-			return (new_token(tokens, create_new_token(E_REDIR_DEL, "<<", tokens)), (*str) += 2, 1);
-		return (new_token(tokens, create_new_token(E_REDIR_IN, "<", tokens)), (*str)++, 1);
+			return (create_new_token(E_REDIR_DEL, "<<", tokens), (*str) += 2, 1);
+		return (create_new_token(E_REDIR_IN, "<", tokens), (*str)++, 1);
 	}
 	else if (**str == '\'' || **str == '"')
 		return (quotes_handler(tokens, str), 1);
@@ -107,7 +107,7 @@ static void	check_cmd(char **str, t_token **tokens)
 		i++;
 	}
 	cmd[i] = '\0';
-	new_token(tokens, create_new_token(E_CMD, cmd, tokens));
+	create_new_token(E_CMD, cmd, tokens);
 	free(cmd);
 }
 
@@ -126,7 +126,7 @@ void	check_options(char **str, t_token **tokens)
 		i++;
 	}
 	options[i] = '\0';
-	new_token(tokens, create_new_token(E_OPTIONS, options, tokens));
+	create_new_token(E_OPTIONS, options, tokens);
 	free(options);
 }
 
@@ -147,7 +147,6 @@ t_token	*tokenize(char *str)
 			continue ;
 		else
 			str++;
-
 	}
 	print_tokens(tokens);
 	return (tokens);
