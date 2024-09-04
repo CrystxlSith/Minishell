@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/03 10:59:47 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/04 14:21:14 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_token
 	t_token_type type;
 	char	*data;
 	struct s_token *next;
+	struct s_token *prev;
 }	t_token;
 
 #endif
