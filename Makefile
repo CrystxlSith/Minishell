@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+         #
+#    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:34:26 by kali              #+#    #+#              #
-#    Updated: 2024/09/03 09:20:12 by jopfeiff         ###   ########.fr        #
+#    Updated: 2024/09/03 13:51:12 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = token/token.c token/init_token.c main.c
+SRCS = token/token.c token/init_token.c main.c builtins/echo.c
 CC = cc
 CFLAGS = -g3 -Wall -Wextra -Werror -I./includes/
 RM = rm -rf
@@ -43,7 +43,7 @@ clean:
 	$(MAKE) clean --no-print-directory -C ./libft
 	$(RM) $(OBJS) objs
 	echo "${GREEN}Succes!!!${RESET}"
-	
+
 fclean: clean
 	$(MAKE) fclean --no-print-directory -C ./libft
 	echo "${RED}Cleaning exucutable files...${RESET}"
