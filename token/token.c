@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:01:37 by kali              #+#    #+#             */
-/*   Updated: 2024/09/04 11:38:29 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/04 11:51:46 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,25 @@ static void	check_cmd(char **str, t_token **tokens)
 	free(cmd);
 }
 
+void	check_options(char **str, t_token **tokens)
+{
+	char	*options;
+	int	i;
+
+	i = 0;
+	options = ft_strdup(*str);
+	while (**str && !ft_isspace(**str) && !ft_strchr(IS_TOKEN, **str))
+	{
+		if (ft_strchr(IS_TOKEN, **str))
+			break ;
+		(*str)++;
+		i++;
+	}
+	options[i] = '\0';
+	new_token(tokens, create_new_token(E_OPTIONS, options));
+	free(options);
+}
+
 // Tokenize the input string
 t_token	*tokenize(char *str)
 {
@@ -117,6 +136,8 @@ t_token	*tokenize(char *str)
 			str++;
 		if (ft_isalpha(*str))
 			check_cmd(&str, &tokens);
+		if (ft_strncmp(str, "-", 1) == 0)
+			check_options(&str, &tokens);
 		if (check_tokens(&str, &tokens))
 			continue ;
 		else
