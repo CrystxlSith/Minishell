@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/05 15:04:28 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:39:15 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/libft.h"
-# include "token.h"
+# include "parsing.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
@@ -27,10 +27,11 @@
 
 typedef struct s_minishell
 {
-    // Ligne tapee dans le terminal
     char    *line_read;
 }   t_minishell;
 
+
+//LEXER
 t_lexer *tokenize(char *str);
 void create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void new_token(t_lexer **tokens, t_lexer *new_node);

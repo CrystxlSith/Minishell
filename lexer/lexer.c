@@ -27,6 +27,7 @@ void	print_lexers(t_lexer *head)
 	ft_printf("NULL\n");
 }
 
+//Handle Single && Double quotes
 void	quotes_handler(t_lexer **tokens, char **str)
 {
 	char	quote;
