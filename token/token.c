@@ -14,9 +14,9 @@
 
 // Create a new token
 
-void	print_tokens(t_token *head)
+void	print_lexers(t_lexer *head)
 {
-	t_token	*current;
+	t_lexer	*current;
 
 	current = head;
 	while (current != NULL)
@@ -27,7 +27,7 @@ void	print_tokens(t_token *head)
 	ft_printf("NULL\n");
 }
 
-void	quotes_handler(t_token **tokens, char **str)
+void	quotes_handler(t_lexer **tokens, char **str)
 {
 	char	quote;
 
@@ -69,8 +69,9 @@ void	quotes_handler(t_token **tokens, char **str)
 }
 
 // Check if the character is a token and create a new token
-static int	check_tokens(char **str, t_token **tokens)
+static int	check_tokens(char **str, t_lexer **tokens)
 {
+	char	unknown[2];
 	if (**str == '|')
 		return (create_new_token(E_PIPE, "|", tokens), (*str)++, 1);
 	else if (**str == '>')
@@ -87,12 +88,16 @@ static int	check_tokens(char **str, t_token **tokens)
 	}
 	else if (**str == '\'' || **str == '"')
 		return (quotes_handler(tokens, str), 1);
-	else
-		return (create_new_token(E_UNKNOWN, *str, tokens), (*str)++, 1);
+	else if (!strchr(IS_TOKEN, **str) && !ft_isspace(**str))
+	{
+		unknown[0] = **str;
+		unknown[1] = '\0';
+		return (create_new_token(E_UNKNOWN, unknown, tokens), (*str)++, 1);
+	}
 	return (0);
 }
 
-static void	check_cmd(char **str, t_token **tokens)
+static void	check_cmd(char **str, t_lexer **tokens)
 {
 	char	*cmd;
 	int	i;
@@ -108,7 +113,7 @@ static void	check_cmd(char **str, t_token **tokens)
 	create_new_token(E_CMD, cmd, tokens);
 }
 
-void	check_options(char **str, t_token **tokens)
+void	check_options(char **str, t_lexer **tokens)
 {
 	char	*options;
 	int	i;
@@ -127,9 +132,9 @@ void	check_options(char **str, t_token **tokens)
 }
 
 // Tokenize the input string
-t_token	*tokenize(char *str)
+t_lexer	*tokenize(char *str)
 {
-	t_token *tokens;
+	t_lexer *tokens;
 	
 	tokens = NULL;
 	while (*str)
@@ -146,6 +151,6 @@ t_token	*tokenize(char *str)
 			str++;
 	}
 	add_index_to_token(tokens);
-	print_tokens(tokens);
+	print_lexers(tokens);
 	return (tokens);
 }

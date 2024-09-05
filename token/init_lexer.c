@@ -6,14 +6,14 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:16:44 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/05 14:43:46 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:51:27 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 // Create a new token
 
-void	init_new_token(t_token *new_token, t_token_type type, char *data)
+void	init_new_token(t_lexer *new_token, t_lexer_type type, char *data)
 {
 	new_token->next = NULL;
 	new_token->data = ft_strdup(data);
@@ -21,14 +21,14 @@ void	init_new_token(t_token *new_token, t_token_type type, char *data)
 }
 
 //Create new token
-void create_new_token(t_token_type  type, char *data, t_token **tokens)
+void create_new_token(t_lexer_type  type, char *data, t_lexer **tokens)
 {
-	t_token *new_token;
-	t_token *last;
+	t_lexer *new_token;
+	t_lexer *last;
 	
 	if (!data || !tokens)
 		return ;
-	new_token = ft_calloc(1, sizeof(t_token));
+	new_token = ft_calloc(1, sizeof(t_lexer));
 	if (!new_token)
 		return ;
 	init_new_token(new_token, type, data);

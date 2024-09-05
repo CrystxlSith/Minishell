@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/05 07:41:31 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:04:28 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct s_minishell
     char    *line_read;
 }   t_minishell;
 
-t_token	*tokenize(char *str);
-void	create_new_token(t_token_type type, char *data, t_token **tokens);
-void	new_token(t_token **tokens, t_token *new_node);
+t_lexer *tokenize(char *str);
+void create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
+void new_token(t_lexer **tokens, t_lexer *new_node);
 
 //BUILTINS ---> ECHO
 int		count_words(char **str);

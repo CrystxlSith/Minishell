@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/05 14:30:54 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:51:27 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "includes/token.h"
 
 
-void	free_tokens(t_token *head)
+void	free_tokens(t_lexer *head)
 {
-	t_token	*current;
+	t_lexer	*current;
 
 	current = head;
 	while (current != NULL)
@@ -31,7 +31,7 @@ void	free_tokens(t_token *head)
 int main(int argc, char const *argv[], char const *env[])
 {
 	t_minishell	minishell;
-	t_token		*tokens;
+	t_lexer		*tokens;
 
 	if (argc || argv || env)
 		ft_memset(&minishell ,0 , sizeof(t_minishell));
