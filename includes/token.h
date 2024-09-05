@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/04 14:21:14 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:45:40 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ typedef enum s_token_type
 	E_REDIR_DEL,
 	E_REDIR_APP,
 	E_PIPE,
-	E_ENV,
 	E_S_QUOTE,
 	E_D_QUOTE,
-	// E_SPACES,
 	E_UNKNOWN,
 }	t_token_type;
 
@@ -39,9 +37,12 @@ typedef enum s_token_type
 typedef struct s_token
 {
 	t_token_type type;
+	int		index;
 	char	*data;
 	struct s_token *next;
 	struct s_token *prev;
 }	t_token;
 
+void add_index_to_token(t_token *tokens);
+t_token	*find_last(t_token *node);
 #endif

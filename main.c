@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/04 15:14:53 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/05 14:30:54 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 #include "includes/token.h"
 
 
-void	free_tokens(t_token **tokens)
+void	free_tokens(t_token *head)
 {
-	t_token *tmp;
-	while (*tokens)
+	t_token	*current;
+
+	current = head;
+	while (current != NULL)
 	{
-		tmp = *tokens;
-		*tokens = (*tokens)->next;
-		free(tmp->data);
-		free(tmp);
+		head = current->next;
+		free(current->data);
+		free(current);
+		current = head;
 	}
 }
 
@@ -37,7 +39,7 @@ int main(int argc, char const *argv[], char const *env[])
 	while (1)
 	{
 		// Retourne la ligne entree dans le terminal et ecris un prompt voulu
-		minishell.line_read = readline("minishell > ");
+		minishell.line_read = readline("minishell> ");
 		if (minishell.line_read)
 		{
 			// Permet l'utilisation des fleches pour naviguer dans
@@ -48,7 +50,7 @@ int main(int argc, char const *argv[], char const *env[])
 		printf("Exécution d'une commande...\n");
 		// Tokenize la commande
 		tokens = tokenize(minishell.line_read);
-		free_tokens(&tokens);
+		free_tokens(tokens);
 		// Indique à readline que nous sommes sur une nouvelle ligne
 		rl_on_new_line();
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt

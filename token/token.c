@@ -6,26 +6,25 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:01:37 by kali              #+#    #+#             */
-/*   Updated: 2024/09/04 15:22:01 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/05 09:48:59by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // Create a new token
-void	print_tokens(t_token *tokens)
+
+void	print_tokens(t_token *head)
 {
-	t_token *tmp = tokens;
-	while (tmp)
+	t_token	*current;
+
+	current = head;
+	while (current != NULL)
 	{
-		printf("Type: %d, Data: %s\n", tmp->type, tmp->data);
-		tmp = tmp->next;
+		ft_printf("data = %s Type = %d -> index = %d", current->data, current->type, current->index);
+		current = current->next;
 	}
-	// while (tmp->prev)
-	// {
-	// 	printf("Type: %d, Data: %s\n", tmp->type, tmp->data);
-	// 	tmp = tmp->prev;
-	// }
+	ft_printf("NULL\n");
 }
 
 void	quotes_handler(t_token **tokens, char **str)
@@ -47,7 +46,7 @@ void	quotes_handler(t_token **tokens, char **str)
 			i++;
 		}
 		data[i] = '\0';
-		create_new_token(E_S_QUOTE, ft_strdup(data), tokens);
+		create_new_token(E_S_QUOTE, data, tokens);
 		(*str)++;
 	}
 	else if (quote == '"')
@@ -64,7 +63,7 @@ void	quotes_handler(t_token **tokens, char **str)
 			i++;
 		}
 		data[i] = '\0';
-		create_new_token(E_D_QUOTE, ft_strdup(data), tokens);
+		create_new_token(E_D_QUOTE, data, tokens);
 		(*str)++;
 	}
 }
@@ -72,7 +71,6 @@ void	quotes_handler(t_token **tokens, char **str)
 // Check if the character is a token and create a new token
 static int	check_tokens(char **str, t_token **tokens)
 {
-	
 	if (**str == '|')
 		return (create_new_token(E_PIPE, "|", tokens), (*str)++, 1);
 	else if (**str == '>')
@@ -89,6 +87,8 @@ static int	check_tokens(char **str, t_token **tokens)
 	}
 	else if (**str == '\'' || **str == '"')
 		return (quotes_handler(tokens, str), 1);
+	else
+		return (create_new_token(E_UNKNOWN, *str, tokens), (*str)++, 1);
 	return (0);
 }
 
@@ -101,14 +101,11 @@ static void	check_cmd(char **str, t_token **tokens)
 	cmd = ft_strdup(*str);
 	while (**str && !ft_isspace(**str) && !ft_strchr(IS_TOKEN, **str))
 	{
-		if (ft_strchr(IS_TOKEN, **str))
-			break ;
 		(*str)++;
 		i++;
 	}
 	cmd[i] = '\0';
 	create_new_token(E_CMD, cmd, tokens);
-	free(cmd);
 }
 
 void	check_options(char **str, t_token **tokens)
@@ -117,7 +114,7 @@ void	check_options(char **str, t_token **tokens)
 	int	i;
 
 	i = 0;
-	options = ft_strdup(*str);
+	options = *str;
 	while (**str && !ft_isspace(**str) && !ft_strchr(IS_TOKEN, **str))
 	{
 		if (ft_strchr(IS_TOKEN, **str))
@@ -127,14 +124,14 @@ void	check_options(char **str, t_token **tokens)
 	}
 	options[i] = '\0';
 	create_new_token(E_OPTIONS, options, tokens);
-	free(options);
 }
 
 // Tokenize the input string
 t_token	*tokenize(char *str)
 {
-	t_token *tokens = NULL;
-
+	t_token *tokens;
+	
+	tokens = NULL;
 	while (*str)
 	{
 		while (ft_isspace(*str))
@@ -148,6 +145,7 @@ t_token	*tokenize(char *str)
 		else
 			str++;
 	}
+	add_index_to_token(tokens);
 	print_tokens(tokens);
 	return (tokens);
 }
