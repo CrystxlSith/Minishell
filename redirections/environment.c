@@ -6,31 +6,50 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/06 14:47:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:23:01 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	count_env(char **envp, t_env **data)
+void	initiate_struc(t_env **data, char **envp)
 {
-	int		index;
-
-	index = 0;
-	while (envp[index])
-	{
-		index++;
-	}
-	(*data)->size = index;
+	*data = malloc(sizeof(t_env));
+	if (!data)
+		return ;
+	count_env(envp, data);
+	get_env(envp, data);
 }
 
+void	count_env(char **envp, t_env **data)
+{
+	int	index;
+	int	j;
+	int	count;
+
+	index = 0;
+	j = 0;
+	count = 0;
+	while (envp[index])
+	{
+		j = 0;
+		while (envp[index][j])
+		{
+			j++;
+			count += j;
+		}
+		index++;
+	}
+	count += index;
+	(*data)->size = index;
+	(*data)->word_count = count;
+}
 
 void	get_env(char **envp, t_env **data)
 {
 	int		index;
 
 	index = 0;
-	count_env(envp, data);
 	(*data)->var = NULL;
 	(*data)->var = (char **)malloc(sizeof(char *) * (*data)->size + 1);
 	if (!(*data)->var)
@@ -42,24 +61,19 @@ void	get_env(char **envp, t_env **data)
 	}
 }
 
-void	env(char **envp)
+void	env(t_env **data)
 {
-	t_env	*data;
 	int		index;
 
 	index = 0;
-	data = malloc(sizeof(t_env));
-	if (!data)
-		return ;
-	get_env(envp, &data);
-	while (data->var[index])
+	while ((*data)->var[index])
 	{
-		printf("%s\n", data->var[index]);
+		printf("%s\n", (*data)->var[index]);
 		index++;
 	}
 }
 
-char	*find_environment(char **input, char **envp)
+/* char	*find_environment(char **input, char **envp)
 {
 	int		i;
 	int		index;
@@ -86,4 +100,4 @@ char	*find_environment(char **input, char **envp)
 	free(tmp);
 	free(str);
 	return (final_str);
-}
+} */

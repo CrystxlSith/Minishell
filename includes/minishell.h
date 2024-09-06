@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/06 14:08:53 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:25:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_env
 {
 	char			**var;
 	int				size;
+	int				word_count;
 }					t_env;
 
 t_token	*tokenize(char *str);
@@ -54,10 +55,12 @@ char	*get_filepath(char **envp);
 void	pwd(char **envp);
 
 //BUILTINS ---> ENV
-char	*find_environment(char **input, char **envp);
-void	env(char **envp);
+void	count_env(char **envp, t_env **data);
+void	get_env(char **envp, t_env **data);
+void	env(t_env **data);
+void	initiate_struc(t_env **data, char **envp);
 
 //BUILTINS ---> EXPORT
-void	export(char **input, char **envp);
+void	export(char **input, t_env **data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/06 14:47:12 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:25:09 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 int	main(int ac, char **av, char **envp)
 {
-	int	i;
+	int		i;
+	t_env	*data;
 
 	if (ac > 1)
 	{
+		data = NULL;
+		initiate_struc(&data, envp);
 		i = 0;
 		while (i < ac)
 		{
@@ -26,9 +29,9 @@ int	main(int ac, char **av, char **envp)
 			else if (ft_strncmp(av[i], "pwd", 4) == 0)
 				pwd(envp);
 			else if (ft_strncmp(av[i], "env", 4) == 0)
-				env(envp);
-/* 			else if (ft_strncmp(av[i], "export", 7) == 0)
-				export(av, envp); */
+				env(&data);
+			else if (ft_strncmp(av[i], "export", 7) == 0)
+				export(av, &data);
 			i++;
 		}
 	}
