@@ -142,7 +142,7 @@ t_lexer	*tokenize(char *str)
 	{
 		while (ft_isspace(*str))
 			str++;
-		if (ft_isalpha(*str))
+		if (ft_isascii(*str) && !ft_strchr(IS_TOKEN, *str) && ft_strncmp(str, "-", 1))
 			check_cmd(&str, &tokens);
 		if (ft_strncmp(str, "-", 1) == 0)
 			check_options(&str, &tokens);

@@ -6,9 +6,9 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/05 15:43:37 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/06 13:50:45 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../includes/minishell.h"
 

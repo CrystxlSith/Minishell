@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_utils.c                                      :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:33:17 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/05 14:51:27 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/06 09:03:13 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ t_lexer	*find_last(t_lexer *node)
 //add index to token
 void add_index_to_token(t_lexer *tokens)
 {
-	t_lexer *current = tokens;
+	t_lexer *current;
     int i;
 
+	current = tokens;
     i = 0;
 	while (current != NULL)
 	{

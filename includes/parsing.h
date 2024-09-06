@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/05 15:44:38 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/06 10:53:01 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef enum s_token_type
 	E_S_QUOTE,
 	E_D_QUOTE,
 	E_UNKNOWN,
+	END,
 }	t_lexer_type;
+
 
 // Token structure
 typedef struct s_token
@@ -42,6 +44,17 @@ typedef struct s_token
 	struct s_token *next;
 	struct s_token *prev;
 }	t_lexer;
+
+// Parse in command, separated by pipes
+typedef struct	s_cmd
+{
+	char	**str;
+	int		redir_nb;
+	char	*here_doc;
+	t_lexer	*redir;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+}	t_cmd;
 
 void add_index_to_token(t_lexer *tokens);
 t_lexer	*find_last(t_lexer *node);
