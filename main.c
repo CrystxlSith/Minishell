@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/05 16:28:13 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:33:45 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	free_tokens(t_lexer *head)
 int main(/*int argc, char const *argv[], char const *env[]*/)
 {
 	t_minishell	minishell;
+	// Parse les token en separant par pipe
+	// t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 
 	// if (argc || argv || env)
@@ -49,6 +51,7 @@ int main(/*int argc, char const *argv[], char const *env[]*/)
 		printf("Exécution d'une commande...\n");
 		// Tokenize la commande
 		tokens = tokenize(minishell.line_read);
+		// cmd_parsing = parser(&tokens);
 		// Indique à readline que nous sommes sur une nouvelle ligne
 		rl_on_new_line();
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt

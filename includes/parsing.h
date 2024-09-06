@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/06 10:53:01 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:30:15 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ typedef struct	s_cmd
 }	t_cmd;
 
 void add_index_to_token(t_lexer *tokens);
+t_cmd	*parser(t_lexer **tokens);
 t_lexer	*find_last(t_lexer *node);
 #endif
