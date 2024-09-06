@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/04 15:19:53 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/06 14:08:53 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ typedef struct s_minishell
     char    *line_read;
 }   t_minishell;
 
+typedef struct s_env
+{
+	char			**var;
+	int				size;
+}					t_env;
+
 t_token	*tokenize(char *str);
 t_token	*create_new_token(t_token_type type, char *data);
 void	new_token(t_token **tokens, t_token *new_node);
@@ -50,5 +56,8 @@ void	pwd(char **envp);
 //BUILTINS ---> ENV
 char	*find_environment(char **input, char **envp);
 void	env(char **envp);
+
+//BUILTINS ---> EXPORT
+void	export(char **input, char **envp);
 
 #endif
