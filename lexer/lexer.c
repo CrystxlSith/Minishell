@@ -112,6 +112,7 @@ static void	check_cmd(char **str, t_lexer **tokens)
 	}
 	cmd[i] = '\0';
 	create_new_token(E_CMD, cmd, tokens);
+	free(cmd);
 }
 
 void	check_options(char **str, t_lexer **tokens)
@@ -120,7 +121,7 @@ void	check_options(char **str, t_lexer **tokens)
 	int	i;
 
 	i = 0;
-	options = *str;
+	options = ft_strdup(*str);
 	while (**str && !ft_isspace(**str) && !ft_strchr(IS_TOKEN, **str))
 	{
 		if (ft_strchr(IS_TOKEN, **str))
@@ -130,6 +131,7 @@ void	check_options(char **str, t_lexer **tokens)
 	}
 	options[i] = '\0';
 	create_new_token(E_OPTIONS, options, tokens);
+	free(options);
 }
 
 // Tokenize the input string
@@ -155,36 +157,3 @@ t_lexer	*tokenize(char *str)
 	print_lexers(tokens);
 	return (tokens);
 }
-
-// t_lexer *tokenize(char *str) {
-//     t_lexer *tokens = NULL;
-
-//     while (*str) {
-//         // Ignorer les espaces
-//         while (ft_isspace(*str))
-//             str++;
-
-//         // Vérifier les commandes
-//         if (*str && ft_isascii(*str) && !ft_strchr(IS_TOKEN, *str) && *str != '-') {
-//             check_cmd(&str, &tokens);
-//         }
-//         // Vérifier les options (ex: -l, -a)
-//         else if (*str == '-') {
-//             check_options(&str, &tokens);
-//         }
-//         // Vérifier les tokens spéciaux (ex: |, >, <)
-//         else if (check_tokens(&str, &tokens)) {
-//             // Le `check_tokens` avance `str`, donc pas de `str++` ici
-//             continue;
-//         } else {
-//             // Avancer `str` pour éviter une boucle infinie
-//             str++;
-//         }
-//     }
-
-    // Ajouter un index à chaque token après la tokenisation
-    // add_index_to_token(tokens);
-
-    // Retourner les tokens générés
-//     return tokens;
-// }
