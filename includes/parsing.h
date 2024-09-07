@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/06 14:30:15 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/07 06:18:46 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define IS_TOKEN "\"'|<>"
 
 // Token types
-typedef enum s_token_type
+typedef enum s_lexer_type
 {
 	E_CMD, //*str
 	E_ARG,
@@ -36,13 +36,13 @@ typedef enum s_token_type
 
 
 // Token structure
-typedef struct s_token
+typedef struct s_lexer
 {
 	t_lexer_type type;
 	int		index;
 	char	*data;
-	struct s_token *next;
-	struct s_token *prev;
+	struct s_lexer *next;
+	struct s_lexer *prev;
 }	t_lexer;
 
 // Parse in command, separated by pipes
@@ -58,5 +58,7 @@ typedef struct	s_cmd
 
 void add_index_to_token(t_lexer *tokens);
 t_cmd	*parser(t_lexer **tokens);
+void	print_lexers(t_lexer *head);
+
 t_lexer	*find_last(t_lexer *node);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/06 14:33:45 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/07 06:31:51 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,16 @@ int main(/*int argc, char const *argv[], char const *env[]*/)
 		printf("Exécution d'une commande...\n");
 		// Tokenize la commande
 		tokens = tokenize(minishell.line_read);
+		print_lexers(tokens);
 		// cmd_parsing = parser(&tokens);
 		// Indique à readline que nous sommes sur une nouvelle ligne
 		rl_on_new_line();
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
 			break ;
+		free(minishell.line_read);
+		free_tokens(tokens);
 	}
 	rl_clear_history();
-	free(minishell.line_read);
-	free_tokens(tokens);
 	return 0;
 }
