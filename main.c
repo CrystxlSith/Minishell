@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/07 06:31:51 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/08 04:40:18 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main(/*int argc, char const *argv[], char const *env[]*/)
 {
 	t_minishell	minishell;
 	// Parse les token en separant par pipe
-	// t_cmd		*cmd_parsing;
+	t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 
 	// if (argc || argv || env)
@@ -46,13 +46,16 @@ int main(/*int argc, char const *argv[], char const *env[]*/)
 			// Permet l'utilisation des fleches pour naviguer dans
 			// l'historique des commandes effectuees
 			add_history(minishell.line_read);
-		} 
+		}
 		// Simule une sortie qui inclut un saut de ligne
 		printf("Exécution d'une commande...\n");
 		// Tokenize la commande
 		tokens = tokenize(minishell.line_read);
 		print_lexers(tokens);
-		// cmd_parsing = parser(&tokens);
+		// parsing of the tokens
+		cmd_parsing = parser(&tokens);
+		// print the parsed command
+		print_info(cmd_parsing);
 		// Indique à readline que nous sommes sur une nouvelle ligne
 		rl_on_new_line();
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt

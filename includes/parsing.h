@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/07 06:18:46 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/08 15:17:23 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ typedef struct	s_cmd
 void add_index_to_token(t_lexer *tokens);
 t_cmd	*parser(t_lexer **tokens);
 void	print_lexers(t_lexer *head);
+void	print_info(t_cmd *parsed_cmd);
+t_cmd *create_new_cmd();
+int	is_redirection(t_lexer_type type);
+void	handle_redirection(t_lexer *token, t_cmd *cmd);
+
+
+
 
 t_lexer	*find_last(t_lexer *node);
 #endif

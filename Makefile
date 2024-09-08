@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+         #
+#    By: kali <kali@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/31 10:34:26 by kali              #+#    #+#              #
-#    Updated: 2024/09/06 13:49:33 by jopfeiff         ###   ########.fr        #
+#    Updated: 2024/09/08 08:41:46 by kali             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = lexer/lexer.c lexer/init_lexer.c main.c builtins/echo.c parser/parser.c lexer/lexer_utils.c \
+SRCS = lexer/lexer.c lexer/init_lexer.c parser/parser_utils.c main.c builtins/echo.c parser/parser.c lexer/lexer_utils.c \
 	builtins/ft_utiles_echo.c builtins/pwd.c
 CC = cc
 CFLAGS = -g3 -Wall -Wextra -Werror -I./includes/
