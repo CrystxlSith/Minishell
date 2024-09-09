@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/08 15:16:45 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/09 14:38:29 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void	print_info(t_cmd *parsed_cmd)
 			redir = redir->next;
 		}
 		ft_printf("\n");
+		ft_printf("Index: %d\n", current->index);
 		ft_printf("Here_doc: %s\n", current->here_doc);
 		ft_printf("Redir_nb: %d\n", current->redir_nb);
 		current = current->next;
 	}
 }
+
 
 void	init_cmd(t_cmd **head, t_cmd **current)
 {
@@ -65,8 +67,7 @@ t_cmd *create_new_cmd()
     new_cmd->redir = NULL;        // No redirection tokens by default
     new_cmd->next = NULL;         // No next command by default
     new_cmd->prev = NULL;         // No previous command by default
-
-    return new_cmd;
+    return (new_cmd);
 }
 
 void	handle_redirection(t_lexer *token, t_cmd *cmd)
@@ -74,13 +75,11 @@ void	handle_redirection(t_lexer *token, t_cmd *cmd)
    t_lexer *new_redir = (t_lexer *)malloc(sizeof(t_lexer));
     if (!new_redir)
         return; // Erreur d'allocation
-
     // Copier les informations de redirection
     new_redir->type = token->type;
     new_redir->data = strdup(token->data);
     new_redir->next = cmd->redir;
     new_redir->prev = NULL;
-
     // Ajouter à la liste de redirections
     if (cmd->redir)
         cmd->redir->prev = new_redir;

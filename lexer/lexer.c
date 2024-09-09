@@ -154,6 +154,5 @@ t_lexer	*tokenize(char *str)
 			str++;
 	}
 	add_index_to_token(tokens);
-	print_lexers(tokens);
 	return (tokens);
 }

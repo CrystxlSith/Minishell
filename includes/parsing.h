@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/08 15:17:23 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/09 15:37:18 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ typedef struct s_lexer
 // Parse in command, separated by pipes
 typedef struct	s_cmd
 {
+	int			redir_nb;
+	int			index;
 	char	**str;
-	int		redir_nb;
 	char	*here_doc;
 	t_lexer	*redir;
 	struct s_cmd	*next;
@@ -60,6 +61,7 @@ void add_index_to_token(t_lexer *tokens);
 t_cmd	*parser(t_lexer **tokens);
 void	print_lexers(t_lexer *head);
 void	print_info(t_cmd *parsed_cmd);
+int	check_synthax_error(t_lexer *tokens);
 t_cmd *create_new_cmd();
 int	is_redirection(t_lexer_type type);
 void	handle_redirection(t_lexer *token, t_cmd *cmd);
