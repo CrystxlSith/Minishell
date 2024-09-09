@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 09:29:32 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/09 16:47:18 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:39:42 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_all(char **s)
 	free(s);
 }
 
-int	find_line(char **envp, char *chr)
+/* int	find_line(char **envp, char *chr)
 {
 	int	index;
 
@@ -37,7 +37,7 @@ int	find_line(char **envp, char *chr)
 		index++;
 	}
 	return (index);
-}
+} */
 
 void	free_rest_tab(char **s, int index)
 {

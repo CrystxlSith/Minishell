@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/09 16:07:22 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:34:32 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	free_tokens(t_lexer *head)
 	}
 }
 
-int main(/*int argc, char const *argv[], char const *env[]*/)
+int main(int ac, char **av, char **envp)
 {
 	t_minishell	minishell;
 	// Parse les token en separant par pipe
@@ -47,6 +47,7 @@ int main(/*int argc, char const *argv[], char const *env[]*/)
 			// l'historique des commandes effectuees
 			add_history(minishell.line_read);
 		}
+		builtins(ac, av, envp);
 		// Simule une sortie qui inclut un saut de ligne
 		printf("Exécution d'une commande...\n");
 		// Tokenize la commande

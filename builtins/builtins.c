@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mainagt.c                                          :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/09 17:21:22 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:37:57 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	signal = 0;
 
-int	main(int ac, char **av, char **envp)
+int	builtins(int ac, char **input, char **envp)
 {
 	int		i;
 	t_env	*data;
@@ -29,14 +29,14 @@ int	main(int ac, char **av, char **envp)
 		i = 0;
 		while (i < ac)
 		{
-			if (ft_strncmp(av[i], "echo", 5) == 0)
-				echo(av, envp);
-			else if (ft_strncmp(av[i], "pwd", 4) == 0)
+			if (ft_strncmp(input[i], "echo", 5) == 0)
+				echo(input, envp);
+			else if (ft_strncmp(input[i], "pwd", 4) == 0)
 				pwd(envp);
-			else if (ft_strncmp(av[i], "env", 4) == 0)
+			else if (ft_strncmp(input[i], "env", 4) == 0)
 				env(&data);
-			else if (ft_strncmp(av[i], "export", 7) == 0)
-				export(av, data);
+			else if (ft_strncmp(input[i], "export", 7) == 0)
+				export(input, data);
 			i++;
 		}
 	}

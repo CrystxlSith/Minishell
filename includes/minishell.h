@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/09 17:22:12 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:39:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	init_cmd(t_cmd **head, t_cmd **current);
 void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void	new_token(t_lexer **tokens, t_lexer *new_node);
 
+int	builtins(int ac, char **input, char **envp);
+
 //BUILTINS ---> ECHO
 int		count_words(char **str);
 int		get_index(t_env **data, char *chr);
@@ -53,7 +55,7 @@ void	free_all(char **s);
 char	*echo(char **input, char **envp);
 
 //BUILTINS ---> PWD
-int		find_line(char **envp, char *chr);
+/* int		find_line(char **envp, char *chr); */
 char	*get_filepath(char **envp);
 void	pwd(char **envp);
 

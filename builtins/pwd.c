@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:00:25 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/04 14:10:15 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:39:32 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*get_filepath(char **envp)
 	char	*path;
 	char	*trim_path;
 
-	index = find_line(envp, "PWD");
-	if (index == -1)
-		return (NULL);
+	index = 1;
 	path = ft_strdup(envp[index]);
 	if (!path)
 		return (NULL);
