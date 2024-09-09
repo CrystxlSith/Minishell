@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/09 14:27:51 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:07:22 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ int main(/*int argc, char const *argv[], char const *env[]*/)
 		printf("Exécution d'une commande...\n");
 		// Tokenize la commande
 		tokens = tokenize(minishell.line_read);
-		print_lexers(tokens);
+		// print_lexers(tokens);
 		// parsing of the tokens
 		cmd_parsing = parser(&tokens);
 		// print the parsed command
-		if (cmd_parsing->str)
-			print_info(cmd_parsing);
+		// if (cmd_parsing->str)
+		// 	print_info(cmd_parsing);
 		// Indique à readline que nous sommes sur une nouvelle ligne
 		rl_on_new_line();
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt
