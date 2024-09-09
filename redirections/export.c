@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:27:49 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/09 14:53:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:21:31 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,10 @@ void	export_existing(char *flag, t_env **data, char *cmd)
 	int	i;
 	int	index;
 
-	i = get_index((*data)->var, flag);
+	i = get_index(data, flag);
 	free((*data)->var[i]);
 	(*data)->var[i] = ft_strdup(cmd);
 	index = 0;
-/* 	while ((*data)->var[index])
-	{
-		printf("Existing : %s\n", (*data)->var[index]);
-		index++;
-	} */
 	free(cmd);
 	return ;
 }
@@ -72,12 +67,6 @@ void	duplicate_env(t_env **data, char **input, char *cmd)
 	(*data)->var[i] = ft_strdup(cmd);
 	(*data)->var[i + 1] = NULL;
 	(*data)->size++;
-	i = 0;
-	while (i < (*data)->size)
-	{
-		printf("New tab[%d] : %s\n", i, (*data)->var[i]);
-		i++;
-	}
 	free(cmd);
 	free_all(input);
 }
@@ -94,11 +83,11 @@ void	export_new(t_env **data, char *cmd)
 		free(cmd);
 		return ;
 	}
-	(*data)->var = new_tab;
-	duplicate_env(data, (*data)->var, cmd);
+	duplicate_env(data, new_tab, cmd);
+	print_tab(data);
 }
 
-void	export(char **input, t_env **data)
+void	export(char **input, t_env *data)
 {
 	char	*cmd;
 	int		index;
@@ -106,24 +95,27 @@ void	export(char **input, t_env **data)
 	int		target;
 
 	flag = "AGT=";
-	index = get_index(input, flag);
-	if (index < 0)
-		return ;
+	index = 2;
 	cmd = ft_strdup(input[index]);
 	if (!cmd)
 		return ;
+	print_tab(&data);
+	printf("CMD : %s\n", cmd);
 	printf("Flag : %s\n", flag);
-	printf("Index : %d\n", get_index((*data)->var, flag));
-	printf("Size : %d\n", (*data)->size);
-	target = get_index((*data)->var, flag);
+	printf("Size : %d\n", (data)->size);
+	target = get_index(&data, flag);
+	printf("target : %d\n", target);
+	printf("signal : %d\n", signal);
 	if (target != -1)
 	{
+		signal++;
 		printf("%s\n", "Existing");
-		export_existing(flag, data, cmd);
+		export_existing(flag, &data, cmd);
 	}
 	else
 	{
+		signal++;
 		printf("%s\n", "New");
-		export_new(data, cmd);
+		export_new(&data, cmd);
 	}
 }

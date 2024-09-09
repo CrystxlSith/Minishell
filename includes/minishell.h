@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/09 15:42:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 17:22:12 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <limits.h>
+
+extern int signal;
 
 typedef struct s_minishell
 {
@@ -45,7 +47,7 @@ void	new_token(t_lexer **tokens, t_lexer *new_node);
 
 //BUILTINS ---> ECHO
 int		count_words(char **str);
-int		get_index(char **str, char *chr);
+int		get_index(t_env **data, char *chr);
 int		count_letters(char **str);
 void	free_all(char **s);
 char	*echo(char **input, char **envp);
@@ -62,7 +64,8 @@ void	env(t_env **data);
 void	initiate_struc(t_env **data, char **envp);
 
 //BUILTINS ---> EXPORT
-void	export(char **input, t_env **data);
+void	export(char **input, t_env *data);
 void	free_rest_tab(char **s, int index);
+void	print_tab(t_env **data);
 
 #endif
