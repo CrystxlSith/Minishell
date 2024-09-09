@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/08 15:34:56 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/09 14:26:09 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,31 @@ t_cmd	*parser(t_lexer **tokens)
 	t_cmd	*head;
 	t_cmd	*current;
 	t_lexer	*tmp;
+	static int		i;
 
+	i = 0;
 	tmp = *tokens;
 	init_cmd(&head, &current);
-	while (tmp)
-	{
-		if (tmp->type == E_CMD)
-			add_to_cmd(tmp->data, current);
-		else if (tmp->type == E_OPTIONS || tmp->type == E_ARG)
-			add_to_cmd(tmp->data, current);
-		else if (tmp->type == E_PIPE)
+	if (!check_synthax_error(tmp))
+	{	
+		while (tmp)
 		{
-			current->next = create_new_cmd();
-			current->next->prev = current;
-			current = current->next;
+			if (tmp->type == E_CMD)
+				add_to_cmd(tmp->data, current);
+			else if (tmp->type == E_OPTIONS || tmp->type == E_ARG)
+				add_to_cmd(tmp->data, current);
+			else if (tmp->type == E_PIPE)
+			{
+				i++;
+				current->index = i;
+				current->next = create_new_cmd();
+				current->next->prev = current;
+				current = current->next;
+			}
+			else if (is_redirection(tmp->type))
+				handle_redirection(tmp, current);
+			tmp = tmp->next;
 		}
-		else if (is_redirection(tmp->type))
-			handle_redirection(tmp, current);
-		tmp = tmp->next;
 	}
 	return (head);
 }
