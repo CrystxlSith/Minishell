@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 09:29:32 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/04 14:35:41 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 14:58:20 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	count_words(char **str)
 	return (0);
 }
 
-int	get_index(char **str, char *chr)
+int	get_index(t_env **data, char *chr)
 {
 	int		i;
 	int		len;
@@ -47,24 +47,23 @@ int	get_index(char **str, char *chr)
 	i = -1;
 	if (len == 1)
 	{
-		while (str[++i])
+		while ((*data)->var[++i])
 		{
-			printf("STR %s\n", str[i]);
-			if (ft_strchr(str[i], chr[0]))
-				result = ft_strchr(str[i], chr[0]);
-			printf("RESULT %s\n", result);
+			if (ft_strchr((*data)->var, chr[0]))
+				result = ft_strchr((*data)->var, chr[0]);
 		}
 	}
-	else if (len > 1 || result != NULL)
+	if (len > 1 || result != NULL)
 	{
 		i = -1;
-		while (str[++i])
+		while ((*data)->var[++i])
 		{
-			if (ft_strncmp(str[i], chr, len) == 0)
+/* 			printf("Index tab[%d] : %s\n", i, str[i]); */
+			if (ft_strncmp((*data)->var[i], chr, len) == 0)
 				return (i);
 		}
 	}
-	return (i);
+	return (-1);
 }
 
 int	count_letters(char **str)
@@ -110,4 +109,14 @@ int	find_line(char **envp, char *chr)
 		index++;
 	}
 	return (index);
+}
+
+void	free_rest_tab(char **s, int index)
+{
+	while (index > 0)
+	{
+		free(s[index]);
+		index--;
+	}
+	free(s);
 }

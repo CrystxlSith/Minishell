@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/06 16:23:01 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:42:09 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	initiate_struc(t_env **data, char **envp)
 	if (!data)
 		return ;
 	count_env(envp, data);
+	printf("Size : %d\n", (*data)->size);
 	get_env(envp, data);
 }
 

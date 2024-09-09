@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/06 16:25:04 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:56:01 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ void	initiate_struc(t_env **data, char **envp);
 
 //BUILTINS ---> EXPORT
 void	export(char **input, t_env **data);
+void	free_rest_tab(char **s, int index);
 
 #endif

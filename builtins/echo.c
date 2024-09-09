@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/04 15:19:45 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/09 15:04:27 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ char	*echo(char **input, char **envp)
 
 	(void)envp;
 	tmp = ft_strdup("");
-/* 	if (find_environment(input, envp))
-		tmp = ft_strjoin(find_environment(input, envp), " "); */
-	i = get_index(input, "echo") + 1;
+	i = 3;
 	if (ft_strncmp(input[i], "-n", 2) != 0)
 		return (NULL);
 	words = count_words(input);
