@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/10 10:11:31 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:17:09 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	signal = 0;
 
-int	main(int ac, char **input, char **envp)
+int	builtins(int ac, char **input, char **envp)
 {
 	int		i;
 	t_env	*data;

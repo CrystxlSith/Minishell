@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 11:36:35 by wbelyne           #+#    #+#             */
-/*   Updated: 2024/07/22 08:02:07 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:23:34 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		ft_isalnum(int c);
 int		ft_lstsize(t_list *lst);
 int		gnl_strchr_i(const char *s, int c);
 void	ft_putchar(char c);
+void	ft_free_array(char **array);
 void	ft_putstr(char const *s);
 char	*ft_strdup(const char *s);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
