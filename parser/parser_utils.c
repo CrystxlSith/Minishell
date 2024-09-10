@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/09 14:38:29 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:33:05 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	handle_redirection(t_lexer *token, t_cmd *cmd)
 
 int	is_redirection(t_lexer_type type)
 {
-	if (type == E_REDIR_IN || type == E_REDIR_OUT || type == E_REDIR_APP)
+	if (type == E_REDIR_IN || type == E_REDIR_OUT || type == E_REDIR_APP || type == E_REDIR_DEL)
 		return (1);
 	return (0);
 }

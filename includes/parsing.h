@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/09 15:37:18 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:42:53 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef enum s_lexer_type
 	E_CMD, //*str
 	E_ARG,
 	E_REDIR_IN,
+	// E_SPACE,
 	E_REDIR_OUT,
 	E_OPTIONS,
 	E_REDIR_DEL,

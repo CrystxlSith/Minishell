@@ -6,19 +6,45 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:38:32 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/09 16:00:34 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:11:55 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void    pipe_error()
+int	first_last_error(t_lexer *tokens)
 {
-	while (1)
+	t_lexer	*tmp;
+
+	tmp = tokens;
+	if (!tmp)
+		return (1);
+	if (tmp->type == E_PIPE)
 	{
-		
+		ft_printf("minishell: syntax error near unexpected token `%s'\n", "|");
+		return (1);
 	}
-	
+	if (is_redirection(tmp->type))
+	{
+		if (!tmp->next)
+		{
+			ft_printf("minishell: syntax error near unexpected token `%s'\n", "newline");
+			return (1);
+		}
+	}
+	while(tmp->next)
+		tmp = tmp->next;
+	// if (tmp->type == E_PIPE)
+	// {
+	// 	ft_printf("minishell: syntax error near unexpected token `%s'\n", tmp->data);
+	// 	return (1);
+	// }
+	// if (is_redirection(tmp->type))
+	// {
+	// 	ft_printf("minishell: syntax error near unexpected token `%s'\n", tmp->prev->data);
+	// 	return (1);
+	// }
+	return (0);
 }
 
 int	check_synthax_error(t_lexer *tokens)
@@ -26,30 +52,28 @@ int	check_synthax_error(t_lexer *tokens)
 	t_lexer	*tmp;
 
 	tmp = tokens;
-	while (tmp->next)
+	if (!first_last_error(tmp))
 	{
-		if (is_redirection(tmp->type))
+		while (tmp->next)
 		{
-			if (ft_strchr(IS_TOKEN, tmp->next->data[0]))
+			// if (is_redirection(tmp->type))
+			// {
+			// 	if (ft_strchr(IS_TOKEN, tmp->next->data[0]))
+			// 	{
+			// 		ft_printf("mi: syntax error near unexpected token `%s'\n", tmp->next->data);
+			// 		return (1);
+			// 	}
+			// }
+			if (tmp->type == E_PIPE)
 			{
-				ft_printf("minishell: syntax error near unexpected token `%s'\n", tmp->next->data);
-				return (1);
+				if (ft_strchr(IS_TOKEN, tmp->next->data[0]))
+				{
+					ft_printf("minishell: syntax error near unexpected token `%s'\n","|");
+					return (1);
+				}
 			}
+			tmp = tmp->next;
 		}
-		else if (tmp->type == E_PIPE)
-		{
-			if (ft_strchr(IS_TOKEN, tmp->next->data[0]))
-			{
-				ft_printf("minishell: syntax error near unexpected token `%s'\n","|");
-				return (1);
-			}
-		}
-		tmp = tmp->next;
-	}
-	if (is_redirection(tmp->type) || tmp->type == E_PIPE)
-	{
-		ft_printf("minishell: syntax error near unexpected token `%s'\n", tmp->data);
-		return (1);
 	}
 	return (0);
 }

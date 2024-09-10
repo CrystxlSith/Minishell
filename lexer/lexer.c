@@ -73,6 +73,8 @@ void	quotes_handler(t_lexer **tokens, char **str)
 static int	check_tokens(char **str, t_lexer **tokens)
 {
 	char	unknown[2];
+	// else if (**str == ' ')
+	// 	return (create_new_token(E_SPACE, " ", tokens), (*str)++, 1);
 	if (**str == '|')
 		return (create_new_token(E_PIPE, "|", tokens), (*str)++, 1);
 	else if (**str == '>')
@@ -150,7 +152,7 @@ t_lexer	*tokenize(char *str)
 			check_options(&str, &tokens);
 		else if (*str && check_tokens(&str, &tokens))
 			continue ;
-		else
+		else 
 			str++;
 	}
 	add_index_to_token(tokens);
