@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/09 17:37:57 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/10 10:11:31 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	signal = 0;
 
-int	builtins(int ac, char **input, char **envp)
+int	main(int ac, char **input, char **envp)
 {
 	int		i;
 	t_env	*data;
