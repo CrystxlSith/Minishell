@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/09 17:39:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:52:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ typedef struct s_env
 	int		size;
 	int		word_count;
 }			t_env;
+
+typedef struct s_dirent
+{
+	char			*file_name;
+	char			*current_path;
+	char			*previous_path;
+	int				numb_elem;
+	char			*type;
+	struct s_dirent	*next;
+	struct s_dirent	*previous;
+}					t_dirent;
 
 //LEXER && PARSER
 t_lexer	*tokenize(char *str);
