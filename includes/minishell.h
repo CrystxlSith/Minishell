@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/09 17:39:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:42:53 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <sys/types.h>
+# include <dirent.h>
+
 
 extern int signal;
 
@@ -38,6 +41,18 @@ typedef struct s_env
 	int		size;
 	int		word_count;
 }			t_env;
+
+typedef struct s_dirent
+{
+	char			*file_name;
+	char			*current_path;
+	char			*previous_path;
+	char			*home_path;
+	int				numb_elem;
+	char			*type;
+	struct s_dirent	*next;
+	struct s_dirent	*previous;
+}					t_dirent;
 
 //LEXER && PARSER
 t_lexer	*tokenize(char *str);
@@ -69,5 +84,13 @@ void	initiate_struc(t_env **data, char **envp);
 void	export(char **input, t_env *data);
 void	free_rest_tab(char **s, int index);
 void	print_tab(t_env **data);
+
+//BUILTINS ---> CD
+char	*get_home_path(char **envp);
+char	*get_previous_path(char **envp);
+void	initiate_dir_list(t_dirent **dir);
+void	fill_dir_list(t_dirent **dir, char **envp);
+char	*file_compliant(char **av);
+void	cd(int ac, char	**av, t_dirent **dir, char **envp);
 
 #endif

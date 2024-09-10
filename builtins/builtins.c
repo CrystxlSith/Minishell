@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/10 15:17:09 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:50:19 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@ int	signal = 0;
 
 int	builtins(int ac, char **input, char **envp)
 {
-	int		i;
-	t_env	*data;
+	int			i;
+	t_env		*data;
+	t_dirent	*dir;
 
 	if (ac > 1)
 	{
 		if (signal == 0)
 		{
 			data = NULL;
+			dir = NULL;
 			initiate_struc(&data, envp);
+			initiate_dir_list(&dir);
 		}
 		i = 0;
 		while (i < ac)
@@ -37,6 +40,8 @@ int	builtins(int ac, char **input, char **envp)
 				env(&data);
 			else if (ft_strncmp(input[i], "export", 7) == 0)
 				export(input, data);
+			else if (ft_strncmp(input[i], "cd", 3) == 0)
+				cd(ac, input, &dir, envp);
 			i++;
 		}
 	}
