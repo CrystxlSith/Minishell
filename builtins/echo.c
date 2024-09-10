@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/09 15:04:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/10 10:11:50 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*echo(char **input, char **envp)
 
 	(void)envp;
 	tmp = ft_strdup("");
-	i = 3;
+	i = 2;
 	if (ft_strncmp(input[i], "-n", 2) != 0)
 		return (NULL);
 	words = count_words(input);
