@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:27:49 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 10:37:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:44:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,13 @@ void	export(char **input, t_env *data)
 	printf("Size : %d\n", (data)->size);
 	target = get_index(&data, flag);
 	printf("target : %d\n", target);
-	printf("signal : %d\n", signal);
 	if (target != -1)
 	{
-		signal++;
 		printf("%s\n", "Existing");
 		export_existing(flag, &data, cmd);
 	}
 	else
 	{
-		signal++;
 		printf("%s\n", "New");
 		export_new(&data, cmd);
 	}

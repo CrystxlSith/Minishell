@@ -6,14 +6,13 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 10:23:28 by agiliber          #+#    #+#             */
-/*   Updated: 2024/08/29 15:24:38 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:37:12 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include "../My_Libft/src/my_libft.h"
 # include <stdbool.h>
 # include <limits.h>
 # include <sys/wait.h>
@@ -21,7 +20,7 @@
 # include <fcntl.h>
 
 void	execute_cmd1(int *fd, char **arg, char **envp);
-void	check_cmd(int id, char **av, char **envp);
+void	check_cmd_minishell(int id, char **av, char **envp);
 char	*get_filepath(char **av, char **envp);
 void	execute_cmd2(int *fd, char **arg, char **envp);
 int		find_line(char **envp);

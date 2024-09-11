@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils2.c                                     :+:      :+:    :+:   */
+/*   get_path_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 10:36:39 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:37:28 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_filepath(char **cmd, char **envp)
 	return (NULL);
 }
 
-void	check_cmd(int id, char **av, char **envp)
+void	check_cmd_minishell(int id, char **av, char **envp)
 {
 	char	**cmd;
 	char	*path;

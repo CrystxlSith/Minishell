@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/10 14:42:01 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:02:07 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ t_cmd	*parser(t_lexer **tokens)
 	t_cmd	*head;
 	t_cmd	*current;
 	t_lexer	*tmp;
-	static int		i;
+	int		i;
 
 	i = 0;
 	tmp = *tokens;
 	init_cmd(&head, &current);
 	if (!check_synthax_error(tmp))
-	{	
+	{
 		while (tmp)
 		{
 			if (tmp->type == E_CMD)
