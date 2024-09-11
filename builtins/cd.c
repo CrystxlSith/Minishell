@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 10:26:16 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:43:18 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,15 @@ char	*file_compliant(char **av)
 	return (perror(NULL), NULL);
 }
 
-void	cd(int ac, char	**av, t_dirent **dir, t_env **data)
+void	cd(char	**av, t_dirent **dir, t_env **data)
 {
 	fill_dir_list(dir, (*data)->var);
 	print_lst(dir);
 	printf("%s %s\n", av[1], av[2]);
 	if (ft_strncmp(av[2], "..", 3) == 0)
 		chdir((*dir)->previous_path);
-	if (ac == 2)
-		chdir((*dir)->home_path);
+/* 	if (ac == 2)
+		chdir((*dir)->home_path); */
 	if (!file_compliant(av))
 		chdir(file_compliant(av));
 }

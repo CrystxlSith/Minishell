@@ -6,13 +6,13 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:00:25 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/09 17:39:32 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:42:02 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_filepath(char **envp)
+char	*get_path(char **envp)
 {
 	int		index;
 	char	*path;
@@ -33,7 +33,7 @@ void	pwd(char **envp)
 {
 	char	*input;
 
-	input = get_filepath(envp);
+	input = get_path(envp);
 	if (!input)
 		return ;
 	printf("%s\n", input);

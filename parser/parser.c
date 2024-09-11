@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/11 10:57:31 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:02:31 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_cmd	*parser(t_lexer **tokens)
 	tmp = *tokens;
 	init_cmd(&head, &current);
 	if (!check_synthax_error(tmp))
-	{	
+	{
 		while (tmp)
 		{
 			if (tmp->type == E_CMD)

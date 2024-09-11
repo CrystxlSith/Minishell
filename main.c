@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/11 07:31:40 by jopfeiff         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/11 11:52:56 by agiliber         ###   ########.fr       */
+>>>>>>> c7eef02ccb44611afe09d1efce124c0469f4b79a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +64,8 @@ int main(int ac, char **av, char **envp)
 	// if (argc || argv || env)
 	// 	ft_memset(&minishell ,0 , sizeof(t_minishell));
 	tokens = malloc(sizeof(t_lexer));
+	(void)ac;
+	(void)av;
 	while (1)
 	{
 		// Retourne la ligne entree dans le terminal et ecris un prompt voulu
@@ -68,7 +74,6 @@ int main(int ac, char **av, char **envp)
 			continue;
 		// l'historique des commandes effectuees
 		add_history(minishell.line_read);
-		builtins(ac, av, envp);
 		// Simule une sortie qui inclut un saut de ligne
 		printf("Exécution d'une commande...\n");
 		// Tokenize la commande
@@ -76,6 +81,7 @@ int main(int ac, char **av, char **envp)
 		print_lexers(tokens);
 		// parsing of the tokens
 		cmd_parsing = parser(&tokens);
+		builtins(cmd_parsing->str, envp);
 		// print the parsed command
 		if (cmd_parsing->str)
 			print_info(cmd_parsing);

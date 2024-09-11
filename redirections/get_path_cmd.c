@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils2.c                                     :+:      :+:    :+:   */
+/*   get_path_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 10:36:39 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:59:43 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,25 @@ char	*get_filepath(char **cmd, char **envp)
 	return (NULL);
 }
 
-void	check_cmd(int id, char **av, char **envp)
+void	check_cmd_minishell(int id, char **av, char **envp)
 {
-	char	**cmd;
 	char	*path;
 
 	if (id % 2 == 0)
 		id -= 1;
 	else
 		id += 1;
-	cmd = ft_split(av[id], ' ');
-	if (!cmd)
-		return ;
-	if (access(cmd[0], X_OK) == 0)
-		execve(cmd[0], cmd, envp);
+	if (access(av[0], X_OK) == 0)
+		execve(av[0], av, envp);
 	else
 	{
-		path = get_filepath(cmd, envp);
+		path = get_filepath(av, envp);
 		if (path)
 		{
-			execve(path, cmd, envp);
+			execve(path, av, envp);
 			free(path);
 		}
 	}
 	perror("execve");
-	free_all(cmd);
+	free_all(av);
 }

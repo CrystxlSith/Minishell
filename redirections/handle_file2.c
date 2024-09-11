@@ -6,11 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 14:51:41 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 10:34:26 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 11:13:31 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/minishell.h"
 
 int	open_dup_file2(int *fd, int file_fd)
 {
