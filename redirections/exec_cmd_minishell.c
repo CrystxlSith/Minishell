@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 13:42:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:57:56 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,46 @@ void	exec_single_cmd(char **input, char **envp)
 		check_cmd_minishell(id, input, envp);
 }
 
+int	open_dup_mini(int *fd)
+{
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+	{
+		return (-1);
+	}
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
+	{
+		close(fd[0]);
+		return (-1);
+	}
+	return (0);
+}
+
+void	execute_cmd_minishell(int *fd, char **input, char **envp)
+{
+	if (open_dup_mini(fd) == -1)
+	{
+		return ;
+	}
+	check_cmd_minishell(1, input, envp);
+}
+
 void	fork_input_cmd(char **input, t_cmd *cmd, char **envp)
 {
-/* 	int	fd[2];
-	int	*pid;
- */
+	int	fd[2];
+	int	pid;
+
 	if (cmd->next == NULL)
 		exec_single_cmd(input, envp);
-/* 	if (pipe(fd) == -1)
-		return ;
-	fork();
- */
+	else
+	{
+		if (pipe(fd) == -1)
+			return ;
+		pid = fork();
+		if (pid == -1)
+			return ;
+		if (pid == 0)
+			execute_cmd_minishell(fd, input, envp);
+		close(fd[0]);
+		close(fd[1]);
+	}
 }
