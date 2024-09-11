@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 11:43:43 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:41:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	builtins(char **input, char **envp)
 	if (ft_strncmp(input[i], "echo", 5) == 0)
 		echo(input, envp);
 	else if (ft_strncmp(input[i], "pwd", 4) == 0)
-		pwd(envp);
+		pwd();
 	else if (ft_strncmp(input[i], "env", 4) == 0)
 		env(&data);
 	else if (ft_strncmp(input[i], "export", 7) == 0)

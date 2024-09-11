@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 11:43:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:40:35 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*echo(char **input, char **envp);
 //BUILTINS ---> PWD
 /* int		find_line(char **envp, char *chr); */
 char	*get_path(char **envp);
-void	pwd(char **envp);
+void	pwd();
 
 //BUILTINS ---> ENV
 void	count_env(char **envp, t_env **data);

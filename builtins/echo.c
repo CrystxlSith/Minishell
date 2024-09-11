@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/10 10:11:50 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 13:37:10 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	*echo(char **input, char **envp)
 	int		words;
 
 	(void)envp;
+	i = 1;
 	tmp = ft_strdup("");
-	i = 2;
-	if (ft_strncmp(input[i], "-n", 2) != 0)
+	if (ft_strncmp(input[1], "-n", 2) != 0)
 		return (NULL);
 	words = count_words(input);
 	to_print = (char *)malloc(count_letters(input) + 1);
