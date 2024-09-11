@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/10 17:42:53 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 10:36:58 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include "parsing.h"
+# include "pipex.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
@@ -91,6 +92,7 @@ char	*get_previous_path(char **envp);
 void	initiate_dir_list(t_dirent **dir);
 void	fill_dir_list(t_dirent **dir, char **envp);
 char	*file_compliant(char **av);
-void	cd(int ac, char	**av, t_dirent **dir, char **envp);
+void	cd(int ac, char	**av, t_dirent **dir, t_env **data);
+void	print_lst(t_dirent **dir);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/10 17:48:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/11 10:26:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_home_path(char **envp)
 	index = 0;
 	while (envp[index])
 	{
-		if (ft_strncmp(envp[index], "HOME=", 6) == 0)
+		if (ft_strncmp(envp[index], "HOME=", 5) == 0)
 		{
 			home_path = ft_strtrim(envp[index], "HOME=");
 			if (!home_path)
@@ -38,9 +38,10 @@ char	*get_previous_path(char **envp)
 	char	*old_path;
 
 	index = 0;
+	old_path = NULL;
 	while (envp[index])
 	{
-		if (ft_strncmp(envp[index], "OLDPWD=", 8) == 0)
+		if (ft_strncmp(envp[index], "OLDPWD=", 7) == 0)
 		{
 			old_path = ft_strtrim(envp[index], "OLDPWD=");
 			if (!old_path)
@@ -87,9 +88,11 @@ char	*file_compliant(char **av)
 	return (perror(NULL), NULL);
 }
 
-void	cd(int ac, char	**av, t_dirent **dir, char **envp)
+void	cd(int ac, char	**av, t_dirent **dir, t_env **data)
 {
-	fill_dir_list(dir, envp);
+	fill_dir_list(dir, (*data)->var);
+	print_lst(dir);
+	printf("%s %s\n", av[1], av[2]);
 	if (ft_strncmp(av[2], "..", 3) == 0)
 		chdir((*dir)->previous_path);
 	if (ac == 2)
