@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:27:49 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 11:44:04 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:28:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,32 +87,35 @@ void	export_new(t_env **data, char *cmd)
 	print_tab(data);
 }
 
-void	export(char **input, t_env *data)
+void	export(char *input, t_env **data)
 {
 	char	*cmd;
-	int		index;
 	char	*flag;
 	int		target;
+	char	*tmp;
+	int		i;
 
-	flag = "AGT=";
-	index = 2;
-	cmd = ft_strdup(input[index]);
+	i = 0;
+	while (input[i] != '=')
+		i++;
+	i++;
+	tmp = malloc(sizeof(char) * (i + 1));
+	flag = ft_strncpy(tmp, input, i);
+	cmd = ft_strdup(input);
 	if (!cmd)
 		return ;
-	print_tab(&data);
-	printf("CMD : %s\n", cmd);
-	printf("Flag : %s\n", flag);
-	printf("Size : %d\n", (data)->size);
-	target = get_index(&data, flag);
-	printf("target : %d\n", target);
+	target = get_index(data, flag);
 	if (target != -1)
 	{
 		printf("%s\n", "Existing");
-		export_existing(flag, &data, cmd);
+		printf("%s\n", flag);
+		export_existing(flag, data, cmd);
+		flag = ft_strtrim(flag, "=");
+		printf("%s\n", getenv(flag));
 	}
 	else
 	{
 		printf("%s\n", "New");
-		export_new(&data, cmd);
+		export_new(data, cmd);
 	}
 }

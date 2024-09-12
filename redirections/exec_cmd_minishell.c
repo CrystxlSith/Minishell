@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 13:57:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:19:46 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exec_single_cmd(char **input, char **envp)
 		check_cmd_minishell(id, input, envp);
 }
 
-int	open_dup_mini(int *fd)
+/* int	open_dup_mini(int *fd)
 {
 	if (dup2(fd[0], STDIN_FILENO) == -1)
 	{
@@ -77,3 +77,4 @@ void	fork_input_cmd(char **input, t_cmd *cmd, char **envp)
 		close(fd[1]);
 	}
 }
+ */

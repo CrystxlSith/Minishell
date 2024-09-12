@@ -6,97 +6,96 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 11:43:18 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:35:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_home_path(char **envp)
+// fonction pour revenir a la base des dossiers du user
+void	cd_home(char *path, t_env **data)
 {
-	int		index;
-	char	*home_path;
-
-	index = 0;
-	while (envp[index])
-	{
-		if (ft_strncmp(envp[index], "HOME=", 5) == 0)
-		{
-			home_path = ft_strtrim(envp[index], "HOME=");
-			if (!home_path)
-				return (NULL);
-			return (home_path);
-		}
-		index++;
-	}
-	return (NULL);
-}
-
-char	*get_previous_path(char **envp)
-{
-	int		index;
+	char	*new_path;
 	char	*old_path;
+	char	*tmp;
 
-	index = 0;
-	old_path = NULL;
-	while (envp[index])
+	path = getenv("HOME");
+	if (!path)
 	{
-		if (ft_strncmp(envp[index], "OLDPWD=", 7) == 0)
-		{
-			old_path = ft_strtrim(envp[index], "OLDPWD=");
-			if (!old_path)
-				return (NULL);
-			return (old_path);
-		}
-		index++;
-	}
-	return (NULL);
-}
-
-void	fill_dir_list(t_dirent **dir, char **envp)
-{
-	(*dir)->current_path = getcwd(NULL, 0);
-	(*dir)->previous_path = get_previous_path(envp);
-	(*dir)->home_path = get_home_path(envp);
-}
-
-void	initiate_dir_list(t_dirent **dir)
-{
-	*dir = malloc(sizeof(t_dirent));
-	if (!dir)
+		printf("%s\n", "No HOME configured");
 		return ;
-	(*dir)->file_name = NULL;
-	(*dir)->current_path = NULL;
-	(*dir)->previous_path = NULL;
-	(*dir)->home_path = NULL;
-	(*dir)->type = NULL;
-	(*dir)->next = NULL;
-	(*dir)->previous = NULL;
-
+	}
+	tmp = getcwd(NULL, 0);
+	old_path = ft_strjoin("OLDPWD=", tmp);
+	free(tmp);
+	go_to_path(path);
+	new_path = ft_strjoin("PWD=", getcwd(NULL, 0));
+	update_env(old_path, new_path, data);
+	free(old_path);
+	free(new_path);
 }
 
-char	*file_compliant(char **av)
+// fonction pour entrer dans le dossier suivant de son choix
+void	cd_next(char *path, t_env **data)
 {
-	char	*file_name;
+	char	*next_path;
+	char	*current_path;
+	char	*tmp;
 
-	if (ft_strncmp(av[2], "../", 3) == 0)
-		file_name = ft_strtrim(av[1], "../");
+	if (go_to_path(path) == 0)
+		return ;
+	current_path = getcwd(NULL, 0);
+	tmp = ft_strjoin(current_path, "/");
+	next_path = ft_strjoin(tmp, path);
+	free(tmp);
+	if (file_compliant(next_path) == FALSE)
+	{
+		free(next_path);
+		return ;
+	}
+	go_to_path(next_path);
+	update_env(current_path, next_path, data);
+	free(current_path);
+	free(next_path);
+}
+
+// fonction pour entrer dans le dossier precedant de son choix
+void	cd_prev(char *path, t_env **data)
+{
+	char	*prev_path;
+	char	*current_path;
+	int		len;
+
+	if (go_to_path(path) == 0)
+		return ;
+	len = 0;
+	current_path = getcwd(NULL, 0);
+	if (ft_strcmp(getenv("OLDPWD"), current_path) != 0)
+	{
+		prev_path = cd_prev_oldpwd(current_path);
+		if (!prev_path)
+			return ;
+	}
 	else
-		file_name = av[2];
-	if (!opendir(file_name))
-		return (file_name);
-	return (perror(NULL), NULL);
+	{
+		prev_path = cd_prev_newpwd(path, current_path);
+		if (!prev_path)
+			return ;
+	}
+	update_env(current_path, prev_path, data);
+	free(current_path);
+	free(prev_path);
 }
 
-void	cd(char	**av, t_dirent **dir, t_env **data)
+// fonction general qui appelle les autres fonctions
+// de CD a utiliser dans builtins
+void	cd(char *path, t_env **data)
 {
-	fill_dir_list(dir, (*data)->var);
-	print_lst(dir);
-	printf("%s %s\n", av[1], av[2]);
-	if (ft_strncmp(av[2], "..", 3) == 0)
-		chdir((*dir)->previous_path);
-/* 	if (ac == 2)
-		chdir((*dir)->home_path); */
-	if (!file_compliant(av))
-		chdir(file_compliant(av));
+	if (path == NULL || ft_strcmp(path, "") == 0)
+		cd_home(path, data);
+	else if (ft_strncmp(path, "../", 3) == 0
+		|| ft_strncmp(path, "..", 2) == 0)
+		cd_prev(path, data);
+	else if (path != NULL || ft_strncmp(path, "./", 2) == 0)
+		cd_next(path, data);
 }

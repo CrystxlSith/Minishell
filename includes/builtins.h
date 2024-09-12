@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 13:40:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:42:21 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,21 @@ void	env(t_env **data);
 void	initiate_struc(t_env **data, char **envp);
 
 //BUILTINS ---> EXPORT
-void	export(char **input, t_env *data);
+void	export(char *input, t_env **data);
 void	free_rest_tab(char **s, int index);
 void	print_tab(t_env **data);
 
 //BUILTINS ---> CD
-char	*get_home_path(char **envp);
-char	*get_previous_path(char **envp);
-void	initiate_dir_list(t_dirent **dir);
-void	fill_dir_list(t_dirent **dir, char **envp);
-char	*file_compliant(char **av);
-void	cd(char	**av, t_dirent **dir, t_env **data);
-void	print_lst(t_dirent **dir);
+int		file_compliant(char *dir_path);
+void	update_env(char *old_path, char *new_path, t_env **data);
+int		go_to_path(char *path);
+char	*cd_prev_oldpwd(char *current_path);
+int		get_dir_len(char *path);
+char	*cd_get_prev_path(char *path, char *current_path);
+char	*cd_prev_newpwd(char *path, char *current_path);
+void	cd_home(char *path, t_env **data);
+void	cd_next(char *path, t_env **data);
+void	cd_prev(char *path, t_env **data);
+void	cd(char *path, t_env **data);
 
 #endif

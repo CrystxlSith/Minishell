@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 13:41:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:42:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	builtins(char **input, char **envp)
 	data = NULL;
 	dir = NULL;
 	initiate_struc(&data, envp);
-	initiate_dir_list(&dir);
-	i = 0;
+	i = 1;
 	if (ft_strncmp(input[i], "echo", 5) == 0)
 		echo(input, envp);
 	else if (ft_strncmp(input[i], "pwd", 4) == 0)
@@ -30,8 +29,14 @@ int	builtins(char **input, char **envp)
 	else if (ft_strncmp(input[i], "env", 4) == 0)
 		env(&data);
 	else if (ft_strncmp(input[i], "export", 7) == 0)
-		export(input, data);
-	else if (ft_strncmp(input[i], "cd", 3) == 0)
-		cd(input, &dir, &data);
+		export(input[i], &data);
+	else if (ft_strncmp(input[i], "cd_home", 8) == 0)
+		cd(input[i], &data);
 	return (0);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	(void)ac;
+	builtins(av, envp);
 }
