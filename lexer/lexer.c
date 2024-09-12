@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 10:01:37 by kali              #+#    #+#             */
-/*   Updated: 2024/09/05 09:48:59by jopfeiff         ###   ########.fr       */
+/*   Created: 2024/09/12 11:01:08 by jopfeiff          #+#    #+#             */
+/*   Updated: 2024/09/12 13:55:33 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ void	print_lexers(t_lexer *head)
 	t_lexer	*current;
 
 	current = head;
+	if (!current)
+		return ;
 	while (current != NULL)
 	{
-		ft_printf("data = %s Type = %d -> index = %d", current->data, current->type, current->index);
+		if (current->data)
+			ft_printf("data = %s Type = %d -> index = %d", current->data, current->type, current->index);
 		current = current->next;
 	}
 	ft_printf("NULL\n");
@@ -73,22 +76,13 @@ void	quotes_handler(t_lexer **tokens, char **str)
 static int	check_tokens(char **str, t_lexer **tokens)
 {
 	char	unknown[2];
-	// else if (**str == ' ')
-	// 	return (create_new_token(E_SPACE, " ", tokens), (*str)++, 1);
+
 	if (**str == '|')
-		return (create_new_token(E_PIPE, "|", tokens), (*str)++, 1);
-	else if (**str == '>')
-	{
-		if (*(*str + 1) == '>')
-			return (create_new_token(E_REDIR_APP, ">>", tokens), (*str) += 2, 1);
-		return (create_new_token(E_REDIR_OUT, ">", tokens), (*str)++, 1);
-	}
-	else if (**str == '<')
-	{
-		if (*(*str + 1) == '<')
-			return (create_new_token(E_REDIR_DEL, "<<", tokens), (*str) += 2, 1);
-		return (create_new_token(E_REDIR_IN, "<", tokens), (*str)++, 1);
-	}
+		return (pipe_handler(tokens, str), 1);
+	else if (**str == ' ')
+		return (space_handler(tokens, str), 1);
+	else if (ft_strchr(IS_REDIRECTION, **str))
+		return (redir_handler(tokens, str), 1);
 	else if (**str == '\'' || **str == '"')
 		return (quotes_handler(tokens, str), 1);
 	else if (!strchr(IS_TOKEN, **str) && !ft_isspace(**str))
@@ -146,6 +140,8 @@ t_lexer	*tokenize(char *str)
 	{
 		while (ft_isspace(*str))
 			str++;
+		if (!*str)
+			break ;
 		if (*str && ft_isascii(*str) && !ft_strchr(IS_TOKEN, *str) && *str != '-')
 			check_cmd(&str, &tokens);
 		else if (*str && *str == '-')
@@ -155,6 +151,7 @@ t_lexer	*tokenize(char *str)
 		else 
 			str++;
 	}
+	// check_quotes(tokens);
 	add_index_to_token(tokens);
 	return (tokens);
 }

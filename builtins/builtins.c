@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 13:41:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:46:33 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	builtins(char **input, char **envp)
 	t_env		*data;
 	t_dirent	*dir;
 
+	if (!input)
+		return (0);
 	data = NULL;
 	dir = NULL;
 	initiate_struc(&data, envp);
