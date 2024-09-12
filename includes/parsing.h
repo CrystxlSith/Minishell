@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/11 10:54:57 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:38:40 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # define SPACE_CHAR "|<>"
 # define IS_TOKEN "\"'|<>"
+# define IS_REDIRECTION "<>"
 
 // Token types
 typedef enum s_lexer_type
@@ -23,7 +24,6 @@ typedef enum s_lexer_type
 	E_CMD, //*str
 	E_ARG,
 	E_REDIR_IN,
-	// E_SPACE,
 	E_REDIR_OUT,
 	E_OPTIONS,
 	E_REDIR_DEL,
@@ -33,6 +33,7 @@ typedef enum s_lexer_type
 	E_D_QUOTE,
 	E_UNKNOWN,
 	END,
+	E_SPACE,
 }	t_lexer_type;
 
 // Token structure
@@ -65,6 +66,9 @@ int		check_synthax_error(t_lexer *tokens);
 t_cmd	*create_new_cmd();
 int		is_redirection(t_lexer_type type);
 void	handle_redirection(t_lexer *token, t_cmd *cmd);
+void	redir_handler(t_lexer **token, char **str);
+void	space_handler(t_lexer **tokens, char **str);
+void	pipe_handler(t_lexer **tokens, char **str);
 t_lexer	*find_last(t_lexer *node);
 
 #endif

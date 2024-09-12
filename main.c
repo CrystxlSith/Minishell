@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/11 11:52:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:10:01 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 void	free_tokens(t_lexer *head)
 {
-	t_lexer	*current;
-
-	current = head;
-	if (!current)
-		return ;
-	while (current != NULL)
+	while (head)
 	{
-		head = current->next;
-		free(current->data);
-		free(current);
-		current = head;
+		t_lexer	*tmp;
+
+		tmp = head;
+		head = head->next;
+		if (tmp->data)
+			free(tmp->data);
+		free(tmp);
 	}
 }
 
@@ -47,6 +45,8 @@ void	free_parsed_cmd(t_cmd *head)
 		free(current);
 		current = head;
 	}
+	// head->str = NULL;
+	// head = NULL;
 }
 
 
@@ -62,31 +62,29 @@ int main(int ac, char **av, char **envp)
 	tokens = malloc(sizeof(t_lexer));
 	(void)ac;
 	(void)av;
+	(void)envp;
 	while (1)
 	{
 		// Retourne la ligne entree dans le terminal et ecris un prompt voulu
 		minishell.line_read = readline("minishell> ");
 		if (minishell.line_read[0] == '\0')
 			continue;
+		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
+			break ;
 		// l'historique des commandes effectuees
 		add_history(minishell.line_read);
-		// Simule une sortie qui inclut un saut de ligne
-		printf("Exécution d'une commande...\n");
 		// Tokenize la commande
 		tokens = tokenize(minishell.line_read);
-		print_lexers(tokens);
+		if (minishell.line_read)
+			free(minishell.line_read);
+		// print_lexers(tokens);
 		// parsing of the tokens
 		cmd_parsing = parser(&tokens);
+		free_tokens(tokens);
 		builtins(cmd_parsing->str, envp);
 		// print the parsed command
 		if (cmd_parsing->str)
 			print_info(cmd_parsing);
-		// Indique à readline que nous sommes sur une nouvelle ligne
-		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
-			break ;
-		if (minishell.line_read)
-			free(minishell.line_read);
-		free_tokens(tokens);
 		free_parsed_cmd(cmd_parsing);
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt
 		rl_on_new_line();
@@ -94,3 +92,4 @@ int main(int ac, char **av, char **envp)
 	rl_clear_history();
 	return 0;
 }
+

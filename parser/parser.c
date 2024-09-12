@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/11 11:02:07 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 09:27:04 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ t_cmd	*parser(t_lexer **tokens)
 	t_cmd	*head;
 	t_cmd	*current;
 	t_lexer	*tmp;
-	int		i;
 
-	i = 0;
 	tmp = *tokens;
 	init_cmd(&head, &current);
 	if (!check_synthax_error(tmp))
@@ -58,8 +56,6 @@ t_cmd	*parser(t_lexer **tokens)
 				add_to_cmd(tmp->data, current);
 			else if (tmp->type == E_PIPE)
 			{
-				i++;
-				current->index = i;
 				current->next = create_new_cmd();
 				current->next->prev = current;
 				current = current->next;

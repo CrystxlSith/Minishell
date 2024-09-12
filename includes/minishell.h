@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/11 11:37:54 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:55:32 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "../libft/libft.h"
 # include "parsing.h"
-# include "pipex.h"
 # include "builtins.h"
+# include "pipex.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>

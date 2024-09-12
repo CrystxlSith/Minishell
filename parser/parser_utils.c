@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/10 13:33:05 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/12 10:42:03 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ void	print_info(t_cmd *parsed_cmd)
 	current = parsed_cmd;
 	while (current)
 	{
-		ft_printf("Command: ");
-		for (int i = 0; current->str[i]; i++)
-			ft_printf("%s ", current->str[i]);
-		ft_printf("\n");
+		if (current->str)
+		{
+			ft_printf("Command: ");
+			for (int i = 0; current->str[i]; i++)
+				ft_printf("%s ", current->str[i]);
+			ft_printf("\n");
+		}
 		ft_printf("Redirections: ");
 		redir = current->redir;
 		while (redir)
@@ -42,6 +45,7 @@ void	print_info(t_cmd *parsed_cmd)
 
 void	init_cmd(t_cmd **head, t_cmd **current)
 {
+	
 	*head = malloc(sizeof(t_cmd));
 	*current = *head;
 	(*head)->str = NULL;
@@ -54,37 +58,37 @@ void	init_cmd(t_cmd **head, t_cmd **current)
 
 t_cmd *create_new_cmd()
 {
-    t_cmd *new_cmd;
+	t_cmd *new_cmd;
 
-    new_cmd = malloc(sizeof(t_cmd));
-    if (!new_cmd)
-        return NULL;
-    
-    // Initialize the command structure
-    new_cmd->str = NULL;          // Arguments for execve
-    new_cmd->redir_nb = 0;        // No redirection by default
-    new_cmd->here_doc = NULL;     // No here document by default
-    new_cmd->redir = NULL;        // No redirection tokens by default
-    new_cmd->next = NULL;         // No next command by default
-    new_cmd->prev = NULL;         // No previous command by default
-    return (new_cmd);
+	new_cmd = malloc(sizeof(t_cmd));
+	if (!new_cmd)
+		return NULL;
+	
+	// Initialize the command structure
+	new_cmd->str = NULL;          // Arguments for execve
+	new_cmd->redir_nb = 0;        // No redirection by default
+	new_cmd->here_doc = NULL;     // No here document by default
+	new_cmd->redir = NULL;        // No redirection tokens by default
+	new_cmd->next = NULL;         // No next command by default
+	new_cmd->prev = NULL;         // No previous command by default
+	return (new_cmd);
 }
 
 void	handle_redirection(t_lexer *token, t_cmd *cmd)
 {
    t_lexer *new_redir = (t_lexer *)malloc(sizeof(t_lexer));
-    if (!new_redir)
-        return; // Erreur d'allocation
-    // Copier les informations de redirection
-    new_redir->type = token->type;
-    new_redir->data = strdup(token->data);
-    new_redir->next = cmd->redir;
-    new_redir->prev = NULL;
-    // Ajouter à la liste de redirections
-    if (cmd->redir)
-        cmd->redir->prev = new_redir;
-    cmd->redir = new_redir;
-    cmd->redir_nb++;	
+	if (!new_redir)
+		return; // Erreur d'allocation
+	// Copier les informations de redirection
+	new_redir->type = token->type;
+	new_redir->data = strdup(token->data);
+	new_redir->next = cmd->redir;
+	new_redir->prev = NULL;
+	// Ajouter à la liste de redirections
+	if (cmd->redir)
+		cmd->redir->prev = new_redir;
+	cmd->redir = new_redir;
+	cmd->redir_nb++;	
 }
 
 int	is_redirection(t_lexer_type type)
