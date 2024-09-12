@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 15:06:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:01:57 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		count_words(char **str);
 int		get_index(t_env **data, char *chr);
 int		count_letters(char **str);
 void	free_all(char **s);
-char	*echo(char **input, char **envp);
+char	*echo(char **input);
 
 //BUILTINS ---> PWD
 /* int		find_line(char **envp, char *chr); */
