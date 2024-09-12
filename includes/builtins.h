@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 14:42:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:06:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_env
 	int		word_count;
 }			t_env;
 
-typedef struct s_dirent
+/* typedef struct s_dirent
 {
 	char			*file_name;
 	char			*current_path;
@@ -30,7 +30,7 @@ typedef struct s_dirent
 	char			*type;
 	struct s_dirent	*next;
 	struct s_dirent	*previous;
-}					t_dirent;
+}					t_dirent; */
 
 //BUILTINS ---> GENERAL
 int		builtins(char **input, char **envp);

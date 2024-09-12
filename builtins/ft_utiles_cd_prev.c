@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:34:15 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 14:40:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:52:19 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*cd_get_prev_path(char *path, char *current_path)
 	}
 	else
 	{
-		tmp = ft_strtim(path, "../");
+		tmp = ft_strtrim(path, "../");
 		size = get_dir_len(path) + len;
 		prev_path = malloc(sizeof(char) * (size + 1));
 		if (!prev_path)
@@ -84,4 +84,5 @@ char	*cd_prev_newpwd(char *path, char *current_path)
 		return (free(prev_path), free(current_path), NULL);
 	if (go_to_path(prev_path) != 0)
 		return (free(prev_path), free(current_path), NULL);
+	return (prev_path);
 }

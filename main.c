@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/12 13:10:01 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:08:54 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int main(int ac, char **av, char **envp)
 		// parsing of the tokens
 		cmd_parsing = parser(&tokens);
 		free_tokens(tokens);
-		builtins(cmd_parsing->str, envp);
+		exec_single_cmd(cmd_parsing->str, envp);
 		// print the parsed command
 		if (cmd_parsing->str)
 			print_info(cmd_parsing);
@@ -92,4 +92,3 @@ int main(int ac, char **av, char **envp)
 	rl_clear_history();
 	return 0;
 }
-

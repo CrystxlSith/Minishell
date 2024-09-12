@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 14:42:17 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:50:52 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	update_env(char *old_path, char *new_path, t_env **data)
 int	go_to_path(char *path)
 {
 	if (chdir(path) != 0)
+	{
 		perror("cd_home");
+		return (FALSE);
+	}
 	else
-		return (0);
+		return (TRUE);
 }
