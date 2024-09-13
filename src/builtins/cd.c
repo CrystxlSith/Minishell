@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 13:14:45 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:00:17 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	cd_next(char *path, t_env **data)
 	current_path = getcwd(NULL, 0);
 	tmp = ft_strjoin(current_path, "/");
 	next_path = ft_strjoin(tmp, path);
-	printf("PATH : %s\n", next_path);
 	free(tmp);
 	if (go_to_path(next_path) == -1)
 	{
@@ -109,8 +108,8 @@ char	*format_dir_path(char *path)
 	return (new_path);
 }
 
-// fonction general qui appelle les autres fonctions
-// de CD a utiliser dans builtins
+// fonction general qui ouvre le canal de navigation des dossiers et gere la lecture
+// du contenu des dossiers. Appelle ensuite "move_to_dir" pour changer de dossier
 void	cd(char *path, t_env **data)
 {
 	DIR				*dir;
@@ -124,7 +123,6 @@ void	cd(char *path, t_env **data)
 		return ;
 	}
 	new_path = format_dir_path(path);
-	printf("New Path : %s\n", new_path);
 	entry = readdir(dir);
 	while (entry != NULL)
 	{
@@ -141,21 +139,11 @@ void	cd(char *path, t_env **data)
 
 void	move_to_dir(char *path, t_env **data)
 {
-	printf("PATH INPUT : %s\n", path);
 	if (path == NULL || ft_strcmp(path, "") == 0)
-	{
-		printf("%s\n", "path home");
 		cd_home(path, data);
-	}
 	else if (ft_strncmp(path, "../", 3) == 0
 		|| ft_strncmp(path, "..", 2) == 0)
-	{
-		printf("%s\n", "path prev");
 		cd_prev(path, data);
-	}
 	else if (path != NULL || ft_strncmp(path, "./", 2) == 0)
-	{
-		printf("%s\n", "path next");
 		cd_next(path, data);
-	}
 }

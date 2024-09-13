@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 13:07:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:27:39 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,6 @@ typedef struct s_env
 	int		size;
 	int		word_count;
 }			t_env;
-
-/* typedef struct s_dirent
-{
-	char			*file_name;
-	char			*current_path;
-	char			*previous_path;
-	char			*home_path;
-	int				numb_elem;
-	char			*type;
-	struct s_dirent	*next;
-	struct s_dirent	*previous;
-}					t_dirent; */
 
 //BUILTINS ---> GENERAL
 int		builtins(char **input, t_env **data);
@@ -57,6 +45,7 @@ void	initiate_struc_envp(t_env **data, char **envp);
 void	export(char *input, t_env **data);
 void	free_rest_tab(char **s, int index);
 void	print_tab(t_env **data);
+void	update_env_tab_export(char *flag, char *cmd, t_env **data);
 
 //BUILTINS ---> CD
 int		file_compliant(char *dir_path);

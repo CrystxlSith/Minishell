@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 13:07:20 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:48:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,3 @@ int	builtins(char **input, t_env **data)
 		cd(input[++i], data);
 	return (0);
 }
-
-/* int	main(int ac, char **av, char **envp)
-{
-	(void)ac;
-	builtins(av, envp);
-} */

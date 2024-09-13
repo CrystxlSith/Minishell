@@ -6,11 +6,19 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/13 13:13:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:04:58 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+// ################################  RAF AGT ################################ //
+// 1) corriger la fonction CD pour gerer tous les cas de figures			  //
+// 2) programmer les bons messages d'erreur									  //
+// 3) programmer les builtins unset et exit									  //
+// 4) corriger les segfault													  //
+// 5) tenter de casser le code												  //
+// ########################################################################## //
 
 void	free_tokens(t_lexer *head)
 {
@@ -48,7 +56,6 @@ void	free_parsed_cmd(t_cmd *head)
 	// head->str = NULL;
 	// head = NULL;
 }
-
 
 int main(int ac, char **av, char **envp)
 {

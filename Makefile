@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    MakefileAGT                                        :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/09/13 13:58:40 by agiliber         ###   ########.fr        #
+#    Updated: 2024/09/13 14:54:35 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,21 +45,21 @@ LEXER_DIR = src/lexer/
 PARSER_DIR = src/parser/
 REDIREC_DIR = src/redirections/
 
-SRC_DIR = $(BUILTINS_DIR, LEXER_DIR, PARSER_DIR, REDIREC_DIR)
+SRC_DIR = $(BUILTINS_DIR) $(LEXER_DIR) $(PARSER_DIR) $(REDIREC_DIR)
 
 BUILTINS_OBJ_DIR = obj/builtins/
 LEXER_OBJ_DIR = obj/lexer/
 PARSER_OBJ_DIR = obj/parser/
 REDIREC_OBJ_DIR = obj/redirections/
 
-OBJ_DIR = $(BUILTINS_OBJ_DIR, LEXER_OBJ_DIR, PARSER_OBJ_DIR, REDIREC_OBJ_DIR)
+OBJ_DIR = $(BUILTINS_OBJ_DIR) $(LEXER_OBJ_DIR) $(PARSER_OBJ_DIR) $(REDIREC_OBJ_DIR)
 
 BUILTINS_OBJ_DEP = dep/builtins/
 LEXER_OBJ_DEP = dep/lexer/
 PARSER_OBJ_DEP = dep/parser/
 REDIREC_OBJ_DEP = dep/redirections/
 
-DEP_DIR = $(BUILTINS_OBJ_DEP, LEXER_OBJ_DEP, PARSER_OBJ_DEP, REDIREC_OBJ_DEP)
+DEP_DIR = $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) $(PARSER_OBJ_DEP) $(REDIREC_OBJ_DEP)
 
 # ------------------------------------------------------------------------------
 # 									FILES
@@ -71,28 +71,31 @@ BUILTINS = builtins.c echo.c cd.c env.c export.c ft_export_utiles.c \
 
 LEXER = handler.c init_lexer.c lexer_utils.c lexer.c
 
-PARSER = parser_utils.c parser.c parsing_error.c main.c
+PARSER = parser_utils.c parser.c parsing_error.c
 
 REDIREC = exec_cmd_minishell.c get_path_cmd.c
+
+MAIN = main.c
 
 BUILTINSF = $(addprefix $(BUILTINS_DIR), $(BUILTINS))
 LEXERF = $(addprefix $(LEXER_DIR), $(LEXER))
 PARSERF = $(addprefix $(PARSER_DIR), $(PARSER))
 REDIRECF = $(addprefix $(REDIREC_DIR), $(REDIREC))
 
-BUILTINS_OBJ = $(addprefix $(BUILTINS_OBJ_DIROBJ_DIR), $(SRC:%.c=%.o))s
-LEXER_OBJ = $(addprefix $(LEXER_OBJ_DIR), $(SRC:%.c=%.o))
-PARSER_OBJ = $(addprefix $(PARSER_OBJ_DIR), $(SRC:%.c=%.o))
-REDIREC_OBJ = $(addprefix $(REDIREC_OBJ_DIR), $(SRC:%.c=%.o))
+BUILTINS_OBJ = $(addprefix $(BUILTINS_OBJ_DIR), $(BUILTINS:%.c=%.o))
+LEXER_OBJ = $(addprefix $(LEXER_OBJ_DIR), $(LEXER:%.c=%.o))
+PARSER_OBJ = $(addprefix $(PARSER_OBJ_DIR), $(PARSER:%.c=%.o))
+REDIREC_OBJ = $(addprefix $(REDIREC_OBJ_DIR), $(REDIREC:%.c=%.o))
+MAIN_OBJ = main.o
 
 BUILTINS_DEP = $(addprefix $(BUILTINS_OBJ_DEP), $(BUILTINS_OBJ:%.o=%.d))
 LEXER_DEP = $(addprefix $(LEXER_OBJ_DEP), $(LEXER_OBJ:%.o=%.d))
 PARSER_DEP = $(addprefix $(PARSER_OBJ_DEP), $(PARSER_OBJ:%.o=%.d))
 REDIREC_DEP = $(addprefix $(REDIREC_OBJ_DEP), $(REDIREC_OBJ:%.o=%.d))
 
-SRC = $(BUILTINSF, LEXERF, )
-OBJ = $(BUILTINS_OBJ, LEXER_OBJ, PARSER_OBJ, REDIREC_OBJ)
-DEP = $(BUILTINS_DEP, LEXER_DEP, PARSER_DEP, REDIREC_DEP)
+SRC = $(BUILTINSF) $(LEXERF) $(PARSERF) $(REDIRECF) $(MAIN)
+OBJ = $(BUILTINS_OBJ) $(LEXER_OBJ) $(PARSER_OBJ) $(REDIREC_OBJ) $(MAIN_OBJ)
+DEP = $(BUILTINS_DEP) $(LEXER_DEP) $(PARSER_DEP) $(REDIREC_DEP)
 
 LIBFT_OBJ = $(addprefix $(LIB_DIR), $(NAME_LIB))
 
@@ -102,36 +105,69 @@ LIBFT_OBJ = $(addprefix $(LIB_DIR), $(NAME_LIB))
 
 all : $(NAME)
 
-$(NAME) : $(NAME_A) $(OBJ) | $(LIBFT_OBJ)
+$(NAME) : $(NAME_A) $(OBJ)
 	echo "${CYAN}Compiling Minishell...${RESET}"
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_FLAGS) $(NAME_A) -o $@
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_FLAGS) -lreadline $(NAME_A) -o $@
 	echo "${GREEN}Succes!!!${RESET}"
 
-$(LIBFT_OBJ) :
+$(NAME_A) : $(OBJ)
 	echo "${CYAN}Compiling libft...${RESET}"
-	make --no-print-directory -C $(LIB_DIR)
+	$(MAKE) --no-print-directory -C $(LIB_DIR)
 	cp libft/libft.a $(NAME_A)
 	ar rc $(NAME_A) $(OBJ)
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR) $(DEP_DIR)
-	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -MF $(DEP_DIR)$*.d
+$(BUILTINS_OBJ_DIR)%.o : $(BUILTINS_DIR)%.c | $(BUILTINS_OBJ_DIR) $(BUILTINS_OBJ_DEP)
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -MF $(BUILTINS_OBJ_DEP)$*.d
 
-$(OBJ_DIR) :
-	mkdir -p $(OBJ_DIR)
+$(LEXER_OBJ_DIR)%.o : $(LEXER_DIR)%.c | $(LEXER_OBJ_DIR) $(LEXER_OBJ_DEP)
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -MF $(LEXER_OBJ_DEP)$*.d
 
-$(DEP_DIR) :
-	mkdir -p $(DEP_DIR)
+$(PARSER_OBJ_DIR)%.o : $(PARSER_DIR)%.c | $(PARSER_OBJ_DIR) $(PARSER_OBJ_DEP)
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -MF $(PARSER_OBJ_DEP)$*.d
+
+$(REDIREC_OBJ_DIR)%.o : $(REDIREC_DIR)%.c | $(REDIREC_OBJ_DIR) $(REDIREC_OBJ_DEP)
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -MF $(REDIREC_OBJ_DEP)$*.d
+
+$(MAIN_OBJ) : $(MAIN)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILTINS_OBJ_DIR) :
+	mkdir -p $(BUILTINS_OBJ_DIR)
+
+$(LEXER_OBJ_DIR) :
+	mkdir -p $(LEXER_OBJ_DIR)
+
+$(PARSER_OBJ_DIR) :
+	mkdir -p $(PARSER_OBJ_DIR)
+
+$(REDIREC_OBJ_DIR) :
+	mkdir -p $(REDIREC_OBJ_DIR)
+
+$(BUILTINS_OBJ_DEP) :
+	mkdir -p $(BUILTINS_OBJ_DEP)
+
+$(LEXER_OBJ_DEP) :
+	mkdir -p $(LEXER_OBJ_DEP)
+
+$(PARSER_OBJ_DEP) :
+	mkdir -p $(PARSER_OBJ_DEP)
+
+$(REDIREC_OBJ_DEP) :
+	mkdir -p $(REDIREC_OBJ_DEP)
+
 
 clean:
 	echo "${RED}Cleaning libft && Minishell...${RESET}"
 	$(RM) $(OBJ_DIR)
-	make clean --no-print-directory -C $(LIB_DIR)
+	$(RM) $(DEP_DIR)
+	$(RM) $(DEP_DIR)
+	$(MAKE) clean --no-print-directory -C $(LIB_DIR)
 	echo "${GREEN}Succes!!!${RESET}"
 
 fclean: clean
-	make fclean --no-print-directory -C $(LIB_DIR)
+	$(MAKE) fclean --no-print-directory -C $(LIB_DIR)
 	echo "${RED}Cleaning exucutable files...${RESET}"
-	rm -f $(NAME)
+	rm -f $(NAME_A)
 	echo "${GREEN}Succes!!!${RESET}"
 
 re : fclean all
