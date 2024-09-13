@@ -6,21 +6,33 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 16:24:58 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:14:54 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*get_to_print(char **input, char *tmp, char *to_print)
+/* char	*get_to_print(char **input, char *tmp, char *to_print)
 {
-	int	i;
-	int	words;
+	int		i;
+	int		words;
+	char	*env_var;
+	int		len;
 
 	i = 2;
 	words = count_words(input);
+	len = 0;
 	while (input[i])
 	{
+		if (ft_strncmp(input[i], "$", 1) == 0)
+		{
+			tmp = ft_strtrim(input[i], "$");
+			env_var = getenv(tmp);
+			printf("%s", env_var);
+			free(tmp);
+			free(env_var);
+		}
+		size = count_letters(input) + len;
 		to_print = ft_strjoin(tmp, input[i]);
 		if (!to_print)
 			return (free(tmp), NULL);
@@ -47,32 +59,33 @@ char	*print_to_print(char **input, char *tmp, int size)
 	if (!to_print)
 		return (free(tmp), NULL);
 	return (to_print);
-}
+} */
 
-char	*echo(char **input)
+void	echo(char **input, t_env **data)
 {
-	char	*to_print;
-	char	*tmp;
+	int		i;
 	char	*env_var;
 	int		len;
-	int		size;
+	char	*tmp;
 
-	tmp = ft_strdup("");
+	i = 3;
+	len = count_words(input);
 	env_var = NULL;
-	len = 0;
-	if (ft_strncmp(input[2], "$", 1) == 0)
+	while (input[i])
 	{
-		tmp = ft_strtrim(input[2], "$");
-		env_var = getenv(tmp);
-		free(tmp);
+		if (ft_strncmp(input[i], "$", 1) == 0)
+		{
+			tmp = ft_strtrim(input[i], "$");
+			tmp = ft_strjoin(tmp, "=");
+			env_var = find_in_env(tmp, (*data)->var);
+			printf("%s", env_var);
+			free(tmp);
+			free(env_var);
+		}
+		else
+			printf("%s", input[i]);
+		if (i - 1 != len)
+			printf("%s", " ");
+		i++;
 	}
-	if (env_var != NULL)
-	{
-		len = ft_strlen(env_var);
-		tmp = ft_strdup(env_var);
-		free(env_var);
-	}
-	size = count_letters(input) + len;
-	to_print = print_to_print(input, tmp, size);
-	return (printf("%s", to_print), free(to_print), NULL);
 }

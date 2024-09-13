@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 10:43:15 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:12:35 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,31 +73,16 @@ void	env(t_env **data)
 	}
 }
 
-/* char	*find_environment(char **input, char **envp)
+char	*find_in_env(char *input, char **env)
 {
-	int		i;
-	int		index;
-	char	*str;
-	char	*tmp;
-	char	*final_str;
+	int	index;
 
-	str = NULL;
-	i = get_index(input, "$");
-	printf("i : %d\n", i);
-	str = ft_strtrim(input[i], "$");
-	if (!str)
-		return (NULL);
-	printf("STR : %s\n", str);
-	index = find_line(envp, str);
-	printf("index : %d\n", index);
-	if (!index)
-		return (free(str), NULL);
-	printf("ENVP : %s\n", envp[index]);
-	tmp = ft_strdup(envp[index]);
-	if (!tmp)
-		return (free(str), NULL);
-	final_str = ft_strtrim(tmp, str);
-	free(tmp);
-	free(str);
-	return (final_str);
-} */
+	index = 0;
+	while (env[index])
+	{
+		if (ft_strncmp(env[index], input, ft_strlen(input)) == 0)
+			return (ft_strtrim(env[index], input));
+		index++;
+	}
+	return (NULL);
+}

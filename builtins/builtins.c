@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 15:41:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:02:57 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	builtins(char **input, char **envp)
 		return (0);
 	data = NULL;
 	initiate_struc(&data, envp);
-	i = 0;
+	i = 1;
 	if (ft_strncmp(input[i], "echo", 5) == 0)
-		echo(input, envp);
+		echo(input);
 	else if (ft_strncmp(input[i], "pwd", 4) == 0)
 		pwd();
 	else if (ft_strncmp(input[i], "env", 4) == 0)
@@ -35,8 +35,8 @@ int	builtins(char **input, char **envp)
 	return (0);
 }
 
-/* int	main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
 	builtins(av, envp);
-} */
+}
