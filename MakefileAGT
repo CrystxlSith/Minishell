@@ -6,7 +6,7 @@
 #    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/09/13 13:49:42 by agiliber         ###   ########.fr        #
+#    Updated: 2024/09/13 13:58:40 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,21 +113,26 @@ $(LIBFT_OBJ) :
 	cp libft/libft.a $(NAME_A)
 	ar rc $(NAME_A) $(OBJ)
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR) $(DEP)
-	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR) $(DEP_DIR)
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -MF $(DEP_DIR)$*.d
 
 $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
 
+$(DEP_DIR) :
+	mkdir -p $(DEP_DIR)
+
 clean:
-	rm -rf $(OBJ_DIR)
-	make clean -C $(LIB_DIR)
-	make clean -C $(MINILIBX)
-	@echo "Cleaned"
+	echo "${RED}Cleaning libft && Minishell...${RESET}"
+	$(RM) $(OBJ_DIR)
+	make clean --no-print-directory -C $(LIB_DIR)
+	echo "${GREEN}Succes!!!${RESET}"
 
 fclean: clean
+	make fclean --no-print-directory -C $(LIB_DIR)
+	echo "${RED}Cleaning exucutable files...${RESET}"
 	rm -f $(NAME)
-	make fclean -C $(LIB_DIR)
+	echo "${GREEN}Succes!!!${RESET}"
 
 re : fclean all
 
