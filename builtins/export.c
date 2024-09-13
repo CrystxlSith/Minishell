@@ -6,12 +6,13 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:27:49 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 14:44:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:15:00 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+// Realloc de la memoire avec l'ajout et la suppression de variables d'env
 char	**ft_realloc(int new_size, t_env **data)
 {
 	int		old_size;
@@ -41,6 +42,9 @@ char	**ft_realloc(int new_size, t_env **data)
 	return (new_tab);
 }
 
+// Dans le cas ou la var d'envp existe deja, cherche la var dans
+// le tableau d'environnement. Une fois trouve, la remplace par
+// la valeur donne en input
 void	export_existing(char *flag, t_env **data, char *cmd)
 {
 	int	i;
@@ -54,6 +58,8 @@ void	export_existing(char *flag, t_env **data, char *cmd)
 	return ;
 }
 
+// Duplique le tableau d'environement dans le tableau realloue, en ajoutant
+// a la fin la nouvelle variable. Met a jour la variable "size" de la structure.
 void	duplicate_env(t_env **data, char **input, char *cmd)
 {
 	int	i;
@@ -71,6 +77,9 @@ void	duplicate_env(t_env **data, char **input, char *cmd)
 	free_all(input);
 }
 
+// Dans le cas ou la var d'envp n'existe pas, realloue de la memoire pour
+// ajouter une ligne dans le tableau d'envp, puis duplique l'envp avec
+// la nouvelle variable a ajouter.
 void	export_new(t_env **data, char *cmd)
 {
 	char	**new_tab;
@@ -87,23 +96,12 @@ void	export_new(t_env **data, char *cmd)
 	print_tab(data);
 }
 
-void	export(char *input, t_env **data)
+// En fonction de si la variable existe deja dans le tableau d'environnement
+// la fonctionne redirige la commande pour ajout ou modification du tableau
+void	update_env_tab_export(char *flag, char *cmd, t_env **data)
 {
-	char	*cmd;
-	char	*flag;
 	int		target;
-	char	*tmp;
-	int		i;
 
-	i = 0;
-	while (input[i] != '=')
-		i++;
-	i++;
-	tmp = malloc(sizeof(char) * (i + 1));
-	flag = ft_strncpy(tmp, input, i);
-	cmd = ft_strdup(input);
-	if (!cmd)
-		return ;
 	target = get_index(data, flag);
 	if (target != -1)
 	{
@@ -118,4 +116,27 @@ void	export(char *input, t_env **data)
 		printf("%s\n", "New");
 		export_new(data, cmd);
 	}
+}
+
+// Fonction principale appelee dans la fonction Builtins. Recupere le flag
+// donne en input. Duplique la commande a inserer/modifier dans le tableau
+// d'environnement
+void	export(char *input, t_env **data)
+{
+	char	*cmd;
+	char	*flag;
+	char	*tmp;
+	int		i;
+
+	i = 0;
+	while (input[i] != '=')
+		i++;
+	i++;
+	tmp = malloc(sizeof(char) * (i + 1));
+	flag = ft_strncpy(tmp, input, i);
+	free(tmp);
+	cmd = ft_strdup(input);
+	if (!cmd)
+		return ;
+	update_env_tab_export(flag, cmd, data);
 }

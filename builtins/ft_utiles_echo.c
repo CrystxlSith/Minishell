@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 09:29:32 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/09 17:16:52 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:30:21 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	count_words(char **str)
 	{
 		if (ft_strncmp(str[i], "echo", 4) == 0)
 		{
-			i++;
+			i += 2;
 			while (str[i])
 			{
 				count++;

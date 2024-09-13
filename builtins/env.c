@@ -6,13 +6,13 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 10:12:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:24:51 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	initiate_struc(t_env **data, char **envp)
+void	initiate_struc_envp(t_env **data, char **envp)
 {
 	*data = malloc(sizeof(t_env));
 	if (!data)

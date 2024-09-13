@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 10:02:57 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:12:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@ int	builtins(char **input, char **envp)
 	if (!input)
 		return (0);
 	data = NULL;
-	initiate_struc(&data, envp);
-	i = 1;
+	initiate_struc_envp(&data, envp);
+	i = 0;
 	if (ft_strncmp(input[i], "echo", 5) == 0)
-		echo(input);
+		echo(input, &data);
 	else if (ft_strncmp(input[i], "pwd", 4) == 0)
-		pwd();
+		pwd(&data);
 	else if (ft_strncmp(input[i], "env", 4) == 0)
 		env(&data);
 	else if (ft_strncmp(input[i], "export", 7) == 0)
-		export(input[i], &data);
-	else if (ft_strncmp(input[i], "cd_home", 8) == 0)
-		cd(input[i], &data);
+		export(input[++i], &data);
+	else if (ft_strncmp(input[i], "cd", 8) == 0)
+		cd(input[++i], &data);
 	return (0);
 }
 
-int	main(int ac, char **av, char **envp)
+/* int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
 	builtins(av, envp);
-}
+} */

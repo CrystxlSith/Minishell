@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 16:01:57 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:53:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ int		count_words(char **str);
 int		get_index(t_env **data, char *chr);
 int		count_letters(char **str);
 void	free_all(char **s);
-char	*echo(char **input);
+void	echo(char **input, t_env **data);
+char	*find_in_env(char *input, char **env);
 
 //BUILTINS ---> PWD
-/* int		find_line(char **envp, char *chr); */
 char	*get_path(char **envp);
-void	pwd();
+void	pwd(t_env **data);
 
 //BUILTINS ---> ENV
 void	count_env(char **envp, t_env **data);
 void	get_env(char **envp, t_env **data);
 void	env(t_env **data);
-void	initiate_struc(t_env **data, char **envp);
+void	initiate_struc_envp(t_env **data, char **envp);
 
 //BUILTINS ---> EXPORT
 void	export(char *input, t_env **data);
@@ -62,7 +62,7 @@ void	print_tab(t_env **data);
 int		file_compliant(char *dir_path);
 void	update_env(char *old_path, char *new_path, t_env **data);
 int		go_to_path(char *path);
-char	*cd_prev_oldpwd(char *current_path);
+char	*cd_prev_oldpwd(char *current_path, t_env **data);
 int		get_dir_len(char *path);
 char	*cd_get_prev_path(char *path, char *current_path);
 char	*cd_prev_newpwd(char *path, char *current_path);
@@ -70,5 +70,6 @@ void	cd_home(char *path, t_env **data);
 void	cd_next(char *path, t_env **data);
 void	cd_prev(char *path, t_env **data);
 void	cd(char *path, t_env **data);
+void	move_to_dir(char *path, t_env **data);
 
 #endif

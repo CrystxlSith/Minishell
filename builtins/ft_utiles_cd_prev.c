@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:34:15 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 14:52:19 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:59:09 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 // change de dossier dans le cas ou le OLDPWD = PWD
 // verification de l'accessibilite du dossier puis changement de dossier
-char	*cd_prev_oldpwd(char *current_path)
+char	*cd_prev_oldpwd(char *current_path, t_env **data)
 {
 	char	*prev_path;
 
-	prev_path = getenv("OLDPWD");
+	prev_path = find_in_env("OLDPWD=", (*data)->var);
 	if (file_compliant(prev_path) == FALSE)
 		return (free(prev_path), free(current_path), NULL);
 	if (go_to_path(prev_path) != 0)

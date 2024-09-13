@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:00:25 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 13:40:22 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:04:40 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ char	*get_path(char **envp)
 	return (trim_path);
 }
 
-void	pwd()
+void	pwd(t_env **data)
 {
 	char	*input;
 
-	input = getcwd(NULL, 0);
+	input = find_in_env("PWD=", (*data)->var);
 	if (!input)
 		return ;
 	printf("%s\n", input);
