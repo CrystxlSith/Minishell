@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/13 13:04:46 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:13:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int main(int ac, char **av, char **envp)
 		free_tokens(tokens);
 		exec_single_cmd(cmd_parsing->str, envp, &data);
 		// print the parsed command
-		if (cmd_parsing->str)
-			print_info(cmd_parsing);
+/* 		if (cmd_parsing->str)
+			print_info(cmd_parsing); */
 		free_parsed_cmd(cmd_parsing);
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt
 		rl_on_new_line();

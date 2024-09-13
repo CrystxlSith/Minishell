@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/12 10:42:03 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:13:45 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	print_info(t_cmd *parsed_cmd)
 	{
 		if (current->str)
 		{
-			ft_printf("Command: ");
+/* 			ft_printf("Command: ");
 			for (int i = 0; current->str[i]; i++)
 				ft_printf("%s ", current->str[i]);
-			ft_printf("\n");
+			ft_printf("\n"); */
 		}
-		ft_printf("Redirections: ");
+/* 		ft_printf("Redirections: "); */
 		redir = current->redir;
 		while (redir)
 		{
@@ -35,9 +35,9 @@ void	print_info(t_cmd *parsed_cmd)
 			redir = redir->next;
 		}
 		ft_printf("\n");
-		ft_printf("Index: %d\n", current->index);
+/* 		ft_printf("Index: %d\n", current->index);
 		ft_printf("Here_doc: %s\n", current->here_doc);
-		ft_printf("Redir_nb: %d\n", current->redir_nb);
+		ft_printf("Redir_nb: %d\n", current->redir_nb); */
 		current = current->next;
 	}
 }
@@ -45,7 +45,7 @@ void	print_info(t_cmd *parsed_cmd)
 
 void	init_cmd(t_cmd **head, t_cmd **current)
 {
-	
+
 	*head = malloc(sizeof(t_cmd));
 	*current = *head;
 	(*head)->str = NULL;
@@ -63,7 +63,7 @@ t_cmd *create_new_cmd()
 	new_cmd = malloc(sizeof(t_cmd));
 	if (!new_cmd)
 		return NULL;
-	
+
 	// Initialize the command structure
 	new_cmd->str = NULL;          // Arguments for execve
 	new_cmd->redir_nb = 0;        // No redirection by default
@@ -88,7 +88,7 @@ void	handle_redirection(t_lexer *token, t_cmd *cmd)
 	if (cmd->redir)
 		cmd->redir->prev = new_redir;
 	cmd->redir = new_redir;
-	cmd->redir_nb++;	
+	cmd->redir_nb++;
 }
 
 int	is_redirection(t_lexer_type type)

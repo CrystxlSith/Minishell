@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 13:02:45 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:14:45 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,19 +146,16 @@ void	move_to_dir(char *path, t_env **data)
 	{
 		printf("%s\n", "path home");
 		cd_home(path, data);
-		free(path);
 	}
 	else if (ft_strncmp(path, "../", 3) == 0
 		|| ft_strncmp(path, "..", 2) == 0)
 	{
 		printf("%s\n", "path prev");
 		cd_prev(path, data);
-		free(path);
 	}
 	else if (path != NULL || ft_strncmp(path, "./", 2) == 0)
 	{
 		printf("%s\n", "path next");
 		cd_next(path, data);
-		free(path);
 	}
 }
