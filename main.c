@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/12 15:08:54 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:04:46 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int main(int ac, char **av, char **envp)
 	// Parse les token en separant par pipe
 	t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
+	t_env		*data;
 
+	data = NULL;
+	initiate_struc_envp(&data, envp);
 	// if (argc || argv || env)
 	// 	ft_memset(&minishell ,0 , sizeof(t_minishell));
 	tokens = malloc(sizeof(t_lexer));
@@ -81,7 +84,7 @@ int main(int ac, char **av, char **envp)
 		// parsing of the tokens
 		cmd_parsing = parser(&tokens);
 		free_tokens(tokens);
-		exec_single_cmd(cmd_parsing->str, envp);
+		exec_single_cmd(cmd_parsing->str, envp, &data);
 		// print the parsed command
 		if (cmd_parsing->str)
 			print_info(cmd_parsing);

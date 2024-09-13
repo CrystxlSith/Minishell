@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 11:53:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:07:28 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_env
 }					t_dirent; */
 
 //BUILTINS ---> GENERAL
-int		builtins(char **input, char **envp);
+int		builtins(char **input, t_env **data);
 
 //BUILTINS ---> ECHO
 int		count_words(char **str);

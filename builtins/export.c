@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:27:49 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 11:15:00 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:02:10 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	export_new(t_env **data, char *cmd)
 		return ;
 	}
 	duplicate_env(data, new_tab, cmd);
-	print_tab(data);
+/* 	print_tab(data); */
 }
 
 // En fonction de si la variable existe deja dans le tableau d'environnement
@@ -103,6 +103,8 @@ void	update_env_tab_export(char *flag, char *cmd, t_env **data)
 	int		target;
 
 	target = get_index(data, flag);
+	printf("Target : %d\n", target);
+	printf("Flag : %s\n", flag);
 	if (target != -1)
 	{
 		printf("%s\n", "Existing");
@@ -125,18 +127,19 @@ void	export(char *input, t_env **data)
 {
 	char	*cmd;
 	char	*flag;
-	char	*tmp;
 	int		i;
 
 	i = 0;
 	while (input[i] != '=')
 		i++;
 	i++;
-	tmp = malloc(sizeof(char) * (i + 1));
-	flag = ft_strncpy(tmp, input, i);
-	free(tmp);
+	flag = malloc(sizeof(char) * (i + 1));
+	if (!flag)
+		return ;
+	flag = ft_strncpy(flag, input, i);
 	cmd = ft_strdup(input);
 	if (!cmd)
 		return ;
 	update_env_tab_export(flag, cmd, data);
+	free(flag);
 }

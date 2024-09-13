@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 15:41:02 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:07:51 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	check_if_builtins(char *input)
 	return (FALSE);
 }
 
-void	exec_single_cmd(char **input, char **envp)
+void	exec_single_cmd(char **input, char **envp, t_env **data)
 {
 	int	id;
 
 	id = 1;
 	if (check_if_builtins(input[0]))
-		builtins(input, envp);
+		builtins(input, data);
 	else
 		check_cmd_minishell(id, input, envp);
 }

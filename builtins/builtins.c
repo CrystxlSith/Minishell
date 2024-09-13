@@ -6,32 +6,29 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 11:12:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:07:20 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	builtins(char **input, char **envp)
+int	builtins(char **input, t_env **data)
 {
 	int			i;
-	t_env		*data;
 
 	if (!input)
 		return (0);
-	data = NULL;
-	initiate_struc_envp(&data, envp);
 	i = 0;
 	if (ft_strncmp(input[i], "echo", 5) == 0)
-		echo(input, &data);
+		echo(input, data);
 	else if (ft_strncmp(input[i], "pwd", 4) == 0)
-		pwd(&data);
+		pwd(data);
 	else if (ft_strncmp(input[i], "env", 4) == 0)
-		env(&data);
+		env(data);
 	else if (ft_strncmp(input[i], "export", 7) == 0)
-		export(input[++i], &data);
+		export(input[++i], data);
 	else if (ft_strncmp(input[i], "cd", 8) == 0)
-		cd(input[++i], &data);
+		cd(input[++i], data);
 	return (0);
 }
 
