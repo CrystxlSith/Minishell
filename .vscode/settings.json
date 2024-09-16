@@ -5,6 +5,7 @@
 		"libft.h": "c",
 		"errno.h": "c",
 		"builtins.h": "c",
-		"history.h": "c"
+		"history.h": "c",
+		"stdbool.h": "c"
 	}
 }

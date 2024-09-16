@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/16 09:39:20 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:33:42 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 // ################################  RAF AGT ################################ //
 // 1) corriger la fonction CD pour gerer tous les cas de figures			  //
 // 2) programmer les bons messages d'erreur									  //
-// 3) programmer les builtins unset et exit									  //
+// 3) programmer le builtin exit											  //
 // 4) corriger les segfault													  //
-// 5) tenter de casser le code												  //
+// 5) programmer le heredoc													  //
+// 6) tenter de casser le code												  //
 // ########################################################################## //
 
 void	free_tokens(t_lexer *head)
@@ -93,7 +94,7 @@ int main(int ac, char **av, char **envp)
 		free_tokens(tokens);
 		// print the parsed command
 		if (cmd_parsing->str)
-			exec_single_cmd(cmd_parsing->str, envp, &data);
+			exec_cmd_minishell(&cmd_parsing, &data);
 /* 			print_info(cmd_parsing); */
 		free_parsed_cmd(cmd_parsing);
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt

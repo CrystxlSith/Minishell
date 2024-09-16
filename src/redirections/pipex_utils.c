@@ -6,38 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/11 11:13:29 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:10:27 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	find_line(char **envp)
-{
-	int	index;
-
-	index = 0;
-	while (envp[index])
-	{
-		if (ft_strncmp(envp[index], "PATH=", 5) == 0)
-			break ;
-		index++;
-	}
-	return (index);
-}
-
-void	free_all(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
 
 int	check_input(char **str)
 {

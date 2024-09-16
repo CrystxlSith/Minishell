@@ -6,7 +6,7 @@
 #    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/09/16 10:03:44 by agiliber         ###   ########.fr        #
+#    Updated: 2024/09/16 14:11:20 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ LEXER = handler.c init_lexer.c lexer_utils.c lexer.c
 
 PARSER = parser_utils.c parser.c parsing_error.c
 
-REDIREC = exec_cmd_minishell.c get_path_cmd.c
+REDIREC = exec_cmd_minishell.c get_path_cmd.c pipex_utils.c
 
 MAIN = main.c
 

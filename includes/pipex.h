@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 10:23:28 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 10:54:46 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:08:38 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,21 @@
 # include <errno.h>
 # include <fcntl.h>
 
-void	execute_cmd1(int *fd, char **arg, char **envp);
 void	check_cmd_minishell(int id, char **av, char **envp);
 char	*get_filepath(char **av, char **envp);
-void	execute_cmd2(int *fd, char **arg, char **envp);
 int		find_line(char **envp);
 void	free_all(char **s);
-int		open_dup_file1(int file_fd, int *fd);
-int		open_dup_file2(int *fd, int file_fd);
 int		check_space(char *str);
 void	close_fd(int *fd);
 int		check_input(char **str);
-
+int		check_if_builtins(char *input);
+void	exec_cmd(t_cmd **parsing, t_env **data);
+void	exec_single_cmd(t_cmd **parsing, t_env **data);
+void	exec_redirection(t_cmd **parsing, t_env **data, int *fd);
+void	exec_cmd_minishell(t_cmd **parsing, t_env **data);
+int		open_dup_input(int *fd, int fd_in);
+int		open_dup_redir(int fd_in);
+int		open_dup_output(int *fd, int fd_in);
+void	execute_fork(t_cmd **parsing, t_env **data);
+void	exec_multiple_cmd(t_cmd **parsing, t_env **data);
 #endif
