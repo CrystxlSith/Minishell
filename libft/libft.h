@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 11:36:35 by wbelyne           #+#    #+#             */
-/*   Updated: 2024/09/10 16:23:34 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/16 07:57:56 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_isalpha(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_array_len(char **array);
 int		ft_isascii(int c);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_isspace(int c);
