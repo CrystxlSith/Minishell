@@ -6,35 +6,11 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:44:42 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/16 07:55:15 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:07:10 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void    check_quotes(t_lexer **tokens)
-{
-    t_lexer *current;
-    int     i;
-
-    i = 0;
-    current = *tokens;
-    while (current)
-    {
-        if (current->type == E_D_QUOTE)
-        {
-            while (current->data[i])
-            {
-                if (current->data[i] == '$')
-                {
-                    
-                }
-                i++;
-            }
-        }
-        current = current->next;
-    }
-}
 
 void	redir_handler(t_lexer **token, char **str)
 {

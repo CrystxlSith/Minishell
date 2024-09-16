@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:16:44 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/07 06:17:07 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/16 09:08:09 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 void	init_new_token(t_lexer *new_token, t_lexer_type type, char *data)
 {
 	new_token->next = NULL;
+	new_token->prev = NULL;
 	new_token->data = ft_strdup(data);
 	new_token->type = type;
+	new_token->index = 0;
+	
 }
 
 //Create new token

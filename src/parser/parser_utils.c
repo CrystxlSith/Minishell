@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/13 13:13:45 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/16 09:02:04 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	print_info(t_cmd *parsed_cmd)
 	{
 		if (current->str)
 		{
-/* 			ft_printf("Command: ");
+			ft_printf("Command: ");
 			for (int i = 0; current->str[i]; i++)
 				ft_printf("%s ", current->str[i]);
-			ft_printf("\n"); */
+			ft_printf("\n");
 		}
-/* 		ft_printf("Redirections: "); */
+		ft_printf("Redirections: ");
 		redir = current->redir;
 		while (redir)
 		{
@@ -35,9 +35,9 @@ void	print_info(t_cmd *parsed_cmd)
 			redir = redir->next;
 		}
 		ft_printf("\n");
-/* 		ft_printf("Index: %d\n", current->index);
+		ft_printf("Index: %d\n", current->index);
 		ft_printf("Here_doc: %s\n", current->here_doc);
-		ft_printf("Redir_nb: %d\n", current->redir_nb); */
+		ft_printf("Redir_nb: %d\n", current->redir_nb);
 		current = current->next;
 	}
 }

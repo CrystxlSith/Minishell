@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/13 14:43:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:06:35 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../libft/libft.h"
 # define SPACE_CHAR "|<>"
-# define IS_TOKEN "\"'|<>"
+# define IS_TOKEN "\"'|<>&"
 # define IS_REDIRECTION "<>"
 
 // Token types
@@ -27,6 +27,7 @@ typedef enum s_lexer_type
 	E_REDIR_OUT,
 	E_OPTIONS,
 	E_REDIR_DEL,
+	E_AMPERSAND,
 	E_REDIR_APP,
 	E_PIPE,
 	E_S_QUOTE,

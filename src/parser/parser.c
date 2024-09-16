@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/16 08:10:21 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:21:32 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	add_quotes(char *data, t_cmd *current)
 		i++;
 		j++;
 	}
-	i = 0; // Reset i for the splitted array
+	i = 0;
 	while (splitted && splitted[i])
 	{
 		new_str[j] = ft_strdup(splitted[i]);

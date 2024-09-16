@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:01:08 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/12 13:55:33 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/16 13:08:22 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ static int	check_tokens(char **str, t_lexer **tokens)
 		return (redir_handler(tokens, str), 1);
 	else if (**str == '\'' || **str == '"')
 		return (quotes_handler(tokens, str), 1);
+	else if (**str == '&')
+	{
+		if (*(*str + 1) == '&')
+			return (create_new_token(E_AMPERSAND, "&&", tokens), (*str) += 2, 1);
+		else
+			return (create_new_token(E_AMPERSAND, "&", tokens), (*str)++, 1);
+	}
 	else if (!strchr(IS_TOKEN, **str) && !ft_isspace(**str))
 	{
 		unknown[0] = **str;
