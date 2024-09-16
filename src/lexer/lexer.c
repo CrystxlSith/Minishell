@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:01:08 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/16 13:08:22 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:03:50 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_lexers(t_lexer *head)
 	while (current != NULL)
 	{
 		if (current->data)
-			ft_printf("data = %s Type = %d -> index = %d", current->data, current->type, current->index);
+			ft_printf("data = %s\n Type = %d\n -> index = %d\n", current->data, current->type, current->index);
 		current = current->next;
 	}
 	ft_printf("NULL\n");
@@ -141,7 +141,7 @@ void	check_options(char **str, t_lexer **tokens)
 t_lexer	*tokenize(char *str)
 {
 	t_lexer *tokens;
-	
+
 	tokens = NULL;
 	while (*str)
 	{
@@ -155,7 +155,7 @@ t_lexer	*tokenize(char *str)
 			check_options(&str, &tokens);
 		else if (*str && check_tokens(&str, &tokens))
 			continue ;
-		else 
+		else
 			str++;
 	}
 	// check_quotes(tokens);
