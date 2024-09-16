@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 13:07:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:06:53 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	check_if_builtins(char *input)
 		|| ft_strncmp(input, "pwd", 4) == 0
 		|| ft_strncmp(input, "env", 4) == 0
 		|| ft_strncmp(input, "export", 7) == 0
-		|| ft_strncmp(input, "cd", 3) == 0)
+		|| ft_strncmp(input, "cd", 3) == 0
+		|| ft_strncmp(input, "unset", 6) == 0)
 		return (TRUE);
 	return (FALSE);
 }

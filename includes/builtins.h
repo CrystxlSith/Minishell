@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 14:27:39 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:03:30 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ void	export(char *input, t_env **data);
 void	free_rest_tab(char **s, int index);
 void	print_tab(t_env **data);
 void	update_env_tab_export(char *flag, char *cmd, t_env **data);
+char	**ft_realloc(int new_size, t_env **data);
+void	export_existing(char *flag, t_env **data, char *cmd);
+void	duplicate_env(t_env **data, char **input, char *cmd);
+void	export_new(t_env **data, char *cmd);
 
 //BUILTINS ---> CD
 int		file_compliant(char *dir_path);
@@ -60,5 +64,8 @@ void	cd_next(char *path, t_env **data);
 void	cd_prev(char *path, t_env **data);
 void	cd(char *path, t_env **data);
 void	move_to_dir(char *path, t_env **data);
+
+//BUILTINS ---> EXPORT
+void	unset(char *input, t_env **data);
 
 #endif
