@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/16 09:39:20 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:32:14 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,27 @@ void	free_tokens(t_lexer *head)
 void	free_parsed_cmd(t_cmd *head)
 {
 	t_cmd	*current;
+	int	i;
 
 	current = head;
 	if (!current)
 		return ;
-	while (current != NULL)
+	while (current)
 	{
-		head = current->next;
 		if (current->str)
-			ft_free_array(current->str);
-		if (current->here_doc)
-			free(current->here_doc);
-		if (current->redir)
-			free_tokens(current->redir);
-		free(current);
-		current = head;
+		{
+
+			i = 0;
+			while (current->str[i])
+			{
+				free(current->str[i]);
+				i++;
+			}
+			free(current->str);
+		}
+		
+		current = current->next;
 	}
-	// head->str = NULL;
-	// head = NULL;
 }
 
 int main(int ac, char **av, char **envp)
@@ -67,9 +70,9 @@ int main(int ac, char **av, char **envp)
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
-	// if (argc || argv || env)
+	// if (ac || av || envp)
 	// 	ft_memset(&minishell ,0 , sizeof(t_minishell));
-	tokens = malloc(sizeof(t_lexer));
+	tokens = NULL;
 	(void)ac;
 	(void)av;
 	(void)envp;
@@ -87,18 +90,20 @@ int main(int ac, char **av, char **envp)
 		tokens = tokenize(minishell.line_read);
 		if (minishell.line_read)
 			free(minishell.line_read);
-		// print_lexers(tokens);
+		print_lexers(tokens);
 		// parsing of the tokens
 		cmd_parsing = parser(&tokens);
+		if (!cmd_parsing)
+			continue ;
 		free_tokens(tokens);
+		exec_single_cmd(cmd_parsing->str, envp, &data);
 		// print the parsed command
-		if (cmd_parsing->str)
-			exec_single_cmd(cmd_parsing->str, envp, &data);
-/* 			print_info(cmd_parsing); */
+/* 		if (cmd_parsing->str)
+			print_info(cmd_parsing); */
 		free_parsed_cmd(cmd_parsing);
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt
 		rl_on_new_line();
 	}
 	rl_clear_history();
-	return 0;
+	return (0);
 }

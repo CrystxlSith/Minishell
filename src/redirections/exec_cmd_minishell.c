@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/16 10:06:53 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:32:27 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	exec_single_cmd(char **input, char **envp, t_env **data)
 	int	id;
 
 	id = 1;
+	if (input[0] == NULL)
+		return ;
 	if (check_if_builtins(input[0]))
 		builtins(input, data);
 	else
