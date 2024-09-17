@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/17 08:27:30 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:22:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	free_parsed_cmd(t_cmd *head)
 int main(int ac, char **av, char **envp)
 {
 	t_minishell	minishell;
-	// Parse les token en separant par pipe
 	t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 	t_env		*data;
+
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
@@ -76,31 +76,22 @@ int main(int ac, char **av, char **envp)
 	tokens = NULL;
 	(void)ac;
 	(void)av;
-	(void)envp;
 	while (1)
 	{
-		// Retourne la ligne entree dans le terminal et ecris un prompt voulu
 		minishell.line_read = readline("minishell> ");
 		if (minishell.line_read[0] == '\0')
-			continue;
+			continue ;
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
 			break ;
-		// l'historique des commandes effectuees
 		add_history(minishell.line_read);
-		// Tokenize la commande
 		tokens = tokenize(minishell.line_read);
 		if (minishell.line_read)
 			free(minishell.line_read);
-		// print_lexers(tokens);
-		// parsing of the tokens
 		cmd_parsing = parser(&tokens);
 		if (!cmd_parsing)
 			continue ;
 		free_tokens(tokens);
-		// print the parsed command
-		// if (cmd_parsing->str)
-		// 	exec_cmd_minishell(&cmd_parsing, &data);
-/* 			print_info(cmd_parsing); */
+		execute_fork(&cmd_parsing, &data);
 		free_parsed_cmd(cmd_parsing);
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt
 		rl_on_new_line();
