@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/17 15:30:41 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:33:03 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	open_dup_input(int *fd, int fd_in)
 		close(fd[0]);
 		return (-1);
 	}
+	close(fd[0]);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:34:15 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/13 10:59:09 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:20:29 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ char	*cd_prev_oldpwd(char *current_path, t_env **data)
 	char	*prev_path;
 
 	prev_path = find_in_env("OLDPWD=", (*data)->var);
-	if (file_compliant(prev_path) == FALSE)
-		return (free(prev_path), free(current_path), NULL);
-	if (go_to_path(prev_path) != 0)
+	printf("prev path : %s\n", prev_path);
+	if (go_to_path(prev_path) == -1)
 		return (free(prev_path), free(current_path), NULL);
 	return (prev_path);
 }
@@ -55,7 +54,7 @@ char	*cd_get_prev_path(char *path, char *current_path)
 		prev_path = malloc(sizeof(char) * (len + 1));
 		if (!prev_path)
 			return (free(current_path), NULL);
-		prev_path = ft_strncpy(prev_path, current_path, len);
+		prev_path = ft_strncpy(prev_path, current_path, len + 1);
 	}
 	else
 	{
@@ -78,11 +77,10 @@ char	*cd_prev_newpwd(char *path, char *current_path)
 	char	*prev_path;
 
 	prev_path = cd_get_prev_path(path, current_path);
+	printf("prev path : %s\n", prev_path);
 	if (!prev_path)
 		return (free(prev_path), free(current_path), NULL);
-	if (file_compliant(prev_path) == FALSE)
-		return (free(prev_path), free(current_path), NULL);
-	if (go_to_path(prev_path) != 0)
+	if (go_to_path(prev_path) == -1)
 		return (free(prev_path), free(current_path), NULL);
 	return (prev_path);
 }
