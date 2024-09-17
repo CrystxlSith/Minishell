@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/16 14:38:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/17 08:27:30 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,15 @@ int main(int ac, char **av, char **envp)
 		tokens = tokenize(minishell.line_read);
 		if (minishell.line_read)
 			free(minishell.line_read);
-		print_lexers(tokens);
+		// print_lexers(tokens);
 		// parsing of the tokens
 		cmd_parsing = parser(&tokens);
 		if (!cmd_parsing)
 			continue ;
 		free_tokens(tokens);
 		// print the parsed command
-		if (cmd_parsing->str)
-			exec_cmd_minishell(&cmd_parsing, &data);
+		// if (cmd_parsing->str)
+		// 	exec_cmd_minishell(&cmd_parsing, &data);
 /* 			print_info(cmd_parsing); */
 		free_parsed_cmd(cmd_parsing);
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt
