@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/16 10:21:32 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/18 07:40:28 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ t_cmd	*parser(t_lexer **tokens)
 
 	tmp = *tokens;
 	init_cmd(&head, &current);
-	if (!check_synthax_error(tmp))
-	{
+	// if (!check_synthax_error(tmp))
+	// {
 		while (tmp)
 		{
 			if (tmp->type == E_CMD || tmp->type == E_OPTIONS || tmp->type == E_ARG)
@@ -104,6 +104,6 @@ t_cmd	*parser(t_lexer **tokens)
 				handle_redirection(tmp, current);
 			tmp = tmp->next;
 		}
-	}
+	// }
 	return (head);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:01:08 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/17 14:29:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/18 09:32:39 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,7 @@
 
 // Create a new token
 
-void	print_lexers(t_lexer *head)
-{
-	t_lexer	*current;
 
-	current = head;
-	if (!current)
-		return ;
-	while (current != NULL)
-	{
-		if (current->data)
-			ft_printf("data = %s\n Type = %d\n -> index = %d\n", current->data, current->type, current->index);
-		current = current->next;
-	}
-	ft_printf("NULL\n");
-}
 
 //Handle Single && Double quotes
 void	quotes_handler(t_lexer **tokens, char **str)
@@ -158,7 +144,8 @@ t_lexer	*tokenize(char *str)
 		else
 			str++;
 	}
-	// check_quotes(tokens);
 	add_index_to_token(tokens);
+	// lex_error_handler(tokens);
+	// check_quotes(tokens);
 	return (tokens);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/17 15:22:26 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/18 10:42:10 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,16 @@ int main(int ac, char **av, char **envp)
 			break ;
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
+		if (lex_error(tokens))
+			continue ;
 		if (minishell.line_read)
 			free(minishell.line_read);
 		cmd_parsing = parser(&tokens);
 		if (!cmd_parsing)
 			continue ;
 		free_tokens(tokens);
-		execute_fork(&cmd_parsing, &data);
+		if (cmd_parsing->str)
+			execute_fork(&cmd_parsing, &data);
 		free_parsed_cmd(cmd_parsing);
 		// rl_redisplay();  // Rafraîchit l'affichage du prompt
 		rl_on_new_line();

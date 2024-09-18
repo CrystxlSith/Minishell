@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:44:42 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/16 13:07:10 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/18 08:08:21 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ void	space_handler(t_lexer **tokens, char **str)
 
 void	pipe_handler(t_lexer **tokens, char **str)
 {
+	if (*(*str + 1) == '|')
+	{
+		create_new_token(E_PIPE, "||", tokens);
+		(*str) += 2;
+		return ;
+	}
 	create_new_token(E_PIPE, "|", tokens);
 	(*str)++;
 }
