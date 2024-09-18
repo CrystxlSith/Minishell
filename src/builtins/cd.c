@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/17 17:00:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/18 10:47:22 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*cd_home(char *path, t_env **data)
 	char	*tmp_new;
 
 	path = find_in_env("HOME=", (*data)->var);
+	printf("%s\n", path);
 	if (!path)
 	{
 		printf("%s\n", "No HOME configured");
@@ -103,17 +104,18 @@ char	*cd(char *path, t_env **data)
 	if (dir == NULL)
 		return (perror("opendir"), NULL);
 	new_path = format_dir_path(path);
-	printf("%s\n", new_path);
 	entry = readdir(dir);
 	while (entry != NULL)
 	{
-		if (ft_strncmp(path, "..", 3) == 0)
+		if (new_path == NULL || ft_strncmp(path, "..", 3) == 0)
 		{
 			move_to_dir(new_path, data);
 			break ;
 		}
 		else if (ft_strcmp(new_path, entry->d_name) == 0)
 		{
+			if (ft_strncmp(path, ".", 2) == 0)
+				break ;
 			path = ft_strtrim(path, "./");
 			move_to_dir(path, data);
 			break ;

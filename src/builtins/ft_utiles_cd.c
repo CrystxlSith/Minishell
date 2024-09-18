@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/17 16:55:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/18 10:36:17 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*format_dir_path(char *path)
 	char	*new_path;
 	int		len;
 
+	if (!path)
+		return (path);
 	len = ft_strlen(path);
 	if (ft_strncmp(path, "./", 2) == 0)
 		new_path = ft_strtrim(path, "./");
@@ -69,6 +71,7 @@ char	*format_dir_path(char *path)
 // Definit quelle fonction de deplacement de dossier faire
 char	*move_to_dir(char *path, t_env **data)
 {
+	printf("PATH %s\n", path);
 	if (path == NULL || ft_strcmp(path, "") == 0)
 		return (cd_home(path, data));
 	else if (ft_strncmp(path, "../", 3) == 0
