@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/12 15:10:34 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:59:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,25 +79,34 @@ char	*get_filepath(char **cmd, char **envp)
 	return (NULL);
 }
 
-void	check_cmd_minishell(int id, char **av, char **envp)
+void	check_cmd_minishell(char **av, char **envp)
 {
 	char	*path;
+	char	**cmd;
+	int		i;
 
-	if (id % 2 == 0)
-		id -= 1;
-	else
-		id += 1;
-	if (access(av[0], X_OK) == 0)
-		execve(av[0], av, envp);
+	i = 0;
+	cmd = NULL;
+	while (av[i])
+	{
+		if (av[i][0] == '<' || av[i][0] == '>')
+			break ;
+		cmd[i] = ft_strdup(av[i]);
+		printf("%s ", cmd[i]);
+		i++;
+	}
+	if (access(cmd[0], X_OK) == 0)
+		execve(cmd[0], cmd, envp);
 	else
 	{
-		path = get_filepath(av, envp);
+		path = get_filepath(cmd, envp);
 		if (path)
 		{
-			execve(path, av, envp);
+			execve(path, cmd, envp);
 			free(path);
 		}
 	}
 	perror("execve");
+	free_all(cmd);
 	free_all(av);
 }

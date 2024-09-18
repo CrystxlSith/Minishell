@@ -6,11 +6,23 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/17 15:33:03 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:44:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	find_index_file(t_cmd *parsing, int i)
+{
+	while(parsing->str[i])
+	{
+		if (ft_strncmp(parsing->str[i], "<", 2) == 0
+			|| ft_strncmp(parsing->str[i], ">", 2) == 0)
+			return (i + 1);
+		i++;
+	}
+	return (-1);
+}
 
 int	check_if_builtins(char *input)
 {
@@ -26,62 +38,77 @@ int	check_if_builtins(char *input)
 
 void	exec_cmd(t_cmd **parsing, t_env **data)
 {
-	int	fd[2];
-
 	if ((*parsing)->redir_nb > 0)
-	{
-		printf("Exec cmd here_doc %d\n", (*parsing)->redir_nb);
-		exec_redirection(parsing, data, fd);
-	}
+		exec_redirection(parsing, data);
 	else
 		exec_single_cmd(parsing, data);
-	close_fd(fd);
 }
 
 void	exec_single_cmd(t_cmd **parsing, t_env **data)
 {
 	if (check_if_builtins((*parsing)->str[0]))
+	{
+		printf("BUILTIN %s ", (*parsing)->str[0]);
 		builtins((*parsing)->str, data);
+	}
 	else
-		check_cmd_minishell(1, (*parsing)->str, (*data)->var);
+	{
+		printf("Check CMD %s ", (*parsing)->str[0]);
+		check_cmd_minishell((*parsing)->str, (*data)->var);
+	}
 }
 
-void	exec_redirection(t_cmd **parsing, t_env **data, int *fd)
+void	exec_redirection(t_cmd **parsing, t_env **data)
 {
 	t_cmd	*tmp;
 	int		fd_redir;
 	int		index;
 	int		redir;
+	int		pid;
+	int		status;
 
 	tmp = *parsing;
-	index = 2;
+	index = find_index_file(tmp, 0);
+	printf("INDEX : %d\n", index);
 	redir = tmp->redir_nb;
 	while (redir > 0)
 	{
-		if (tmp->redir->type == E_REDIR_IN)
+		pid = fork();
+		if (pid == -1)
+			return ;
+		if (pid == 0)
 		{
-			tmp->redir = tmp->redir->prev;
-			fd_redir = open(tmp->str[index], O_CREAT | O_RDWR, 0777);
-			if (fd_redir == -1)
-				return ;
-			open_dup_output(fd, fd_redir);
-			exec_single_cmd(&tmp, data);
+			if (tmp->redir->type == E_REDIR_IN)
+			{
+				fd_redir = open(tmp->str[index], O_CREAT | O_RDWR, 0777);
+				if (fd_redir == -1)
+					return ;
+				if (open_dup_input(fd_redir) == -1)
+					return ;
+				exec_single_cmd(parsing, data);
+			}
+			else if (tmp->redir->type == E_REDIR_OUT)
+			{
+				printf("BRANCH : %d\n", E_REDIR_OUT);
+				fd_redir = open(tmp->str[index], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+				if (fd_redir == -1)
+					return ;
+				printf("FD REDIR : %d\n", fd_redir);
+				if (open_dup_output(fd_redir) == -1)
+					return ;
+				exec_single_cmd(parsing, data);
+				if (open_dup_input(fd_redir) == -1)
+					return ;
+			}
 		}
-		else if (tmp->redir->type == E_REDIR_OUT)
+		else
 		{
-			printf("BRANCH : %d\n", E_REDIR_OUT);
-			fd_redir = open(tmp->str[index], O_RDWR | O_CREAT, 0777);
-			if (fd_redir == -1)
-				return ;
-			printf("FD REDIR : %d\n", fd_redir);
-			open_dup_input(fd, fd_redir);
-			exec_single_cmd(&tmp, data);
+			tmp->redir = tmp->redir->next;
+			redir--;
+			index = find_index_file(tmp, index);
 		}
-		tmp->redir = tmp->redir->next;
-		redir--;
-		index = index + 2;
+		waitpid(pid, &status, 0);
 	}
-	close(fd_redir);
 }
 
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
@@ -92,26 +119,21 @@ void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 		exec_multiple_cmd(parsing, data);
 }
 
-int	open_dup_input(int *fd, int fd_in)
+int	open_dup_output(int fd_in)
 {
-	if (dup2(fd[0], STDIN_FILENO) == -1)
-		return (-1);
 	if (dup2(fd_in, STDOUT_FILENO) == -1)
 	{
-		close(fd[0]);
+		perror("dup2 fd_in");
+		close(fd_in);
 		return (-1);
 	}
-	close(fd[0]);
+	close(fd_in);
 	return (0);
 }
 
-int	open_dup_output(int *fd, int fd_in)
+int	open_dup_input(int fd_in)
 {
 	if (dup2(fd_in, STDIN_FILENO) == -1)
-	{
-		return (-1);
-	}
-	if (dup2(fd[1], STDOUT_FILENO) == -1)
 	{
 		return (-1);
 	}

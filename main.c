@@ -6,7 +6,7 @@
 /*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/18 10:42:10 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/18 11:11:17 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int main(int ac, char **av, char **envp)
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
-	// if (ac || av || envp)
-	// 	ft_memset(&minishell ,0 , sizeof(t_minishell));
 	tokens = NULL;
 	(void)ac;
 	(void)av;
@@ -92,6 +90,7 @@ int main(int ac, char **av, char **envp)
 		cmd_parsing = parser(&tokens);
 		if (!cmd_parsing)
 			continue ;
+		fill_nbr_element(&cmd_parsing);
 		free_tokens(tokens);
 		if (cmd_parsing->str)
 			execute_fork(&cmd_parsing, &data);
