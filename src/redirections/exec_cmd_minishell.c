@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/18 16:27:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:44:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	exec_redirection(t_cmd **parsing, t_env **data)
 	int		fd_redir;
 	int		index;
 	int		redir;
+	int		pid;
+	int		status;
 
 	tmp = *parsing;
 	index = find_index_file(tmp, 0);
@@ -71,30 +73,42 @@ void	exec_redirection(t_cmd **parsing, t_env **data)
 	redir = tmp->redir_nb;
 	while (redir > 0)
 	{
-		if (tmp->redir->type == E_REDIR_IN)
+		pid = fork();
+		if (pid == -1)
+			return ;
+		if (pid == 0)
 		{
-			fd_redir = open(tmp->str[index], O_CREAT | O_RDWR, 0777);
-			if (fd_redir == -1)
-				return ;
-			if (open_dup_input(fd_redir) == -1)
-				return ;
+			if (tmp->redir->type == E_REDIR_IN)
+			{
+				fd_redir = open(tmp->str[index], O_CREAT | O_RDWR, 0777);
+				if (fd_redir == -1)
+					return ;
+				if (open_dup_input(fd_redir) == -1)
+					return ;
+				exec_single_cmd(parsing, data);
+			}
+			else if (tmp->redir->type == E_REDIR_OUT)
+			{
+				printf("BRANCH : %d\n", E_REDIR_OUT);
+				fd_redir = open(tmp->str[index], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+				if (fd_redir == -1)
+					return ;
+				printf("FD REDIR : %d\n", fd_redir);
+				if (open_dup_output(fd_redir) == -1)
+					return ;
+				exec_single_cmd(parsing, data);
+				if (open_dup_input(fd_redir) == -1)
+					return ;
+			}
 		}
-		else if (tmp->redir->type == E_REDIR_OUT)
+		else
 		{
-			printf("BRANCH : %d\n", E_REDIR_OUT);
-			fd_redir = open(tmp->str[index], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-			if (fd_redir == -1)
-				return ;
-			printf("FD REDIR : %d\n", fd_redir);
-			if (open_dup_output(fd_redir) == -1)
-				return ;
+			tmp->redir = tmp->redir->next;
+			redir--;
+			index = find_index_file(tmp, index);
 		}
-		tmp->redir = tmp->redir->next;
-		redir--;
-		index = find_index_file(tmp, index);
+		waitpid(pid, &status, 0);
 	}
-	exec_single_cmd(parsing, data);
-	close(fd_redir);
 }
 
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
