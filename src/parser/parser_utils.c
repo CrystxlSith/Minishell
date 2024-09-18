@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/16 09:02:04 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:23:12 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	print_info(t_cmd *parsed_cmd)
 		ft_printf("Index: %d\n", current->index);
 		ft_printf("Here_doc: %s\n", current->here_doc);
 		ft_printf("Redir_nb: %d\n", current->redir_nb);
+		ft_printf("Elem nb: %d\n", current->elem_nb);
 		current = current->next;
 	}
 }
@@ -48,6 +49,7 @@ void	init_cmd(t_cmd **head, t_cmd **current)
 
 	*head = malloc(sizeof(t_cmd));
 	*current = *head;
+	(*head)->elem_nb = 0;
 	(*head)->str = NULL;
 	(*head)->redir_nb = 0;
 	(*head)->here_doc = NULL;
@@ -67,6 +69,7 @@ t_cmd *create_new_cmd()
 	// Initialize the command structure
 	new_cmd->str = NULL;          // Arguments for execve
 	new_cmd->redir_nb = 0;        // No redirection by default
+	new_cmd->elem_nb = 0;
 	new_cmd->here_doc = NULL;     // No here document by default
 	new_cmd->redir = NULL;        // No redirection tokens by default
 	new_cmd->next = NULL;         // No next command by default

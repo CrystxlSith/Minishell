@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+         #
+#    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/30 14:48:39 by crystal           #+#    #+#              #
-#    Updated: 2024/09/16 07:58:14 by jopfeiff         ###   ########.fr        #
+#    Updated: 2024/09/18 11:30:22 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,10 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
        ft_print_char.c ft_print_unsigned.c ft_print_hex.c \
        ft_print_ptr.c ft_print_nb.c get_next_line.c \
        get_next_line_utils.c ft_isspace.c ft_free_array.c \
-	   ft_strcmp.c ft_array_len.c
+	   ft_strcmp.c ft_array_len.c ft_printf_fd.c ft_print_str_fd.c \
+       ft_print_char_fd.c ft_print_unsigned_fd.c ft_print_hex_fd.c \
+       ft_print_ptr_fd.c ft_print_nb_fd.c
+
 SRCSB = ft_lstnew.c ft_lstadd_front.c \
 	ft_lstsize.c ft_lstlast.c \
 	ft_lstadd_back.c ft_lstdelone.c \

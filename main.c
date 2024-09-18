@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/17 15:22:26 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:35:36 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int main(int ac, char **av, char **envp)
 		cmd_parsing = parser(&tokens);
 		if (!cmd_parsing)
 			continue ;
+		fill_nbr_element(&cmd_parsing);
 		free_tokens(tokens);
 		execute_fork(&cmd_parsing, &data);
 		free_parsed_cmd(cmd_parsing);

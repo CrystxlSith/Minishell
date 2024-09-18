@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/17 14:29:26 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:21:50 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_cmd
 {
 	int				redir_nb;
 	int				index;
+	int				elem_nb;
 	char			**str;
 	char			*here_doc;
 	t_lexer			*redir;
@@ -71,5 +72,6 @@ void	redir_handler(t_lexer **token, char **str);
 void	space_handler(t_lexer **tokens, char **str);
 void	pipe_handler(t_lexer **tokens, char **str);
 t_lexer	*find_last(t_lexer *node);
+void	fill_nbr_element(t_cmd **parsing);
 
 #endif

@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/16 10:21:32 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:33:18 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	add_count_elem(char **data)
+{
+	int	i;
+
+	i = 0;
+	while (data[i])
+			i++;
+	return (i);
+}
+
+void	fill_nbr_element(t_cmd **parsing)
+{
+	t_cmd	*tmp;
+
+	tmp = *parsing;
+	while (tmp != NULL)
+	{
+		tmp->elem_nb = add_count_elem(tmp->str);
+		tmp = tmp->next;
+	}
+}
 
 void	add_to_cmd(char *data, t_cmd *current)
 {
@@ -44,7 +66,7 @@ void	add_quotes(char *data, t_cmd *current)
 	int		j;
 	char	**new_str;
 	char	**splitted;
-	
+
 	i = 0;
 	j = 0;
 	if (current->str)
@@ -87,7 +109,8 @@ t_cmd	*parser(t_lexer **tokens)
 	{
 		while (tmp)
 		{
-			if (tmp->type == E_CMD || tmp->type == E_OPTIONS || tmp->type == E_ARG)
+			if (tmp->type == E_CMD || tmp->type == E_OPTIONS
+				|| tmp->type == E_ARG)
 				add_to_cmd(tmp->data, current);
 			else if (tmp->type == E_PIPE)
 			{
@@ -101,7 +124,10 @@ t_cmd	*parser(t_lexer **tokens)
 					add_quotes(tmp->data, current);
 			}
 			else if (is_redirection(tmp->type))
+			{
 				handle_redirection(tmp, current);
+				add_to_cmd(tmp->data, current);
+			}
 			tmp = tmp->next;
 		}
 	}
