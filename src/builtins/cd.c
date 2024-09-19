@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/18 12:03:38 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:32:14 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,10 @@ char	*cd_prev(char *path, t_env **data)
 	return (prev_path);
 }
 
-// fonction general qui ouvre le canal de navigation des dossiers
-// et gere la lecture du contenu des dossiers. Appelle ensuite "move_to_dir"
-// pour changer de dossier
-char	*cd(char *path, t_env **data)
+void	cd_entry_compare(char *path, char *new_path, t_env **data, DIR *dir)
 {
-	DIR				*dir;
 	struct dirent	*entry;
-	char			*new_path;
 
-	dir = opendir(find_in_env("PWD=", (*data)->var));
-	if (dir == NULL)
-		return (perror("opendir"), NULL);
-	new_path = format_dir_path(path);
 	entry = readdir(dir);
 	while (entry != NULL)
 	{
@@ -120,5 +111,20 @@ char	*cd(char *path, t_env **data)
 		}
 		entry = readdir(dir);
 	}
+}
+
+// fonction general qui ouvre le canal de navigation des dossiers
+// et gere la lecture du contenu des dossiers. Appelle ensuite "move_to_dir"
+// pour changer de dossier
+char	*cd(char *path, t_env **data)
+{
+	DIR				*dir;
+	char			*new_path;
+
+	dir = opendir(find_in_env("PWD=", (*data)->var));
+	if (dir == NULL)
+		return (perror("opendir"), NULL);
+	new_path = format_dir_path(path);
+	cd_entry_compare(path, new_path, data, dir);
 	return (closedir(dir), NULL);
 }

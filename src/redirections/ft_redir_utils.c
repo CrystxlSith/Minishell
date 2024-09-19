@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 13:47:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:31:07 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	exec_redir_in(int index, t_cmd **parsing, t_env **data)
 	fd_redir = open(tmp->str[index], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (fd_redir == -1)
 		return ;
-	printf("FD REDIR : %d\n", fd_redir);
 	if (open_dup_input(fd_redir) == -1)
 		return ;
 	exec_single_cmd(parsing, data);
@@ -33,28 +32,21 @@ void	exec_redir_out(int index, t_cmd **parsing, t_env **data)
 	t_cmd	*tmp;
 
 	tmp = *parsing;
-	printf("BRANCH : %d\n", E_REDIR_OUT);
-	printf("tmp->str[index] : %s\n", tmp->str[index]);
 	fd_redir = open(tmp->str[index], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (fd_redir == -1)
 		return ;
-	printf("FD REDIR : %d\n", fd_redir);
 	if (open_dup_output(fd_redir) == -1)
 		return ;
 	exec_single_cmd(parsing, data);
 }
 
-void	exec_redirection(t_cmd **parsing, t_env **data)
+void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data)
 {
-	t_cmd	*tmp;
-	int		index;
-	int		redir;
 	int		pid;
 	int		status;
+	t_cmd	*tmp;
 
 	tmp = *parsing;
-	index = find_index_file(tmp, 0);
-	redir = tmp->redir_nb;
 	while (redir > 0)
 	{
 		pid = fork();
@@ -75,4 +67,14 @@ void	exec_redirection(t_cmd **parsing, t_env **data)
 		}
 		waitpid(pid, &status, 0);
 	}
+}
+
+void	exec_redirection(t_cmd **parsing, t_env **data)
+{
+	int	index;
+	int	redir;
+
+	index = find_index_file((*parsing), 0);
+	redir = (*parsing)->redir_nb;
+	fork_redirection(index, redir, parsing, data);
 }

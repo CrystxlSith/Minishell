@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 10:23:28 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 13:46:39 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:31:40 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	check_cmd_minishell(int redir_nb, char **cmd, char **envp);
 // ft_redir_utils
 void	exec_redir_in(int index, t_cmd **parsing, t_env **data);
 void	exec_redir_out(int index, t_cmd **parsing, t_env **data);
+void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data);
 void	exec_redirection(t_cmd **parsing, t_env **data);
 
 #endif
