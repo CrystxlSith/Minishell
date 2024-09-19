@@ -1,53 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   ft_multi_piping_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/16 14:10:27 by agiliber         ###   ########.fr       */
+/*   Created: 2024/09/19 15:59:47 by agiliber          #+#    #+#             */
+/*   Updated: 2024/09/19 16:48:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	check_input(char **str)
+int	open_dup_pipe_out(int *fd)
 {
-	int	j;
-
-	j = 1;
-	while (str[1 + j] && j < 3)
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
 	{
-		if (check_space(str[1 + j]) == 1)
-			return (1);
-		j++;
+		perror("dup2 fd[1]");
+		close(fd[1]);
+		return (-1);
 	}
-	return (0);
-}
-
-int	check_space(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 1;
-	while (str[i])
-	{
-		if (str[i] == 32)
-			count = 1;
-		else
-			return (0);
-		i++;
-	}
-	if (count == 1)
-		return (1);
-	return (0);
-}
-
-void	close_fd(int *fd)
-{
-	close(fd[0]);
 	close(fd[1]);
+	return (0);
+}
+
+int	open_dup_pipe_in(int *fd)
+{
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+	{
+		perror("dup2 fd[0]");
+		close(fd[0]);
+		return (-1);
+	}
+	close(fd[0]);
+	return (0);
+}
+
+void	close_fd_multiple_cmd(t_cmd *parsing, int *old_fd)
+{
+	if (parsing->index > 0)
+		close_fd(old_fd);
+}
+
+int	*transfer_fd(int *fd, int *old_fd)
+{
+	old_fd[0] = fd[0];
+	old_fd[1] = fd[1];
+	return (old_fd);
 }
