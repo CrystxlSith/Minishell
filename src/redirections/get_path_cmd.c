@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/18 14:59:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:37:02 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,34 +79,46 @@ char	*get_filepath(char **cmd, char **envp)
 	return (NULL);
 }
 
-void	check_cmd_minishell(char **av, char **envp)
+char	**format_cmd(char **cmd)
 {
-	char	*path;
-	char	**cmd;
 	int		i;
+	char	**new_cmd;
 
 	i = 0;
-	cmd = NULL;
-	while (av[i])
+	new_cmd = NULL;
+	while (cmd[i])
 	{
-		if (av[i][0] == '<' || av[i][0] == '>')
+		if (cmd[i][0] == '<' || cmd[i][0] == '>')
 			break ;
-		cmd[i] = ft_strdup(av[i]);
-		printf("%s ", cmd[i]);
+		else
+			new_cmd[i] = ft_strdup(cmd[i]);
 		i++;
 	}
-	if (access(cmd[0], X_OK) == 0)
-		execve(cmd[0], cmd, envp);
+	new_cmd[i] = NULL;
+	return (new_cmd);
+}
+
+void	check_cmd_minishell(int redir_nb, char **cmd, char **envp)
+{
+	char	*path;
+	char	**new_cmd;
+
+	if (redir_nb > 0)
+		new_cmd = format_cmd(cmd);
+	else
+		new_cmd = cmd;
+	if (access(new_cmd[0], X_OK) == 0)
+		execve(new_cmd[0], new_cmd, envp);
 	else
 	{
-		path = get_filepath(cmd, envp);
+		path = get_filepath(new_cmd, envp);
 		if (path)
 		{
-			execve(path, cmd, envp);
+			execve(path, new_cmd, envp);
 			free(path);
 		}
 	}
 	perror("execve");
+	free_all(new_cmd);
 	free_all(cmd);
-	free_all(av);
 }

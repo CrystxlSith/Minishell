@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 10:23:28 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/18 16:22:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:46:39 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,30 @@
 # include <errno.h>
 # include <fcntl.h>
 
-void	check_cmd_minishell(char **av, char **envp);
-char	*get_filepath(char **av, char **envp);
-int		find_line(char **envp);
-void	free_all(char **s);
-int		check_space(char *str);
-void	close_fd(int *fd);
-int		check_input(char **str);
-int		check_if_builtins(char *input);
+// exec_cmd_minishell
+void	execute_fork(t_cmd **parsing, t_env **data);
 void	exec_cmd(t_cmd **parsing, t_env **data);
 void	exec_single_cmd(t_cmd **parsing, t_env **data);
-void	exec_redirection(t_cmd **parsing, t_env **data);
+void	exec_multiple_cmd(t_cmd **parsing, t_env **data);
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data);
+
+// ft_pipping_utils
+void	close_fd(int *fd);
+int		check_if_builtins(char *input);
+int		find_index_file(t_cmd *parsing, int i);
 int		open_dup_output(int fd_in);
 int		open_dup_input(int fd_in);
-void	execute_fork(t_cmd **parsing, t_env **data);
-void	exec_multiple_cmd(t_cmd **parsing, t_env **data);
+
+// get_path_cmd
+char	*get_filepath(char **av, char **envp);
+char	**get_filepath_norm(char **envp);
+int		find_line(char **envp);
+char	**format_cmd(char **cmd);
+void	check_cmd_minishell(int redir_nb, char **cmd, char **envp);
+
+// ft_redir_utils
+void	exec_redir_in(int index, t_cmd **parsing, t_env **data);
+void	exec_redir_out(int index, t_cmd **parsing, t_env **data);
+void	exec_redirection(t_cmd **parsing, t_env **data);
+
 #endif
