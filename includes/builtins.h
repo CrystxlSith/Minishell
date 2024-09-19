@@ -5,14 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/19 14:38:18 by jopfeiff         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/19 16:51:35 by agiliber         ###   ########.fr       */
->>>>>>> 9dd45f396cbe41f911c6105219c752b272a4262b
+/*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
+/*   Updated: 2024/09/19 17:07:39 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
