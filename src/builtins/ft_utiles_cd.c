@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/18 10:36:17 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:03:36 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 // Navigation dans un dossier avec un path donne.
 int	go_to_path(char *path)
 {
+	print_env();
+	printf("My path : %s\n", path);
 	if (chdir(path) == -1)
 	{
 		perror("Cant find Dir");

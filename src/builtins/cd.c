@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 14:32:14 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:57:59 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ void	cd_entry_compare(char *path, char *new_path, t_env **data, DIR *dir)
 	}
 }
 
+void	print_env(void)
+{
+	printf("GETCWD : %s\n", getcwd(NULL, 0));
+}
+
 // fonction general qui ouvre le canal de navigation des dossiers
 // et gere la lecture du contenu des dossiers. Appelle ensuite "move_to_dir"
 // pour changer de dossier
@@ -122,6 +127,7 @@ char	*cd(char *path, t_env **data)
 	char			*new_path;
 
 	dir = opendir(find_in_env("PWD=", (*data)->var));
+
 	if (dir == NULL)
 		return (perror("opendir"), NULL);
 	new_path = format_dir_path(path);
