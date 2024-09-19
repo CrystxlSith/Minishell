@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 11:36:35 by wbelyne           #+#    #+#             */
-/*   Updated: 2024/09/18 11:28:53 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:39:42 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,5 @@ int		print_unsigned_fd(int fd, unsigned int nb);
 int		print_str_fd(int fd, char *str);
 int		print_nb_fd(int fd, int nb);
 int		ft_printf_fd(int fd, const char *s, ...);
-
 
 #endif

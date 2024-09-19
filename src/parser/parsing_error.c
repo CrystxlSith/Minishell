@@ -3,13 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:38:32 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/18 11:13:36 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/19 11:54:40 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-

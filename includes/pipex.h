@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 10:23:28 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/18 16:22:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:23:35 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# include "minishell.h"
 # include <stdbool.h>
 # include <limits.h>
 # include <sys/wait.h>

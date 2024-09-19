@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/17 16:58:17 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:38:18 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
+# include "minishell.h"
 
 typedef struct s_env
 {

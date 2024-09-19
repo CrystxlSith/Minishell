@@ -6,6 +6,9 @@
 		"errno.h": "c",
 		"builtins.h": "c",
 		"history.h": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"dirent.h": "c",
+		"parsing.h": "c",
+		"pipex.h": "c"
 	}
 }

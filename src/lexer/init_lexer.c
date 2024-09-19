@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:16:44 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/18 08:09:26 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/19 11:57:10 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-// Create a new token
 
+// Create a new token
 void	init_new_token(t_lexer *new_token, t_lexer_type type, char *data)
 {
 	new_token->next = NULL;
@@ -20,15 +20,14 @@ void	init_new_token(t_lexer *new_token, t_lexer_type type, char *data)
 	new_token->data = ft_strdup(data);
 	new_token->type = type;
 	new_token->index = 0;
-	
 }
 
 //Create new token
-void create_new_token(t_lexer_type  type, char *data, t_lexer **tokens)
+void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens)
 {
-	t_lexer *new_token;
-	t_lexer *last;
-	
+	t_lexer	*new_token;
+	t_lexer	*last;
+
 	if (!data || !tokens)
 		return ;
 	new_token = ft_calloc(1, sizeof(t_lexer));
