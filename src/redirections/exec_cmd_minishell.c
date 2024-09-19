@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 13:47:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:29:07 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,5 @@ void	exec_single_cmd(t_cmd **parsing, t_env **data)
 		printf("Check CMD %s ", (*parsing)->str[0]);
 		check_cmd_minishell((*parsing)->redir_nb, \
 			(*parsing)->str, (*data)->var);
-	}
-}
-
-void	exec_multiple_cmd(t_cmd **parsing, t_env **data)
-{
-	t_cmd	*tmp;
-
-	tmp = *parsing;
-	while (tmp != NULL)
-	{
-		execute_fork(parsing, data);
-		tmp = tmp->next;
 	}
 }

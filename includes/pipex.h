@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 10:23:28 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 14:31:40 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:03:38 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,11 @@ void	exec_redir_in(int index, t_cmd **parsing, t_env **data);
 void	exec_redir_out(int index, t_cmd **parsing, t_env **data);
 void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data);
 void	exec_redirection(t_cmd **parsing, t_env **data);
+
+// ft_multi_piping_utils
+int		open_dup_pipe_out(int *fd);
+int		open_dup_pipe_in(int *fd);
+void	close_fd_multiple_cmd(t_cmd *parsing, int *old_fd);
+int		*transfer_fd(int *fd, int *old_fd);
 
 #endif
