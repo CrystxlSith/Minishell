@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 13:36:07 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:34:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	exec_redir_in(int index, t_cmd **parsing, t_env **data)
 	t_cmd	*tmp;
 
 	tmp = *parsing;
+	printf("%s\n", tmp->str[index]);
 	fd_redir = open(tmp->str[index], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (fd_redir == -1)
 		return ;
@@ -32,6 +33,7 @@ void	exec_redir_out(int index, t_cmd **parsing, t_env **data)
 	t_cmd	*tmp;
 
 	tmp = *parsing;
+	printf("%s\n", tmp->str[index]);
 	fd_redir = open(tmp->str[index], O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (fd_redir == -1)
 		return ;
@@ -75,6 +77,8 @@ void	exec_redirection(t_cmd **parsing, t_env **data)
 	int	redir;
 
 	index = find_index_file((*parsing), 0);
+	printf("INDEX : %d\n", index);
 	redir = (*parsing)->redir_nb;
+	printf("REDIR : %d\n", redir);
 	fork_redirection(index, redir, parsing, data);
 }

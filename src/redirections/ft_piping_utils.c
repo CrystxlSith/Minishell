@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 13:35:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:32:59 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	open_dup_output(int fd_in)
 {
 	if (dup2(fd_in, STDOUT_FILENO) == -1)
 	{
-		perror("dup2 fd_in");
+		perror("dup2 fd_ouput");
 		close(fd_in);
 		return (-1);
 	}
@@ -28,6 +28,8 @@ int	open_dup_input(int fd_in)
 {
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 	{
+		perror("dup2 fd_input");
+		close(fd_in);
 		return (-1);
 	}
 	close(fd_in);

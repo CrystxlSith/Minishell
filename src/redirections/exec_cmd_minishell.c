@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 13:35:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:37:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 {
+	printf("%s\n", "Exec cmd minishell");
 	if ((*parsing)->next == NULL)
 		exec_cmd(parsing, data);
 	else
@@ -48,6 +49,8 @@ void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 
 void	exec_cmd(t_cmd **parsing, t_env **data)
 {
+	printf("%s\n", "Exec cmd");
+	printf("%d\n", (*parsing)->redir_nb);
 	if ((*parsing)->redir_nb > 0)
 		exec_redirection(parsing, data);
 	else
