@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   ft_piping_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 13:37:34 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:35:35 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	close_fd(int *fd)
 
 int	find_index_file(t_cmd *parsing, int i)
 {
-	while(parsing->str[i])
+	while (parsing->str[i])
 	{
 		if (ft_strncmp(parsing->str[i], "<", 2) == 0
 			|| ft_strncmp(parsing->str[i], ">", 2) == 0)

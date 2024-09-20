@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/20 11:22:08 by agiliber         ###   ########.fr       */
-=======
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/19 17:08:58 by jopfeiff         ###   ########.fr       */
->>>>>>> b09cd9e408975327dc823dd72e61cd59ef66c5d7
+/*   Updated: 2024/09/20 13:36:50 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +119,7 @@ int main(int ac, char **av, char **envp)
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
 		{
 			free(minishell.line_read);
-			rl_clear_history();	
+			rl_clear_history();
 			break ;
 		}
 		add_history(minishell.line_read);
