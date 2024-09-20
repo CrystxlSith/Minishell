@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/19 14:46:53 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:25:25 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ typedef struct	s_cmd
 	struct s_cmd	*prev;
 }					t_cmd;
 
-t_cmd	*parser(t_lexer **tokens, t_env **data);
+t_cmd	*parser(t_lexer **tokens);
+int	is_cmd(t_lexer_type type);
+int	is_quote(t_lexer_type type);
 void	add_index_to_token(t_lexer *tokens);
 int lex_error_handler(t_lexer *tokens);
 int	pipes_err(t_lexer *head);

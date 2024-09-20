@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/19 17:08:58 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:54:58 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_cmd(t_cmd *head)
 		{
 			printf("Command: ");
 			for (int i = 0; current->str[i]; i++)
-				printf("%s ", current->str[i]);
+				printf("%s", current->str[i]);
 		}
 		printf("\n");
 		printf("Redirections: ");
@@ -53,6 +53,20 @@ void	print_cmd(t_cmd *head)
 			printf("Redir_nb: %d\n", current->redir_nb);
 		// if (current->elem_nb)
 			printf("Elem nb: %d\n", current->elem_nb);
+		current = current->next;
+	}
+}
+
+void	print_tokens(t_lexer *head)
+{
+	t_lexer	*current;
+
+	current = head;
+	while (current)
+	{
+		printf("Token: %s\n", current->data);
+		printf("Type: %d\n", current->type);
+		printf("Index: %d\n", current->index);
 		current = current->next;
 	}
 }
@@ -124,18 +138,19 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
+		// print_tokens(tokens);	
 		if (lex_error(tokens))
 			continue ;
 		if (minishell.line_read)
 			free(minishell.line_read);
-		cmd_parsing = parser(&tokens, &data);
+		cmd_parsing = parser(&tokens);
 		free_tokens(tokens);
 		if (!cmd_parsing)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
 		// print_cmd(cmd_parsing);
-		// if (cmd_parsing->str)
-		// 	execute_fork(&cmd_parsing, &data);
+		if (cmd_parsing->str)
+			execute_fork(&cmd_parsing, &data);
 		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}

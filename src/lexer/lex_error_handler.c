@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 07:43:18 by kali              #+#    #+#             */
-/*   Updated: 2024/09/19 11:59:45 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:55:59 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static int	redir_err(t_lexer *head)
 			}
 			else if (!current->next)
 			{
-				printf("minishell: syntax error near unexpected token \
-				`newline'\n");
+				printf("minishell: syntax error near unexpected token `newline'\n");
 				return (1);
 			}
 		}
@@ -56,8 +55,8 @@ int	pipes_err(t_lexer *head)
 			if (!current->prev || !current->next || \
 				current->next->type == E_PIPE || current->prev->type == E_PIPE)
 			{
-				printf("minishell: syntax error near unexpected \
-					token %s\n", current->data);
+				printf("minishell: syntax error near unexpected token %s\n"\
+				, current->data);
 				return (1);
 			}
 		}
@@ -75,8 +74,8 @@ int	ampersand_err(t_lexer *head)
 	{
 		if (current->type == E_AMPERSAND)
 		{
-			printf("bash: syntax error near unexpected \
-				token %s\n", current->data);
+			printf("bash: syntax error near unexpected token %s\n"\
+			, current->data);
 			return (1);
 		}
 		current = current->next;

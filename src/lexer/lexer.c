@@ -6,13 +6,13 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:01:08 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/19 16:50:50 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:54:16 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//Handle Single && Double quotes
+// Handle Single && Double quotes
 void	quotes_handler(t_lexer **tokens, char **str)
 {
 	char	quote;
@@ -45,8 +45,6 @@ static int	check_tokens(char **str, t_lexer **tokens)
 
 	if (**str == '|')
 		return (pipe_handler(tokens, str), 1);
-	else if (ft_isspace(**str))
-		return (space_handler(tokens, str), 1);
 	else if (ft_strchr(IS_REDIRECTION, **str))
 		return (redir_handler(tokens, str), 1);
 	else if (**str == '\'' || **str == '"')
@@ -110,12 +108,17 @@ t_lexer	*tokenize(char *str)
 	t_lexer	*tokens;
 
 	tokens = NULL;
+	while (ft_isspace(*str))
+		str++;
 	while (*str)
 	{
-		while (ft_isspace(*str))
-			str++;
 		if (!*str)
 			break ;
+		if (ft_isspace(*str))
+		{
+			space_handler(&tokens, &str);
+			continue;
+		}
 		if (*str && ft_isascii(*str) && !ft_strchr(IS_TOKEN, *str) && \
 			*str != '-')
 			check_cmd(&str, &tokens);
