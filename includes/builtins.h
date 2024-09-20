@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 16:51:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:40:18 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,12 @@ char	*cd_prev_oldpwd(char *current_path, t_env **data);
 int		get_dir_len(char *path);
 char	*cd_get_prev_path(char *path, char *current_path);
 char	*cd_prev_newpwd(char *path, char *current_path);
-char	*cd_home(char *path, t_env **data);
-char	*cd_next(char *path, t_env **data);
-char	*cd_prev(char *path, t_env **data);
+void	cd_home(char *path, t_env **data);
+void	cd_next(char *path, t_env **data);
+void	cd_prev(char *path, t_env **data);
 char	*cd(char *path, t_env **data);
-char	*move_to_dir(char *path, t_env **data);
+void	move_to_dir(char *path, t_env **data);
 char	*format_dir_path(char *path);
-void	print_env(void);
 
 //BUILTINS ---> EXPORT
 void	unset(char *input, t_env **data);

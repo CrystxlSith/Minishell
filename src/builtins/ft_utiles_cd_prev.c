@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:34:15 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 17:05:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:16:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*cd_prev_oldpwd(char *current_path, t_env **data)
 	char	*prev_path;
 
 	prev_path = find_in_env("OLDPWD=", (*data)->var);
-	printf("prev path : %s\n", prev_path);
 	if (go_to_path(prev_path) == -1)
 		return (free(prev_path), free(current_path), NULL);
 	return (prev_path);
@@ -77,7 +76,6 @@ char	*cd_prev_newpwd(char *path, char *current_path)
 	char	*prev_path;
 
 	prev_path = cd_get_prev_path(path, current_path);
-	printf("prev path : %s\n", prev_path);
 	if (!prev_path)
 		return (free(prev_path), free(current_path), NULL);
 	if (go_to_path(prev_path) == -1)

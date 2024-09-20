@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:00:25 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 17:02:02 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 10:25:49 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ void	pwd(t_env **data)
 	if (!input)
 		return ;
 	printf("%s\n", input);
-	print_env();
 	free(input);
 }

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 17:03:36 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:16:13 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 
 	old_path = ft_strjoin("OLDPWD=", tmp_old);
 	new_path = ft_strjoin("PWD=", tmp_new);
+	printf("old path update : %s\n", old_path);
+	printf("new path update : %s\n", new_path);
 	export(old_path, data);
 	export(new_path, data);
 }
@@ -36,8 +38,6 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 // Navigation dans un dossier avec un path donne.
 int	go_to_path(char *path)
 {
-	print_env();
-	printf("My path : %s\n", path);
 	if (chdir(path) == -1)
 	{
 		perror("Cant find Dir");
@@ -71,15 +71,13 @@ char	*format_dir_path(char *path)
 }
 
 // Definit quelle fonction de deplacement de dossier faire
-char	*move_to_dir(char *path, t_env **data)
+void	move_to_dir(char *path, t_env **data)
 {
-	printf("PATH %s\n", path);
 	if (path == NULL || ft_strcmp(path, "") == 0)
-		return (cd_home(path, data));
+		cd_home(path, data);
 	else if (ft_strncmp(path, "../", 3) == 0
 		|| ft_strncmp(path, "..", 2) == 0)
-		return (cd_prev(path, data));
+		cd_prev(path, data);
 	else if (path != NULL || ft_strncmp(path, "./", 2) == 0)
-		return (cd_next(path, data));
-	return (NULL);
+		cd_next(path, data);
 }

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/16 10:09:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 13:15:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ char	**ft_realloc(int new_size, t_env **data)
 void	export_existing(char *flag, t_env **data, char *cmd)
 {
 	int	i;
-	int	index;
 
 	i = get_index(data, flag);
 	free((*data)->var[i]);
 	(*data)->var[i] = ft_strdup(cmd);
-	index = 0;
 	free(cmd);
 	return ;
 }
@@ -96,6 +94,7 @@ void	export_new(t_env **data, char *cmd)
 		return ;
 	}
 	duplicate_env(data, new_tab, cmd);
+	print_tab(data);
 }
 
 // En fonction de si la variable existe deja dans le tableau d'environnement
