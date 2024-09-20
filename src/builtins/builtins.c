@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 13:13:58 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:45:58 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	builtins(char **input, t_env **data)
 {
-	int			i;
+	int	i;
 
 	if (!input)
 		return (0);

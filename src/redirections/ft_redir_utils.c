@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 14:34:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:50:35 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	exec_redir_in(int index, t_cmd **parsing, t_env **data)
 	if (open_dup_input(fd_redir) == -1)
 		return ;
 	exec_single_cmd(parsing, data);
+	exit(0);
 }
 
 void	exec_redir_out(int index, t_cmd **parsing, t_env **data)
@@ -40,6 +41,7 @@ void	exec_redir_out(int index, t_cmd **parsing, t_env **data)
 	if (open_dup_output(fd_redir) == -1)
 		return ;
 	exec_single_cmd(parsing, data);
+	exit(0);
 }
 
 void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data)
@@ -63,11 +65,11 @@ void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data)
 		}
 		else
 		{
-			waitpid(pid, &status, 0);
 			tmp->redir = tmp->redir->next;
 			index = find_index_file(tmp, index);
 			redir--;
 		}
+		waitpid(pid, &status, 0);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 14:37:16 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:47:44 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ void	exec_cmd(t_cmd **parsing, t_env **data)
 void	exec_single_cmd(t_cmd **parsing, t_env **data)
 {
 	if (check_if_builtins((*parsing)->str[0]))
+	{
 		builtins((*parsing)->str, data);
+	}
 	else
 		check_cmd_minishell((*parsing)->redir_nb, \
 			(*parsing)->str, (*data)->var);
