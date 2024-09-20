@@ -3,59 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:01:08 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/18 09:32:39 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/19 16:50:50 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// Create a new token
-
-
-
 //Handle Single && Double quotes
 void	quotes_handler(t_lexer **tokens, char **str)
 {
 	char	quote;
+	char	*start;
+	char	*content;
 
 	quote = **str;
-	if (quote == '\'')
-	{
-		char	*data;
-		int	i;
-
-		i = 0;
+	start = ++(*str);
+	while (**str && **str != quote)
 		(*str)++;
-		data = *str;
-		while (**str && **str != quote)
-		{
-			(*str)++;
-			i++;
-		}
-		data[i] = '\0';
-		create_new_token(E_S_QUOTE, data, tokens);
+	content = ft_substr(start, 0, *str - start);
+	if (**str == quote)
+	{
+		if (quote == '\'')
+			create_new_token(E_S_QUOTE, content, tokens);
+		else
+			create_new_token(E_D_QUOTE, content, tokens);
 		(*str)++;
 	}
-	else if (quote == '"')
-	{
-		char	*data;
-		int	i;
-
-		i = 0;
-		(*str)++;
-		data = *str;
-		while (**str && **str != quote)
-		{
-			(*str)++;
-			i++;
-		}
-		data[i] = '\0';
-		create_new_token(E_D_QUOTE, data, tokens);
-		(*str)++;
-	}
+	else
+		create_new_token(E_UNKNOWN, \
+			ft_strjoin(ft_strdup(start - 1), content), tokens);
+	free(content);
 }
 
 // Check if the character is a token and create a new token
@@ -65,7 +45,7 @@ static int	check_tokens(char **str, t_lexer **tokens)
 
 	if (**str == '|')
 		return (pipe_handler(tokens, str), 1);
-	else if (**str == ' ')
+	else if (ft_isspace(**str))
 		return (space_handler(tokens, str), 1);
 	else if (ft_strchr(IS_REDIRECTION, **str))
 		return (redir_handler(tokens, str), 1);
@@ -74,7 +54,8 @@ static int	check_tokens(char **str, t_lexer **tokens)
 	else if (**str == '&')
 	{
 		if (*(*str + 1) == '&')
-			return (create_new_token(E_AMPERSAND, "&&", tokens), (*str) += 2, 1);
+			return (create_new_token(E_AMPERSAND, "&&", tokens), \
+				(*str) += 2, 1);
 		else
 			return (create_new_token(E_AMPERSAND, "&", tokens), (*str)++, 1);
 	}
@@ -89,8 +70,8 @@ static int	check_tokens(char **str, t_lexer **tokens)
 
 static void	check_cmd(char **str, t_lexer **tokens)
 {
+	int		i;
 	char	*cmd;
-	int	i;
 
 	i = 0;
 	cmd = ft_strdup(*str);
@@ -106,8 +87,8 @@ static void	check_cmd(char **str, t_lexer **tokens)
 
 void	check_options(char **str, t_lexer **tokens)
 {
+	int		i;
 	char	*options;
-	int	i;
 
 	i = 0;
 	options = ft_strdup(*str);
@@ -126,7 +107,7 @@ void	check_options(char **str, t_lexer **tokens)
 // Tokenize the input string
 t_lexer	*tokenize(char *str)
 {
-	t_lexer *tokens;
+	t_lexer	*tokens;
 
 	tokens = NULL;
 	while (*str)
@@ -135,7 +116,8 @@ t_lexer	*tokenize(char *str)
 			str++;
 		if (!*str)
 			break ;
-		if (*str && ft_isascii(*str) && !ft_strchr(IS_TOKEN, *str) && *str != '-')
+		if (*str && ft_isascii(*str) && !ft_strchr(IS_TOKEN, *str) && \
+			*str != '-')
 			check_cmd(&str, &tokens);
 		else if (*str && *str == '-')
 			check_options(&str, &tokens);
@@ -145,7 +127,5 @@ t_lexer	*tokenize(char *str)
 			str++;
 	}
 	add_index_to_token(tokens);
-	// lex_error_handler(tokens);
-	// check_quotes(tokens);
 	return (tokens);
 }

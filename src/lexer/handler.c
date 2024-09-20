@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:44:42 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/18 08:08:21 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/19 11:55:57 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	redir_handler(t_lexer **token, char **str)
 		{
 			create_new_token(E_REDIR_APP, ">>", token);
 			(*str) += 2;
-            return ;
+			return ;
 		}
 		create_new_token(E_REDIR_OUT, ">", token);
 		(*str)++;
@@ -31,7 +31,7 @@ void	redir_handler(t_lexer **token, char **str)
 		{
 			create_new_token(E_REDIR_DEL, "<<", token);
 			(*str) += 2;
-            return ;
+			return ;
 		}
 		create_new_token(E_REDIR_IN, "<", token);
 		(*str)++;

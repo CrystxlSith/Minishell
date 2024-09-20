@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
 /*   Updated: 2024/09/20 11:22:08 by agiliber         ###   ########.fr       */
+=======
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
+/*   Updated: 2024/09/19 17:08:58 by jopfeiff         ###   ########.fr       */
+>>>>>>> b09cd9e408975327dc823dd72e61cd59ef66c5d7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +27,42 @@
 // 5) programmer le heredoc													  //
 // 6) tenter de casser le code												  //
 // ########################################################################## //
+
+void	print_cmd(t_cmd *head)
+{
+	t_cmd	*current;
+	t_lexer	*redir;
+
+	redir = NULL;
+	current = head;
+	while (current)
+	{
+		if (current->str)
+		{
+			printf("Command: ");
+			for (int i = 0; current->str[i]; i++)
+				printf("%s ", current->str[i]);
+		}
+		printf("\n");
+		printf("Redirections: ");
+		redir = current->redir;
+		while (redir)
+		{
+			printf("%s ", redir->data);
+			redir = redir->next;
+		}
+		printf("\n");
+		// if (current->index)
+			printf("Index: %d\n", current->index);
+		// if (current->here_doc)
+			printf("Here_doc: %s\n", current->here_doc);
+		// if (current->redir_nb)
+			printf("Redir_nb: %d\n", current->redir_nb);
+		// if (current->elem_nb)
+			printf("Elem nb: %d\n", current->elem_nb);
+		current = current->next;
+	}
+}
 
 void	free_tokens(t_lexer *head)
 {
@@ -56,9 +99,9 @@ void	free_parsed_cmd(t_cmd *head)
 			}
 			free(current->str);
 		}
-
 		current = current->next;
 	}
+	free(current);
 }
 
 int main(int ac, char **av, char **envp)
@@ -74,28 +117,33 @@ int main(int ac, char **av, char **envp)
 	tokens = NULL;
 	(void)ac;
 	(void)av;
+	(void)envp;
 	while (1)
 	{
 		minishell.line_read = readline("minishell> ");
 		if (minishell.line_read[0] == '\0')
 			continue ;
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
+		{
+			free(minishell.line_read);
+			rl_clear_history();	
 			break ;
+		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
 		if (lex_error(tokens))
 			continue ;
 		if (minishell.line_read)
 			free(minishell.line_read);
-		cmd_parsing = parser(&tokens);
+		cmd_parsing = parser(&tokens, &data);
+		free_tokens(tokens);
 		if (!cmd_parsing)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
-		free_tokens(tokens);
-		if (cmd_parsing->str)
-			execute_fork(&cmd_parsing, &data);
+		// print_cmd(cmd_parsing);
+		// if (cmd_parsing->str)
+		// 	execute_fork(&cmd_parsing, &data);
 		free_parsed_cmd(cmd_parsing);
-		// rl_redisplay();  // Rafraîchit l'affichage du prompt
 		rl_on_new_line();
 	}
 	rl_clear_history();

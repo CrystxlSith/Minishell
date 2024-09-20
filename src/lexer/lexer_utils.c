@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:33:17 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/12 11:45:15 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:55:26 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ t_lexer	*find_last(t_lexer *node)
 }
 
 //add index to token
-void add_index_to_token(t_lexer *tokens)
+void	add_index_to_token(t_lexer *tokens)
 {
-	t_lexer *current;
-    int i;
+	t_lexer	*current;
+	int		i;
 
 	current = tokens;
-    i = 0;
+	i = 0;
 	while (current != NULL)
 	{
 		current->index = i;

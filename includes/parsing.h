@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/18 11:06:07 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/19 14:46:53 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define TOKEN_H
 
 # include "../libft/libft.h"
+# include "minishell.h"
+# include "builtins.h"
+# include <stdbool.h>
+# include <limits.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <fcntl.h>
 # define SPACE_CHAR "|<>"
 # define IS_TOKEN "\"'|<>&"
 # define IS_REDIRECTION "<>"
@@ -60,14 +67,15 @@ typedef struct	s_cmd
 	struct s_cmd	*prev;
 }					t_cmd;
 
+t_cmd	*parser(t_lexer **tokens, t_env **data);
 void	add_index_to_token(t_lexer *tokens);
-t_cmd	*parser(t_lexer **tokens);
 int lex_error_handler(t_lexer *tokens);
 int	pipes_err(t_lexer *head);
 void	print_lexers(t_lexer *head);
 void	print_info(t_cmd *parsed_cmd);
 int		check_synthax_error(t_lexer *tokens);
 t_cmd	*create_new_cmd();
+int	add_count_elem(char **data);
 int lex_error(t_lexer *head);
 int		is_redirection(t_lexer_type type);
 void	handle_redirection(t_lexer *token, t_cmd *cmd);
