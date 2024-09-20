@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 11:36:35 by wbelyne           #+#    #+#             */
-/*   Updated: 2024/09/10 16:23:34 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:39:42 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int		print_char(int c);
 int		print_unsigned(unsigned int nb);
 int		print_str(char *str);
 int		print_nb(int nb);
-int		print_char(int c);
 int		ft_printf(const char *s, ...);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_isalpha(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+int		ft_array_len(char **array);
 int		ft_isascii(int c);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_isspace(int c);
@@ -102,4 +102,14 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	gnl_strlen(const char *s);
 size_t	gnl_strlcpy(char *dst, const char *src, size_t size);
 size_t	gnl_strlcat(char *dst, const char *src, size_t size);
+
+int		ft_print_ptr_fd(int fd, unsigned long int i);
+int		print_nb_fd(int fd, int nb);
+int		ft_print_hex_fd(int fd, unsigned int i, char c);
+int		print_char_fd(int fd, int c);
+int		print_unsigned_fd(int fd, unsigned int nb);
+int		print_str_fd(int fd, char *str);
+int		print_nb_fd(int fd, int nb);
+int		ft_printf_fd(int fd, const char *s, ...);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/11 10:54:57 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:46:53 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 # define TOKEN_H
 
 # include "../libft/libft.h"
+# include "minishell.h"
+# include "builtins.h"
+# include <stdbool.h>
+# include <limits.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <fcntl.h>
 # define SPACE_CHAR "|<>"
-# define IS_TOKEN "\"'|<>"
+# define IS_TOKEN "\"'|<>&"
+# define IS_REDIRECTION "<>"
 
 // Token types
 typedef enum s_lexer_type
@@ -23,16 +31,17 @@ typedef enum s_lexer_type
 	E_CMD, //*str
 	E_ARG,
 	E_REDIR_IN,
-	// E_SPACE,
 	E_REDIR_OUT,
 	E_OPTIONS,
 	E_REDIR_DEL,
+	E_AMPERSAND,
 	E_REDIR_APP,
 	E_PIPE,
 	E_S_QUOTE,
 	E_D_QUOTE,
 	E_UNKNOWN,
 	END,
+	E_SPACE,
 }	t_lexer_type;
 
 // Token structure
@@ -50,6 +59,7 @@ typedef struct	s_cmd
 {
 	int				redir_nb;
 	int				index;
+	int				elem_nb;
 	char			**str;
 	char			*here_doc;
 	t_lexer			*redir;
@@ -57,14 +67,22 @@ typedef struct	s_cmd
 	struct s_cmd	*prev;
 }					t_cmd;
 
+t_cmd	*parser(t_lexer **tokens, t_env **data);
 void	add_index_to_token(t_lexer *tokens);
-t_cmd	*parser(t_lexer **tokens);
+int lex_error_handler(t_lexer *tokens);
+int	pipes_err(t_lexer *head);
 void	print_lexers(t_lexer *head);
 void	print_info(t_cmd *parsed_cmd);
 int		check_synthax_error(t_lexer *tokens);
 t_cmd	*create_new_cmd();
+int	add_count_elem(char **data);
+int lex_error(t_lexer *head);
 int		is_redirection(t_lexer_type type);
 void	handle_redirection(t_lexer *token, t_cmd *cmd);
+void	redir_handler(t_lexer **token, char **str);
+void	space_handler(t_lexer **tokens, char **str);
+void	pipe_handler(t_lexer **tokens, char **str);
 t_lexer	*find_last(t_lexer *node);
+void	fill_nbr_element(t_cmd **parsing);
 
 #endif
