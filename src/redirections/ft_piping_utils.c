@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 14:32:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:26:02 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ int	find_index_file(t_cmd *parsing, int i)
 {
 	while (parsing->str[i])
 	{
-		if (ft_strncmp(parsing->str[i], "<", 2) == 0
-			|| ft_strncmp(parsing->str[i], ">", 2) == 0)
+		if (ft_strncmp(parsing->str[i], "<", 2) == 0)
+			return (i - 1);
+		else if (ft_strncmp(parsing->str[i], ">", 2) == 0)
 			return (i + 1);
 		i++;
 	}
