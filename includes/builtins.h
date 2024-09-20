@@ -3,19 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
-/*   Created: 2024/09/11 11:24:52 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 11:40:18 by agiliber         ###   ########.fr       */
-=======
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/19 17:07:39 by jopfeiff         ###   ########.fr       */
->>>>>>> b09cd9e408975327dc823dd72e61cd59ef66c5d7
+/*   Updated: 2024/09/20 13:34:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
