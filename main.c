@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/20 14:54:58 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:39:49 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,9 +148,9 @@ int main(int ac, char **av, char **envp)
 		if (!cmd_parsing)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
-		// print_cmd(cmd_parsing);
-		if (cmd_parsing->str)
-			execute_fork(&cmd_parsing, &data);
+		print_cmd(cmd_parsing);
+		// if (cmd_parsing->str)
+		// 	execute_fork(&cmd_parsing, &data);
 		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}
