@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/20 15:47:12 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:07:22 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	replace_dollar(char **input)
 		return ;
 	while ((*input)[i])
 	{
-		if ((*input)[i - 1] && (*input)[i] == '$' && ft_isspace((*input)[i - 1]))
+		if ((*input)[i] == '$')
 		{
 			tmp = malloc(sizeof(char) * (ft_strlen(*input) - i + 1));
 			if (!tmp)
@@ -153,38 +153,25 @@ void	new_quote_cmd(t_lexer *tmp, t_cmd *current)
 	add_to_cmd(tmp->data, current);
 }
 
-// void	dollar_cmd_handler(t_lexer *tmp)
-// {
-	
-// 		replace_dollar(&tmp->data);
-// }
-
-// void	env_handler(t_lexer *tmp, t_cmd *current)
-// {
-// 	while (tmp)
-// 	{
-// 		tmp = tmp->next;
-// 	}
-		
-// }
-
 static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 {
 	while (tmp)
 	{
+		if (is_cmd(tmp->type))
+			replace_dollar(&tmp->data);
 			// dollar_cmd_handler(tmp)
 		if (is_cmd(tmp->type) || is_redirection(tmp->type))
 		{
 			if (tmp->next && is_quote(tmp->next->type))
 			{
-				printf("%s\n", tmp->data);
+				// printf("%s\n", tmp->data);
 				tmp->data = ft_strjoin(tmp->data, tmp->next->data);
-				printf("%s\n", tmp->data);
-				if (is_cmd(tmp->type))
-					replace_dollar(&tmp->data);
-				printf("%s\n", tmp->data);
+				replace_dollar(&tmp->data);
+				// printf("%s\n", tmp->data);
+				// printf("%s\n", tmp->data);
 				add_to_cmd(tmp->data, current);
-				tmp = tmp->next;
+				if (tmp->next)
+					tmp = tmp->next;
 			}
 			else
 				add_to_cmd(tmp->data, current);
