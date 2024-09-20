@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 15:06:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:14:43 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data)
 		}
 		else
 		{
-			waitpid(pid, &status, 0);
 			tmp->redir = tmp->redir->next;
 			index = find_index_file(tmp, index);
 			redir--;
 		}
+		waitpid(pid, &status, 0);
 	}
 }
 

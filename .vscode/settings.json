@@ -2,6 +2,13 @@
     "files.associations": {
 		"readline.h": "c",
 		"minishell.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"errno.h": "c",
+		"builtins.h": "c",
+		"history.h": "c",
+		"stdbool.h": "c",
+		"dirent.h": "c",
+		"parsing.h": "c",
+		"pipex.h": "c"
 	}
 }
