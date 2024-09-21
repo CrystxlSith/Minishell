@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utiles.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/16 10:09:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/21 04:21:38 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ char	**ft_realloc(int new_size, t_env **data)
 void	export_existing(char *flag, t_env **data, char *cmd)
 {
 	int	i;
-	int	index;
+	// int	index;
 
 	i = get_index(data, flag);
 	free((*data)->var[i]);
 	(*data)->var[i] = ft_strdup(cmd);
-	index = 0;
+	// index = 0;
 	free(cmd);
 	return ;
 }

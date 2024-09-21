@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/20 16:07:22 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/21 09:39:21 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ void	replace_dollar(char **input)
 				while (env_value[j])
 					new_input[k++] = env_value[j++];
 			}
+			if (!env_value)
+				new_input[k++] = '$';
 		}
 		else
 			new_input[k++] = (*input)[i++];
@@ -145,11 +147,8 @@ void	new_cmd(t_cmd **current)
 
 void	new_quote_cmd(t_lexer *tmp, t_cmd *current)
 {
-	if (!tmp->next && tmp->prev->type == E_SPACE)
+	if (tmp->type == E_D_QUOTE)
 		replace_dollar(&tmp->data);
-	if (tmp->next && tmp->next->type == E_SPACE && tmp->prev->type == E_SPACE)
-		if (tmp->type == E_D_QUOTE)
-			replace_dollar(&tmp->data);
 	add_to_cmd(tmp->data, current);
 }
 
@@ -159,16 +158,13 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 	{
 		if (is_cmd(tmp->type))
 			replace_dollar(&tmp->data);
-			// dollar_cmd_handler(tmp)
 		if (is_cmd(tmp->type) || is_redirection(tmp->type))
 		{
 			if (tmp->next && is_quote(tmp->next->type))
 			{
-				// printf("%s\n", tmp->data);
 				tmp->data = ft_strjoin(tmp->data, tmp->next->data);
-				replace_dollar(&tmp->data);
-				// printf("%s\n", tmp->data);
-				// printf("%s\n", tmp->data);
+				if (tmp->next->type == E_D_QUOTE)
+					replace_dollar(&tmp->data);
 				add_to_cmd(tmp->data, current);
 				if (tmp->next)
 					tmp = tmp->next;
@@ -210,5 +206,6 @@ t_cmd	*parser(t_lexer **tokens)
 	init_cmd(&head, &current);
 	// env_handler(tmp, current);
 	cmd_adding(tmp, current);
+	// remove_space_token(&head);
 	return (head);
 }
