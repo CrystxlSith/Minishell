@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/20 13:33:15 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:51:24 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int		open_dup_input(int fd_in);
 // get_path_cmd
 char	*get_filepath(char **av, char **envp);
 char	**get_filepath_norm(char **envp);
-int		find_line(char **envp);
-char	**format_cmd(char **cmd);
-void	check_cmd_minishell(int redir_nb, char **cmd, char **envp);
+char	**format_cmd_inredir(char **cmd);
+char	**format_cmd_outredir(char **cmd);
+void	check_cmd_minishell(t_cmd **parsing, char **cmd, char **envp);
 
 // ft_redir_utils
+int		find_line(char **envp);
 void	exec_redir_in(int index, t_cmd **parsing, t_env **data);
 void	exec_redir_out(int index, t_cmd **parsing, t_env **data);
 void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data);

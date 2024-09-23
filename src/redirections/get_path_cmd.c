@@ -6,25 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 16:01:58 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:51:09 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	find_line(char **envp)
-{
-	int	index;
-
-	index = 0;
-	while (envp[index])
-	{
-		if (ft_strncmp(envp[index], "PATH=", 5) == 0)
-			break ;
-		index++;
-	}
-	return (index);
-}
 
 char	**get_filepath_norm(char **envp)
 {
@@ -79,7 +65,28 @@ char	*get_filepath(char **cmd, char **envp)
 	return (NULL);
 }
 
-char	**format_cmd(char **cmd)
+char	**format_cmd_outredir(char **cmd)
+{
+	int		i;
+	int		j;
+	char	**new_cmd;
+
+	i = 0;
+	j = 0;
+	new_cmd = NULL;
+	while (cmd[i])
+	{
+		while (cmd[i][0] != '<')
+			i++;
+		i++;
+		new_cmd[j] = ft_strdup(cmd[i + j]);
+		j++;
+	}
+	new_cmd[j] = NULL;
+	return (new_cmd);
+}
+
+char	**format_cmd_inredir(char **cmd)
 {
 	int		i;
 	char	**new_cmd;
@@ -92,7 +99,6 @@ char	**format_cmd(char **cmd)
 			break ;
 		else
 			new_cmd[i] = ft_strdup(cmd[i]);
-
 		if (cmd[i][0] == '<')
 			i++;
 		i++;
@@ -101,13 +107,18 @@ char	**format_cmd(char **cmd)
 	return (new_cmd);
 }
 
-void	check_cmd_minishell(int redir_nb, char **cmd, char **envp)
+void	check_cmd_minishell(t_cmd **parsing, char **cmd, char **envp)
 {
 	char	*path;
 	char	**new_cmd;
 
-	if (redir_nb > 0)
-		new_cmd = format_cmd(cmd);
+	if ((*parsing)->redir_nb > 0)
+	{
+		if ((*parsing)->redir->type == E_REDIR_IN)
+			new_cmd = format_cmd_inredir(cmd);
+		else
+			new_cmd = format_cmd_outredir(cmd);
+	}
 	else
 		new_cmd = cmd;
 	if (access(new_cmd[0], X_OK) == 0)
@@ -121,7 +132,6 @@ void	check_cmd_minishell(int redir_nb, char **cmd, char **envp)
 			free(path);
 		}
 	}
-	perror("execve");
 	free_all(new_cmd);
 	free_all(cmd);
 }
