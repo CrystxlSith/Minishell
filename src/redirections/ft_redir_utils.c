@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/23 14:33:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:41:03 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	exec_redir_in(int index, t_cmd **parsing, t_env **data)
 
 	tmp = *parsing;
 	printf("REDIR IN : %s\n", tmp->str[index]);
-	fd_redir = open(tmp->str[index], O_CREAT | O_RDWR, 0777);
+	fd_redir = open(tmp->str[index], O_CREAT | O_RDWR | O_APPEND, 0777);
 	if (fd_redir == -1)
 		return ;
 	if (open_dup_input(fd_redir) == -1)
@@ -78,16 +78,13 @@ void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data)
 			if (tmp->redir->next != NULL)
 				tmp->redir = tmp->redir->next;
 			if (trigger == 1)
-			{
-				printf("TRIGGER 1 : %d\n", trigger);
 				tmp->redir = tmp->redir->prev;
-			}
 			printf("REDIR NB : %d\n", redir);
 			printf("REDIR DATA : %s\n", tmp->redir->data);
 			printf("REDIR TYPE : %u\n", tmp->redir->type);
 			if (tmp->redir->type == E_REDIR_IN)
 				exec_redir_in(index, parsing, data);
-			else if (tmp->redir->type == E_REDIR_OUT)
+			if (tmp->redir->type == E_REDIR_OUT)
 				exec_redir_out(index, parsing, data);
 		}
 		else

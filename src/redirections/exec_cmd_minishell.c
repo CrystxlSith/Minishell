@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/23 10:55:48 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:35:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 		if ((*parsing)->next != NULL)
 			dup2(fd[1], STDOUT_FILENO);
 		exec_cmd_minishell(parsing, data);
+		close_fd(fd);
 	}
 	else
 	{
