@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 15:13:52 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:01:58 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,13 @@ char	**format_cmd(char **cmd)
 	new_cmd = NULL;
 	while (cmd[i])
 	{
-		if (cmd[i][0] == '<' || cmd[i][0] == '>')
+		if (cmd[i][0] == '>')
 			break ;
 		else
 			new_cmd[i] = ft_strdup(cmd[i]);
+
+		if (cmd[i][0] == '<')
+			i++;
 		i++;
 	}
 	new_cmd[i] = NULL;
