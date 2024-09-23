@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/23 14:58:03 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:59:18 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,13 @@ void	free_parsed_cmd(t_cmd *head)
 int main(int ac, char **av, char **envp)
 {
 	t_minishell	minishell;
-	t_cmd		*cmd_parsing;
+	// t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 	t_env		*data;
 
 
 	data = NULL;
-	initiate_struc_envp(&data, envp);
+	// initiate_struc_envp(&data, envp);
 	tokens = NULL;
 	(void)ac;
 	(void)av;
@@ -143,16 +143,16 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		if (minishell.line_read)
 			free(minishell.line_read);
-		cmd_parsing = parser(&tokens);
+		// cmd_parsing = parser(&tokens);
 		// print_tokens(tokens);
 		// free_tokens(tokens);
-		if (!cmd_parsing)
-			continue ;
-		fill_nbr_element(&cmd_parsing);
-		print_cmd(cmd_parsing);
+		// if (!cmd_parsing)
+		// 	continue ;
+		// fill_nbr_element(&cmd_parsing);
+		// print_cmd(cmd_parsing);
 		// if (cmd_parsing->str)
-		 	// execute_fork(&cmd_parsing, &data);
-		free_parsed_cmd(cmd_parsing);
+		//  	execute_fork(&cmd_parsing, &data);
+		// free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}
 	rl_clear_history();

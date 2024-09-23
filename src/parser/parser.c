@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/23 14:54:05 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:35:36 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	add_to_cmd(char *data, t_cmd *current)
 			new_tab[i] = current->str[i];
 			i++;
 		}
-		new_tab[i] = ft_strdup(data);
+		new_tab[i] = data;
 		new_tab[i + 1] = NULL;
 		free(current->str);
 	}
@@ -55,7 +55,7 @@ static void	add_to_cmd(char *data, t_cmd *current)
 		new_tab = malloc(sizeof(char *) * 2);
 		if (!new_tab)
 			return ;
-		new_tab[0] = ft_strdup(data);
+		new_tab[0] = data;
 		new_tab[1] = NULL;
 	}
 	current->str = new_tab;
@@ -103,6 +103,10 @@ int	loop_while_dollar(char **input, char **tmp, int i)
 	
 	j = 0;
 	while (ft_isdigit((*input)[i]) || ft_isalpha((*input)[i]))
+		i++;
+	*tmp = malloc(sizeof(char) * i + 1);
+	i = 0;
+	while (ft_isdigit((*input)[i]) || ft_isalpha((*input)[i]))
 	{
 		// printf("i = %c\n", (*input)[i]);
 		(*tmp)[j] = (*input)[i];
@@ -114,6 +118,12 @@ int	loop_while_dollar(char **input, char **tmp, int i)
 	return (j);
 }
 
+void	init_temp(char **tmp, char **tmp2)
+{
+	*tmp = NULL;
+	*tmp2 = NULL;
+}
+
 void	replace_dollar(char **input)
 {
 	int		i;
@@ -122,13 +132,16 @@ void	replace_dollar(char **input)
 	char	*tmp;
 	char	*tmp2;
 	char	*env_value;
+
+	env_value = NULL;
 	j = 0;
 	i = 0;
-	tmp = ft_strdup("");
-	tmp2 = ft_strdup("");
+	// tmp = ft_strdup("");
+	// tmp2 = ft_strdup("");
 	res = ft_strdup(""); // Initialize res to an empty string
 	while ((*input)[j])
 	{
+		init_temp(&tmp, &tmp2);
 		if ((*input)[j] == '$')
 		{
 			j++;
@@ -143,6 +156,7 @@ void	replace_dollar(char **input)
 			{
 				res = ft_strjoin(res, env_value);
 				i += ft_strlen(env_value);
+				free(env_value);
 			}
 		}
 		else
@@ -153,6 +167,8 @@ void	replace_dollar(char **input)
 			i++;
 		}
 	}
+	res[i] = '\0';
+	// free(input);
 	*input = res;
 	free(tmp);
 	free(tmp2);
