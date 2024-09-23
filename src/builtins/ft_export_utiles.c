@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utiles.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/21 04:21:38 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/23 10:13:18 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 // Realloc de la memoire avec l'ajout et la suppression de variables d'env
-char	**ft_realloc(int new_size, t_env **data)
+char	**ft_realloc_env(int new_size, t_env **data)
 {
 	int		old_size;
 	char	**new_tab;
@@ -89,7 +89,7 @@ void	export_new(t_env **data, char *cmd)
 	int		size;
 
 	size = (*data)->size;
-	new_tab = ft_realloc(size + 2, data);
+	new_tab = ft_realloc_env(size + 2, data);
 	if (!new_tab)
 	{
 		free(cmd);

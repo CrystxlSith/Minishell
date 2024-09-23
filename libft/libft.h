@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 11:36:35 by wbelyne           #+#    #+#             */
-/*   Updated: 2024/09/19 13:39:42 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:20:14 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_putstr(char const *s);
 char	*ft_strdup(const char *s);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
 char	*ft_strcpy(char *dest, const char *src);
+void    *ft_realloc(void *ptr, size_t old_size, size_t new_size);
 void	ft_strclr(char *s);
 void	ft_putnbr(int n);
 char	*ft_itoa(int n);

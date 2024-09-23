@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/20 14:25:25 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/23 09:05:58 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ typedef struct	s_cmd
 
 t_cmd	*parser(t_lexer **tokens);
 int	is_cmd(t_lexer_type type);
+void	handle_env_var(char **input, char **new_input, int *i, int *k);
+void	copy_env_value(char *env_value, char **new_input, int *k);
+void	copy_var_name(char **input, char **new_input, int *i, int *k, int l);
 int	is_quote(t_lexer_type type);
 void	add_index_to_token(t_lexer *tokens);
 int lex_error_handler(t_lexer *tokens);

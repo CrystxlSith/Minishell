@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/21 09:39:21 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/23 14:54:05 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,53 +90,143 @@ char	**env_find(char *input)
 	return (env_vars);
 }
 
+int	handle_number(char **input, int i)
+{
+	if ((*input)[i] >= '1' && (*input)[i] <= '9')
+		return (1);
+	return (0);
+}
+
+int	loop_while_dollar(char **input, char **tmp, int i)
+{
+	int	j;
+	
+	j = 0;
+	while (ft_isdigit((*input)[i]) || ft_isalpha((*input)[i]))
+	{
+		// printf("i = %c\n", (*input)[i]);
+		(*tmp)[j] = (*input)[i];
+		j++;
+		i++;
+	}
+	(*tmp)[j + 1] = '\0'; // Add null terminator
+	// printf("tmp is = %s\n", *tmp);
+	return (j);
+}
+
 void	replace_dollar(char **input)
 {
 	int		i;
 	int		j;
-	int		k;
-	int		l;
-	char	*new_input;
+	char  *res;
 	char	*tmp;
+	char	*tmp2;
 	char	*env_value;
-
+	j = 0;
 	i = 0;
-	k = 0;
-	new_input = malloc(sizeof(char) * (ft_strlen(*input) + 1));
-	if (!new_input)
-		return ;
-	while ((*input)[i])
+	tmp = ft_strdup("");
+	tmp2 = ft_strdup("");
+	res = ft_strdup(""); // Initialize res to an empty string
+	while ((*input)[j])
 	{
-		if ((*input)[i] == '$')
+		if ((*input)[j] == '$')
 		{
-			tmp = malloc(sizeof(char) * (ft_strlen(*input) - i + 1));
-			if (!tmp)
-				return ;
-			l = 0;
-			i++;
-			while ((*input)[i] && (ft_isalnum((*input)[i]) || (*input)[i] == '_'))
+			j++;
+			if (handle_number(input, j))
 			{
-				tmp[l++] = (*input)[i++];
+				j++;
+				continue ;
 			}
-			tmp[l] = '\0';
+			j += loop_while_dollar(input, &tmp, j);
 			env_value = getenv(tmp);
-			free(tmp);
 			if (env_value)
 			{
-				j = 0;
-				while (env_value[j])
-					new_input[k++] = env_value[j++];
+				res = ft_strjoin(res, env_value);
+				i += ft_strlen(env_value);
 			}
-			if (!env_value)
-				new_input[k++] = '$';
 		}
 		else
-			new_input[k++] = (*input)[i++];
+		{
+			res = ft_realloc(res, ft_strlen(res), ft_strlen(res) + 1);
+			res[i] = (*input)[j];
+			j++;
+			i++;
+		}
 	}
-	new_input[k] = '\0';
-	free(*input);
-	*input = new_input;
+	*input = res;
+	free(tmp);
+	free(tmp2);
 }
+
+// void	replace_dollar(char **input)
+// {
+// 	char	*new_input;
+// 	int		i = 0, k = 0;
+
+// 	new_input = malloc(sizeof(char) * (ft_strlen(*input) + 1));
+// 	if (!new_input)
+// 		return ;
+
+// 	while ((*input)[i])
+// 	{
+// 		if ((*input)[i] == '$')
+// 		{
+// 			handle_env_var(input, &new_input, &i, &k);
+// 			if ((*input)[i] == '\0')
+// 				break ;
+// 			printf("next_char: %c\n", (*input)[i]);
+// 		}
+// 		else
+// 			new_input[k++] = (*input)[i++];
+// 	}
+// 	new_input[k] = '\0';
+// 	free(*input);
+// 	*input = new_input;
+// }
+
+// void	handle_env_var(char **input, char **new_input, int *i, int *k)
+// {
+// 	char	*tmp;
+// 	char	*env_value;
+// 	int		l = 0;
+
+// 	tmp = malloc(sizeof(char) * (ft_strlen(*input) + 1));
+// 	if (!tmp)
+// 		return ;
+// 	(*i)++;
+// 	while ((*input)[*i] && (ft_isalnum((*input)[*i]) || (*input)[*i] == '_'))
+// 		tmp[l++] = (*input)[(*i)++];
+// 	tmp[l] = '\0';
+// 	env_value = getenv(tmp);
+// 	free(tmp);
+// 	if (env_value)
+// 	{
+// 		tmp = ft_realloc(*new_input, ft_strlen(*new_input), ft_strlen(*new_input) + ft_strlen(env_value) + 10);
+// 		copy_env_value(env_value, new_input, k);
+// 	}
+// 	else
+// 		i += l;
+// }
+
+// void	copy_env_value(char *env_value, char **new_input, int *k)
+// {
+// 	int j = 0;
+// 	while (env_value[j])
+// 	{
+// 		(*new_input)[(*k)++] = env_value[j++];
+// 	}
+// }
+
+// void	copy_var_name(char **input, char **new_input, int *i, int *k, int l)
+// {
+// 	int m = 0;
+// 	(*new_input)[(*k)++] = '$';
+// 	while (m < l)
+// 	{
+// 		(*new_input)[(*k)++] = (*input)[(*i) - l + m];
+// 		m++;
+// 	}
+// }
 
 void	new_cmd(t_cmd **current)
 {

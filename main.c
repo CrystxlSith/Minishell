@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/21 09:28:34 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/23 14:58:03 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_tokens(t_lexer *head)
 	current = head;
 	while (current)
 	{
-		printf("Token: %s\n", current->data);
+		printf("Token: '%s'\n", current->data);
 		printf("Type: %d\n", current->type);
 		printf("Index: %d\n", current->index);
 		current = current->next;
@@ -144,13 +144,14 @@ int main(int ac, char **av, char **envp)
 		if (minishell.line_read)
 			free(minishell.line_read);
 		cmd_parsing = parser(&tokens);
-		free_tokens(tokens);
+		// print_tokens(tokens);
+		// free_tokens(tokens);
 		if (!cmd_parsing)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
 		print_cmd(cmd_parsing);
-		if (cmd_parsing->str)
-			execute_fork(&cmd_parsing, &data);
+		// if (cmd_parsing->str)
+		 	// execute_fork(&cmd_parsing, &data);
 		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}

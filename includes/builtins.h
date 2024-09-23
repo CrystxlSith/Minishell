@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/19 17:07:39 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:20:48 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	export(char *input, t_env **data);
 void	free_rest_tab(char **s, int index);
 void	print_tab(t_env **data);
 void	update_env_tab_export(char *flag, char *cmd, t_env **data);
-char	**ft_realloc(int new_size, t_env **data);
+char	**ft_realloc_env(int new_size, t_env **data);
 void	export_existing(char *flag, t_env **data, char *cmd);
 void	duplicate_env(t_env **data, char **input, char *cmd);
 void	export_new(t_env **data, char *cmd);

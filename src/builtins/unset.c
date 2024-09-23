@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/18 10:53:02 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:13:18 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	unset(char *input, t_env **data)
 		(*data)->var[i] = NULL;
 		free((*data)->var[i]);
 		(*data)->size--;
-		new_env = ft_realloc((*data)->size, data);
+		new_env = ft_realloc_env((*data)->size, data);
 		duplicate_env(data, new_env, NULL);
 	}
 	free(flag);
