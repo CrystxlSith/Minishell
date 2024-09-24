@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/23 15:59:18 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:00:03 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,50 +71,57 @@ void	print_tokens(t_lexer *head)
 	}
 }
 
-void	free_tokens(t_lexer *head)
+void free_token(t_lexer *token)
 {
-	while (head)
+    if (token)
 	{
-		t_lexer	*tmp;
+        free(token->data); // Free the duplicated data
+        free(token);       // Free the token itself
+    }
+}
 
-		tmp = head;
-		head = head->next;
-		if (tmp->data)
-			free(tmp->data);
-		free(tmp);
-	}
+void free_tokens(t_lexer *tokens)
+{
+   t_lexer *current; 
+	t_lexer *next;
+
+	current = tokens;
+    while (current) {
+        next = current->next;
+        free_token(current);
+        current = next;
+    }
 }
 
 void	free_parsed_cmd(t_cmd *head)
 {
 	t_cmd	*current;
-	int	i;
+	t_cmd	*next;
 
 	current = head;
-	if (!current)
-		return ;
 	while (current)
 	{
+		next = current->next;
 		if (current->str)
 		{
-
-			i = 0;
-			while (current->str[i])
-			{
-				free(current->str[i]);
-				i++;
-			}
+			// i = 0;
+			// while (current->str[i])
+			// {
+			// 	if (current->str[i])
+			// 		free(current->str[i]);
+			// 	i++;
+			// }
 			free(current->str);
 		}
-		current = current->next;
+		free(current);
+		current = next;
 	}
-	free(current);
 }
 
 int main(int ac, char **av, char **envp)
 {
 	t_minishell	minishell;
-	// t_cmd		*cmd_parsing;
+	t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 	t_env		*data;
 
@@ -132,7 +139,8 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
 		{
-			free(minishell.line_read);
+			if (minishell.line_read)
+				free(minishell.line_read);
 			rl_clear_history();	
 			break ;
 		}
@@ -143,16 +151,16 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		if (minishell.line_read)
 			free(minishell.line_read);
-		// cmd_parsing = parser(&tokens);
+		cmd_parsing = parser(&tokens);
+		free_tokens(tokens);
 		// print_tokens(tokens);
-		// free_tokens(tokens);
-		// if (!cmd_parsing)
-		// 	continue ;
+		if (!cmd_parsing)
+			continue ;
 		// fill_nbr_element(&cmd_parsing);
 		// print_cmd(cmd_parsing);
 		// if (cmd_parsing->str)
 		//  	execute_fork(&cmd_parsing, &data);
-		// free_parsed_cmd(cmd_parsing);
+		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}
 	rl_clear_history();

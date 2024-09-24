@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:16:44 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/23 15:50:59 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/24 08:22:25 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens)
 
 	if (!data || !tokens)
 		return ;
-	new_token = calloc(1, sizeof(t_lexer));
+	new_token = ft_calloc(1, sizeof(t_lexer));
 	if (!new_token)
 		return ;
 	init_new_token(new_token, type, data);

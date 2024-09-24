@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/23 15:35:36 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:59:50 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,27 +108,35 @@ int	loop_while_dollar(char **input, char **tmp, int i)
 	i = 0;
 	while (ft_isdigit((*input)[i]) || ft_isalpha((*input)[i]))
 	{
-		// printf("i = %c\n", (*input)[i]);
 		(*tmp)[j] = (*input)[i];
 		j++;
 		i++;
 	}
-	(*tmp)[j + 1] = '\0'; // Add null terminator
-	// printf("tmp is = %s\n", *tmp);
+	(*tmp)[j] = '\0'; // Add null terminator
 	return (j);
 }
 
 void	init_temp(char **tmp, char **tmp2)
 {
-	*tmp = NULL;
-	*tmp2 = NULL;
+	*tmp = malloc(sizeof(char) * 100);
+	if (!*tmp)
+		return ;
+	*tmp2 = malloc(sizeof(char) * 100);
+	if (!*tmp2)
+		return ;
+	// *res = malloc(sizeof(char) * BUFFER_SIZE);
+	// if (!*res)
+	// 	return ;
+	// (*res)[0] = '\0';
+	(*tmp)[0] = '\0';
+	(*tmp2)[0] = '\0';
 }
 
 void	replace_dollar(char **input)
 {
 	int		i;
 	int		j;
-	char  *res;
+	char	*res;
 	char	*tmp;
 	char	*tmp2;
 	char	*env_value;
@@ -136,11 +144,15 @@ void	replace_dollar(char **input)
 	env_value = NULL;
 	j = 0;
 	i = 0;
-	// tmp = ft_strdup("");
-	// tmp2 = ft_strdup("");
 	res = ft_strdup(""); // Initialize res to an empty string
+	if (!res)
+		return;
 	while ((*input)[j])
 	{
+		if (tmp)
+			free(tmp);
+		if (tmp2)
+			free(tmp2);
 		init_temp(&tmp, &tmp2);
 		if ((*input)[j] == '$')
 		{
@@ -154,24 +166,46 @@ void	replace_dollar(char **input)
 			env_value = getenv(tmp);
 			if (env_value)
 			{
-				res = ft_strjoin(res, env_value);
+				char *new_res = ft_strjoin(res, env_value);
+				free(res);
+				free(tmp);
+				free(tmp2);
+				res = new_res;
 				i += ft_strlen(env_value);
-				free(env_value);
+			}
+			else
+			{
+				free(tmp);
+				free(tmp2);
 			}
 		}
 		else
 		{
-			res = ft_realloc(res, ft_strlen(res), ft_strlen(res) + 1);
+			char *new_res = ft_realloc(res, ft_strlen(res), ft_strlen(res) + 2);
+			if (!new_res)
+			{
+				free(res);
+				if (tmp)
+					free(tmp);
+				if (tmp2)
+					free(tmp2);
+				return;
+			}
+			free(res);
+			res = new_res;
 			res[i] = (*input)[j];
-			j++;
+			res[i + 1] = '\0';
 			i++;
+			j++;
 		}
 	}
-	res[i] = '\0';
-	// free(input);
-	*input = res;
-	free(tmp);
-	free(tmp2);
+	free(*input);
+	*input = ft_strdup(res);
+	if (tmp)
+		free(tmp);
+	if (tmp2)
+		free(tmp2);
+	free(res);
 }
 
 // void	replace_dollar(char **input)

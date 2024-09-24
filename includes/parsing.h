@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/23 09:05:58 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:36:35 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include <fcntl.h>
+# define BUFFER_SIZE 1024
 # define SPACE_CHAR "|<>"
 # define IS_TOKEN "\"'|<>&"
 # define IS_REDIRECTION "<>"
