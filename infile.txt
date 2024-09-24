@@ -1,0 +1,16 @@
+total 490
+drwxr-xr-x 6 agiliber 2024_paris      6 Sep 20 15:00 dep
+drwxr-xr-x 2 agiliber 2024_paris      6 Sep 24 15:25 includes
+-rwxr-xr-x 1 agiliber 2024_paris      0 Sep 24 16:56 index
+-rwxr-xr-x 1 agiliber 2024_paris      0 Sep 24 17:00 infile.txt
+drwxr-xr-x 2 agiliber 2024_paris    124 Sep 20 15:00 libft
+-rw-r--r-- 1 agiliber 2024_paris  77744 Sep 20 15:00 libft.a
+-rw-r--r-- 1 agiliber 2024_paris   3543 Sep 24 15:30 main.c
+-rw-r--r-- 1 agiliber 2024_paris   8688 Sep 24 15:32 main.o
+-rw-r--r-- 1 agiliber 2024_paris   6194 Sep 20 15:00 Makefile
+-rwxr-xr-x 1 agiliber 2024_paris  80776 Sep 24 17:00 minishell
+-rw-r--r-- 1 agiliber 2024_paris 254950 Sep 24 17:00 minishell.a
+drwxr-xr-x 6 agiliber 2024_paris      6 Sep 20 15:00 obj
+-rwxr-xr-x 1 agiliber 2024_paris      0 Sep 24 16:54 outfile.txt
+-rw-r--r-- 1 agiliber 2024_paris     77 Sep 20 15:00 README.md
+drwxr-xr-x 6 agiliber 2024_paris      6 Sep 20 15:00 src

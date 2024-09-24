@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/24 15:16:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:53:12 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,11 @@ int	get_size_cmd(char **cmd)
 	while (cmd[i])
 	{
 		if (cmd[i][0] == '<')
-			i++;
+			i = i + 2;
+		if (cmd[i][0] == '>')
+			break ;
 		i++;
-		while (cmd[i][0] != '>')
-		{
-			i++;
-			count++;
-		}
+		count++;
 	}
 	return (count);
 }
@@ -96,13 +94,14 @@ char	**format_cmd_outredir(char **cmd)
 	i = 0;
 	j = 0;
 	len = get_size_cmd(cmd);
-	new_cmd = (char **)malloc(len + 1);
+	new_cmd = (char **)malloc((len + 1) * sizeof(char *));
+	if (!new_cmd)
+		return (NULL);
 	while (cmd[i] && cmd[i][0] != '>' && j < len)
 	{
 		if (cmd[i][0] == '<')
 			i = i + 2;
 		new_cmd[j] = ft_strdup(cmd[i]);
-		printf("%s\n", new_cmd[j]);
 		j++;
 		i++;
 	}
@@ -118,7 +117,9 @@ char	**format_cmd_inredir(char **cmd)
 
 	i = 0;
 	len = get_size_cmd(cmd);
-	new_cmd = (char **)malloc(len + 1);
+	new_cmd = (char **)malloc((len + 1) * sizeof(char *));
+	if (!new_cmd)
+		return (NULL);
 	while (cmd[i])
 	{
 		if (cmd[i][0] == '>')
@@ -130,7 +131,6 @@ char	**format_cmd_inredir(char **cmd)
 		i++;
 	}
 	new_cmd[i] = NULL;
-	print_double_tab(new_cmd);
 	return (new_cmd);
 }
 
@@ -152,27 +152,27 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp)
 	char	**new_cmd;
 
 	new_cmd = NULL;
-	printf("parsing > redir %d\n", (*parsing)->redir_nb);
+/* 	printf("parsing > redir %d\n", (*parsing)->redir_nb); */
 	if ((*parsing)->redir_nb > 0)
 	{
-		print_double_tab((*parsing)->str);
+/* 		print_double_tab((*parsing)->str); */
 		if ((*parsing)->redir->type == E_REDIR_IN)
 		{
-			printf("%s\n", "IN DIR");
-			new_cmd = format_cmd_outredir((*parsing)->str);
-			print_double_tab(new_cmd);
+/* 			printf("%s\n", "IN DIR"); */
+			new_cmd = format_cmd_inredir((*parsing)->str);
+/* 			print_double_tab(new_cmd); */
 		}
 		else if ((*parsing)->redir->type == E_REDIR_OUT)
 		{
-			printf("%s\n", "OUT DIR");
+/* 			printf("%s\n", "OUT DIR"); */
 			new_cmd = format_cmd_outredir((*parsing)->str);
-			print_double_tab(new_cmd);
+/* 			print_double_tab(new_cmd); */
 		}
 	}
 	else
 	{
 		new_cmd = (*parsing)->str;
-		print_double_tab(new_cmd);
+/* 		print_double_tab(new_cmd); */
 	}
 	if (access(new_cmd[0], X_OK) == 0)
 		execve(new_cmd[0], new_cmd, envp);
@@ -185,5 +185,6 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp)
 			free(path);
 		}
 	}
-	free_all(new_cmd);
+	if ((*parsing)->redir_nb > 0)
+		free_all(new_cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/23 16:24:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:01:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
-	printf("tmp->index %d\n", parsing->index);
-	if (parsing->index == 0)
+	if (parsing->prev == NULL)
 		open_dup_pipe_in(fd);
 	else if (parsing->next != NULL)
 	{
