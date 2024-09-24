@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/23 16:35:16 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:52:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 		if ((*parsing)->next != NULL)
 			dup2(fd[1], STDOUT_FILENO);
 		exec_cmd_minishell(parsing, data);
-		close_fd(fd);
 	}
 	else
 	{
@@ -42,7 +41,10 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 {
 	if ((*parsing)->next == NULL)
+	{
+		printf("%s\n", "EXEC CMD MINISHELL");
 		exec_cmd(parsing, data);
+	}
 	else
 		exec_multiple_cmd(parsing, data);
 }
@@ -50,9 +52,15 @@ void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 void	exec_cmd(t_cmd **parsing, t_env **data)
 {
 	if ((*parsing)->redir_nb > 0)
+	{
+		printf("%s\n", "EXEC REDIR CMD");
 		exec_redirection(parsing, data);
+	}
 	else
+	{
+		printf("%s\n", "EXEC SINGLE CMD");
 		exec_single_cmd(parsing, data);
+	}
 }
 
 void	exec_single_cmd(t_cmd **parsing, t_env **data)
@@ -60,6 +68,8 @@ void	exec_single_cmd(t_cmd **parsing, t_env **data)
 	if (check_if_builtins((*parsing)->str[0]))
 		builtins((*parsing)->str, data);
 	else
-		check_cmd_minishell(parsing, \
-			(*parsing)->str, (*data)->var);
+	{
+		printf("%s\n", "CMD SHELL");
+		check_cmd_minishell(parsing, (*data)->var);
+	}
 }

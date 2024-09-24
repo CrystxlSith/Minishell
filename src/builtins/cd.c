@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 13:16:07 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:47:49 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,26 @@ void	cd_entry_compare(char *path, char *new_path, t_env **data, DIR *dir)
 char	*cd(char *path, t_env **data)
 {
 	DIR		*dir;
+	DIR		*long_dir;
 	char	*new_path;
 
-	dir = opendir(find_in_env("PWD=", (*data)->var));
-	if (dir == NULL)
-		return (perror("opendir"), NULL);
-	new_path = format_dir_path(path);
-	cd_entry_compare(path, new_path, data, dir);
-	return (closedir(dir), NULL);
+	long_dir = opendir(path);
+	if (long_dir != NULL)
+	{
+		new_path = find_in_env("PWD=", (*data)->var);
+		chdir(path);
+		path = getcwd(NULL, 0);
+		update_env(new_path, path, data);
+		closedir(long_dir);
+	}
+	else
+	{
+		dir = opendir(find_in_env("PWD=", (*data)->var));
+		if (dir == NULL)
+			return (perror("opendir"), NULL);
+		new_path = format_dir_path(path);
+		cd_entry_compare(path, new_path, data, dir);
+		closedir(dir);
+	}
+	return (NULL);
 }

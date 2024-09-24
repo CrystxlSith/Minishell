@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/19 12:03:10 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:40:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,25 @@ t_cmd	*create_new_cmd(void)
 void	handle_redirection(t_lexer *token, t_cmd *cmd)
 {
 	t_lexer	*new_redir;
+	t_lexer	*last_redir;
 
 	new_redir = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!new_redir)
 		return ;
 	new_redir->type = token->type;
 	new_redir->data = strdup(token->data);
-	new_redir->next = cmd->redir;
-	new_redir->prev = NULL;
-	if (cmd->redir)
-		cmd->redir->prev = new_redir;
-	cmd->redir = new_redir;
+	if (!new_redir->data)
+		return (free(new_redir));
+	new_redir->next = NULL;
+	if (cmd->redir == NULL)
+		cmd->redir = new_redir;
+	else
+	{
+		last_redir = cmd->redir;
+		while (last_redir->next)
+			last_redir = last_redir->next;
+		last_redir->next = new_redir;
+	}
 	cmd->redir_nb++;
 }
 

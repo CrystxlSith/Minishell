@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/24 13:07:47 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:35:24 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int main(int ac, char **av, char **envp)
 		if (minishell.line_read)
 			free(minishell.line_read);
 		cmd_parsing = parser(&tokens, &data);
-		print_cmd(cmd_parsing);
+/* 		print_cmd(cmd_parsing); */
 		free_tokens(tokens);
 		if (!cmd_parsing)
 			continue ;
