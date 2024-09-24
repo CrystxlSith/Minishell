@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/24 11:00:03 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:54:18 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ void	print_cmd(t_cmd *head)
 			printf("Command: ");
 			for (int i = 0; current->str[i]; i++)
 				printf("%s", current->str[i]);
+			printf("\n");
+			printf("only_cmd: ");
+			for (int i = 0; current->only_cmd[i]; i++)
+				printf("%s", current->only_cmd[i]);
+			printf("\n");
 		}
 		printf("\n");
 		printf("Redirections: ");
@@ -152,14 +157,14 @@ int main(int ac, char **av, char **envp)
 		if (minishell.line_read)
 			free(minishell.line_read);
 		cmd_parsing = parser(&tokens);
-		free_tokens(tokens);
 		// print_tokens(tokens);
 		if (!cmd_parsing)
 			continue ;
 		// fill_nbr_element(&cmd_parsing);
-		// print_cmd(cmd_parsing);
+		print_cmd(cmd_parsing);
 		// if (cmd_parsing->str)
 		//  	execute_fork(&cmd_parsing, &data);
+		free_tokens(tokens);
 		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}

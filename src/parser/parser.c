@@ -6,24 +6,45 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/24 11:59:50 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:27:55 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// static void	add_quotes(char *data, t_cmd *current)
+// static void	add_to_cmd2(char *data, t_cmd *current)
 // {
+// 	char	**new_tab;
+// 	int		i;
+// 	int		count;
+
+// 	count = 0;
 // 	if (current->str)
 // 	{
-// 		current->str[0] = ft_strjoin(current->str[0], data);
+// 		while (current->str[count])
+// 			count++;
+// 		new_tab = malloc(sizeof(char *) * (count + 2));
+// 		if (!new_tab)
+// 			return ;
+// 		i = 0;
+// 		while (i < count)
+// 		{
+// 			new_tab[i] = current->str[i];
+// 			i++;
+// 		}
+// 		new_tab[i] = data;
+// 		new_tab[i + 1] = NULL;
+// 		free(current->str);
 // 	}
 // 	else
 // 	{
-// 		current->str = malloc(sizeof(char *) * 2);
-// 		current->str[0] = ft_strdup(data);
-// 		current->str[1] = NULL;
+// 		new_tab = malloc(sizeof(char *) * 2);
+// 		if (!new_tab)
+// 			return ;
+// 		new_tab[0] = data;
+// 		new_tab[1] = NULL;
 // 	}
+// 	current->only_cmd = new_tab;
 // }
 
 static void	add_to_cmd(char *data, t_cmd *current)
@@ -118,6 +139,10 @@ int	loop_while_dollar(char **input, char **tmp, int i)
 
 void	init_temp(char **tmp, char **tmp2)
 {
+	// if (tmp)
+	// 	free(tmp);
+	// if (tmp2)
+	// 	free(tmp2);
 	*tmp = malloc(sizeof(char) * 100);
 	if (!*tmp)
 		return ;
@@ -144,16 +169,12 @@ void	replace_dollar(char **input)
 	env_value = NULL;
 	j = 0;
 	i = 0;
-	res = ft_strdup(""); // Initialize res to an empty string
+	res = ft_strdup("");
 	if (!res)
 		return;
+	init_temp(&tmp, &tmp2);
 	while ((*input)[j])
 	{
-		if (tmp)
-			free(tmp);
-		if (tmp2)
-			free(tmp2);
-		init_temp(&tmp, &tmp2);
 		if ((*input)[j] == '$')
 		{
 			j++;
@@ -201,82 +222,12 @@ void	replace_dollar(char **input)
 	}
 	free(*input);
 	*input = ft_strdup(res);
-	if (tmp)
-		free(tmp);
-	if (tmp2)
-		free(tmp2);
+	// if (tmp)
+	// 	free(tmp);
+	// if (tmp2)
+	// 	free(tmp2);
 	free(res);
 }
-
-// void	replace_dollar(char **input)
-// {
-// 	char	*new_input;
-// 	int		i = 0, k = 0;
-
-// 	new_input = malloc(sizeof(char) * (ft_strlen(*input) + 1));
-// 	if (!new_input)
-// 		return ;
-
-// 	while ((*input)[i])
-// 	{
-// 		if ((*input)[i] == '$')
-// 		{
-// 			handle_env_var(input, &new_input, &i, &k);
-// 			if ((*input)[i] == '\0')
-// 				break ;
-// 			printf("next_char: %c\n", (*input)[i]);
-// 		}
-// 		else
-// 			new_input[k++] = (*input)[i++];
-// 	}
-// 	new_input[k] = '\0';
-// 	free(*input);
-// 	*input = new_input;
-// }
-
-// void	handle_env_var(char **input, char **new_input, int *i, int *k)
-// {
-// 	char	*tmp;
-// 	char	*env_value;
-// 	int		l = 0;
-
-// 	tmp = malloc(sizeof(char) * (ft_strlen(*input) + 1));
-// 	if (!tmp)
-// 		return ;
-// 	(*i)++;
-// 	while ((*input)[*i] && (ft_isalnum((*input)[*i]) || (*input)[*i] == '_'))
-// 		tmp[l++] = (*input)[(*i)++];
-// 	tmp[l] = '\0';
-// 	env_value = getenv(tmp);
-// 	free(tmp);
-// 	if (env_value)
-// 	{
-// 		tmp = ft_realloc(*new_input, ft_strlen(*new_input), ft_strlen(*new_input) + ft_strlen(env_value) + 10);
-// 		copy_env_value(env_value, new_input, k);
-// 	}
-// 	else
-// 		i += l;
-// }
-
-// void	copy_env_value(char *env_value, char **new_input, int *k)
-// {
-// 	int j = 0;
-// 	while (env_value[j])
-// 	{
-// 		(*new_input)[(*k)++] = env_value[j++];
-// 	}
-// }
-
-// void	copy_var_name(char **input, char **new_input, int *i, int *k, int l)
-// {
-// 	int m = 0;
-// 	(*new_input)[(*k)++] = '$';
-// 	while (m < l)
-// 	{
-// 		(*new_input)[(*k)++] = (*input)[(*i) - l + m];
-// 		m++;
-// 	}
-// }
 
 void	new_cmd(t_cmd **current)
 {
@@ -336,6 +287,71 @@ void	fill_nbr_element(t_cmd **parsing)
 	}
 }
 
+// void	only_cmd(t_lexer *tmp, t_cmd *current)
+// {
+// 		while (tmp)
+// 	{
+// 		if (is_cmd(tmp->type))
+// 			replace_dollar(&tmp->data);
+// 		if (is_cmd(tmp->type))
+// 		{
+// 			if (tmp->next && is_quote(tmp->next->type))
+// 			{
+// 				tmp->data = ft_strjoin(tmp->data, tmp->next->data);
+// 				if (tmp->next->type == E_D_QUOTE)
+// 					replace_dollar(&tmp->data);
+// 				add_to_cmd2(tmp->data, current);
+// 				if (tmp->next)
+// 					tmp = tmp->next;
+// 			}
+// 			else
+// 				add_to_cmd2(tmp->data, current);
+// 		}
+// 		else if (tmp->type == E_PIPE)
+// 			new_cmd(&current);
+// 		else if (tmp->type == E_SPACE)
+// 			add_to_cmd2(tmp->data, current);
+// 		else if (is_quote(tmp->type))
+// 			new_quote_cmd(tmp, current);
+// 		if (ft_strchr(IS_TOKEN, tmp->type))
+// 			return ;
+// 		tmp = tmp->next;
+// 	}
+// }
+
+char	**only_cmd(char **str)
+{
+	int		i;
+	int		j;
+	char	**new_str;
+	
+	i = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i][j] && (!is_redirection(str[i][j]) && str[i][j] != '|'))
+		{
+			j++;
+		}
+		if (str[i][j] && (is_redirection(str[i][j]) || str[i][j] == '|'))
+		{
+			break ;
+		}
+		i++;
+	}
+	new_str = malloc(sizeof(char *) * (i + 1));
+	if (!new_str)
+		return (NULL);
+	j = 0;
+	while (j < i)
+	{
+		new_str[j] = ft_strdup(str[j]);
+		j++;
+	}
+	new_str[j] = NULL;
+	return (new_str);
+}
+
 t_cmd	*parser(t_lexer **tokens)
 {
 	t_cmd	*head;
@@ -346,6 +362,6 @@ t_cmd	*parser(t_lexer **tokens)
 	init_cmd(&head, &current);
 	// env_handler(tmp, current);
 	cmd_adding(tmp, current);
-	// remove_space_token(&head);
+	current->only_cmd = only_cmd(current->str);
 	return (head);
 }
