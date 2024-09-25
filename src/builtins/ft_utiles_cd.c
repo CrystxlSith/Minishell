@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 13:16:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:05:59 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,21 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 	char	*new_path;
 
 	old_path = ft_strjoin("OLDPWD=", tmp_old);
+	if (!old_path)
+	{
+		perror("old_path");
+		return ;
+	}
 	new_path = ft_strjoin("PWD=", tmp_new);
-	printf("old path update : %s\n", old_path);
-	printf("new path update : %s\n", new_path);
+	if (!new_path)
+	{
+		perror("new_path");
+		return ;
+	}
 	export(old_path, data);
 	export(new_path, data);
+	free(old_path);
+	free(new_path);
 }
 
 // Navigation dans un dossier avec un path donne.

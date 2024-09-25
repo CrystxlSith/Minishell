@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/24 13:40:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:58:31 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	add_count_elem(char **data)
 void	init_cmd(t_cmd **head, t_cmd **current)
 {
 	*head = malloc(sizeof(t_cmd));
+	if (!(*head))
+		return ;
 	*current = *head;
 	(*head)->elem_nb = 0;
 	(*head)->str = NULL;

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 13:15:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:48:28 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**ft_realloc(int new_size, t_env **data)
 		ft_memcpy(new_tab[i], (*data)->var[i], size + 1);
 		i++;
 	}
-	new_tab[new_size] = NULL;
+	new_tab[old_size] = NULL;
 	return (new_tab);
 }
 
@@ -64,10 +64,7 @@ void	duplicate_env(t_env **data, char **input, char *cmd)
 
 	i = 0;
 	while (input[i] && i < (*data)->size)
-	{
-		(*data)->var[i] = ft_strdup(input[i]);
 		i++;
-	}
 	if (cmd != NULL)
 	{
 		(*data)->var[i] = ft_strdup(cmd);
@@ -75,7 +72,6 @@ void	duplicate_env(t_env **data, char **input, char *cmd)
 		(*data)->size++;
 		free(cmd);
 	}
-	free_all(input);
 }
 
 // Dans le cas ou la var d'envp n'existe pas, realloue de la memoire pour
@@ -94,7 +90,7 @@ void	export_new(t_env **data, char *cmd)
 		return ;
 	}
 	duplicate_env(data, new_tab, cmd);
-	print_tab(data);
+	free_all(new_tab);
 }
 
 // En fonction de si la variable existe deja dans le tableau d'environnement
@@ -103,11 +99,14 @@ void	update_env_tab_export(char *flag, char *cmd, t_env **data)
 {
 	int		target;
 
+	if (!flag)
+		return ;
 	target = get_index(data, flag);
 	if (target != -1)
 	{
-		export_existing(flag, data, cmd);
 		flag = ft_strtrim(flag, "=");
+		export_existing(flag, data, cmd);
+		free(flag);
 	}
 	else
 		export_new(data, cmd);

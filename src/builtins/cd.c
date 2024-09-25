@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/24 13:47:49 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:07:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ char	*cd(char *path, t_env **data)
 		chdir(path);
 		path = getcwd(NULL, 0);
 		update_env(new_path, path, data);
+		free(path);
 		closedir(long_dir);
 	}
 	else
@@ -137,6 +138,7 @@ char	*cd(char *path, t_env **data)
 			return (perror("opendir"), NULL);
 		new_path = format_dir_path(path);
 		cd_entry_compare(path, new_path, data, dir);
+		free(new_path);
 		closedir(dir);
 	}
 	return (NULL);

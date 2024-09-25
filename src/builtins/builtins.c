@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 15:14:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:56:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	builtins(char **input, t_env **data)
 	int	i;
 
 	if (!input)
-		return (0);
+		return (free_all((*data)->var), free_all(input), 0);
 	i = 0;
 	if (ft_strncmp(input[i], "echo", 5) == 0)
 		echo(input, data);
@@ -31,5 +31,10 @@ int	builtins(char **input, t_env **data)
 		cd(input[++i], data);
 	else if (ft_strncmp(input[i], "unset", 6) == 0)
 		unset(input[++i], data);
+	else
+	{
+		free_all((*data)->var);
+		free_all(input);
+	}
 	return (0);
 }

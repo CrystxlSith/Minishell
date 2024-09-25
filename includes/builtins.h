@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/20 13:34:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:35:39 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ typedef struct s_env
 {
 	char	**var;
 	int		size;
-	int		word_count;
 }			t_env;
 
 //BUILTINS ---> GENERAL

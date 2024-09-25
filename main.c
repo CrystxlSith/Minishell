@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/24 15:30:52 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:03:27 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,9 @@ int main(int ac, char **av, char **envp)
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
 		{
 			free(minishell.line_read);
+			free_all(data->var);
+			free(data);
+			free(cmd_parsing);
 			rl_clear_history();
 			break ;
 		}
