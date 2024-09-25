@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utiles.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 16:16:24 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:20:49 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	export_new(t_env **data, char *cmd)
 	int		size;
 
 	size = (*data)->size;
-	new_tab = ft_realloc(size + 2, data);
+	new_tab = ft_realloc_env(size + 2, data);
 	if (!new_tab)
 	{
 		free(cmd);

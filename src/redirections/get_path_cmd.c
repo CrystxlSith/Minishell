@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 16:13:49 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:57:11 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,10 @@ char	*get_filepath(char **cmd, char **envp)
 	{
 		tmp = ft_strjoin(full_path[index], "/");
 		full_path_cmd = ft_strjoin(tmp, cmd[0]);
-		free(tmp);
+/* 		free(tmp); */
 		if (access(full_path_cmd, X_OK) == 0)
-			return (final_path = full_path_cmd, \
-				free_all(full_path), final_path);
-		free(full_path_cmd);
+			return (final_path = full_path_cmd, final_path);
+/* 		free(full_path_cmd); */
 	}
 	free_all(full_path);
 	return (NULL);
@@ -76,6 +75,8 @@ int	get_size_cmd(char **cmd)
 	{
 		if (cmd[i][0] == '<')
 			i = i + 2;
+		if (cmd[i][0] == ' ')
+			i++;
 		if (cmd[i][0] == '>')
 			break ;
 		i++;
@@ -101,6 +102,8 @@ char	**format_cmd_outredir(char **cmd)
 	{
 		if (cmd[i][0] == '<')
 			i = i + 2;
+		if (cmd[i][0] == ' ')
+			i++;
 		new_cmd[j] = ft_strdup(cmd[i]);
 		j++;
 		i++;
@@ -124,6 +127,8 @@ char	**format_cmd_inredir(char **cmd)
 	{
 		if (cmd[i][0] == '>')
 			break ;
+		if (cmd[i][0] == ' ')
+			i++;
 		else
 			new_cmd[i] = ft_strdup(cmd[i]);
 		if (cmd[i][0] == '<')
@@ -133,7 +138,7 @@ char	**format_cmd_inredir(char **cmd)
 	new_cmd[i] = NULL;
 	return (new_cmd);
 }
-/*
+
 void	print_double_tab(char **tab)
 {
 	int	i;
@@ -144,14 +149,18 @@ void	print_double_tab(char **tab)
 		printf("tab[%d] : %s\n", i, tab[i]);
 		i++;
 	}
-} */
+}
 
 void	check_cmd_minishell(t_cmd **parsing, char **envp)
 {
 	char	*path;
 	char	**new_cmd;
+	int		i;
+	int		len;
+	int		j;
 
 	new_cmd = NULL;
+	printf("redir nb %d\n", (*parsing)->redir_nb);
 	if ((*parsing)->redir_nb > 0)
 	{
 		if ((*parsing)->redir->type == E_REDIR_IN)
@@ -165,7 +174,21 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp)
 	}
 	else
 	{
-		new_cmd = (*parsing)->str;
+		len = get_size_cmd((*parsing)->str);
+		new_cmd = (char **)malloc(sizeof(char *) * (len + 1));
+		i = 0;
+		j = 0;
+		print_double_tab((*parsing)->str);
+		while ((*parsing)->str[i])
+		{
+			if ((*parsing)->str[i][0] == ' ')
+				i++;
+			new_cmd[j] = ft_strdup((*parsing)->str[i]);
+			i++;
+			j++;
+		}
+		new_cmd[i] = NULL;
+		print_double_tab(new_cmd);
 	}
 	if (access(new_cmd[0], X_OK) == 0)
 		execve(new_cmd[0], new_cmd, envp);
@@ -174,6 +197,7 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp)
 		path = get_filepath(new_cmd, envp);
 		if (path)
 		{
+			printf("PATH %s\n", path);
 			execve(path, new_cmd, envp);
 			free(path);
 		}
