@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:01:08 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/20 11:54:16 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:45:15 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,24 +110,24 @@ t_lexer	*tokenize(char *str)
 	tokens = NULL;
 	while (ft_isspace(*str))
 		str++;
-	while (*str)
+	if (!check_quotes(str))
 	{
-		if (!*str)
-			break ;
-		if (ft_isspace(*str))
+		while (*str)
 		{
-			space_handler(&tokens, &str);
-			continue;
+			if (!*str)
+				break ;
+			if (ft_isspace(*str))
+				space_handler(&tokens, &str);
+			else if (*str && ft_isascii(*str) && !ft_strchr(IS_TOKEN, *str) && \
+				*str != '-')
+				check_cmd(&str, &tokens);
+			else if (*str && *str == '-')
+				check_options(&str, &tokens);
+			else if (*str && check_tokens(&str, &tokens))
+				continue ;
+			else
+				str++;
 		}
-		if (*str && ft_isascii(*str) && !ft_strchr(IS_TOKEN, *str) && \
-			*str != '-')
-			check_cmd(&str, &tokens);
-		else if (*str && *str == '-')
-			check_options(&str, &tokens);
-		else if (*str && check_tokens(&str, &tokens))
-			continue ;
-		else
-			str++;
 	}
 	add_index_to_token(tokens);
 	return (tokens);

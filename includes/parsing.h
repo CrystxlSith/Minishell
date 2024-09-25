@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/24 15:15:56 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:57:29 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct	s_cmd
 	int				index;
 	int				elem_nb;
 	char			**str;
-	char			**only_cmd;
 	char			*here_doc;
 	t_lexer			*redir;
 	struct s_cmd	*next;
@@ -91,6 +90,6 @@ void	space_handler(t_lexer **tokens, char **str);
 void	pipe_handler(t_lexer **tokens, char **str);
 t_lexer	*find_last(t_lexer *node);
 void	fill_nbr_element(t_cmd **parsing);
-void free_tokens(t_lexer *tokens);
+int	check_quotes(char *str);
 
 #endif
