@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/24 17:01:04 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:18:32 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	else
 		open_dup_pipe_out(old_fd);
 	exec_cmd(&parsing, data);
-	close_fd(fd);
 }
 
 void	exec_multiple_cmd(t_cmd **parsing, t_env **data)
@@ -35,11 +34,11 @@ void	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	int		pid;
 	int		status;
 
+	if (pipe(fd) == -1)
+		return ;
 	tmp = *parsing;
 	while (tmp != NULL)
 	{
-		if (pipe(fd) == -1)
-			return ;
 		pid = fork();
 		if (pid == -1)
 			return ;
