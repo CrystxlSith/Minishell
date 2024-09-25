@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:59:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/24 17:19:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:36:30 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	open_dup_pipe_in(int *fd)
 
 void	close_fd_multiple_cmd(t_cmd *parsing, int *old_fd)
 {
-	if (parsing->index > 0)
+	if (parsing->prev != NULL)
 		close_fd(old_fd);
 }
 
