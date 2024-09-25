@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/24 15:26:49 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:19:27 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct	s_cmd
 	struct s_cmd	*prev;
 }					t_cmd;
 
-t_cmd	*parser(t_lexer **tokens, t_env **data);
+t_cmd	*parser(t_lexer **tokens);
 void	add_index_to_token(t_lexer *tokens);
 int lex_error_handler(t_lexer *tokens);
 int	pipes_err(t_lexer *head);
@@ -75,6 +75,9 @@ void	print_lexers(t_lexer *head);
 void	print_info(t_cmd *parsed_cmd);
 int		check_synthax_error(t_lexer *tokens);
 t_cmd	*create_new_cmd();
+int	check_quotes(char *str);
+int	is_cmd(t_lexer_type type);
+int	is_quote(t_lexer_type type);
 int	add_count_elem(char **data);
 int lex_error(t_lexer *head);
 int		is_redirection(t_lexer_type type);

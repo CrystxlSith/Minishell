@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/25 15:03:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:51:20 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_cmd(t_cmd *head)
 		{
 			printf("Command: ");
 			for (int i = 0; current->str[i]; i++)
-				printf("%s ", current->str[i]);
+				printf("%s", current->str[i]);
 		}
 		printf("\n");
 		printf("Redirections: ");
@@ -57,45 +57,56 @@ void	print_cmd(t_cmd *head)
 	}
 }
 
-void	free_tokens(t_lexer *head)
+void free_token(t_lexer *token)
 {
-	while (head)
+	if (token)
 	{
-		t_lexer	*tmp;
+		free(token->data); // Free the duplicated data
+		free(token);           // Free the token itself
+	}
+}
 
-		tmp = head;
-		head = head->next;
-		if (tmp->data)
-			free(tmp->data);
-		free(tmp);
+void free_tokens(t_lexer *tokens)
+{
+	t_lexer *current; 
+	t_lexer *next;
+
+	current = tokens;
+	while (current)
+	{
+		next = current->next;
+		free_token(current);
+		current = next;
 	}
 }
 
 void	free_parsed_cmd(t_cmd *head)
 {
 	t_cmd	*current;
-	int	i;
+	t_cmd	*next;
+	// int		i;
 
 	current = head;
-	if (!current)
-		return ;
 	while (current)
 	{
+		next = current->next;
 		if (current->str)
 		{
-
-			i = 0;
-			while (current->str[i])
-			{
-				free(current->str[i]);
-				i++;
-			}
-			free(current->str);
+			// i = 0;
+			// while (current->str[i])
+			// {
+				// free(current->str[i]);
+			// 	i++;
+			// }
+				free(current->str);
 		}
-		current = current->next;
+		if (current->redir)
+			free_tokens(current->redir);
+		free(current);
+		current = next;
 	}
-	free(current);
 }
+
 
 int main(int ac, char **av, char **envp)
 {
@@ -121,7 +132,6 @@ int main(int ac, char **av, char **envp)
 			free(minishell.line_read);
 			free_all(data->var);
 			free(data);
-			free(cmd_parsing);
 			rl_clear_history();
 			break ;
 		}
@@ -131,13 +141,14 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		if (minishell.line_read)
 			free(minishell.line_read);
-		cmd_parsing = parser(&tokens, &data);
+		cmd_parsing = parser(&tokens);
+		// print_cmd(cmd_parsing);
 		free_tokens(tokens);
 		if (!cmd_parsing)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
-		if (cmd_parsing->str)
-			execute_fork(&cmd_parsing, &data);
+		// if (cmd_parsing->str)
+		// 	execute_fork(&cmd_parsing, &data);
 		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}

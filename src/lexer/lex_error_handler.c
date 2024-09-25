@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 07:43:18 by kali              #+#    #+#             */
-/*   Updated: 2024/09/19 11:59:45 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:38:34 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,34 @@ static int	redir_err(t_lexer *head)
 			}
 			else if (!current->next)
 			{
-				printf("minishell: syntax error near unexpected token \
-				`newline'\n");
+				printf("minishell: syntax error near unexpected token `newline'\n");
 				return (1);
 			}
 		}
 		current = current->next;
+	}
+	return (0);
+}
+
+int	check_quotes(char *str)
+{
+    int single_q;
+    int double_q;
+	
+	single_q = 0;
+	double_q = 0;
+    while (*str)
+	{
+        if (*str == '\'' && double_q == 0)
+            single_q = !single_q;
+		else if (*str == '"' && single_q == 0)
+            double_q = !double_q;
+        str++;
+    }
+	if (single_q % 2 || double_q % 2)
+	{
+		printf("minishell: syntax error near unexpected token `quote'\n");
+		return (1);
 	}
 	return (0);
 }
@@ -56,8 +78,8 @@ int	pipes_err(t_lexer *head)
 			if (!current->prev || !current->next || \
 				current->next->type == E_PIPE || current->prev->type == E_PIPE)
 			{
-				printf("minishell: syntax error near unexpected \
-					token %s\n", current->data);
+				printf("minishell: syntax error near unexpected token %s\n"\
+				, current->data);
 				return (1);
 			}
 		}
@@ -75,8 +97,8 @@ int	ampersand_err(t_lexer *head)
 	{
 		if (current->type == E_AMPERSAND)
 		{
-			printf("bash: syntax error near unexpected \
-				token %s\n", current->data);
+			printf("bash: syntax error near unexpected token %s\n"\
+			, current->data);
 			return (1);
 		}
 		current = current->next;
@@ -86,6 +108,8 @@ int	ampersand_err(t_lexer *head)
 
 int	lex_error(t_lexer *head)
 {
+	if (!head)
+		return (1);
 	if ((!ft_strcmp(";", head->data) || \
 		!ft_strcmp("!", head->data)) && !head->next)
 		return (1);
