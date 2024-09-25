@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/24 16:53:12 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:13:49 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char	**format_cmd_inredir(char **cmd)
 	new_cmd[i] = NULL;
 	return (new_cmd);
 }
-
+/*
 void	print_double_tab(char **tab)
 {
 	int	i;
@@ -144,7 +144,7 @@ void	print_double_tab(char **tab)
 		printf("tab[%d] : %s\n", i, tab[i]);
 		i++;
 	}
-}
+} */
 
 void	check_cmd_minishell(t_cmd **parsing, char **envp)
 {
@@ -152,27 +152,20 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp)
 	char	**new_cmd;
 
 	new_cmd = NULL;
-/* 	printf("parsing > redir %d\n", (*parsing)->redir_nb); */
 	if ((*parsing)->redir_nb > 0)
 	{
-/* 		print_double_tab((*parsing)->str); */
 		if ((*parsing)->redir->type == E_REDIR_IN)
 		{
-/* 			printf("%s\n", "IN DIR"); */
 			new_cmd = format_cmd_inredir((*parsing)->str);
-/* 			print_double_tab(new_cmd); */
 		}
 		else if ((*parsing)->redir->type == E_REDIR_OUT)
 		{
-/* 			printf("%s\n", "OUT DIR"); */
 			new_cmd = format_cmd_outredir((*parsing)->str);
-/* 			print_double_tab(new_cmd); */
 		}
 	}
 	else
 	{
 		new_cmd = (*parsing)->str;
-/* 		print_double_tab(new_cmd); */
 	}
 	if (access(new_cmd[0], X_OK) == 0)
 		execve(new_cmd[0], new_cmd, envp);

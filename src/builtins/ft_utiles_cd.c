@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 15:05:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:15:31 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*format_dir_path(char *path)
 	return (new_path);
 }
 
-// Definit quelle fonction de deplacement de dossier faire
+// Defini quelle fonction de deplacement de dossier faire
 void	move_to_dir(char *path, t_env **data)
 {
 	if (path == NULL || ft_strcmp(path, "") == 0)

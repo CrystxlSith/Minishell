@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 10:26:36 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:40:53 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,38 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 	int	status;
 
 	if (pipe(fd) == -1)
-		return ;
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+	printf("Pipe created fork : fd[0]=%d, fd[1]=%d\n", fd[0], fd[1]);
 	pid = fork();
 	if (pid == -1)
-		return ;
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	printf("Forked process: pid=%d\n", pid);
 	if (pid == 0)
 	{
 		if ((*parsing)->next != NULL)
-			dup2(fd[1], STDOUT_FILENO);
+		{
+			printf("About to dup2 fd[1] fork: fd[0]=%d, fd[1]=%d\n", fd[0], fd[1]);
+			open_dup_pipe_out(fd);
+		}
+		printf("%s\n", "PID OUT");
 		exec_cmd_minishell(parsing, data);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
+		waitpid(pid, &status, 0);
 		if ((*parsing)->next != NULL)
-			dup2(fd[0], STDIN_FILENO);
+		{
+			printf("About to dup2 fd[0] fork: fd[0]=%d, fd[1]=%d\n", fd[0], fd[1]);
+			open_dup_pipe_in(fd);
+		}
 	}
-	close_fd(fd);
-	waitpid(pid, &status, 0);
 }
 
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
