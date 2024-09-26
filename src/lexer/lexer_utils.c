@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:33:17 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/19 11:55:26 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:21:56 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,27 @@ void	add_index_to_token(t_lexer *tokens)
 		current->index = i;
 		current = current->next;
 		i++;
+	}
+}
+
+void	remove_space_tokens(t_lexer **head)
+{
+	t_lexer	*current;
+	t_lexer	*next;
+
+	current = *head;
+	while (current)
+	{
+		next = current->next;
+		if (current->type == E_SPACE)
+		{
+			if (current->prev)
+				current->prev->next = current->next;
+			if (current->next)
+				current->next->prev = current->prev;
+			free(current->data);
+			free(current);
+		}
+		current = next;
 	}
 }

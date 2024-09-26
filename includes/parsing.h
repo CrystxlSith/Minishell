@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/25 16:19:27 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:41:06 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ int	is_quote(t_lexer_type type);
 int	add_count_elem(char **data);
 int lex_error(t_lexer *head);
 int		is_redirection(t_lexer_type type);
-void	handle_redirection(t_lexer *token, t_cmd *cmd);
+void	handle_redirection(t_lexer **token, t_cmd *cmd);
 void	redir_handler(t_lexer **token, char **str);
 void	space_handler(t_lexer **tokens, char **str);
+void    remove_space_in_cmd(t_cmd **head);
+void	remove_space_tokens(t_lexer **head);
 void	pipe_handler(t_lexer **tokens, char **str);
 t_lexer	*find_last(t_lexer *node);
 void	fill_nbr_element(t_cmd **parsing);

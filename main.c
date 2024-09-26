@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/25 17:28:15 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:36:17 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_cmd(t_cmd *head)
 		{
 			printf("Command: ");
 			for (int i = 0; current->str[i]; i++)
-				printf("%s", current->str[i]);
+				printf("%s ", current->str[i]);
 		}
 		printf("\n");
 		printf("Redirections: ");
@@ -108,6 +108,20 @@ void	free_parsed_cmd(t_cmd *head)
 }
 
 
+void	print_tokens(t_lexer *tokens)
+{
+	t_lexer	*current;
+
+	current = tokens;
+	while (current)
+	{
+		printf("Type: %d\n", current->type);
+		printf("Data: %s\n", current->data);
+		printf("Index: %d\n", current->index);
+		current = current->next;
+	}
+}
+
 int main(int ac, char **av, char **envp)
 {
 	t_minishell	minishell;
@@ -139,16 +153,18 @@ int main(int ac, char **av, char **envp)
 		tokens = tokenize(minishell.line_read);
 		if (lex_error(tokens))
 			continue ;
+		cmd_parsing = parser(&tokens);
+		print_tokens(tokens);
 		if (minishell.line_read)
 			free(minishell.line_read);
-		cmd_parsing = parser(&tokens);
-/* 		free_tokens(tokens); */
+		print_cmd(cmd_parsing);
+ 		free_tokens(tokens); 
 		if (!cmd_parsing)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
-		if (cmd_parsing->str)
-			execute_fork(&cmd_parsing, &data);
-/* 		free_parsed_cmd(cmd_parsing); */
+		// if (cmd_parsing->str)
+		// 	execute_fork(&cmd_parsing, &data);
+ 		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}
 	rl_clear_history();

@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/25 16:41:33 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:39:48 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 	{
 		if (is_cmd(tmp->type))
 			replace_dollar(&tmp->data);
-		if (is_cmd(tmp->type) || is_redirection(tmp->type))
+		if (is_cmd(tmp->type))
 		{
 			if (tmp->next && is_quote(tmp->next->type))
 			{
@@ -236,7 +236,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 		else if (is_quote(tmp->type))
 			new_quote_cmd(tmp, current);
 		if (is_redirection(tmp->type))
-			handle_redirection(tmp, current);
+			handle_redirection(&tmp, current);
 		tmp = tmp->next;
 	}
 }
@@ -263,6 +263,6 @@ t_cmd	*parser(t_lexer **tokens)
 	init_cmd(&head, &current);
 	// env_handler(tmp, current);
 	cmd_adding(tmp, current);
-	// remove_space_token(&head);
+	// remove_space_in_cmd(&head);
 	return (head);
 }

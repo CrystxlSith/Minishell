@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/20 12:12:42 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:40:58 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,20 @@ t_cmd	*create_new_cmd(void)
 
 // Ajouter à la liste de redirections
 // Copier les informations de redirection
-void	handle_redirection(t_lexer *token, t_cmd *cmd)
+void	handle_redirection(t_lexer **token, t_cmd *cmd)
 {
 	t_lexer	*new_redir;
 
 	new_redir = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!new_redir)
 		return ;
-	new_redir->type = token->type;
-	new_redir->data = strdup(token->data);
+	new_redir->type = (*token)->type;
+	if (((*token)->type == E_REDIR_IN || (*token)->type == E_REDIR_OUT) && (is_cmd((*token)->next->type)))
+	{
+		new_redir->data = strdup((*token)->next->data);
+		*token = (*token)->next;
+	}
+	// new_redir->data = strdup(token->data);
 	new_redir->next = cmd->redir;
 	new_redir->prev = NULL;
 	if (cmd->redir)
