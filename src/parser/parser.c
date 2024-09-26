@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/26 16:16:34 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:41:40 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	replace_dollar(char **input, char *res, int i, int j)
 	char	*tmp;
 	char	*tmp2;
 
+	res = ft_strdup("");
 	while ((*input)[j])
 	{
 		init_temp(&tmp, &tmp2);
@@ -92,7 +93,7 @@ t_cmd	*parser(t_lexer **tokens)
 	t_cmd	*current;
 	t_lexer	*tmp;
 
-	res = ft_strdup("");
+	res = NULL;
 	tmp = *tokens;
 	init_cmd(&head, &current);
 	cmd_adding(tmp, current, res);
