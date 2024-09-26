@@ -6,42 +6,11 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/09/26 13:40:58 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:23:37 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// void	print_info(t_cmd *parsed_cmd)
-// {
-// 	t_cmd	*current;
-// 	t_lexer	*redir;
-
-// 	current = parsed_cmd;
-// 	while (current)
-// 	{
-// 		if (current->str)
-// 		{
-// 			ft_printf("Command: ");
-// 			for (int i = 0; current->str[i]; i++)
-// 				ft_printf("%s ", current->str[i]);
-// 			ft_printf("\n");
-// 		}
-// 		ft_printf("Redirections: ");
-// 		redir = current->redir;
-// 		while (redir)
-// 		{
-// 			ft_printf("%s ", redir->data);
-// 			redir = redir->next;
-// 		}
-// 		ft_printf("\n");
-// 		ft_printf("Index: %d\n", current->index);
-// 		ft_printf("Here_doc: %s\n", current->here_doc);
-// 		ft_printf("Redir_nb: %d\n", current->redir_nb);
-// 		ft_printf("Elem nb: %d\n", current->elem_nb);
-// 		current = current->next;
-// 	}
-// }
 
 int	add_count_elem(char **data)
 {
@@ -93,12 +62,11 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 	if (!new_redir)
 		return ;
 	new_redir->type = (*token)->type;
-	if (((*token)->type == E_REDIR_IN || (*token)->type == E_REDIR_OUT) && (is_cmd((*token)->next->type)))
+	if ((is_redirection(((*token)->type))) && (is_cmd((*token)->next->type)))
 	{
 		new_redir->data = strdup((*token)->next->data);
 		*token = (*token)->next;
 	}
-	// new_redir->data = strdup(token->data);
 	new_redir->next = cmd->redir;
 	new_redir->prev = NULL;
 	if (cmd->redir)
@@ -117,10 +85,10 @@ int	is_redirection(t_lexer_type type)
 
 int	is_cmd(t_lexer_type type)
 {
-		if (type == E_CMD || type == E_OPTIONS || \
-		type == E_ARG)
-			return (1);
-		return (0);
+	if (type == E_CMD || type == E_OPTIONS || \
+	type == E_ARG)
+		return (1);
+	return (0);
 }
 
 int	is_quote(t_lexer_type type)

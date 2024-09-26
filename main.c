@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/26 13:36:17 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:39:43 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,8 @@ void	free_parsed_cmd(t_cmd *head)
 	{
 		next = current->next;
 		if (current->str)
-		{
-			// i = 0;
-			// while (current->str[i])
-			// {
-				// free(current->str[i]);
-			// 	i++;
-			// }
+
 				free(current->str);
-		}
 		if (current->redir)
 			free_tokens(current->redir);
 		free(current);
@@ -154,7 +147,7 @@ int main(int ac, char **av, char **envp)
 		if (lex_error(tokens))
 			continue ;
 		cmd_parsing = parser(&tokens);
-		print_tokens(tokens);
+		// print_tokens(tokens);
 		if (minishell.line_read)
 			free(minishell.line_read);
 		print_cmd(cmd_parsing);

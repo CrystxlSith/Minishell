@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 07:43:18 by kali              #+#    #+#             */
-/*   Updated: 2024/09/26 12:00:53 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:25:04 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ static int	redir_err(t_lexer *head)
 
 int	check_quotes(char *str)
 {
-    int single_q;
-    int double_q;
-	
+	int	single_q;
+	int	double_q;
+
 	single_q = 0;
 	double_q = 0;
-    while (*str)
+	while (*str)
 	{
-        if (*str == '\'' && double_q == 0)
-            single_q = !single_q;
+		if (*str == '\'' && double_q == 0)
+			single_q = !single_q;
 		else if (*str == '"' && single_q == 0)
-            double_q = !double_q;
-        str++;
-    }
+			double_q = !double_q;
+		str++;
+	}
 	if (single_q % 2 || double_q % 2)
 	{
 		printf("minishell: syntax error near unexpected token `quote'\n");
@@ -105,11 +105,6 @@ int	lex_error(t_lexer *head)
 	if ((!ft_strcmp(";", head->data) || \
 		!ft_strcmp("!", head->data)) && !head->next)
 		return (1);
-	if (!ft_strcmp("<<", head->data))
-	{
-		printf("minishell: syntax error near unexpected token `newline'\n");
-		return (1);
-	}
 	while (current)
 	{
 		if (current->type == E_PIPE)
