@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/26 14:39:43 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:02:02 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int main(int ac, char **av, char **envp)
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
+	init_signals();
 	tokens = NULL;
 	(void)ac;
 	(void)av;
@@ -132,8 +133,18 @@ int main(int ac, char **av, char **envp)
 	while (1)
 	{
 		minishell.line_read = readline("minishell> ");
+		// CTRL D
+		if (minishell.line_read == NULL)
+		{
+			free(minishell.line_read);
+			exit (1);
+		}
+		// \n
 		if (minishell.line_read[0] == '\0')
+		{
+			free(minishell.line_read);
 			continue ;
+		}
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
 		{
 			free(minishell.line_read);
@@ -150,7 +161,7 @@ int main(int ac, char **av, char **envp)
 		// print_tokens(tokens);
 		if (minishell.line_read)
 			free(minishell.line_read);
-		print_cmd(cmd_parsing);
+		// print_cmd(cmd_parsing);
  		free_tokens(tokens); 
 		if (!cmd_parsing)
 			continue ;

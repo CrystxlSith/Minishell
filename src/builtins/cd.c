@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 11:07:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:34:53 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ void	cd_prev(char *path, t_env **data)
 {
 	char	*prev_path;
 	char	*current_path;
-	int		len;
 
-	len = 0;
 	current_path = getcwd(NULL, 0);
 	prev_path = NULL;
 	if ((ft_strncmp(path, "..", 3) == 0)

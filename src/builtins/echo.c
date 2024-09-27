@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/19 16:09:16 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:34:46 by kali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 void	echo(char **input, t_env **data)
 {
 	int		i;
-	char	*env_var;
 	int		len;
 	// char	*tmp;
 
 	i = 2;
 	len = count_words(input);
 	(void)data;
-	env_var = NULL;
+	// env_var = NULL;
 	while (input[i])
 	{
 		// if (ft_strncmp(input[i], "$", 1) == 0)

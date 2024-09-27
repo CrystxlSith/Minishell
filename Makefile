@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+         #
+#    By: kali <kali@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/09/26 16:21:43 by jopfeiff         ###   ########.fr        #
+#    Updated: 2024/09/27 10:59:20 by kali             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME_A = minishell.a
 # ------------------------------------------------------------------------------
 
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -Werror -I./includes/
+CFLAGS = -g3 -Wall -Wextra -I./includes/
 RM = rm -rf
 LIBFT_FLAGS = -L./$(LIB_DIR) -l:libft.a
 
@@ -44,22 +44,25 @@ BUILTINS_DIR = src/builtins/
 LEXER_DIR = src/lexer/
 PARSER_DIR = src/parser/
 REDIREC_DIR = src/redirections/
+SIGNAL_DIR = src/signals/
 
-SRC_DIR = $(BUILTINS_DIR) $(LEXER_DIR) $(PARSER_DIR) $(REDIREC_DIR)
+SRC_DIR = $(BUILTINS_DIR) $(LEXER_DIR) $(PARSER_DIR) $(REDIREC_DIR) $(SIGNAL_DIR)
 
 BUILTINS_OBJ_DIR = obj/builtins/
 LEXER_OBJ_DIR = obj/lexer/
 PARSER_OBJ_DIR = obj/parser/
 REDIREC_OBJ_DIR = obj/redirections/
+SIGNAL_OBJ_DIR = obj/signal/
 
-OBJ_DIR = $(BUILTINS_OBJ_DIR) $(LEXER_OBJ_DIR) $(PARSER_OBJ_DIR) $(REDIREC_OBJ_DIR)
+OBJ_DIR = $(BUILTINS_OBJ_DIR) $(LEXER_OBJ_DIR) $(PARSER_OBJ_DIR) $(REDIREC_OBJ_DIR) $(SIGNAL_OBJ_DIR)
 
 BUILTINS_OBJ_DEP = dep/builtins/
 LEXER_OBJ_DEP = dep/lexer/
 PARSER_OBJ_DEP = dep/parser/
 REDIREC_OBJ_DEP = dep/redirections/
+SIGNAL_OBJ_DEP = dep/signals/
 
-DEP_DIR = $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) $(PARSER_OBJ_DEP) $(REDIREC_OBJ_DEP)
+DEP_DIR = $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) $(PARSER_OBJ_DEP) $(REDIREC_OBJ_DEP) $(SIGNAL_OBJ_DEP)
 
 # ------------------------------------------------------------------------------
 # 									FILES
@@ -71,10 +74,12 @@ BUILTINS = builtins.c echo.c cd.c env.c export.c ft_export_utiles.c \
 
 LEXER = handler.c init_lexer.c lexer_utils.c lexer.c lex_error_handler.c
 
-PARSER = parser_utils.c parser.c parser_utils2.c parser_utils_3.c
+PARSER = parser_utils.c parser.c parser_utils2.c parser_utils_3.c signals.c
 
 REDIREC = exec_cmd_minishell.c get_path_cmd.c ft_piping_utils.c ft_redir_utils.c \
 	exec_pipe_cmd.c ft_multi_piping_utils.c
+
+SIGNALS = 
 
 MAIN = main.c
 
@@ -82,19 +87,22 @@ BUILTINSF = $(addprefix $(BUILTINS_DIR), $(BUILTINS))
 LEXERF = $(addprefix $(LEXER_DIR), $(LEXER))
 PARSERF = $(addprefix $(PARSER_DIR), $(PARSER))
 REDIRECF = $(addprefix $(REDIREC_DIR), $(REDIREC))
+SIGNALSF = $(addprefix $(SIGNAL_DIR), $(SIGNALS))
 
 BUILTINS_OBJ = $(addprefix $(BUILTINS_OBJ_DIR), $(BUILTINS:%.c=%.o))
 LEXER_OBJ = $(addprefix $(LEXER_OBJ_DIR), $(LEXER:%.c=%.o))
 PARSER_OBJ = $(addprefix $(PARSER_OBJ_DIR), $(PARSER:%.c=%.o))
 REDIREC_OBJ = $(addprefix $(REDIREC_OBJ_DIR), $(REDIREC:%.c=%.o))
+SIGNAL_OBJ = $(addprefix $(SIGNAL_OBJ_DIR), $(SIGNALS:%.c=%.o))
 MAIN_OBJ = main.o
 
 BUILTINS_DEP = $(addprefix $(BUILTINS_OBJ_DEP), $(BUILTINS_OBJ:%.o=%.d))
 LEXER_DEP = $(addprefix $(LEXER_OBJ_DEP), $(LEXER_OBJ:%.o=%.d))
 PARSER_DEP = $(addprefix $(PARSER_OBJ_DEP), $(PARSER_OBJ:%.o=%.d))
 REDIREC_DEP = $(addprefix $(REDIREC_OBJ_DEP), $(REDIREC_OBJ:%.o=%.d))
+SIGNAL_DEP = $(addprefix $(SIGNAL_OBJ_DEP), $(SIGNAL_OBJ:%.o=%.d))
 
-SRC = $(BUILTINSF) $(LEXERF) $(PARSERF) $(REDIRECF) $(MAIN)
+SRC = $(BUILTINSF) $(LEXERF) $(PARSERF) $(REDIRECF) $(MAIN) $(SIGNALSF)
 OBJ = $(BUILTINS_OBJ) $(LEXER_OBJ) $(PARSER_OBJ) $(REDIREC_OBJ) $(MAIN_OBJ)
 DEP = $(BUILTINS_DEP) $(LEXER_DEP) $(PARSER_DEP) $(REDIREC_DEP)
 
@@ -106,7 +114,7 @@ LIBFT_OBJ = $(addprefix $(LIB_DIR), $(NAME_LIB))
 
 all : $(NAME)
 
-.SILENT : $(NAME) $(NAME_A) $(BUILTINS_OBJ) $(LEXER_OBJ) $(PARSER_OBJ) $(REDIREC_OBJ) $(MAIN_OBJ) $(BUILTINS_OBJ_DIR) $(LEXER_OBJ_DIR) $(PARSER_OBJ_DIR) $(REDIREC_OBJ_DIR) $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) $(PARSER_OBJ_DEP) $(REDIREC_OBJ_DEP)
+.SILENT : $(NAME) $(NAME_A) $(BUILTINS_OBJ) $(LEXER_OBJ) $(PARSER_OBJ) $(REDIREC_OBJ) $(MAIN_OBJ) $(BUILTINS_OBJ_DIR) $(LEXER_OBJ_DIR) $(PARSER_OBJ_DIR) $(REDIREC_OBJ_DIR) $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) $(PARSER_OBJ_DEP) $(REDIREC_OBJ_DEP) $(SIG) $(SIGNAL_OBJ_DIR) $(SIGNAL_OBJ_DEP) 
 
 $(NAME) : $(NAME_A) $(OBJ)
 	echo "${CYAN}Compiling Minishell...${RESET}"
@@ -130,6 +138,9 @@ $(PARSER_OBJ_DIR)%.o : $(PARSER_DIR)%.c | $(PARSER_OBJ_DIR) $(PARSER_OBJ_DEP)
 
 $(REDIREC_OBJ_DIR)%.o : $(REDIREC_DIR)%.c | $(REDIREC_OBJ_DIR) $(REDIREC_OBJ_DEP)
 	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -MF $(REDIREC_OBJ_DEP)$*.d
+
+$(SIGNAL_OBJ_DIR)%.o : $(SIGNAL_DIR)%.c | $(SIGNAL_OBJ_DIR) $(SIGNAL_OBJ_DEP)
+	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -MF $(SIGNAL_OBJ_DEP)$*.d
 
 $(MAIN_OBJ) : $(MAIN)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -157,6 +168,9 @@ $(PARSER_OBJ_DEP) :
 
 $(REDIREC_OBJ_DEP) :
 	mkdir -p $(REDIREC_OBJ_DEP)
+
+$(SIGNAL_OBJ_DIR) :
+	mkdir -p $(SIGNAL_OBJ_DIR)
 
 
 clean:
