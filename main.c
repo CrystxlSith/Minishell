@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/27 12:02:02 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/29 14:11:10 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
+t_minishell	minishell;
 // ################################  RAF AGT ################################ //
 // 1) corriger la fonction CD pour gerer tous les cas de figures			  //
 // 2) programmer les bons messages d'erreur									  //
@@ -117,7 +118,6 @@ void	print_tokens(t_lexer *tokens)
 
 int main(int ac, char **av, char **envp)
 {
-	t_minishell	minishell;
 	t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 	t_env		*data;
@@ -155,12 +155,10 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
+		// print_tokens(tokens);
 		if (lex_error(tokens))
 			continue ;
 		cmd_parsing = parser(&tokens);
-		// print_tokens(tokens);
-		if (minishell.line_read)
-			free(minishell.line_read);
 		// print_cmd(cmd_parsing);
  		free_tokens(tokens); 
 		if (!cmd_parsing)
@@ -168,6 +166,8 @@ int main(int ac, char **av, char **envp)
 		fill_nbr_element(&cmd_parsing);
 		// if (cmd_parsing->str)
 		// 	execute_fork(&cmd_parsing, &data);
+		if (minishell.line_read)
+			free(minishell.line_read);
  		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}

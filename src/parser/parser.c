@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/26 16:41:40 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:48:20 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	handle_question(char **res, char *tmp, int *i)
+{
+	char *tmp2;
+
+	tmp2 = ft_itoa(minishell.last_exit_status);
+	if (!ft_strncmp(tmp, "?", 1))
+	{
+		*res = ft_strjoin(*res, tmp2);
+		*i += ft_strlen(tmp2);
+		free(tmp2);
+		return (1);
+	}
+	free(tmp2);
+	return (0);
+}
 
 void	replace_dollar(char **input, char *res, int i, int j)
 {
@@ -26,6 +42,7 @@ void	replace_dollar(char **input, char *res, int i, int j)
 			if (handle_number(input, &j, tmp, tmp2))
 				continue ;
 			j += loop_while_dollar(input, &tmp, j, tmp2);
+			handle_question(&res, tmp, &i);
 			handle_env_value(&res, tmp, &i);
 		}
 		else

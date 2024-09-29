@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:15:40 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/26 16:38:40 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:07:36 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	loop_while_dollar(char **input, char **tmp, int i, char *tmp2)
 	tmp_len = i;
 	k = 0;
 	j = 0;
-	while (ft_isdigit((*input)[i++]) || ft_isalpha((*input)[i]))
+	while (ft_isdigit((*input)[i++]) || ft_isalpha((*input)[i]) || (*input)[i] == '?')
 		k++;
 	new_tmp = malloc(sizeof(char) * (i + 1));
 	if (!new_tmp)
@@ -87,7 +87,8 @@ int	loop_while_dollar(char **input, char **tmp, int i, char *tmp2)
 	free(*tmp);
 	*tmp = new_tmp;
 	i = 0;
-	while (ft_isdigit((*input)[tmp_len]) || ft_isalpha((*input)[tmp_len]))
+	while (ft_isdigit((*input)[tmp_len]) || ft_isalpha((*input)[tmp_len]) || (*input)[tmp_len] == '?')
+	
 	{
 		(*tmp)[i] = (*input)[tmp_len];
 		i++;

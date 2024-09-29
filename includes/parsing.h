@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/27 10:47:57 by kali             ###   ########.fr       */
+/*   Updated: 2024/09/28 14:15:55 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define SPACE_CHAR "|<>"
 # define IS_TOKEN "\"'|<>&"
 # define IS_REDIRECTION "<>"
-
+# define LEX_ERR "minishell: syntax error near unexpected token "
 // Token types
 typedef enum s_lexer_type
 {
@@ -80,6 +80,7 @@ void	redir_handler(t_lexer **token, char **str);
 void	space_handler(t_lexer **tokens, char **str);
 void	remove_space_in_cmd(t_cmd **head);
 void    init_signals(void);
+void	print_error(char *error, char *token);
 int	handle_number(char **input, int *i, char *tmp, char *tmp2);
 int	loop_while_dollar(char **input, char **tmp, int i, char *tmp2);
 char	*build_res(char *res, int i, int j, char **input);

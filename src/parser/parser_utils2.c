@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:38:32 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/26 16:23:45 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:10:38 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	handle_env_value(char **res, char *tmp, int *i)
 	if (env_value)
 	{
 		new_res = ft_strjoin(*res, env_value);
-		free(*res);
 		*res = new_res;
 		*i += ft_strlen(env_value);
 	}

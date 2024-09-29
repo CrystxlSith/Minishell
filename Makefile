@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kali <kali@student.42.fr>                  +#+  +:+       +#+         #
+#    By: crycry <crycry@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/09/27 10:59:20 by kali             ###   ########.fr        #
+#    Updated: 2024/09/28 14:03:08 by crycry           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ BUILTINS = builtins.c echo.c cd.c env.c export.c ft_export_utiles.c \
 
 LEXER = handler.c init_lexer.c lexer_utils.c lexer.c lex_error_handler.c
 
-PARSER = parser_utils.c parser.c parser_utils2.c parser_utils_3.c signals.c
+PARSER = parser_utils.c parser.c parser_utils2.c parser_utils_3.c print_error.c signals.c
 
 REDIREC = exec_cmd_minishell.c get_path_cmd.c ft_piping_utils.c ft_redir_utils.c \
 	exec_pipe_cmd.c ft_multi_piping_utils.c
