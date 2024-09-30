@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/30 10:04:50 by crycry           ###   ########.fr       */
+/*   Updated: 2024/09/30 14:58:26 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int main(int ac, char **av, char **envp)
 		if (!cmd_parsing)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
-		print_cmd(cmd_parsing);
+		// print_cmd(cmd_parsing);
 		// if (cmd_parsing->str)
 		// 	execute_fork(&cmd_parsing, &data);
 		if (minishell.line_read)
