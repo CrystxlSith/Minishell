@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/29 14:11:10 by crycry           ###   ########.fr       */
+/*   Updated: 2024/09/30 10:04:50 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,15 +159,15 @@ int main(int ac, char **av, char **envp)
 		if (lex_error(tokens))
 			continue ;
 		cmd_parsing = parser(&tokens);
-		// print_cmd(cmd_parsing);
- 		free_tokens(tokens); 
 		if (!cmd_parsing)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
+		print_cmd(cmd_parsing);
 		// if (cmd_parsing->str)
 		// 	execute_fork(&cmd_parsing, &data);
 		if (minishell.line_read)
 			free(minishell.line_read);
+ 		free_tokens(tokens); 
  		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}
