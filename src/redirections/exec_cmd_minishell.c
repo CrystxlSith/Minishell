@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 16:40:53 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:21:06 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 	int	pid;
 	int	status;
 
+	printf("redir nb %d\n", (*parsing)->redir_nb);
+	print_double_tab((*parsing)->str);
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
@@ -33,28 +35,17 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 	printf("Forked process: pid=%d\n", pid);
 	if (pid == 0)
 	{
-		if ((*parsing)->next != NULL)
-		{
-			printf("About to dup2 fd[1] fork: fd[0]=%d, fd[1]=%d\n", fd[0], fd[1]);
-			open_dup_pipe_out(fd);
-		}
-		printf("%s\n", "PID OUT");
 		exec_cmd_minishell(parsing, data);
-		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		if ((*parsing)->next != NULL)
-		{
-			printf("About to dup2 fd[0] fork: fd[0]=%d, fd[1]=%d\n", fd[0], fd[1]);
-			open_dup_pipe_in(fd);
-		}
 	}
 }
 
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 {
+	printf("str parsing 1 %s\n", (*parsing)->str[0]);
 	if ((*parsing)->next == NULL)
 	{
 		exec_cmd(parsing, data);
@@ -71,6 +62,8 @@ void	exec_cmd(t_cmd **parsing, t_env **data)
 	}
 	else
 	{
+		printf("%s\n", "exec single cmd");
+		printf("str parsing %s\n", (*parsing)->str[0]);
 		exec_single_cmd(parsing, data);
 	}
 }

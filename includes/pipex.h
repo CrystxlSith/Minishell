@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/24 14:30:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:08:22 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp);
 
 // ft_redir_utils
 int		find_line(char **envp);
-void	exec_redir_in(int index, t_cmd **parsing, t_env **data);
-void	exec_redir_out(int index, t_cmd **parsing, t_env **data);
-void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data);
+void	exec_redir_in(t_cmd **parsing, t_env **data);
+void	exec_redir_out(t_cmd **parsing, t_env **data);
+void	fork_redirection(int redir, t_cmd **parsing, t_env **data);
 void	exec_redirection(t_cmd **parsing, t_env **data);
 
 // ft_multi_piping_utils

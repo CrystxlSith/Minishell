@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/09/19 14:38:10 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/28 14:51:38 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,34 @@
 # define TRUE 1
 # define FALSE 0
 
+/**
+ * @file minishell.h
+ * @brief Header file for the Minishell project.
+ *
+ * This file contains the definition of the `t_minishell` structure, which is used
+ * to store the state of the Minishell application.
+ */
+
+/**
+ * @struct s_minishell
+ * @brief Structure to hold the state of the Minishell application.
+ *
+ * The `t_minishell` structure contains the following fields:
+ * - `line_read`: A pointer to a string that holds the last line read from the input.
+ * - `last_exit_status`: An integer that stores the exit status of the last executed command.
+ *
+ * @example
+ * t_minishell shell;
+ * shell.line_read = NULL;
+ * shell.last_exit_status = 0;
+ */
 typedef struct s_minishell
 {
 	char	*line_read;
+	int	last_exit_status;
 }			t_minishell;
 
+extern t_minishell minishell;
 //LEXER && PARSER
 t_lexer	*tokenize(char *str);
 void	init_cmd(t_cmd **head, t_cmd **current);

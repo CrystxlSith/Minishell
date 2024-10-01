@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 19:30:23 by crystal           #+#    #+#             */
-/*   Updated: 2024/05/23 10:37:15 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:49:46 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <bsd/string.h>
 
 // strlcat - Append a length-limited, NUL-terminated string to another 
 

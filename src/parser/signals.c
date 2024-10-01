@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/30 13:11:44 by mariannedub      ###   ########.fr       */
+/*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
+/*   Updated: 2024/09/30 09:45:35 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	echo(char **input, t_env **data)
+void    signal_handler(int signum)
 {
-	int		i;
-	int		len;
-	int		trigger;
+    printf("\n");
+    rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+    minishell.last_exit_status = 130;
+    (void)signum;
+}
 
-	trigger = 0;
-	if (ft_strncmp(input[1], "-n", 3) == 0)
-		i = 2;
-	else
-	{
-		trigger = 1;
-		i = 1;
-	}
-	len = count_words(input);
-	(void)data;
-	while (input[i])
-	{
-		printf("%s", input[i]);
-		if (i - 1 != len)
-			printf("%s", " ");
-		i++;
-	}
-	if (trigger == 1)
-		printf("%c", '\n');
+void    init_signals(void)
+{
+    signal(SIGINT, signal_handler);
+    signal(SIGQUIT, SIG_IGN);
 }

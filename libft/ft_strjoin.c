@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 22:29:06 by crystal           #+#    #+#             */
-/*   Updated: 2024/09/25 15:00:20 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:25:44 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,4 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[j] = '\0';
 	free(s1);
 	return (str);
-}	
+}

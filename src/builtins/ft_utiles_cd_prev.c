@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utiles_cd_prev.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 14:34:15 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 13:16:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:45:52 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,18 @@ char	*cd_get_prev_path(char *path, char *current_path)
 		if (!prev_path)
 			return (free(current_path), NULL);
 		prev_path = ft_strncpy(prev_path, current_path, len + 1);
+		printf("prev path : %s\n", prev_path);
 	}
 	else
 	{
 		tmp = ft_strtrim(path, "../");
+		printf("tmp : %s\n", tmp);
 		size = get_dir_len(path) + len;
 		prev_path = malloc(sizeof(char) * (size + 1));
 		if (!prev_path)
 			return (free(current_path), NULL);
 		prev_path = ft_strncpy(prev_path, current_path, len);
+		printf("prev path : %s\n", prev_path);
 		prev_path = ft_strjoin(prev_path, tmp);
 		free(tmp);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utiles_cd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 15:15:31 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:07:14 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,18 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 {
 	char	*old_path;
 	char	*new_path;
+	char	*old_pwd;
+	char	*pwd;
 
-	old_path = ft_strjoin("OLDPWD=", tmp_old);
+	old_pwd = ft_strdup("OLDPWD=");
+	pwd = ft_strdup("PWD=");
+	old_path = ft_strjoin(old_pwd, tmp_old);
 	if (!old_path)
 	{
 		perror("old_path");
 		return ;
 	}
-	new_path = ft_strjoin("PWD=", tmp_new);
+	new_path = ft_strjoin(pwd, tmp_new);
 	if (!new_path)
 	{
 		perror("new_path");
@@ -86,7 +90,7 @@ void	move_to_dir(char *path, t_env **data)
 	if (path == NULL || ft_strcmp(path, "") == 0)
 		cd_home(path, data);
 	else if (ft_strncmp(path, "../", 3) == 0
-		|| ft_strncmp(path, "..", 2) == 0)
+		|| ft_strncmp(path, "..", 3) == 0)
 		cd_prev(path, data);
 	else if (path != NULL || ft_strncmp(path, "./", 2) == 0)
 		cd_next(path, data);

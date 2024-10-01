@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_piping_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/24 15:40:11 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:13:20 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	open_dup_output(int fd_in)
 		close(fd_in);
 		return (-1);
 	}
-/* 	printf("%s\n", "DUP2 DONE"); */
 	close(fd_in);
 	return (0);
 }

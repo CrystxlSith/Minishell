@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 11:07:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:03:24 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void	cd_next(char *path, t_env **data)
 	char	*next_path;
 	char	*current_path;
 	char	*tmp;
+	char	*tmp2;
 
 	current_path = getcwd(NULL, 0);
-	tmp = ft_strjoin(current_path, "/");
+	tmp2 = ft_strdup(current_path);
+	tmp = ft_strjoin(tmp2, "/");
 	next_path = ft_strjoin(tmp, path);
-	free(tmp);
 	if (go_to_path(next_path) == -1)
 	{
 		free(current_path);
@@ -68,11 +69,13 @@ void	cd_prev(char *path, t_env **data)
 	int		len;
 
 	len = 0;
+	printf("%s\n", "in cd prev");
 	current_path = getcwd(NULL, 0);
 	prev_path = NULL;
 	if ((ft_strncmp(path, "..", 3) == 0)
 		|| (ft_strcmp(find_in_env("OLDPWD=", (*data)->var), current_path) == 0))
 	{
+		printf("%s\n", "in cd prev newpwd");
 		prev_path = cd_prev_newpwd(path, current_path);
 		if (!prev_path)
 			return ;
@@ -93,10 +96,12 @@ void	cd_entry_compare(char *path, char *new_path, t_env **data, DIR *dir)
 	struct dirent	*entry;
 
 	entry = readdir(dir);
+	printf("%s\n", "in cd entry compare");
 	while (entry != NULL)
 	{
 		if (new_path == NULL || ft_strncmp(path, "..", 3) == 0)
 		{
+			printf("%s\n", "in move to dir ..");
 			move_to_dir(new_path, data);
 			break ;
 		}
@@ -115,15 +120,17 @@ void	cd_entry_compare(char *path, char *new_path, t_env **data, DIR *dir)
 // fonction general qui ouvre le canal de navigation des dossiers
 // et gere la lecture du contenu des dossiers. Appelle ensuite "move_to_dir"
 // pour changer de dossier
-char	*cd(char *path, t_env **data)
+/* char	*cd(char *path, t_env **data)
 {
 	DIR		*dir;
 	DIR		*long_dir;
 	char	*new_path;
 
+	printf("Path cd : %s\n", path);
 	long_dir = opendir(path);
 	if (long_dir != NULL)
 	{
+		printf("%s\n", "in long dir");
 		new_path = find_in_env("PWD=", (*data)->var);
 		chdir(path);
 		path = getcwd(NULL, 0);
@@ -133,13 +140,42 @@ char	*cd(char *path, t_env **data)
 	}
 	else
 	{
+		printf("%s\n", "in short dir");
+		printf("PWD %s\n", find_in_env("PWD=", (*data)->var));
 		dir = opendir(find_in_env("PWD=", (*data)->var));
 		if (dir == NULL)
 			return (perror("opendir"), NULL);
 		new_path = format_dir_path(path);
+		printf("new_path : %s\n", new_path);
 		cd_entry_compare(path, new_path, data, dir);
 		free(new_path);
+		printf("%s\n", "path free");
 		closedir(dir);
 	}
 	return (NULL);
+} */
+
+char	*cd(char *path, t_env **data)
+{
+	DIR		*dir;
+	char	*new_path;
+
+	printf("Path cd : %s\n", path);
+	dir = opendir(path);
+	if (dir != NULL)
+	{
+		printf("%s\n", "in long dir");
+		new_path = find_in_env("PWD=", (*data)->var);
+		chdir(path);
+		path = getcwd(NULL, 0);
+		update_env(new_path, path, data);
+		free(path);
+		closedir(dir);
+		return (NULL);
+	}
+	else
+	{
+		perror("cd");
+		return (NULL);
+	}
 }

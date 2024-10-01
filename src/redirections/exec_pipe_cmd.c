@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 16:51:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:36:42 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	int		status;
 
 	tmp = *parsing;
+	old_fd[0] = -1;
+	old_fd[1] = -1;
 	while (tmp != NULL)
 	{
 		if (tmp->next != NULL)
@@ -51,13 +53,13 @@ void	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 				perror("pipe");
 				exit(EXIT_FAILURE);
 			}
-			printf("Pipe created pipe multi : fd[0]=%d, fd[1]=%d\n", current_fd[0], current_fd[1]);
-			if (pipe(old_fd) == -1)
-			{
-				perror("old fd pipe");
-				exit(EXIT_FAILURE);
-			}
-			printf("Pipe created old fd : fd[0]=%d, fd[1]=%d\n", old_fd[0], old_fd[1]);
+//			printf("Pipe created pipe multi : fd[0]=%d, fd[1]=%d\n", current_fd[0], current_fd[1]);
+//			if (pipe(old_fd) == -1)
+//			{
+//				perror("old fd pipe");
+//				exit(EXIT_FAILURE);
+//			}
+//			printf("Pipe created old fd : fd[0]=%d, fd[1]=%d\n", old_fd[0], old_fd[1]);
 		}
 		pid = fork();
 		if (pid == -1)
@@ -74,7 +76,8 @@ void	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 		else
 		{
 			waitpid(pid, &status, 0);
-			if (tmp->prev != NULL)
+//			if (tmp->prev != NULL)
+			if (old_fd[0] != -1)
 				close_fd(old_fd);
 			if (tmp->next != NULL)
 			{

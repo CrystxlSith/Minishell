@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/24 16:55:49 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:19:03 by mariannedub      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,44 +26,41 @@ int	find_line(char **envp)
 	return (index);
 }
 
-void	exec_redir_in(int index, t_cmd **parsing, t_env **data)
+void	exec_redir_in(t_cmd **parsing, t_env **data)
 {
 	int		fd_redir;
 	t_cmd	*tmp;
 
 	(void)data;
 	tmp = *parsing;
-	printf("REDIR IN : %s\n", tmp->str[index]);
-	fd_redir = open(tmp->str[index], O_RDONLY);
+	printf("REDIR IN : %s\n", tmp->redir->data);
+	fd_redir = open(tmp->redir->data, O_RDONLY);
 	if (fd_redir == -1)
 		return ;
 	if (open_dup_input(fd_redir) == -1)
 		return ;
 	exec_single_cmd(parsing, data);
-	exit(0);
+	//exit(0);
 }
 
-void	exec_redir_out(int index, t_cmd **parsing, t_env **data)
+void	exec_redir_out(t_cmd **parsing, t_env **data)
 {
 	int		fd_redir;
 	t_cmd	*tmp;
 
 	(void)data;
 	tmp = *parsing;
-/* 	print_double_tab((*parsing)->str); */
-	printf("REDIR OUT : %s\n", tmp->str[index]);
-	fd_redir = open(tmp->str[index], O_CREAT | O_RDWR | O_TRUNC, 0777);
+	printf("REDIR OUT : %s\n", tmp->redir->data);
+	fd_redir = open(tmp->redir->data, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd_redir == -1)
 		return ;
-/* 	printf("FD REDIR : %d\n", fd_redir); */
 	if (open_dup_output(fd_redir) == -1)
 		return ;
-/* 	ft_putstr_fd("DUP2 DONE", 1); */
 	exec_single_cmd(parsing, data);
-	exit(0);
+	//exit(0);
 }
 
-void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data)
+void	fork_redirection(int redir, t_cmd **parsing, t_env **data)
 {
 	int		pid;
 	int		status;
@@ -81,22 +78,18 @@ void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data)
 		{
 			if (tmp->redir->type == E_REDIR_IN)
 			{
-/* 				if (trigger == 1 && tmp->redir->next == NULL)
-				{ */
-					exec_redir_in(index, parsing, data);
-/* 				} */
+				exec_redir_in(parsing, data);
 			}
-			if (tmp->redir->type == E_REDIR_OUT)
+			else if (tmp->redir->type == E_REDIR_OUT)
 			{
-				trigger = 1;
-				exec_redir_out(index, parsing, data);
+				exec_redir_out(parsing, data);
 			}
+			break ;
 		}
 		else
 		{
 			waitpid(pid, &status, 0);
 			tmp->redir = tmp->redir->next;
-			index = find_index_file(tmp, index);
 			redir--;
 		}
 	}
@@ -104,10 +97,8 @@ void	fork_redirection(int index, int redir, t_cmd **parsing, t_env **data)
 
 void	exec_redirection(t_cmd **parsing, t_env **data)
 {
-	int	index;
 	int	redir;
 
-	index = find_index_file((*parsing), 0);
 	redir = (*parsing)->redir_nb;
-	fork_redirection(index, redir, parsing, data);
+	fork_redirection(redir, parsing, data);
 }

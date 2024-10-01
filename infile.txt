@@ -1,0 +1,35 @@
+in builtins
+USER=mariannedubuard
+MallocNanoZone=0
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+LOGNAME=mariannedubuard
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.zMmwFJHmsQ/Listeners
+HOME=/Users/mariannedubuard
+SHELL=/bin/zsh
+__CF_USER_TEXT_ENCODING=0x1F6:0x0:0x1
+TMPDIR=/var/folders/t1/52wkbkpd0_j0p_8ng0bzpxh00000gp/T/
+XPC_SERVICE_NAME=0
+XPC_FLAGS=0x0
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+SHLVL=1
+PWD=/Users/mariannedubuard/Desktop/42_armel/MinishellvAGT
+OLDPWD=/Users/mariannedubuard/Desktop/42_armel/MinishellvAGT
+ZSH=/Users/mariannedubuard/.oh-my-zsh
+PAGER=less
+LESS=-R
+LSCOLORS=Gxfxcxdxbxegedabagacad
+LS_COLORS=di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43
+TERM_PROGRAM=vscode
+TERM_PROGRAM_VERSION=1.93.1
+LANG=en_US.UTF-8
+COLORTERM=truecolor
+GIT_ASKPASS=/private/var/folders/t1/52wkbkpd0_j0p_8ng0bzpxh00000gp/T/AppTranslocation/662B5057-E95F-46E1-A227-F304659F8E45/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+VSCODE_GIT_ASKPASS_NODE=/private/var/folders/t1/52wkbkpd0_j0p_8ng0bzpxh00000gp/T/AppTranslocation/662B5057-E95F-46E1-A227-F304659F8E45/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/t1/52wkbkpd0_j0p_8ng0bzpxh00000gp/T/AppTranslocation/662B5057-E95F-46E1-A227-F304659F8E45/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+VSCODE_GIT_IPC_HANDLE=/var/folders/t1/52wkbkpd0_j0p_8ng0bzpxh00000gp/T/vscode-git-bc0e4a7ccd.sock
+VSCODE_INJECTION=1
+ZDOTDIR=/Users/mariannedubuard
+USER_ZDOTDIR=/Users/mariannedubuard
+TERM=xterm-256color
+_=/Users/mariannedubuard/Desktop/42_armel/MinishellvAGT/./minishell
