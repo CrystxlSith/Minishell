@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/26 16:23:37 by jopfeiff         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/30 14:57:22 by crycry           ###   ########.fr       */
+>>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +61,39 @@ t_cmd	*create_new_cmd(void)
 void	handle_redirection(t_lexer **token, t_cmd *cmd)
 {
 	t_lexer	*new_redir;
+	t_lexer	*last_redir;
 
 	new_redir = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!new_redir)
 		return ;
 	new_redir->type = (*token)->type;
+<<<<<<< HEAD
 	if ((is_redirection(((*token)->type))) && (is_cmd((*token)->next->type)))
+=======
+	if ((is_redirection(((*token)->type))) && (*token)->next && (is_cmd((*token)->next->type)))
+>>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 	{
 		new_redir->data = strdup((*token)->next->data);
 		*token = (*token)->next;
 	}
+<<<<<<< HEAD
 	new_redir->next = cmd->redir;
+=======
+	new_redir->next = NULL;
+>>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 	new_redir->prev = NULL;
-	if (cmd->redir)
-		cmd->redir->prev = new_redir;
-	cmd->redir = new_redir;
+	if (!cmd->redir)
+	{
+		cmd->redir = new_redir;
+	}
+	else
+	{
+		last_redir = cmd->redir;
+		while (last_redir->next)
+			last_redir = last_redir->next;
+		last_redir->next = new_redir;
+		new_redir->prev = last_redir;
+	}
 	cmd->redir_nb++;
 }
 

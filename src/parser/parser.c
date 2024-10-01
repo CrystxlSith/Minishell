@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
 /*   Updated: 2024/09/30 09:14:26 by mariannedub      ###   ########.fr       */
+=======
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
+/*   Updated: 2024/09/29 15:48:20 by crycry           ###   ########.fr       */
+>>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+<<<<<<< HEAD
 /*int	handle_question(char **res, char *tmp, int *i)
+=======
+int	handle_question(char **res, char *tmp, int *i)
+>>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 {
 	char *tmp2;
 
@@ -26,7 +37,11 @@
 	}
 	free(tmp2);
 	return (0);
+<<<<<<< HEAD
 }*/
+=======
+}
+>>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 
 void	replace_dollar(char **input, char *res, int i, int j)
 {
@@ -42,7 +57,11 @@ void	replace_dollar(char **input, char *res, int i, int j)
 			if (handle_number(input, &j, tmp, tmp2))
 				continue ;
 			j += loop_while_dollar(input, &tmp, j, tmp2);
+<<<<<<< HEAD
 			//handle_question(&res, tmp, &i);
+=======
+			handle_question(&res, tmp, &i);
+>>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 			handle_env_value(&res, tmp, &i);
 		}
 		else
