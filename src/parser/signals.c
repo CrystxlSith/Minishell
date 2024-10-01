@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/09/30 09:45:35 by mariannedub      ###   ########.fr       */
-=======
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/09/29 11:53:43 by crycry           ###   ########.fr       */
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
+/*   Updated: 2024/10/01 10:02:42 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

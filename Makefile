@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: crycry <crycry@student.42.fr>              +#+  +:+       +#+         #
+#    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2024/10/01 09:51:35 by agiliber         ###   ########.fr        #
-=======
-#    Updated: 2024/09/28 14:03:08 by crycry           ###   ########.fr        #
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
+#    Updated: 2024/10/01 10:02:32 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,16 +74,12 @@ BUILTINS = builtins.c echo.c cd.c env.c export.c ft_export_utiles.c \
 
 LEXER = handler.c init_lexer.c lexer_utils.c lexer.c lex_error_handler.c
 
-<<<<<<< HEAD
-PARSER = parser_utils.c parser.c parser_utils2.c parser_utils_3.c
-=======
 PARSER = parser_utils.c parser.c parser_utils2.c parser_utils_3.c print_error.c signals.c
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 
 REDIREC = exec_cmd_minishell.c get_path_cmd.c ft_piping_utils.c ft_redir_utils.c \
 	exec_pipe_cmd.c ft_multi_piping_utils.c
 
-SIGNALS = 
+SIGNALS =
 
 MAIN = main.c
 
@@ -122,7 +114,7 @@ LIBFT_OBJ = $(addprefix $(LIB_DIR), $(NAME_LIB))
 
 all : $(NAME)
 
-.SILENT : $(NAME) $(NAME_A) $(BUILTINS_OBJ) $(LEXER_OBJ) $(PARSER_OBJ) $(REDIREC_OBJ) $(MAIN_OBJ) $(BUILTINS_OBJ_DIR) $(LEXER_OBJ_DIR) $(PARSER_OBJ_DIR) $(REDIREC_OBJ_DIR) $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) $(PARSER_OBJ_DEP) $(REDIREC_OBJ_DEP) $(SIG) $(SIGNAL_OBJ_DIR) $(SIGNAL_OBJ_DEP) 
+.SILENT : $(NAME) $(NAME_A) $(BUILTINS_OBJ) $(LEXER_OBJ) $(PARSER_OBJ) $(REDIREC_OBJ) $(MAIN_OBJ) $(BUILTINS_OBJ_DIR) $(LEXER_OBJ_DIR) $(PARSER_OBJ_DIR) $(REDIREC_OBJ_DIR) $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) $(PARSER_OBJ_DEP) $(REDIREC_OBJ_DEP) $(SIG) $(SIGNAL_OBJ_DIR) $(SIGNAL_OBJ_DEP)
 
 $(NAME) : $(NAME_A) $(OBJ)
 	echo "${CYAN}Compiling Minishell...${RESET}"

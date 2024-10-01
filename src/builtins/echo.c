@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/30 13:11:44 by mariannedub      ###   ########.fr       */
-=======
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/27 10:34:46 by kali             ###   ########.fr       */
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
+/*   Updated: 2024/10/01 10:02:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +28,7 @@ void	echo(char **input, t_env **data)
 	}
 	len = count_words(input);
 	(void)data;
-<<<<<<< HEAD
-=======
 	// env_var = NULL;
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 	while (input[i])
 	{
 		printf("%s", input[i]);

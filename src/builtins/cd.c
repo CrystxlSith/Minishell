@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/30 12:03:24 by mariannedub      ###   ########.fr       */
-=======
-/*   By: kali <kali@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/27 10:34:53 by kali             ###   ########.fr       */
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
+/*   Updated: 2024/10/01 10:02:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +67,6 @@ void	cd_prev(char *path, t_env **data)
 	char	*prev_path;
 	char	*current_path;
 
-<<<<<<< HEAD
-	len = 0;
-	printf("%s\n", "in cd prev");
-=======
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
 	current_path = getcwd(NULL, 0);
 	prev_path = NULL;
 	if ((ft_strncmp(path, "..", 3) == 0)

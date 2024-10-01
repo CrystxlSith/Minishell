@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
-/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:15:40 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/30 09:47:48 by mariannedub      ###   ########.fr       */
-=======
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/26 16:15:40 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/29 14:07:36 by crycry           ###   ########.fr       */
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
+/*   Updated: 2024/10/01 10:02:38 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +88,7 @@ int	loop_while_dollar(char **input, char **tmp, int i, char *tmp2)
 	*tmp = new_tmp;
 	i = 0;
 	while (ft_isdigit((*input)[tmp_len]) || ft_isalpha((*input)[tmp_len]) || (*input)[tmp_len] == '?')
-	
+
 	{
 		(*tmp)[i] = (*input)[tmp_len];
 		i++;

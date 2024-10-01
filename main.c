@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/01 09:52:17 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/30 14:58:26 by crycry           ###   ########.fr       */
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
+/*   Updated: 2024/10/01 10:02:31 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,19 +163,11 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
 		// print_cmd(cmd_parsing);
-<<<<<<< HEAD
-		if (cmd_parsing->str)
-			execute_fork(&cmd_parsing, &data);
-		if (minishell.line_read)
-			free(minishell.line_read);
- 		free_tokens(tokens);
-=======
 		// if (cmd_parsing->str)
 		// 	execute_fork(&cmd_parsing, &data);
 		if (minishell.line_read)
 			free(minishell.line_read);
- 		free_tokens(tokens); 
->>>>>>> e230fa8f0608e785cc07771d7c7705d805deaa29
+ 		free_tokens(tokens);
  		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}
