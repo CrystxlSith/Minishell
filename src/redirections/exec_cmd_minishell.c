@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/01 14:27:52 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:31:47 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 	if (pid == 0)
 	{
 		exec_cmd_minishell(parsing, data);
+		close_fd(fd);
 	}
 	waitpid(pid, &status, 0);
 	close_fd(fd);

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/01 14:21:31 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:30:51 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exec_redir_in(t_cmd **parsing, t_env **data)
 		return ;
 	if (open_dup_input(fd_redir) == -1)
 		return ;
-	if (tmp->redir->next->type == E_REDIR_OUT)
+	if (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_OUT)
 	{
 		tmp->redir = tmp->redir->next;
 		count = tmp->redir_nb - 1;
