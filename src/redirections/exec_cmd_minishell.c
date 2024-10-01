@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/30 09:21:06 by mariannedub      ###   ########.fr       */
+/*   Updated: 2024/10/01 14:27:52 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 	{
 		exec_cmd_minishell(parsing, data);
 	}
-	else
-	{
-		waitpid(pid, &status, 0);
-	}
+	waitpid(pid, &status, 0);
+	close_fd(fd);
 }
 
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data)

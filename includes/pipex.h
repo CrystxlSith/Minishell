@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/26 17:08:22 by mariannedub      ###   ########.fr       */
+/*   Updated: 2024/10/01 13:59:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	exec_redir_in(t_cmd **parsing, t_env **data);
 void	exec_redir_out(t_cmd **parsing, t_env **data);
 void	fork_redirection(int redir, t_cmd **parsing, t_env **data);
 void	exec_redirection(t_cmd **parsing, t_env **data);
+void	create_file_out(char *file, int end);
 
 // ft_multi_piping_utils
 int		open_dup_pipe_out(int *fd);

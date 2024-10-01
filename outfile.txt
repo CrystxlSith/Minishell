@@ -1,3 +1,0 @@
-tab[0] : grep
-tab[1] : PWD
-PATH /usr/bin/grep

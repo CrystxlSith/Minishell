@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/01 10:02:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:15:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ void	unset(char *input, t_env **data)
 	int		i;
 
 	i = 0;
-	new_env = NULL;
-	if (find_in_env(input, (*data)->var) != NULL)
-		flag = find_in_env(input, (*data)->var);
-	else
+	if (find_in_env(input, (*data)->var) == NULL
+		|| ft_strchr(input, '=') != NULL)
 	{
 		perror("unset");
 		return ;

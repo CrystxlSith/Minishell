@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/01 10:02:31 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:26:49 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,9 @@ int main(int ac, char **av, char **envp)
 		if (!cmd_parsing)
 			continue ;
 		fill_nbr_element(&cmd_parsing);
-		// print_cmd(cmd_parsing);
-		// if (cmd_parsing->str)
-		// 	execute_fork(&cmd_parsing, &data);
+		print_cmd(cmd_parsing);
+		if (cmd_parsing->str)
+			execute_fork(&cmd_parsing, &data);
 		if (minishell.line_read)
 			free(minishell.line_read);
  		free_tokens(tokens);
