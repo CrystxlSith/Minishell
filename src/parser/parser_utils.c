@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/10/01 10:02:40 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:36:07 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 	if (!new_redir)
 		return ;
 	new_redir->type = (*token)->type;
+	if (((*token)->type) == E_REDIR_DEL)
+		cmd->here_doc = ft_strdup((*token)->next->data);
 	if ((is_redirection(((*token)->type))) && (*token)->next && (is_cmd((*token)->next->type)))
 	{
 		new_redir->data = strdup((*token)->next->data);

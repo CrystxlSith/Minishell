@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/02 11:29:24 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:39:38 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,11 @@ void	free_parsed_cmd(t_cmd *head)
 	{
 		next = current->next;
 		if (current->str)
-
 				free(current->str);
 		if (current->redir)
 			free_tokens(current->redir);
+		if (current->here_doc)
+			free(current->here_doc);
 		free(current);
 		current = next;
 	}
@@ -155,11 +156,14 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
+		// print_tokens(tokens);
 		if (lex_error(tokens))
 			continue ;
 		cmd_parsing = parser(&tokens);
+		// print_cmd(cmd_parsing);
 		if (!cmd_parsing)
 			continue ;
+		fill_nbr_element(&cmd_parsing);
 		if (cmd_parsing->str)
 			execute_fork(&cmd_parsing, &data);
 		if (minishell.line_read)
