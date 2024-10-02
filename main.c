@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/02 11:29:24 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:52:09 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int main(int ac, char **av, char **envp)
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
-	init_signals();
+	// init_signals();
 	tokens = NULL;
 	(void)ac;
 	(void)av;
@@ -150,16 +150,19 @@ int main(int ac, char **av, char **envp)
 			free(minishell.line_read);
 			free_all(data->var);
 			free(data);
-			rl_clear_history();
+			clear_history();
 			break ;
 		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
+		// print_tokens(tokens);
 		if (lex_error(tokens))
 			continue ;
 		cmd_parsing = parser(&tokens);
 		if (!cmd_parsing)
 			continue ;
+		fill_nbr_element(&cmd_parsing);
+		// print_cmd(cmd_parsing);
 		if (cmd_parsing->str)
 			execute_fork(&cmd_parsing, &data);
 		if (minishell.line_read)
@@ -168,6 +171,6 @@ int main(int ac, char **av, char **envp)
  		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}
-	rl_clear_history();
+	clear_history();
 	return (0);
 }

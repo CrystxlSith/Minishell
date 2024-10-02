@@ -6,7 +6,7 @@
 #    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/02 16:49:33 by agiliber         ###   ########.fr        #
+#    Updated: 2024/10/02 16:53:05 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -185,6 +185,7 @@ clean:
 	$(RM) $(OBJ_DIR)
 	$(RM) $(DEP_DIR)
 	$(RM) $(MAIN_OBJ)
+	$(RM) $(NAME_LIB)
 	@echo "${GREEN}Succes!!!${RESET}"
 
 fclean: clean
