@@ -6,7 +6,7 @@
 #    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/01 10:02:32 by agiliber         ###   ########.fr        #
+#    Updated: 2024/10/02 16:49:33 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ CC = cc
 CFLAGS = -g3 -Wall -Wextra -I./includes/
 RM = rm -rf
 LIBFT_FLAGS = -L./$(LIB_DIR) -l:libft.a
+CLEAN = $(MAKE) clean
+F_CLEAN = $(MAKE) fclean
 
 RED    = \033[31m
 GREEN  = \033[32m
@@ -114,7 +116,11 @@ LIBFT_OBJ = $(addprefix $(LIB_DIR), $(NAME_LIB))
 
 all : $(NAME)
 
-.SILENT : $(NAME) $(NAME_A) $(BUILTINS_OBJ) $(LEXER_OBJ) $(PARSER_OBJ) $(REDIREC_OBJ) $(MAIN_OBJ) $(BUILTINS_OBJ_DIR) $(LEXER_OBJ_DIR) $(PARSER_OBJ_DIR) $(REDIREC_OBJ_DIR) $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) $(PARSER_OBJ_DEP) $(REDIREC_OBJ_DEP) $(SIG) $(SIGNAL_OBJ_DIR) $(SIGNAL_OBJ_DEP)
+.SILENT : $(NAME) $(NAME_A) $(BUILTINS_OBJ) $(LEXER_OBJ) $(PARSER_OBJ) \
+	$(REDIREC_OBJ) $(MAIN_OBJ) $(BUILTINS_OBJ_DIR) $(LEXER_OBJ_DIR) \
+	$(PARSER_OBJ_DIR) $(REDIREC_OBJ_DIR) $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) \
+	$(PARSER_OBJ_DEP) $(REDIREC_OBJ_DEP) $(SIG) $(SIGNAL_OBJ_DIR) $(SIGNAL_OBJ_DEP) \
+	$(OBJ_DIR) $(DEP_DIR) $(DEP_DIR) $(CLEAN) $(F_CLEAN)
 
 $(NAME) : $(NAME_A) $(OBJ)
 	echo "${CYAN}Compiling Minishell...${RESET}"
@@ -174,16 +180,16 @@ $(SIGNAL_OBJ_DIR) :
 
 
 clean:
-	echo "${RED}Cleaning libft && Minishell...${RESET}"
+	@echo "${RED}Cleaning libft && Minishell...${RESET}"
+	$(CLEAN) --no-print-directory -C $(LIB_DIR)
 	$(RM) $(OBJ_DIR)
 	$(RM) $(DEP_DIR)
-	$(RM) $(DEP_DIR)
-	$(MAKE) clean --no-print-directory -C $(LIB_DIR)
-	echo "${GREEN}Succes!!!${RESET}"
+	$(RM) $(MAIN_OBJ)
+	@echo "${GREEN}Succes!!!${RESET}"
 
 fclean: clean
-	$(MAKE) fclean --no-print-directory -C $(LIB_DIR)
 	echo "${RED}Cleaning exucutable files...${RESET}"
+	$(F_CLEAN) --no-print-directory -C $(LIB_DIR)
 	rm -f $(NAME_A)
 	echo "${GREEN}Succes!!!${RESET}"
 
