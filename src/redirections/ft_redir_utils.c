@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/01 14:30:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:17:36 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,8 @@ void	exec_redir_in(t_cmd **parsing, t_env **data)
 	int		fd_redir;
 	int		fd_out;
 	t_cmd	*tmp;
-	int		count;
 
-	(void)data;
 	tmp = *parsing;
-	fd_out = -1;
-	count = 0;
-	printf("REDIR IN : %s\n", tmp->redir->data);
 	fd_redir = open(tmp->redir->data, O_RDONLY);
 	if (fd_redir == -1)
 		return ;
@@ -46,27 +41,19 @@ void	exec_redir_in(t_cmd **parsing, t_env **data)
 	if (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_OUT)
 	{
 		tmp->redir = tmp->redir->next;
-		count = tmp->redir_nb - 1;
-		while (tmp->redir != NULL)
+		while (tmp->redir->next != NULL)
 		{
-			printf("REDIR data : %s\n", tmp->redir->data);
-			if (tmp->redir->next != NULL)
-			{
-				printf("Count data : %d\n", count);
-				create_file_out(tmp->redir->data, count);
-				tmp->redir = tmp->redir->next;
-				count--;
-			}
-			else
-			{
-				printf("OPEN : %s\n", "open final file");
-				fd_out = open(tmp->redir->data, O_CREAT | O_RDWR | O_TRUNC, 0777);
-				if (fd_out == -1)
-					return ;
-				if (open_dup_output(fd_out) == -1)
-					return ;
-			}
+			fd_redir = open(tmp->redir->data, O_CREAT, 0777);
+			if (fd_redir == -1)
+				return ;
+			close(fd_redir);
+			tmp->redir = tmp->redir->next;
 		}
+		fd_out = open(tmp->redir->data, O_CREAT | O_RDWR | O_TRUNC, 0777);
+		if (fd_out == -1)
+			return ;
+		if (open_dup_output(fd_out) == -1)
+			return ;
 	}
 	exec_single_cmd(parsing, data);
 	exit(0);
@@ -79,7 +66,6 @@ void	exec_redir_out(t_cmd **parsing, t_env **data)
 
 	(void)data;
 	tmp = *parsing;
-	printf("REDIR OUT : %s\n", tmp->redir->data);
 	fd_redir = open(tmp->redir->data, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd_redir == -1)
 		return ;
@@ -93,12 +79,12 @@ void	create_file_out(char *file, int end)
 {
 	int		fd_redir;
 
+	(void)end;
 	fd_redir = open(file, O_CREAT, 0777);
 	if (fd_redir == -1)
 		return ;
 	close(fd_redir);
-	if (end == 1)
-		exit(0);
+	exit(0);
 }
 
 void	fork_redirection(int redir, t_cmd **parsing, t_env **data)

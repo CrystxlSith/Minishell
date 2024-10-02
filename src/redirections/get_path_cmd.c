@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/27 11:58:23 by mariannedub      ###   ########.fr       */
+/*   Updated: 2024/10/02 10:17:43 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp)
 {
 	char	*path;
 
-	print_double_tab((*parsing)->str);
 	if (access((*parsing)->str[0], X_OK) == 0)
 		execve((*parsing)->str[0], (*parsing)->str, envp);
 	else
@@ -86,7 +85,6 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp)
 		path = get_filepath((*parsing)->str, envp);
 		if (path)
 		{
-			printf("PATH %s\n", path);
 			execve(path, (*parsing)->str, envp);
 			free(path);
 		}
