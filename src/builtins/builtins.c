@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 10:16:03 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:30:56 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int	builtins(char **input, t_env **data)
 		free_all((*data)->var);
 		free_all(input);
 	}
+	exit(0);
 	return (0);
 }

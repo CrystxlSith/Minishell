@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 10:25:53 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:33:13 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,9 @@
 
 void	execute_fork(t_cmd **parsing, t_env **data)
 {
-	int	fd[2];
 	int	pid;
 	int	status;
 
-	if (pipe(fd) == -1)
-	{
-		perror("pipe");
-		exit(EXIT_FAILURE);
-	}
 	pid = fork();
 	if (pid == -1)
 	{
@@ -31,7 +25,6 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 	}
 	if (pid == 0)
 		exec_cmd_minishell(parsing, data);
-	close_fd(fd);
 	waitpid(pid, &status, 0);
 }
 
