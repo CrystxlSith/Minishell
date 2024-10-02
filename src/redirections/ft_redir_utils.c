@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 10:17:36 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 13:55:30 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exec_redir_in(t_cmd **parsing, t_env **data)
 		tmp->redir = tmp->redir->next;
 		while (tmp->redir->next != NULL)
 		{
-			fd_redir = open(tmp->redir->data, O_CREAT, 0777);
+			fd_redir = open(tmp->redir->data, O_CREAT | O_RDWR | O_TRUNC, 0777);
 			if (fd_redir == -1)
 				return ;
 			close(fd_redir);
@@ -80,11 +80,11 @@ void	create_file_out(char *file, int end)
 	int		fd_redir;
 
 	(void)end;
-	fd_redir = open(file, O_CREAT, 0777);
+	fd_redir = open(file, O_CREAT | O_RDWR | O_TRUNC, 0777);
 	if (fd_redir == -1)
 		return ;
+	ft_putstr_fd("", fd_redir);
 	close(fd_redir);
-	exit(0);
 }
 
 void	fork_redirection(int redir, t_cmd **parsing, t_env **data)
@@ -94,37 +94,40 @@ void	fork_redirection(int redir, t_cmd **parsing, t_env **data)
 	t_cmd	*tmp;
 	int		trigger;
 
-	trigger = 1;
+	trigger = 0;
 	(void)redir;
 	tmp = *parsing;
-	while (tmp->redir_nb > 0)
+	pid = fork();
+	if (pid == -1)
+		return ;
+	if (pid == 0)
 	{
-		pid = fork();
-		if (pid == -1)
-			return ;
-		if (pid == 0)
+		while (tmp->redir_nb > 0)
 		{
+			printf("tmp->redir nb : %d\n", tmp->redir_nb);
 			if (tmp->redir->type == E_REDIR_IN)
 				trigger = 1;
 			if (tmp->redir->type == E_REDIR_IN)
 				exec_redir_in(parsing, data);
 			else if (tmp->redir->type == E_REDIR_OUT)
 			{
+				printf("tmp->redir->data : %s\n", tmp->redir->data);
 				if (tmp->redir_nb == 1)
 					exec_redir_out(parsing, data);
 				else
+				{
 					create_file_out(tmp->redir->data, tmp->redir_nb);
+					printf("file created : %s\n", "OUT");
+				}
 			}
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
+			printf("NEXT : %s\n", "NEXT");
 			if (trigger == 1)
 				tmp->redir_nb--;
 			tmp->redir = tmp->redir->next;
 			tmp->redir_nb--;
 		}
 	}
+	waitpid(pid, &status, 0);
 }
 
 void	exec_redirection(t_cmd **parsing, t_env **data)

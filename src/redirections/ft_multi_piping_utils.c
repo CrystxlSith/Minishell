@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_multi_piping_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mariannedubuard <mariannedubuard@studen    +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:59:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/26 15:08:12 by mariannedub      ###   ########.fr       */
+/*   Updated: 2024/10/02 11:40:53 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	open_dup_pipe_out(int *fd)
 {
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
 	{
-		printf("%s\n", "Dup2 fd1 problem");
 		perror("dup2 fd[1]");
 		close(fd[1]);
 		return (-1);
@@ -34,7 +33,6 @@ int	open_dup_pipe_in(int *fd)
 		close(fd[0]);
 		return (-1);
 	}
-	printf("%s\n", "Dup2 fd0 done");
 	close(fd[0]);
 	close(fd[1]);
 	return (0);
@@ -44,7 +42,6 @@ int	open_dup_pipe_terminal(int *fd)
 {
 	if (dup2(STDOUT_FILENO, fd[1]) == -1)
 	{
-		printf("%s\n", "Dup2 fd1 problem");
 		perror("dup2 fd[1]");
 		close(fd[1]);
 		return (-1);

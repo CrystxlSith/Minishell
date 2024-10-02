@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/01 10:15:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:44:14 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,11 +162,14 @@ char	*cd(char *path, t_env **data)
 	if (dir != NULL)
 	{
 		printf("%s\n", "in long dir");
-		new_path = find_in_env("PWD=", (*data)->var);
+		new_path = getcwd(NULL, 0);
+		printf("new path : %s\n", new_path);
 		chdir(path);
 		path = getcwd(NULL, 0);
+		printf("path : %s\n", path);
 		update_env(new_path, path, data);
 		free(path);
+		free(new_path);
 		closedir(dir);
 		return (NULL);
 	}

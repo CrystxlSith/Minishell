@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/25 17:20:49 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:09:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	export_existing(char *flag, t_env **data, char *cmd)
 	int	i;
 
 	i = get_index(data, flag);
+	printf("index export : %d\n", i);
 	free((*data)->var[i]);
 	(*data)->var[i] = ft_strdup(cmd);
 	free(cmd);
@@ -104,9 +105,8 @@ void	update_env_tab_export(char *flag, char *cmd, t_env **data)
 	target = get_index(data, flag);
 	if (target != -1)
 	{
-		flag = ft_strtrim(flag, "=");
+		printf("target export : %d\n", target);
 		export_existing(flag, data, cmd);
-		free(flag);
 	}
 	else
 		export_new(data, cmd);
