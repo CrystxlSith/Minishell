@@ -6,7 +6,7 @@
 #    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/02 16:53:05 by agiliber         ###   ########.fr        #
+#    Updated: 2024/10/02 17:02:32 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -189,7 +189,7 @@ clean:
 	@echo "${GREEN}Succes!!!${RESET}"
 
 fclean: clean
-	echo "${RED}Cleaning exucutable files...${RESET}"
+	echo "${RED}Cleaning executable files...${RESET}"
 	$(F_CLEAN) --no-print-directory -C $(LIB_DIR)
 	rm -f $(NAME_A)
 	echo "${GREEN}Succes!!!${RESET}"
