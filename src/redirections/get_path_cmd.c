@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 10:17:43 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:27:09 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,30 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp)
 		{
 			execve(path, (*parsing)->str, envp);
 			free(path);
+		}
+	}
+}
+
+void	exec_exit(char **envp)
+{
+	char	*path;
+	char	**tab;
+
+	tab = (char **)malloc(sizeof(char *) * 2);
+	if (!tab)
+		return ;
+	tab[0] = ft_strdup("exit");
+	tab[1] = NULL;
+	if (access(tab[0], X_OK) == 0)
+		execve(tab[0], tab, envp);
+	else
+	{
+		path = get_filepath(tab, envp);
+		if (path)
+		{
+			execve(path, tab, envp);
+			free(path);
+			free(tab);
 		}
 	}
 }

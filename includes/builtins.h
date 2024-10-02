@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/25 16:16:54 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:19:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ typedef struct s_env
 	char	**var;
 	int		size;
 }			t_env;
-
-//BUILTINS ---> GENERAL
-int		builtins(char **input, t_env **data);
 
 //BUILTINS ---> ECHO
 int		count_words(char **str);

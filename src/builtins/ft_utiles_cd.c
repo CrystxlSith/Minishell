@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 11:46:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:36:46 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,12 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 	old_pwd = ft_strdup("OLDPWD=");
 	pwd = ft_strdup("PWD=");
 	old_path = ft_strjoin(old_pwd, tmp_old);
-	printf("old path up : %s\n", old_path);
 	if (!old_path)
 	{
 		perror("old_path");
 		return ;
 	}
 	new_path = ft_strjoin(pwd, tmp_new);
-	printf("new path up : %s\n", new_path);
 	if (!new_path)
 	{
 		perror("new_path");

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 13:55:30 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:19:44 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,15 @@ void	exec_redir_in(t_cmd **parsing, t_env **data)
 	t_cmd	*tmp;
 
 	tmp = *parsing;
+	while (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_IN)
+		tmp->redir = tmp->redir->next;
+	printf("FIle name : %s\n", tmp->redir->data);
 	fd_redir = open(tmp->redir->data, O_RDONLY);
 	if (fd_redir == -1)
-		return ;
+	{
+		perror("infile");
+		exit(EXIT_FAILURE);
+	}
 	if (open_dup_input(fd_redir) == -1)
 		return ;
 	if (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_OUT)

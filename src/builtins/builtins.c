@@ -6,35 +6,30 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 11:58:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:03:40 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	builtins(char **input, t_env **data)
+int	builtins(t_cmd **parsing, t_env **data)
 {
 	int	i;
 
-	if (!input)
-		return (free_all((*data)->var), free_all(input), 0);
+	if (!(*parsing)->str)
+		return (free_all((*data)->var), free_all((*parsing)->str), 0);
 	i = 0;
-	if (ft_strncmp(input[i], "echo", 5) == 0)
-		echo(input, data);
-	else if (ft_strncmp(input[i], "pwd", 4) == 0)
+	if (ft_strncmp((*parsing)->str[i], "echo", 5) == 0)
+		echo((*parsing)->str, data);
+	else if (ft_strncmp((*parsing)->str[i], "pwd", 4) == 0)
 		pwd(data);
-	else if (ft_strncmp(input[i], "env", 4) == 0)
+	else if (ft_strncmp((*parsing)->str[i], "env", 4) == 0)
 		env(data);
-	else if (ft_strncmp(input[i], "export", 7) == 0)
-		export(input[++i], data);
-	else if (ft_strncmp(input[i], "cd", 3) == 0)
-		cd(input[++i], data);
-	else if (ft_strncmp(input[i], "unset", 6) == 0)
-		unset(input[++i], data);
-	else
-	{
-		free_all((*data)->var);
-		free_all(input);
-	}
+	else if (ft_strncmp((*parsing)->str[i], "export", 7) == 0)
+		export((*parsing)->str[++i], data);
+	else if (ft_strncmp((*parsing)->str[i], "cd", 3) == 0)
+		cd((*parsing)->str[++i], data);
+	else if (ft_strncmp((*parsing)->str[i], "unset", 6) == 0)
+		unset((*parsing)->str[++i], data);
 	return (0);
 }

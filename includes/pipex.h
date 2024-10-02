@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/01 13:59:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:25:11 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	create_file_out(char *file, int end);
 // ft_multi_piping_utils
 int		open_dup_pipe_out(int *fd);
 int		open_dup_pipe_in(int *fd);
+void	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd);
 void	close_fd_multiple_cmd(t_cmd *parsing, int *old_fd);
 int		*transfer_fd(int *fd, int *old_fd);
-
 void	print_double_tab(char **tab);
 
 #endif
