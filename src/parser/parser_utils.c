@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/10/03 10:22:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:53:51 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_cmd(t_cmd **head, t_cmd **current)
 	(*head)->str = NULL;
 	(*head)->redir_nb = 0;
 	(*head)->here_doc = NULL;
+	(*head)->hdc = NULL;
 	(*head)->redir = NULL;
 	(*head)->next = NULL;
 	(*head)->prev = NULL;
@@ -46,6 +47,7 @@ t_cmd	*create_new_cmd(void)
 	new_cmd->redir_nb = 0;
 	new_cmd->elem_nb = 0;
 	new_cmd->here_doc = NULL;
+	new_cmd->hdc = NULL;
 	new_cmd->redir = NULL;
 	new_cmd->next = NULL;
 	new_cmd->prev = NULL;
@@ -63,6 +65,8 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 	if (!new_redir)
 		return ;
 	new_redir->type = (*token)->type;
+	if (((*token)->type) == E_REDIR_DEL)
+		cmd->here_doc = ft_strdup((*token)->next->data);
 	if ((is_redirection(((*token)->type))) && (*token)->next && (is_cmd((*token)->next->type)))
 	{
 		new_redir->data = strdup((*token)->next->data);
