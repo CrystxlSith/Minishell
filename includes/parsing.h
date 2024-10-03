@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/09/28 14:15:55 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/03 10:56:46 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,24 @@ typedef struct s_cmd
 	int				elem_nb;
 	char			**str;
 	char			*here_doc;
+	t_heredoc		*hdc;
 	t_lexer			*redir;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }					t_cmd;
+
+// Heredoc
+typedef struct s_heredoc
+{
+	int		redir_nb;
+	int		input_nbr;
+	t_lexer	*redir;
+	char	*break_word;
+	char	*command;
+	char	*single_input;
+	char	**input_hdc;
+}			t_heredoc;
+
 
 int		check_quotes(char *str);
 int		is_cmd(t_lexer_type type);
