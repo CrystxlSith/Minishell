@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/03 14:54:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:37:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,12 +165,12 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		if (cmd_parsing->str)
 		{
-/* 			printf("Heredoc %s\n", cmd_parsing->here_doc);
-			if (cmd_parsing->here_doc != NULL)
+			printf("Heredoc %s\n", cmd_parsing->hdc->break_word);
+			if (cmd_parsing->hdc->break_word != NULL)
 			{
 				while (1)
 				{
-					minishell.line_read = readline("minishell> ");
+					minishell.line_read = readline("heredoc> ");
 					// CTRL D
 					if (minishell.line_read == NULL)
 					{
@@ -194,7 +194,7 @@ int main(int ac, char **av, char **envp)
 					heredoc(&cmd_parsing, &data);
 				}
 			}
-			else */
+			else
 				execute_fork(&cmd_parsing, &data);
 		}
 		if (minishell.line_read)

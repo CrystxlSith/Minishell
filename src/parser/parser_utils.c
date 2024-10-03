@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/10/03 14:53:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:35:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,34 @@ t_cmd	*create_new_cmd(void)
 	return (new_cmd);
 }
 
+void	add_heredoc(t_lexer **token, t_cmd *current)
+{
+	int		i;
+/* 	char	**cmd; */
+
+	i = 0;
+	while (current->str[i])
+		i++;
+	while (current->next != NULL)
+		current = current->next;
+	if (current->str != NULL)
+	{
+		current->hdc->command = (char **)malloc(sizeof(char *) * i + 1);
+		if (!current->hdc->command)
+			return ;
+		i = 0;
+		while (current->str[i])
+		{
+			printf("STR : %s\n", current->str[i]);
+			current->hdc->command[i] = ft_strdup(current->str[i]);
+			i++;
+		}
+		//cmd[i] = NULL;
+/* 		current->hdc->command = cmd; */
+	}
+	current->hdc->break_word = ft_strdup((*token)->next->data);
+}
+
 // Ajouter à la liste de redirections
 // Copier les informations de redirection
 void	handle_redirection(t_lexer **token, t_cmd *cmd)
@@ -66,7 +94,7 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 		return ;
 	new_redir->type = (*token)->type;
 	if (((*token)->type) == E_REDIR_DEL)
-		cmd->here_doc = ft_strdup((*token)->next->data);
+		add_heredoc(token, cmd);
 	if ((is_redirection(((*token)->type))) && (*token)->next && (is_cmd((*token)->next->type)))
 	{
 		new_redir->data = strdup((*token)->next->data);

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/03 14:54:03 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:31:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,6 @@ void	new_quote_cmd(t_lexer *tmp, t_cmd *current, char *res)
 	add_to_cmd(tmp->data, current);
 }
 
-void	add_heredoc(t_cmd *current)
-{
-	int	i;
-
-	i = 0;
-	while (current != NULL)
-		current = current->next;
-	if (current->str != NULL)
-	{
-		while (current->str[i])
-		{
-			current->hdc->command[i] = ft_strdup(current->str[i]);
-			i++;
-		}
-		current->hdc->command[i] = NULL;
-	}
-	if (current->here_doc != NULL)
-		current->hdc->break_word = ft_strdup(current->here_doc);
-}
 
 static void	cmd_adding(t_lexer *tmp, t_cmd *current, char *res)
 {
@@ -115,8 +96,6 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current, char *res)
 			new_cmd(&current);
 		else if (tmp->type == E_SPACE)
 			add_to_cmd(tmp->data, current);
-		else if (tmp->type == E_REDIR_DEL)
-			add_heredoc(current);
 		else if (is_quote(tmp->type))
 			new_quote_cmd(tmp, current, res);
 		if (is_redirection(tmp->type))
@@ -135,6 +114,7 @@ t_cmd	*parser(t_lexer **tokens)
 	res = NULL;
 	tmp = *tokens;
 	init_cmd(&head, &current);
+	initiate_hdc_struc(&head);
 	cmd_adding(tmp, current, res);
 	return (head);
 }

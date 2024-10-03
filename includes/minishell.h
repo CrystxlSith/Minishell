@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/10/03 13:16:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:31:18 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	exec_exit(char **envp);
 int		builtins(t_cmd **parsing, t_env **data);
 
 //Heredoc
-int	initiate_hdc_struc(t_cmd *parsing);
+int		initiate_hdc_struc(t_cmd **parsing);
 char	**ft_realloc_hdc(int new_size, t_cmd **parsing);
 void	duplicate_hdc(t_cmd **parsing);
 void	fill_heredoc(t_cmd **parsing, int size);
