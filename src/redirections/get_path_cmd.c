@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 14:27:09 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:27:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,34 @@ void	check_cmd_minishell(t_cmd **parsing, char **envp)
 {
 	char	*path;
 
-	if (access((*parsing)->str[0], X_OK) == 0)
-		execve((*parsing)->str[0], (*parsing)->str, envp);
-	else
+/* 	if ((*parsing)->hdc->command[0] != NULL)
 	{
-		path = get_filepath((*parsing)->str, envp);
-		if (path)
+		if (access((*parsing)->hdc->command[0], X_OK) == 0)
+			execve((*parsing)->hdc->command[0], \
+				(*parsing)->hdc->command, envp);
+		else
 		{
-			execve(path, (*parsing)->str, envp);
-			free(path);
+			path = get_filepath((*parsing)->hdc->command, envp);
+			if (path)
+			{
+				execve(path, (*parsing)->hdc->command, envp);
+				free(path);
+			}
 		}
 	}
+	else
+	{ */
+		if (access((*parsing)->str[0], X_OK) == 0)
+			execve((*parsing)->str[0], (*parsing)->str, envp);
+		else
+		{
+			path = get_filepath((*parsing)->str, envp);
+			if (path)
+			{
+				execve(path, (*parsing)->str, envp);
+				free(path);
+			}
+		}
 }
 
 void	exec_exit(char **envp)

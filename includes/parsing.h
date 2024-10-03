@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/03 10:56:46 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:38:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum s_lexer_type
 {
 	E_CMD, //*str
 	E_ARG,
+	E_HEREDOC,
 	E_REDIR_IN,
 	E_REDIR_OUT,
 	E_OPTIONS,
@@ -55,6 +56,18 @@ typedef struct s_lexer
 	struct s_lexer	*prev;
 }					t_lexer;
 
+// Heredoc
+typedef struct s_heredoc
+{
+	int		redir_nb;
+	int		input_nbr;
+	t_lexer	*redir;
+	char	*break_word;
+	char	**command;
+	char	*single_input;
+	char	**input_hdc;
+}			t_heredoc;
+
 // Parse in command, separated by pipes
 typedef struct s_cmd
 {
@@ -68,18 +81,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }					t_cmd;
-
-// Heredoc
-typedef struct s_heredoc
-{
-	int		redir_nb;
-	int		input_nbr;
-	t_lexer	*redir;
-	char	*break_word;
-	char	*command;
-	char	*single_input;
-	char	**input_hdc;
-}			t_heredoc;
 
 
 int		check_quotes(char *str);

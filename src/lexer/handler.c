@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:44:42 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/25 11:28:34 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:25:02 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ void	redir_handler(t_lexer **token, char **str)
 	char	*new;
 
 	new = ft_strdup("");
+/* 	if (ft_strncmp(*str, "<<", 3) == 0)
+	{
+		free(new);
+		new = ft_strdup("<<");
+		create_new_token(E_HEREDOC, new, token);
+		(*str)++;
+	} */
 	if (**str == '>')
 	{
 		if (*(*str + 1) == '>')

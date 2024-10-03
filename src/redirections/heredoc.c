@@ -6,11 +6,24 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/03 11:17:20 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 13:17:21 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	initiate_hdc_struc(t_cmd *parsing)
+{
+	parsing->hdc = malloc(sizeof(t_heredoc));
+	if (!parsing->hdc)
+		return (-1);
+	parsing->hdc->break_word = NULL;
+	parsing->hdc->command = NULL;
+	parsing->hdc->input_hdc = NULL;
+	parsing->hdc->input_nbr = 0;
+	parsing->hdc->single_input = NULL;
+	return (0);
+}
 
 char	**ft_realloc_hdc(int new_size, t_cmd **parsing)
 {
@@ -74,11 +87,16 @@ void	fill_heredoc(t_cmd **parsing, int size)
 
 void	heredoc(t_cmd **parsing, t_env **data)
 {
-	char	**cmd;
 	int		len;
 	int		i;
 
 	i = 0;
+	if (initiate_hdc_struc(*parsing) == -1)
+	{
+		perror("struct heredoc");
+		exit(EXIT_FAILURE);
+	}
+
 	len = ft_strlen((*parsing)->hdc->break_word);
 	while (ft_strncmp((*parsing)->hdc->break_word, \
 		(*parsing)->hdc->input_hdc[i], len) != 0)

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 16:39:31 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:04:43 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,34 @@ void	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	if ((parsing)->prev == NULL)
 	{
 		printf("%s\n", "first dup2");
-		open_dup_pipe_out(fd);
+		if (open_dup_pipe_out(fd) == -1)
+		{
+			perror("pipe out");
+			exit(EXIT_FAILURE);
+		}
 	}
 	else if ((parsing)->next != NULL)
 	{
 		printf("%s\n", "second dup2");
-		open_dup_pipe_in(old_fd);
-		open_dup_pipe_out(fd);
+		if (open_dup_pipe_in(old_fd) == -1)
+		{
+			perror("pipe in");
+			exit(EXIT_FAILURE);
+		}
+		if (open_dup_pipe_out(fd) == -1)
+		{
+			perror("pipe out");
+			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
 		printf("%s\n", "third dup2");
-		open_dup_pipe_in(old_fd);
+		if (open_dup_pipe_in(old_fd) == -1)
+		{
+			perror("pipe in");
+			exit(EXIT_FAILURE);
+		}
 	}
 	exec_cmd(&parsing, data);
 }

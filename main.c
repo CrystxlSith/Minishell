@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/02 16:52:09 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:28:14 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,16 +155,46 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
-		// print_tokens(tokens);
 		if (lex_error(tokens))
 			continue ;
 		cmd_parsing = parser(&tokens);
 		if (!cmd_parsing)
 			continue ;
-		fill_nbr_element(&cmd_parsing);
-		// print_cmd(cmd_parsing);
+		initiate_hdc_struc(cmd_parsing);
 		if (cmd_parsing->str)
-			execute_fork(&cmd_parsing, &data);
+		{
+/* 			printf("Heredoc %s\n", cmd_parsing->here_doc);
+			if (cmd_parsing->here_doc != NULL)
+			{
+				while (1)
+				{
+					minishell.line_read = readline("minishell> ");
+					// CTRL D
+					if (minishell.line_read == NULL)
+					{
+						free(minishell.line_read);
+						exit (1);
+					}
+					// \n
+					if (minishell.line_read[0] == '\0')
+					{
+						free(minishell.line_read);
+						continue ;
+					}
+					if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
+					{
+						free(minishell.line_read);
+						free_all(data->var);
+						free(data);
+						clear_history();
+						break ;
+					}
+					heredoc(&cmd_parsing, &data);
+				}
+			}
+			else */
+				execute_fork(&cmd_parsing, &data);
+		}
 		if (minishell.line_read)
 			free(minishell.line_read);
  		free_tokens(tokens);
