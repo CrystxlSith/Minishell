@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/03 12:06:24 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 10:44:10 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,10 @@ void	fork_redirection(int redir, t_cmd **parsing, t_env **data)
 					printf("file created : %s\n", "OUT");
 				}
 			}
+/* 			else if (tmp->redir->type == E_REDIR_DEL)
+			{
+				exec_redir_out(parsing, data);
+			} */
 			printf("NEXT : %s\n", "NEXT");
 			if (trigger == 1)
 				tmp->redir_nb--;

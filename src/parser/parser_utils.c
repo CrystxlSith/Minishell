@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/10/03 15:35:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:44:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	add_heredoc(t_lexer **token, t_cmd *current)
 		i = 0;
 		while (current->str[i])
 		{
-			printf("STR : %s\n", current->str[i]);
 			current->hdc->command[i] = ft_strdup(current->str[i]);
 			i++;
 		}

@@ -6,21 +6,14 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/03 15:37:41 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:53:52 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
 t_minishell	minishell;
-// ################################  RAF AGT ################################ //
-// 1) corriger la fonction CD pour gerer tous les cas de figures			  //
-// 2) programmer les bons messages d'erreur									  //
-// 3) programmer le builtin exit											  //
-// 4) corriger les segfault													  //
-// 5) programmer le heredoc													  //
-// 6) tenter de casser le code												  //
-// ########################################################################## //
+
 
 void	print_cmd(t_cmd *head)
 {
@@ -117,12 +110,94 @@ void	print_tokens(t_lexer *tokens)
 	}
 }
 
+int my_remove(const char *pathname)
+{
+	struct stat path_stat;
+
+	if (lstat(pathname, &path_stat) == -1)
+	{
+		// Erreur lors de l'obtention des informations
+		return -1;
+	}
+	else
+	{
+		// C'est un fichier ou un lien symbolique, tenter de le supprimer
+		if (unlink(pathname) == -1)
+		{
+			// Erreur lors de la suppression du fichier
+			return -1;
+		}
+	}
+	return 0; // Succès
+}
+
+void	free_minishell(t_env **data, t_cmd **parsing)
+{
+	free(minishell.line_read);
+	free_all((*data)->var);
+	free((*parsing)->hdc->break_word);
+	free((*parsing)->hdc->command);
+	free((*parsing)->hdc);
+	free(data);
+}
+
+int	launcher_exec(char *input, t_env **data, t_cmd **parsing)
+{
+	if (input == NULL)
+	{
+		free_minishell(data, parsing);
+		clear_history();
+		return (-1);
+	}
+	if (!ft_strncmp(input, "exit", ft_strlen("exit")))
+	{
+		free_minishell(data, parsing);
+		clear_history();
+		return (-1);
+	}
+	return (0);
+}
+
+void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data)
+{
+	t_lexer	*tokens_hdc;
+	t_cmd	*token_input;
+	int		pid;
+	int		status;
+
+	tokens_hdc = NULL;
+	token_input = NULL;
+	pid = fork();
+	if (pid == -1)
+		exit(0);
+	if (pid == 0)
+	{
+		while (1)
+		{
+			minishell.line_read = readline("> ");
+			if (launcher_exec(minishell.line_read, data, cmd_parsing) == -1)
+			{
+				exit(EXIT_FAILURE);
+				return ;
+			}
+			if (minishell.line_read[0] == '\0')
+			{
+				free(minishell.line_read);
+				continue ;
+			}
+			tokens_hdc = tokenize(minishell.line_read);
+			token_input = parser(&tokens_hdc);
+			fill_input_hdc(&tokens_hdc, cmd_parsing, data);
+		}
+	}
+	waitpid(pid, &status, 0);
+}
+
 int main(int ac, char **av, char **envp)
 {
 	t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 	t_env		*data;
-
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
@@ -130,77 +205,39 @@ int main(int ac, char **av, char **envp)
 	tokens = NULL;
 	(void)ac;
 	(void)av;
-	(void)envp;
 	while (1)
 	{
+		if (access("/tmp/heredoc.txt", R_OK) != -1)
+			my_remove("/tmp/heredoc.txt");
 		minishell.line_read = readline("minishell> ");
-		// CTRL D
-		if (minishell.line_read == NULL)
+		if (launcher_exec(minishell.line_read, &data, &cmd_parsing) == -1)
 		{
-			free(minishell.line_read);
-			exit (1);
+			exit(EXIT_FAILURE);
+			return (-1);
 		}
-		// \n
 		if (minishell.line_read[0] == '\0')
 		{
 			free(minishell.line_read);
 			continue ;
 		}
-		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
-		{
-			free(minishell.line_read);
-			free_all(data->var);
-			free(data);
-			clear_history();
-			break ;
-		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
-		// print_tokens(tokens);
 		if (lex_error(tokens))
 			continue ;
 		cmd_parsing = parser(&tokens);
-		// print_cmd(cmd_parsing);
 		if (!cmd_parsing)
 			continue ;
 		if (cmd_parsing->str)
 		{
-			printf("Heredoc %s\n", cmd_parsing->hdc->break_word);
 			if (cmd_parsing->hdc->break_word != NULL)
-			{
-				while (1)
-				{
-					minishell.line_read = readline("heredoc> ");
-					// CTRL D
-					if (minishell.line_read == NULL)
-					{
-						free(minishell.line_read);
-						exit (1);
-					}
-					// \n
-					if (minishell.line_read[0] == '\0')
-					{
-						free(minishell.line_read);
-						continue ;
-					}
-					if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
-					{
-						free(minishell.line_read);
-						free_all(data->var);
-						free(data);
-						clear_history();
-						break ;
-					}
-					heredoc(&cmd_parsing, &data);
-				}
-			}
+				heredoc_launcher(&cmd_parsing, &data);
 			else
 				execute_fork(&cmd_parsing, &data);
 		}
 		if (minishell.line_read)
 			free(minishell.line_read);
- 		free_tokens(tokens);
- 		free_parsed_cmd(cmd_parsing);
+		free_tokens(tokens);
+		free_parsed_cmd(cmd_parsing);
 		rl_on_new_line();
 	}
 	clear_history();

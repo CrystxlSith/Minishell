@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/03 13:27:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:11:13 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*get_filepath(char **cmd, char **envp)
 	return (NULL);
 }
 
-void	print_double_tab(char **tab)
+/* void	print_double_tab(char **tab)
 {
 	int	i;
 
@@ -72,40 +72,38 @@ void	print_double_tab(char **tab)
 		printf("tab[%d] : %s\n", i, tab[i]);
 		i++;
 	}
+} */
+
+void	execve_cmd(char **cmd, char **envp)
+{
+	char	*path;
+
+	if (access(cmd[0], X_OK) == 0)
+	{
+		if (execve(cmd[0], cmd, envp) == -1)
+			exit(EXIT_FAILURE);
+	}
+	else
+	{
+		path = get_filepath(cmd, envp);
+		if (path)
+		{
+			if (execve(path, cmd, envp) == -1)
+			{
+				free(path);
+				exit(EXIT_FAILURE);
+			}
+			free(path);
+		}
+	}
 }
 
 void	check_cmd_minishell(t_cmd **parsing, char **envp)
 {
-	char	*path;
-
-/* 	if ((*parsing)->hdc->command[0] != NULL)
-	{
-		if (access((*parsing)->hdc->command[0], X_OK) == 0)
-			execve((*parsing)->hdc->command[0], \
-				(*parsing)->hdc->command, envp);
-		else
-		{
-			path = get_filepath((*parsing)->hdc->command, envp);
-			if (path)
-			{
-				execve(path, (*parsing)->hdc->command, envp);
-				free(path);
-			}
-		}
-	}
+	if ((*parsing)->here_doc != NULL)
+		execve_cmd((*parsing)->hdc->command, envp);
 	else
-	{ */
-		if (access((*parsing)->str[0], X_OK) == 0)
-			execve((*parsing)->str[0], (*parsing)->str, envp);
-		else
-		{
-			path = get_filepath((*parsing)->str, envp);
-			if (path)
-			{
-				execve(path, (*parsing)->str, envp);
-				free(path);
-			}
-		}
+		execve_cmd((*parsing)->str, envp);
 }
 
 void	exec_exit(char **envp)
@@ -119,13 +117,17 @@ void	exec_exit(char **envp)
 	tab[0] = ft_strdup("exit");
 	tab[1] = NULL;
 	if (access(tab[0], X_OK) == 0)
-		execve(tab[0], tab, envp);
+	{
+		if (execve(tab[0], tab, envp) == -1)
+			exit(EXIT_FAILURE);
+	}
 	else
 	{
 		path = get_filepath(tab, envp);
 		if (path)
 		{
-			execve(path, tab, envp);
+			if (execve(path, tab, envp) == -1)
+				exit(EXIT_FAILURE);
 			free(path);
 			free(tab);
 		}

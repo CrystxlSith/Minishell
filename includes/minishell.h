@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/10/03 15:31:18 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:36:10 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdarg.h>
+# include <sys/stat.h>
 # include <string.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -65,7 +66,6 @@ extern t_minishell minishell;
 t_lexer	*tokenize(char *str);
 void	init_cmd(t_cmd **head, t_cmd **current);
 void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
-
 void	new_token(t_lexer **tokens, t_lexer *new_node);
 
 //EXECUTION
@@ -76,9 +76,7 @@ int		builtins(t_cmd **parsing, t_env **data);
 
 //Heredoc
 int		initiate_hdc_struc(t_cmd **parsing);
-char	**ft_realloc_hdc(int new_size, t_cmd **parsing);
-void	duplicate_hdc(t_cmd **parsing);
-void	fill_heredoc(t_cmd **parsing, int size);
-void	heredoc(t_cmd **parsing, t_env **data);
+int		heredoc(t_env *data, t_cmd *parsing);
+void	fill_input_hdc(t_lexer **tokens, t_cmd **parsing, t_env **data);
 
 #endif

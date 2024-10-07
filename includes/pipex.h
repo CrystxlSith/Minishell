@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/02 15:25:11 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:49:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int		open_dup_input(int fd_in);
 // get_path_cmd
 char	*get_filepath(char **av, char **envp);
 char	**get_filepath_norm(char **envp);
-char	**format_cmd_inredir(char **cmd);
-char	**format_cmd_outredir(char **cmd);
 void	check_cmd_minishell(t_cmd **parsing, char **envp);
 
 // ft_redir_utils
@@ -52,7 +50,7 @@ void	create_file_out(char *file, int end);
 // ft_multi_piping_utils
 int		open_dup_pipe_out(int *fd);
 int		open_dup_pipe_in(int *fd);
-void	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd);
+int		pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd);
 void	close_fd_multiple_cmd(t_cmd *parsing, int *old_fd);
 int		*transfer_fd(int *fd, int *old_fd);
 void	print_double_tab(char **tab);

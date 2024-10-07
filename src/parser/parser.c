@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/03 15:31:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:17:13 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	new_quote_cmd(t_lexer *tmp, t_cmd *current, char *res)
 		replace_dollar(&tmp->data, res, 0, 0);
 	add_to_cmd(tmp->data, current);
 }
-
 
 static void	cmd_adding(t_lexer *tmp, t_cmd *current, char *res)
 {

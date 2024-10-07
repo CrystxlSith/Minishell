@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/02 14:36:46 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:38:18 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 	}
 	export(old_path, data);
 	export(new_path, data);
-/* 	free(old_path);
-	free(new_path); */
 }
 
 // Navigation dans un dossier avec un path donne.

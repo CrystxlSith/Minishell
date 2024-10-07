@@ -6,50 +6,41 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/03 12:04:43 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 16:42:11 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
+int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
-	if ((parsing)->prev == NULL)
+	if (parsing->hdc->input_nbr != 0)
 	{
-		printf("%s\n", "first dup2");
+		if (open_dup_input(parsing->hdc->input_nbr) == -1)
+			return (perror("pipe in"), -1);
+	}
+	else if ((parsing)->prev == NULL)
+	{
 		if (open_dup_pipe_out(fd) == -1)
-		{
-			perror("pipe out");
-			exit(EXIT_FAILURE);
-		}
+			return (perror("pipe out"), -1);
 	}
 	else if ((parsing)->next != NULL)
 	{
-		printf("%s\n", "second dup2");
 		if (open_dup_pipe_in(old_fd) == -1)
-		{
-			perror("pipe in");
-			exit(EXIT_FAILURE);
-		}
+			return (perror("pipe in"), -1);
 		if (open_dup_pipe_out(fd) == -1)
-		{
-			perror("pipe out");
-			exit(EXIT_FAILURE);
-		}
+			return (perror("pipe out"), -1);
 	}
 	else
 	{
-		printf("%s\n", "third dup2");
 		if (open_dup_pipe_in(old_fd) == -1)
-		{
-			perror("pipe in");
-			exit(EXIT_FAILURE);
-		}
+			return (perror("pipe in"), -1);
 	}
 	exec_cmd(&parsing, data);
+	return (0);
 }
 
-void	exec_multiple_cmd(t_cmd **parsing, t_env **data)
+int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 {
 	t_cmd	*tmp;
 	int		current_fd[2];
@@ -65,21 +56,15 @@ void	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 		if (tmp->next != NULL)
 		{
 			if (pipe(current_fd) == -1)
-			{
-				perror("pipe");
-				exit(EXIT_FAILURE);
-			}
+				return (perror("multi pipe"), -1);
 		}
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
+			return (perror("multi fork"), -1);
 		if (pid == 0)
 		{
-			printf("%s\n", "Exec pipe");
-			pipe_multiple_cmd(tmp, data, current_fd, old_fd);
+			if (pipe_multiple_cmd(tmp, data, current_fd, old_fd) == -1)
+				return (perror("multi exec"), -1);
 			close_fd(old_fd);
 			exit(EXIT_SUCCESS);
 		}
@@ -95,5 +80,5 @@ void	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 			tmp = tmp->next;
 		}
 	}
-	close_fd(old_fd);
+	return (close_fd(old_fd), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/03 14:28:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:51:30 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	execute_fork(t_cmd **parsing, t_env **data)
 		}
 		if (pid == 0)
 		{
-			if ((*parsing)->here_doc != NULL)
-				heredoc(parsing, data);
-			else
-				exec_cmd_minishell(parsing, data);
+			exec_cmd_minishell(parsing, data);
 		}
 		waitpid(pid, &status, 0);
 	}
@@ -63,8 +60,10 @@ void	exec_cmd(t_cmd **parsing, t_env **data)
 
 void	exec_single_cmd(t_cmd **parsing, t_env **data)
 {
-	if (check_if_builtins((*parsing)->str[0]))
-	//	|| check_if_builtins((*parsing)->hdc->command[0]))
+	if ((*parsing)->hdc->command != NULL
+		&& check_if_builtins((*parsing)->hdc->command[0]))
+		builtins(parsing, data);
+	else if (check_if_builtins((*parsing)->str[0]))
 	{
 		builtins(parsing, data);
 	}
