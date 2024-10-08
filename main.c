@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/08 12:59:50 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:04:40 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,13 +231,14 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
-		if (lex_error(tokens))
-			continue ;
 		cmd_parsing = parser(&tokens);
 		if (!cmd_parsing)
 			continue ;
+		if (lex_error(tokens))
+			continue ;
 		if (cmd_parsing->str)
 		{
+			print_cmd(cmd_parsing);
 			if (cmd_parsing->hdc->break_word != NULL)
 				heredoc_launcher(&cmd_parsing, &data, &minishell);
 			else
