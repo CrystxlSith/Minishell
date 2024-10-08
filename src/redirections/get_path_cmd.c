@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/07 16:11:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:36:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 char	**get_filepath_norm(char **envp)
 {
-	int		index;
 	char	*path;
 	char	*trim_path;
 	char	**full_path;
 
-	index = find_line(envp);
-	if (index == -1)
-		return (NULL);
-	path = ft_strdup(envp[index]);
-	if (!path)
-		return (NULL);
+	path = find_in_env("PATH=", envp);
 	trim_path = ft_strtrim(path, "PATH=");
 	if (!trim_path)
 		return (free(path), NULL);
@@ -62,19 +56,7 @@ char	*get_filepath(char **cmd, char **envp)
 	return (NULL);
 }
 
-/* void	print_double_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		printf("tab[%d] : %s\n", i, tab[i]);
-		i++;
-	}
-} */
-
-void	execve_cmd(char **cmd, char **envp)
+int	execve_cmd(char **cmd, char **envp)
 {
 	char	*path;
 
@@ -95,41 +77,21 @@ void	execve_cmd(char **cmd, char **envp)
 			}
 			free(path);
 		}
+		return (perror("get_filepath"), -1);
 	}
+	return (0);
 }
 
-void	check_cmd_minishell(t_cmd **parsing, char **envp)
+int	check_cmd_minishell(t_cmd **parsing, char **envp)
 {
 	if ((*parsing)->here_doc != NULL)
-		execve_cmd((*parsing)->hdc->command, envp);
-	else
-		execve_cmd((*parsing)->str, envp);
-}
-
-void	exec_exit(char **envp)
-{
-	char	*path;
-	char	**tab;
-
-	tab = (char **)malloc(sizeof(char *) * 2);
-	if (!tab)
-		return ;
-	tab[0] = ft_strdup("exit");
-	tab[1] = NULL;
-	if (access(tab[0], X_OK) == 0)
 	{
-		if (execve(tab[0], tab, envp) == -1)
-			exit(EXIT_FAILURE);
+		if (execve_cmd((*parsing)->hdc->command, envp) == -1)
+			return (perror("get_filepath"), -1);
 	}
 	else
 	{
-		path = get_filepath(tab, envp);
-		if (path)
-		{
-			if (execve(path, tab, envp) == -1)
-				exit(EXIT_FAILURE);
-			free(path);
-			free(tab);
-		}
+		if (execve_cmd((*parsing)->str, envp) == -1)
+			return (perror("get_filepath"), -1);
 	}
 }

@@ -6,69 +6,84 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/07 15:51:30 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:53:29 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute_fork(t_cmd **parsing, t_env **data)
+int	execute_fork(t_cmd **parsing, t_env **data)
 {
 	int		pid;
 	int		status;
 
 	if (check_if_builtins((*parsing)->str[0]) && (*parsing)->next == NULL
 		&& (*parsing)->redir_nb == 0)
-		builtins(parsing, data);
+	{
+		if (builtins(parsing, data) == -1)
+			return (perror("builtins"), -1);
+	}
 	else
 	{
 		pid = fork();
 		if (pid == -1)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
+			return (perror("fork"), -1);
 		if (pid == 0)
 		{
-			exec_cmd_minishell(parsing, data);
+			if (exec_cmd_minishell(parsing, data) == -1)
+				exit(EXIT_FAILURE);
+			exit(EXIT_SUCCESS);
 		}
 		waitpid(pid, &status, 0);
 	}
+	return (0);
 }
 
-void	exec_cmd_minishell(t_cmd **parsing, t_env **data)
+int	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 {
 	if ((*parsing)->next == NULL)
 	{
-		exec_cmd(parsing, data);
+		if (exec_cmd(parsing, data) == -1)
+			return (perror("exec_cmd"), -1);
 	}
 	else
-		exec_multiple_cmd(parsing, data);
+	{
+		if (exec_multiple_cmd(parsing, data) == -1)
+			return (perror("exec_multiple_cmd"), -1);
+	}
+	return (0);
 }
 
-void	exec_cmd(t_cmd **parsing, t_env **data)
+int	exec_cmd(t_cmd **parsing, t_env **data)
 {
 	if ((*parsing)->redir_nb > 0)
 	{
-		exec_redirection(parsing, data);
+		if (fork_redirection(parsing, data) == -1)
+			return (perror("fork_redirection"), -1);
 	}
 	else
 	{
-		exec_single_cmd(parsing, data);
+		if (exec_single_cmd(parsing, data) == -1)
+			return (perror("exec_single_cmd"), -1);
 	}
 }
 
-void	exec_single_cmd(t_cmd **parsing, t_env **data)
+int	exec_single_cmd(t_cmd **parsing, t_env **data)
 {
 	if ((*parsing)->hdc->command != NULL
 		&& check_if_builtins((*parsing)->hdc->command[0]))
-		builtins(parsing, data);
+	{
+		if (builtins(parsing, data) == -1)
+			return (perror("builtins"), -1);
+	}
 	else if (check_if_builtins((*parsing)->str[0]))
 	{
-		builtins(parsing, data);
+		if (builtins(parsing, data) == -1)
+			return (perror("builtins"), -1);
 	}
 	else
 	{
-		check_cmd_minishell(parsing, (*data)->var);
+		if (check_cmd_minishell(parsing, (*data)->var) == -1)
+			return (perror("check_cmd_minishell"), -1);
 	}
 }

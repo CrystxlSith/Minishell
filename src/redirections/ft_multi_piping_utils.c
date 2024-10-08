@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:59:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/07 13:47:11 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:07:03 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,25 @@ int	open_dup_pipe_in(int *fd)
 	return (0);
 }
 
-int	open_dup_pipe_terminal(int *fd)
+int	create_pipe_if_needed(t_cmd *tmp, int *current_fd)
 {
-	if (dup2(STDOUT_FILENO, fd[1]) == -1)
+	if (tmp->next != NULL)
 	{
-		perror("dup2 fd[1]");
-		close(fd[1]);
-		return (-1);
+		if (pipe(current_fd) == -1)
+		{
+			perror("multi pipe");
+			return (-1);
+		}
 	}
-	close(fd[0]);
-	close(fd[1]);
 	return (0);
 }
 
-void	close_fd_multiple_cmd(t_cmd *parsing, int *old_fd)
+void	update_parent_descriptors(t_cmd *tmp, int *current_fd, int *old_fd)
 {
-	if (parsing->prev != NULL)
-		close_fd(old_fd);
-}
-
-int	*transfer_fd(int *fd, int *old_fd)
-{
-	old_fd[0] = fd[0];
-	old_fd[1] = fd[1];
-	return (old_fd);
+	if (tmp->next != NULL)
+	{
+		old_fd[0] = current_fd[0];
+		old_fd[1] = current_fd[1];
+		close(current_fd[1]);
+	}
 }
