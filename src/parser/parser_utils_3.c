@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:15:40 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/01 10:02:38 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:02:19 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	rep_d(t_lexer *tmp, char *res)
+{
+	while (tmp)
+	{
+		if (is_cmd(tmp->type) || tmp->type == E_D_QUOTE)
+			replace_dollar(&tmp->data, res, 0, 0);
+		tmp = tmp->next;
+	}
+}
 
 void	add_to_cmd(char *data, t_cmd *current)
 {
@@ -48,7 +58,7 @@ char	**env_find(char *input)
 	int		k;
 	char	**env_vars;
 
-	env_vars = malloc(sizeof(char *) * 100);
+	env_vars = malloc(sizeof(char *) * 4096);
 	j = 0;
 	i = 0;
 	while (input[i])

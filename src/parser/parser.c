@@ -6,39 +6,17 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/08 13:04:53 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/08 14:37:40 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	handle_question(char **res, char *tmp, int *i)
-{
-	char *tmp2;
-
-	tmp2 = ft_itoa(g_sig_status);
-	if (!ft_strncmp(tmp, "?", 1))
-	{
-		*res = ft_strjoin(*res, tmp2);
-		*i += ft_strlen(tmp2);
-		free(tmp2);
-		return (1);
-	}
-	free(tmp2);
-	return (0);
-}
 
 void	replace_dollar(char **input, char *res, int i, int j)
 {
 	char	*tmp;
 	char	*tmp2;
 
-	// if (i == -1)
-	// {
-	// 	free(*input);
-	// 	*input = ft_strdup(*input);
-	// 	return ;
-	// }
 	res = ft_strdup("");
 	while ((*input)[j])
 	{
@@ -49,7 +27,6 @@ void	replace_dollar(char **input, char *res, int i, int j)
 				continue ;
 			j += loop_while_dollar(input, &tmp, j, tmp2);
 			handle_question(&res, tmp, &i);
-			handle_env_value(&res, tmp, &i);
 		}
 		else
 		{
@@ -84,36 +61,23 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 	while (tmp)
 	{
 		s_tmp = ft_strdup(tmp->data);
-		if (is_cmd(tmp->type) || is_quote(tmp->type))
+		if (is_redirection(tmp->type))
 		{
-			if (tmp->next && (is_quote(tmp->next->type) || is_cmd(tmp->next->type)))
+			printf("redirection\n");
+			handle_redirection(&tmp, current);
+		}
+		else if (is_cmd(tmp->type) || is_quote(tmp->type))
+		{
+			while (tmp->next && (is_quote(tmp->next->type) \
+			|| is_cmd(tmp->next->type)))
 			{
-				while (tmp->next && (is_quote(tmp->next->type) || is_cmd(tmp->next->type)))
-				{
-					s_tmp = ft_strjoin(s_tmp, tmp->next->data);
-					tmp = tmp->next;
-				}
-				add_to_cmd(s_tmp, current);
-				if (tmp->next)
-					tmp = tmp->next;
+				s_tmp = ft_strjoin(s_tmp, tmp->next->data);
+				tmp = tmp->next;
 			}
-			else
-				add_to_cmd(tmp->data, current);
+			add_to_cmd(s_tmp, current);
 		}
 		else if (tmp->type == E_PIPE)
 			new_cmd(&current);
-		if (is_redirection(tmp->type))
-			handle_redirection(&tmp, current);
-		tmp = tmp->next;
-	}
-}
-
-void	rep_d(t_lexer *tmp, char *res)
-{
-	while (tmp)
-	{
-		if (is_cmd(tmp->type) || tmp->type == E_D_QUOTE)
-			replace_dollar(&tmp->data, res, 0, 0);
 		tmp = tmp->next;
 	}
 }
