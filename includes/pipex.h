@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/08 07:26:01 by jopfeiff         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/08 11:07:00 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Updated: 2024/10/08 13:25:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +21,11 @@
 # include <fcntl.h>
 
 // exec_cmd_minishell
-<<<<<<< HEAD
-int		exec_multiple_cmd(t_cmd **parsing, t_env **data);
-void	execute_fork(t_cmd **parsing, t_env **data);
-void	exec_cmd(t_cmd **parsing, t_env **data);
-void	exec_single_cmd(t_cmd **parsing, t_env **data);
-void	exec_cmd_minishell(t_cmd **parsing, t_env **data);
-=======
 int		execute_fork(t_cmd **parsing, t_env **data);
 int		exec_cmd(t_cmd **parsing, t_env **data);
 int		exec_single_cmd(t_cmd **parsing, t_env **data);
 int		exec_multiple_cmd(t_cmd **parsing, t_env **data);
 int		exec_cmd_minishell(t_cmd **parsing, t_env **data);
->>>>>>> Minishell_AGT
 
 // ft_pipping_utils
 void	close_fd(int *fd);

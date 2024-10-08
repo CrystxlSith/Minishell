@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/10/08 13:14:50 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:25:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ t_lexer	*tokenize(char *str);
 void	init_cmd(t_cmd **head, t_cmd **current);
 void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void	new_token(t_lexer **tokens, t_lexer *new_node);
-
-//EXECUTION
-int		exec_single_cmd(t_cmd **parsing, t_env **data);
 
 //BUILTINS ---> GENERAL
 int		builtins(t_cmd **parsing, t_env **data);

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/08 11:12:22 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:23:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*get_filepath(char **cmd, char **envp)
 		if (access(full_path_cmd, X_OK) == 0)
 			return (final_path = full_path_cmd, final_path);
 	}
-	free_all(full_path);
+	free(full_path);
 	return (NULL);
 }
 
