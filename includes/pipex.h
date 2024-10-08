@@ -6,7 +6,11 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/08 07:26:01 by jopfeiff         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/08 11:07:00 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +25,19 @@
 # include <fcntl.h>
 
 // exec_cmd_minishell
+<<<<<<< HEAD
 int		exec_multiple_cmd(t_cmd **parsing, t_env **data);
 void	execute_fork(t_cmd **parsing, t_env **data);
 void	exec_cmd(t_cmd **parsing, t_env **data);
 void	exec_single_cmd(t_cmd **parsing, t_env **data);
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data);
+=======
+int		execute_fork(t_cmd **parsing, t_env **data);
+int		exec_cmd(t_cmd **parsing, t_env **data);
+int		exec_single_cmd(t_cmd **parsing, t_env **data);
+int		exec_multiple_cmd(t_cmd **parsing, t_env **data);
+int		exec_cmd_minishell(t_cmd **parsing, t_env **data);
+>>>>>>> Minishell_AGT
 
 // ft_pipping_utils
 void	close_fd(int *fd);
@@ -37,22 +49,26 @@ int		open_dup_input(int fd_in);
 // get_path_cmd
 char	*get_filepath(char **av, char **envp);
 char	**get_filepath_norm(char **envp);
-void	check_cmd_minishell(t_cmd **parsing, char **envp);
+int		check_cmd_minishell(t_cmd **parsing, char **envp);
 
 // ft_redir_utils
-int		find_line(char **envp);
-void	exec_redir_in(t_cmd **parsing, t_env **data);
-void	exec_redir_out(t_cmd **parsing, t_env **data);
-void	fork_redirection(int redir, t_cmd **parsing, t_env **data);
-void	exec_redirection(t_cmd **parsing, t_env **data);
-void	create_file_out(char *file, int end);
+int		fork_redirection(t_cmd **parsing, t_env **data);
+int		exec_redirection(t_cmd **parsing, t_env **data, int trigger);
+
+// ft_redir_in_utils
+int		exec_redir_in(t_cmd **parsing, t_env **data);
+int		exec_multiple_redir_in(t_cmd *tmp, t_env **data);
+
+// ft_redir_out_utils
+int		exec_redir_out(t_cmd **parsing, t_env **data);
+int		create_file_out(char *file);
+int		handle_redir_out(t_cmd *tmp, t_cmd **parsing, t_env **data);
 
 // ft_multi_piping_utils
 int		open_dup_pipe_out(int *fd);
 int		open_dup_pipe_in(int *fd);
 int		pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd);
-void	close_fd_multiple_cmd(t_cmd *parsing, int *old_fd);
-int		*transfer_fd(int *fd, int *old_fd);
-void	print_double_tab(char **tab);
+int		create_pipe_if_needed(t_cmd *tmp, int *current_fd);
+void	update_parent_descriptors(t_cmd *tmp, int *current_fd, int *old_fd);
 
 #endif

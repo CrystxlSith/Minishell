@@ -6,7 +6,11 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/08 07:43:46 by jopfeiff         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/08 11:38:34 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +50,10 @@ void	fill_input_hdc(t_lexer **tokens, t_cmd **parsing, t_env **data)
 		exec_multiple_cmd(parsing, data);
 		exit(0);
 	}
+<<<<<<< HEAD
 	// printf("DATA %s\n", tmp->data);
+=======
+>>>>>>> Minishell_AGT
 	ft_putstr_fd(tmp->data, fd);
 	ft_putstr_fd("\n", fd);
 	(*parsing)->hdc->input_nbr = fd;
