@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/10/07 15:36:10 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 08:21:27 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_minishell
 	int	last_exit_status;
 }			t_minishell;
 
-extern t_minishell minishell;
+extern int g_sig_status;
 
 //LEXER && PARSER
 t_lexer	*tokenize(char *str);

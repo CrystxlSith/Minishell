@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/07 14:51:53 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 09:59:08 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,17 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd);
 void	redir_handler(t_lexer **token, char **str);
 void	space_handler(t_lexer **tokens, char **str);
 void	remove_space_in_cmd(t_cmd **head);
-void    init_signals(void);
+void	init_signals(int is_heredoc);
 void	print_error(char *error, char *token);
-int	handle_number(char **input, int *i, char *tmp, char *tmp2);
-int	loop_while_dollar(char **input, char **tmp, int i, char *tmp2);
+int		handle_number(char **input, int *i, char *tmp, char *tmp2);
+int		loop_while_dollar(char **input, char **tmp, int i, char *tmp2);
 char	*build_res(char *res, int i, int j, char **input);
 void	add_to_cmd(char *data, t_cmd *current);
 char	**env_find(char *input);
 char	*build_res(char *res, int i, int j, char **input);
 void	init_temp(char **tmp, char **tmp2);
 char	**add_data_to_tab(char *data);
-void	remove_space_tokens(t_lexer **head);
+t_lexer	*remove_space_tokens(t_lexer *head);
 void	add_index_to_token(t_lexer *tokens);
 void	pipe_handler(t_lexer **tokens, char **str);
 t_cmd	*parser(t_lexer **tokens);

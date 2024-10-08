@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_error_handler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 07:43:18 by kali              #+#    #+#             */
-/*   Updated: 2024/10/01 10:02:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:00:51 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,32 +94,33 @@ int	ampersand_err(t_lexer *head)
 int	lex_error(t_lexer *head)
 {
 	t_lexer	*current;
+	t_lexer	*tmp;
 
 	current = head;
 	if (!head)
 		return (1);
-	remove_space_tokens(&head);
 	if ((!ft_strcmp(";", head->data) || \
 		!ft_strcmp("!", head->data)) && !head->next)
 		return (1);
-	while (current)
+	tmp = remove_space_tokens(head);
+	while (tmp)
 	{
-		if (current->type == E_PIPE)
+		if (tmp->type == E_PIPE)
 		{
-			if (pipes_err(current))
+			if (pipes_err(tmp))
 				return (1);
 		}
-		else if (current->type == E_AMPERSAND)
+		else if (tmp->type == E_AMPERSAND)
 		{
-			if (ampersand_err(current))
+			if (ampersand_err(tmp))
 				return (1);
 		}
-		else if (is_redirection(current->type))
+		else if (is_redirection(tmp->type))
 		{
-			if (redir_err(current))
+			if (redir_err(tmp))
 				return (1);
 		}
-		current = current->next;
+		tmp = tmp->next;
 	}
 	return (0);
 }

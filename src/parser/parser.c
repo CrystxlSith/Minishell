@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/07 14:17:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:38:21 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	handle_question(char **res, char *tmp, int *i)
 {
 	char *tmp2;
 
-	tmp2 = ft_itoa(minishell.last_exit_status);
+	tmp2 = ft_itoa(g_sig_status);
 	if (!ft_strncmp(tmp, "?", 1))
 	{
 		*res = ft_strjoin(*res, tmp2);
@@ -33,6 +33,12 @@ void	replace_dollar(char **input, char *res, int i, int j)
 	char	*tmp;
 	char	*tmp2;
 
+	// if (i == -1)
+	// {
+	// 	free(*input);
+	// 	*input = ft_strdup(*input);
+	// 	return ;
+	// }
 	res = ft_strdup("");
 	while ((*input)[j])
 	{
@@ -65,26 +71,29 @@ void	new_cmd(t_cmd **current)
 	*current = (*current)->next;
 }
 
-void	new_quote_cmd(t_lexer *tmp, t_cmd *current, char *res)
+void	new_quote_cmd(t_lexer *tmp, char *res)
 {
 	if (tmp->type == E_D_QUOTE)
 		replace_dollar(&tmp->data, res, 0, 0);
-	add_to_cmd(tmp->data, current);
 }
 
-static void	cmd_adding(t_lexer *tmp, t_cmd *current, char *res)
+static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 {
+	char	*s_tmp;
+
 	while (tmp)
 	{
-		if (is_cmd(tmp->type))
-			replace_dollar(&tmp->data, res, 0, 0);
-		if (is_cmd(tmp->type))
+		s_tmp = ft_strdup(tmp->data);
+		if (is_cmd(tmp->type) || is_quote(tmp->type))
 		{
-			if (tmp->next && is_quote(tmp->next->type))
+			if (tmp->next && (is_quote(tmp->next->type) || is_cmd(tmp->next->type)))
 			{
-				tmp->data = ft_strjoin(tmp->data, tmp->next->data);
-				replace_dollar(&tmp->data, res, 0, 0);
-				add_to_cmd(tmp->data, current);
+				while (tmp->next && (is_quote(tmp->next->type) || is_cmd(tmp->next->type)))
+				{
+					s_tmp = ft_strjoin(s_tmp, tmp->next->data);
+					tmp = tmp->next;
+				}
+				add_to_cmd(s_tmp, current);
 				if (tmp->next)
 					tmp = tmp->next;
 			}
@@ -93,12 +102,18 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current, char *res)
 		}
 		else if (tmp->type == E_PIPE)
 			new_cmd(&current);
-		else if (tmp->type == E_SPACE)
-			add_to_cmd(tmp->data, current);
-		else if (is_quote(tmp->type))
-			new_quote_cmd(tmp, current, res);
 		if (is_redirection(tmp->type))
 			handle_redirection(&tmp, current);
+		tmp = tmp->next;
+	}
+}
+
+void	rep_d(t_lexer *tmp, char *res)
+{
+	while (tmp)
+	{
+		if (is_cmd(tmp->type) || tmp->type == E_D_QUOTE)
+			replace_dollar(&tmp->data, res, 0, 0);
 		tmp = tmp->next;
 	}
 }
@@ -114,6 +129,7 @@ t_cmd	*parser(t_lexer **tokens)
 	tmp = *tokens;
 	init_cmd(&head, &current);
 	initiate_hdc_struc(&head);
-	cmd_adding(tmp, current, res);
+	rep_d(tmp, res);
+	cmd_adding(tmp, current);
 	return (head);
 }

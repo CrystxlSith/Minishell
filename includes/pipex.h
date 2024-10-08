@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/07 16:49:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 07:26:01 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # include <fcntl.h>
 
 // exec_cmd_minishell
+int		exec_multiple_cmd(t_cmd **parsing, t_env **data);
 void	execute_fork(t_cmd **parsing, t_env **data);
 void	exec_cmd(t_cmd **parsing, t_env **data);
 void	exec_single_cmd(t_cmd **parsing, t_env **data);
-void	exec_multiple_cmd(t_cmd **parsing, t_env **data);
 void	exec_cmd_minishell(t_cmd **parsing, t_env **data);
 
 // ft_pipping_utils

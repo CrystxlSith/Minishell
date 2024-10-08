@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/07 16:59:19 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 07:43:46 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	fill_input_hdc(t_lexer **tokens, t_cmd **parsing, t_env **data)
 		exec_multiple_cmd(parsing, data);
 		exit(0);
 	}
-	printf("DATA %s\n", tmp->data);
+	// printf("DATA %s\n", tmp->data);
 	ft_putstr_fd(tmp->data, fd);
 	ft_putstr_fd("\n", fd);
 	(*parsing)->hdc->input_nbr = fd;

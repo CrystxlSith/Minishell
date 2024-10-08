@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:33:17 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/26 11:21:56 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/08 09:59:05 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	add_index_to_token(t_lexer *tokens)
 	}
 }
 
-void	remove_space_tokens(t_lexer **head)
+t_lexer	*remove_space_tokens(t_lexer *head)
 {
 	t_lexer	*current;
 	t_lexer	*next;
 
-	current = *head;
+	current = head;
 	while (current)
 	{
 		next = current->next;
@@ -57,4 +57,5 @@ void	remove_space_tokens(t_lexer **head)
 		}
 		current = next;
 	}
+	return (head);
 }
