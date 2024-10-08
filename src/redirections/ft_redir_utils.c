@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/08 10:29:15 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:13:18 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	fork_redirection(t_cmd **parsing, t_env **data)
 	tmp = *parsing;
 	pid = fork();
 	if (pid == -1)
-		return ;
+		return (perror("pid "), -1);
 	if (pid == 0)
 	{
 		if (exec_redirection(parsing, data, trigger))

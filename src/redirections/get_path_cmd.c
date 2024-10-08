@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/08 10:36:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:12:22 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,5 @@ int	check_cmd_minishell(t_cmd **parsing, char **envp)
 		if (execve_cmd((*parsing)->str, envp) == -1)
 			return (perror("get_filepath"), -1);
 	}
+	return (0);
 }

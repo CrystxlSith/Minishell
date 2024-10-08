@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:16:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/08 10:18:48 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:14:24 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	exec_multiple_redir_in(t_cmd *tmp, t_env **data)
 	int		fd_redir;
 	int		fd_out;
 
+	(void)data;
 	while (tmp->redir->next != NULL)
 	{
 		fd_redir = open(tmp->redir->data, O_CREAT | O_RDWR | O_TRUNC, 0777);
@@ -36,7 +37,6 @@ int	exec_multiple_redir_in(t_cmd *tmp, t_env **data)
 int	exec_redir_in(t_cmd **parsing, t_env **data)
 {
 	int		fd_redir;
-	int		fd_out;
 	t_cmd	*tmp;
 
 	tmp = *parsing;

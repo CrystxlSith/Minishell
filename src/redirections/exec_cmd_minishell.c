@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/08 10:53:29 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:12:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	exec_cmd(t_cmd **parsing, t_env **data)
 		if (exec_single_cmd(parsing, data) == -1)
 			return (perror("exec_single_cmd"), -1);
 	}
+	return (0);
 }
 
 int	exec_single_cmd(t_cmd **parsing, t_env **data)
@@ -86,4 +87,5 @@ int	exec_single_cmd(t_cmd **parsing, t_env **data)
 		if (check_cmd_minishell(parsing, (*data)->var) == -1)
 			return (perror("check_cmd_minishell"), -1);
 	}
+	return (0);
 }
