@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/07 16:53:52 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:44:06 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,12 +133,18 @@ int my_remove(const char *pathname)
 
 void	free_minishell(t_env **data, t_cmd **parsing)
 {
-	free(minishell.line_read);
-	free_all((*data)->var);
-	free((*parsing)->hdc->break_word);
-	free((*parsing)->hdc->command);
-	free((*parsing)->hdc);
-	free(data);
+	if (minishell.line_read != NULL)
+		free(minishell.line_read);
+	if ((*data)->var != NULL)
+		free_all((*data)->var);
+/* 	if ((*parsing)->hdc->break_word != NULL)
+		free((*parsing)->hdc->break_word);
+	if ((*parsing)->hdc->command != NULL)
+		free((*parsing)->hdc->command);
+	if ((*parsing)->hdc != NULL)
+		free((*parsing)->hdc); */
+/* 	if (data != NULL)
+		free(data); */
 }
 
 int	launcher_exec(char *input, t_env **data, t_cmd **parsing)
