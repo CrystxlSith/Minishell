@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 10:02:09 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:35:30 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	print_cmd(t_cmd *head)
 		printf("\n");
 		printf("Redirections: ");
 		redir = current->redir;
-		while (redir)
-		{
-			printf("%s ", redir->data);
-			redir = redir->next;
-		}
+		// while (redir)
+		// {
+		// 	printf("%s ", redir->data);
+		// 	redir = redir->next;
+		// }
 		printf("\n");
 		// if (current->index)
 			printf("Index: %d\n", current->index);
@@ -193,6 +193,7 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 				continue ;
 			}
 			tokens_hdc = tokenize(minishell->line_read);
+
 			token_input = parser(&tokens_hdc);
 			fill_input_hdc(&tokens_hdc, cmd_parsing, data);
 		}
@@ -224,6 +225,8 @@ int main(int ac, char **av, char **envp)
 		if (access("/tmp/heredoc.txt", R_OK) != -1)
 			my_remove("/tmp/heredoc.txt");
 		minishell.line_read = readline("minishell> ");
+		if (lex_error(minishell.line_read))
+			continue ;
 		if (launcher_exec(minishell.line_read, &data, &cmd_parsing, &minishell) == -1)
 		{
 			exit(EXIT_FAILURE);
@@ -236,14 +239,13 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
+		// print_tokens(tokens);
 		cmd_parsing = parser(&tokens);
+ 		// print_cmd(cmd_parsing);
 		if (!cmd_parsing)
-			continue ;
-		if (lex_error(tokens))
 			continue ;
 		if (cmd_parsing->str)
 		{
-			print_cmd(cmd_parsing);
 			if (cmd_parsing->hdc->break_word != NULL)
 			{
 				// faire liste chainee de heredoc.

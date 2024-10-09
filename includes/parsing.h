@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/08 09:59:08 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:16:36 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,21 @@ int		check_quotes(char *str);
 int		is_cmd(t_lexer_type type);
 int		is_quote(t_lexer_type type);
 int		add_count_elem(char **data);
-int		lex_error(t_lexer *head);
+int		lex_error(char *input);
 int		pipes_err(t_lexer *head);
 int		is_redirection(t_lexer_type type);
 void	handle_redirection(t_lexer **token, t_cmd *cmd);
 void	redir_handler(t_lexer **token, char **str);
 void	space_handler(t_lexer **tokens, char **str);
-void	remove_space_in_cmd(t_cmd **head);
+void	replace_dollar(char **input, char *res, int i, int j);
+void	add_heredoc(t_lexer **token, t_cmd *current);
+t_cmd	*create_new_cmd(void);
+void	init_cmd(t_cmd **head, t_cmd **current);
+int	add_count_elem(char **data);
+void	rep_d(t_lexer *tmp, char *res);
 void	init_signals(int is_heredoc);
+void	remove_next_space(t_lexer **tmp);
+void	print_cmd(t_cmd *head);
 void	print_error(char *error, char *token);
 int		handle_number(char **input, int *i, char *tmp, char *tmp2);
 int		loop_while_dollar(char **input, char **tmp, int i, char *tmp2);
@@ -105,6 +112,8 @@ char	*build_res(char *res, int i, int j, char **input);
 void	init_temp(char **tmp, char **tmp2);
 char	**add_data_to_tab(char *data);
 t_lexer	*remove_space_tokens(t_lexer *head);
+void	rep_d(t_lexer *tmp, char *res);
+int	handle_question(char **res, char *tmp, int *i);
 void	add_index_to_token(t_lexer *tokens);
 void	pipe_handler(t_lexer **tokens, char **str);
 t_cmd	*parser(t_lexer **tokens);

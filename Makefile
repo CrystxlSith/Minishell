@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
+#    By: crycry <crycry@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/08 11:16:35 by agiliber         ###   ########.fr        #
+#    Updated: 2024/10/09 11:53:12 by crycry           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME_A = minishell.a
 # ------------------------------------------------------------------------------
 
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -I./includes/
+CFLAGS = -g3 -Wall -Wextra -fPIE -I./includes/
 RM = rm -rf
 LIBFT_FLAGS = -L./$(LIB_DIR) -l:libft.a
 CLEAN = $(MAKE) clean
@@ -77,7 +77,7 @@ BUILTINS = builtins.c echo.c cd.c env.c export.c ft_export_utiles.c \
 LEXER = handler.c init_lexer.c lexer_utils.c lexer.c lex_error_handler.c
 
 PARSER = parser_utils.c parser.c parser_utils2.c parser_utils_3.c print_error.c \
-	signals.c
+	signals.c parser_utils4.c
 
 REDIREC = exec_cmd_minishell.c get_path_cmd.c ft_redir_utils.c exec_pipe_cmd.c \
 	ft_multi_piping_utils.c heredoc.c ft_exec_utils.c ft_redir_in_utils.c \
