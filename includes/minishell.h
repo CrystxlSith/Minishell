@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/10/08 13:25:04 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:42:15 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ int		builtins(t_cmd **parsing, t_env **data);
 //Heredoc
 int		initiate_hdc_struc(t_cmd **parsing);
 int		heredoc(t_env *data, t_cmd *parsing);
-void	fill_input_hdc(t_lexer **tokens, t_cmd **parsing, t_env **data);
+void	fill_input_hdc(t_minishell *minishell, t_cmd **parsing, t_env **data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 14:35:30 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/09 14:42:59 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,13 +167,9 @@ int	launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minis
 
 void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 {
-	t_lexer	*tokens_hdc;
-	t_cmd	*token_input;
 	int		pid;
 	int		status;
 
-	tokens_hdc = NULL;
-	token_input = NULL;
 	pid = fork();
 	if (pid == -1)
 		exit(0);
@@ -192,10 +188,7 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 				free(minishell->line_read);
 				continue ;
 			}
-			tokens_hdc = tokenize(minishell->line_read);
-
-			token_input = parser(&tokens_hdc);
-			fill_input_hdc(&tokens_hdc, cmd_parsing, data);
+			fill_input_hdc(minishell, cmd_parsing, data);
 		}
 	}
 	waitpid(pid, &status, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/09 12:47:23 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 14:47:44 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,26 @@ int	initiate_hdc_struc(t_cmd **parsing)
 	return (0);
 }
 
-void	fill_input_hdc(t_lexer **tokens, t_cmd **parsing, t_env **data)
+void	fill_input_hdc(t_minishell *minishell, t_cmd **parsing, t_env **data)
 {
-	t_lexer	*tmp;
 	int		fd;
 	int		len;
 
 	len = ft_strlen((*parsing)->hdc->break_word);
-	tmp = *tokens;
 	fd = open("/tmp/heredoc.txt", O_CREAT | O_RDWR | O_APPEND, 0777);
 	if (fd == -1)
 	{
 		perror("open fd heredoc");
 		exit(EXIT_FAILURE);
 	}
-	if (ft_strncmp((*parsing)->hdc->break_word, tmp->data, len) == 0)
+	if (ft_strncmp((*parsing)->hdc->break_word, minishell->line_read, len) == 0)
 	{
 		(*parsing)->hdc->input_nbr = fd;
 		(*parsing)->redir_nb--;
 		exec_multiple_cmd(parsing, data);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
-	ft_putstr_fd(tmp->data, fd);
+	ft_putstr_fd(minishell->line_read, fd);
 	ft_putstr_fd("\n", fd);
 	(*parsing)->hdc->input_nbr = fd;
 }
