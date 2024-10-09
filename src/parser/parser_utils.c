@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/10/08 14:38:39 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:56:25 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,19 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 	if (!new_redir)
 		return ;
 	new_redir->type = (*token)->type;
-	if (((*token)->type) == E_REDIR_DEL)
-		add_heredoc(token, cmd);
-	if ((is_redirection(((*token)->type))) && (*token)->next && (is_cmd((*token)->next->type)))
+
+	if ((is_redirection(((*token)->type))) && (*token)->next)
 	{
-		new_redir->data = ft_strdup((*token)->next->data);
-		if (!new_redir->data)
+		remove_next_space(token);
+		if (is_cmd((*token)->type))
 		{
-			free(new_redir);
-			return ;
+			new_redir->data = ft_strdup((*token)->data);
+			if (!new_redir->data)
+			{
+				free(new_redir);
+				return ;
+			}
 		}
-		*token = (*token)->next;
 	}
 	new_redir->next = NULL;
 	new_redir->prev = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/08 14:06:04 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:58:39 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	init_cmd(t_cmd **head, t_cmd **current);
 int	add_count_elem(char **data);
 void	rep_d(t_lexer *tmp, char *res);
 void	init_signals(int is_heredoc);
+void	remove_next_space(t_lexer **tmp);
+void	print_cmd(t_cmd *head);
 void	print_error(char *error, char *token);
 int		handle_number(char **input, int *i, char *tmp, char *tmp2);
 int		loop_while_dollar(char **input, char **tmp, int i, char *tmp2);

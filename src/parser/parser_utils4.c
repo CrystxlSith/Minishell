@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/08 14:05:37 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:05:08 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	add_heredoc(t_lexer **token, t_cmd *current)
 			i++;
 		}
 	}
+	if ((*token)->next->type == E_SPACE)
+		(*token) = (*token)->next;
 	current->hdc->break_word = ft_strdup((*token)->next->data);
+	(*token) = (*token)->next;
 }
 
 int	handle_question(char **res, char *tmp, int *i)

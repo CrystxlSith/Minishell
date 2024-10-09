@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+         #
+#    By: crycry <crycry@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/08 13:50:33 by jopfeiff         ###   ########.fr        #
+#    Updated: 2024/10/09 11:53:12 by crycry           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME_A = minishell.a
 # ------------------------------------------------------------------------------
 
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -I./includes/
+CFLAGS = -g3 -Wall -Wextra -fPIE -I./includes/
 RM = rm -rf
 LIBFT_FLAGS = -L./$(LIB_DIR) -l:libft.a
 CLEAN = $(MAKE) clean

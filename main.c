@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/08 14:42:32 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:48:02 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 				continue ;
 			}
 			tokens_hdc = tokenize(minishell->line_read);
+			
 			token_input = parser(&tokens_hdc);
 			fill_input_hdc(&tokens_hdc, cmd_parsing, data);
 		}
@@ -236,12 +237,12 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
+		// print_tokens(tokens);
 		cmd_parsing = parser(&tokens);
-		print_tokens(tokens);
- 		print_cmd(cmd_parsing);
-		if (!cmd_parsing)
-			continue ;
 		if (lex_error(tokens))
+			continue ;
+ 		// print_cmd(cmd_parsing);
+		if (!cmd_parsing)
 			continue ;
 		if (cmd_parsing->str)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/08 14:37:40 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:09:35 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ void	new_quote_cmd(t_lexer *tmp, char *res)
 		replace_dollar(&tmp->data, res, 0, 0);
 }
 
+void	remove_next_space(t_lexer **tmp)
+{
+	if ((*tmp)->next->next && (*tmp)->next->type == E_SPACE)
+	{
+		*tmp = (*tmp)->next->next;
+	}
+}
+
 static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 {
 	char	*s_tmp;
@@ -61,12 +69,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 	while (tmp)
 	{
 		s_tmp = ft_strdup(tmp->data);
-		if (is_redirection(tmp->type))
-		{
-			printf("redirection\n");
-			handle_redirection(&tmp, current);
-		}
-		else if (is_cmd(tmp->type) || is_quote(tmp->type))
+		if (is_cmd(tmp->type) || is_quote(tmp->type))
 		{
 			while (tmp->next && (is_quote(tmp->next->type) \
 			|| is_cmd(tmp->next->type)))
@@ -78,8 +81,13 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 		}
 		else if (tmp->type == E_PIPE)
 			new_cmd(&current);
+		if (tmp->type == E_REDIR_DEL)
+			add_heredoc(&tmp, current);
+		else if (is_redirection(tmp->type))
+			handle_redirection(&tmp, current);
 		tmp = tmp->next;
 	}
+	print_cmd(current);
 }
 
 t_cmd	*parser(t_lexer **tokens)
