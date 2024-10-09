@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/09 15:19:40 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 22:15:21 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_cmd	*create_new_cmd(void);
 void	init_cmd(t_cmd **head, t_cmd **current);
 int		add_count_elem(char **data);
 void	rep_d(t_lexer *tmp, char *res);
-void	init_signals(int is_heredoc);
+void	init_signals(bool is_heredoc);
 void	remove_next_space(t_lexer **tmp);
 void	print_cmd(t_cmd *head);
 void	print_error(char *error, char *token);

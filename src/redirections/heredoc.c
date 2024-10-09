@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/09 12:47:23 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 22:52:19 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int	initiate_hdc_struc(t_cmd **parsing)
 void	fill_input_hdc(t_lexer **tokens, t_cmd **parsing, t_env **data)
 {
 	t_lexer	*tmp;
+	char	*res;
 	int		fd;
 	int		len;
 
+	res = NULL;
 	len = ft_strlen((*parsing)->hdc->break_word);
 	tmp = *tokens;
 	fd = open("/tmp/heredoc.txt", O_CREAT | O_RDWR | O_APPEND, 0777);
@@ -46,6 +48,7 @@ void	fill_input_hdc(t_lexer **tokens, t_cmd **parsing, t_env **data)
 		exec_multiple_cmd(parsing, data);
 		exit(0);
 	}
+	replace_dollar(&tmp->data, res, 0, 0);
 	ft_putstr_fd(tmp->data, fd);
 	ft_putstr_fd("\n", fd);
 	(*parsing)->hdc->input_nbr = fd;
