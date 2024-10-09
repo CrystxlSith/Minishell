@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/08 13:15:00 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:02:09 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,10 @@ int main(int ac, char **av, char **envp)
 		{
 			print_cmd(cmd_parsing);
 			if (cmd_parsing->hdc->break_word != NULL)
+			{
+				// faire liste chainee de heredoc.
 				heredoc_launcher(&cmd_parsing, &data, &minishell);
+			}
 			else
 				execute_fork(&cmd_parsing, &data);
 		}

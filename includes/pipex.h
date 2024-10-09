@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/08 13:25:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:37:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		exec_multiple_redir_in(t_cmd *tmp, t_env **data);
 
 // ft_redir_out_utils
 int		exec_redir_out(t_cmd **parsing, t_env **data);
-int		create_file_out(char *file);
+int		create_file_out(char *file, t_cmd **parsing);
 int		handle_redir_out(t_cmd *tmp, t_cmd **parsing, t_env **data);
 
 // ft_multi_piping_utils
