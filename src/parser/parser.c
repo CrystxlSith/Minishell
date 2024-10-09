@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 13:09:35 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:13:13 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ void	new_quote_cmd(t_lexer *tmp, char *res)
 		replace_dollar(&tmp->data, res, 0, 0);
 }
 
-void	remove_next_space(t_lexer **tmp)
-{
-	if ((*tmp)->next->next && (*tmp)->next->type == E_SPACE)
-	{
-		*tmp = (*tmp)->next->next;
-	}
-}
-
 static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 {
 	char	*s_tmp;
@@ -87,7 +79,6 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 			handle_redirection(&tmp, current);
 		tmp = tmp->next;
 	}
-	print_cmd(current);
 }
 
 t_cmd	*parser(t_lexer **tokens)

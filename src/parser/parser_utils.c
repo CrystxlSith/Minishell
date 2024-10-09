@@ -6,48 +6,11 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/10/09 14:56:40 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:10:57 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	handle_redirection(t_lexer **token, t_cmd *cmd)
-{
-	t_lexer	*new_redir;
-	t_lexer	*last_redir;
-
-	new_redir = (t_lexer *)malloc(sizeof(t_lexer));
-	if (!new_redir)
-		return ;
-	new_redir->type = (*token)->type;
-	if ((is_redirection(((*token)->type))) && (*token)->next)
-	{
-		remove_next_space(token);
-		if (is_cmd((*token)->type))
-		{
-			new_redir->data = ft_strdup((*token)->data);
-			if (!new_redir->data)
-			{
-				free(new_redir);
-				return ;
-			}
-		}
-	}
-	new_redir->next = NULL;
-	new_redir->prev = NULL;
-	if (!cmd->redir)
-		cmd->redir = new_redir;
-	else
-	{
-		last_redir = cmd->redir;
-		while (last_redir->next)
-			last_redir = last_redir->next;
-		last_redir->next = new_redir;
-		new_redir->prev = last_redir;
-	}
-	cmd->redir_nb++;
-}
 
 int	is_redirection(t_lexer_type type)
 {
