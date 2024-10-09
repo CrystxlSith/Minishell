@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 15:13:13 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:58:05 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 
 	while (tmp)
 	{
-		s_tmp = ft_strdup(tmp->data);
+		s_tmp = tmp->data;
 		if (is_cmd(tmp->type) || is_quote(tmp->type))
 		{
 			while (tmp->next && (is_quote(tmp->next->type) \

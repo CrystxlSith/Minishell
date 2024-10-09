@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/09 13:16:36 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:19:40 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 }					t_cmd;
 
-
 int		check_quotes(char *str);
 int		is_cmd(t_lexer_type type);
 int		is_quote(t_lexer_type type);
@@ -97,7 +96,7 @@ void	replace_dollar(char **input, char *res, int i, int j);
 void	add_heredoc(t_lexer **token, t_cmd *current);
 t_cmd	*create_new_cmd(void);
 void	init_cmd(t_cmd **head, t_cmd **current);
-int	add_count_elem(char **data);
+int		add_count_elem(char **data);
 void	rep_d(t_lexer *tmp, char *res);
 void	init_signals(int is_heredoc);
 void	remove_next_space(t_lexer **tmp);
@@ -113,7 +112,7 @@ void	init_temp(char **tmp, char **tmp2);
 char	**add_data_to_tab(char *data);
 t_lexer	*remove_space_tokens(t_lexer *head);
 void	rep_d(t_lexer *tmp, char *res);
-int	handle_question(char **res, char *tmp, int *i);
+int		handle_question(char **res, char *tmp, int *i);
 void	add_index_to_token(t_lexer *tokens);
 void	pipe_handler(t_lexer **tokens, char **str);
 t_cmd	*parser(t_lexer **tokens);
