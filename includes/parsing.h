@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/09 12:58:39 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 13:16:36 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		check_quotes(char *str);
 int		is_cmd(t_lexer_type type);
 int		is_quote(t_lexer_type type);
 int		add_count_elem(char **data);
-int		lex_error(t_lexer *head);
+int		lex_error(char *input);
 int		pipes_err(t_lexer *head);
 int		is_redirection(t_lexer_type type);
 void	handle_redirection(t_lexer **token, t_cmd *cmd);

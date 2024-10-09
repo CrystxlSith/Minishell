@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 07:43:18 by kali              #+#    #+#             */
-/*   Updated: 2024/10/09 12:09:17 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 13:17:27 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,18 @@ int	ampersand_err(t_lexer *head)
 	return (0);
 }
 
-int	lex_error(t_lexer *head)
+int	lex_error(char *input)
 {
 	t_lexer	*current;
 	t_lexer	*tmp;
 
-	current = head;
-	if (!head)
+	current = tokenize(input);
+	if (!current)
 		return (1);
-	if ((!ft_strcmp(";", head->data) || \
-		!ft_strcmp("!", head->data)) && !head->next)
+	if ((!ft_strcmp(";", current->data) || \
+		!ft_strcmp("!", current->data)) && !current->next)
 		return (1);
-	tmp = remove_space_tokens(head);
+	tmp = remove_space_tokens(current);
 	while (tmp)
 	{
 		if (tmp->type == E_PIPE)

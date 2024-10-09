@@ -6,15 +6,12 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/10/09 12:56:25 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 13:12:40 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-
-// Ajouter à la liste de redirections
-// Copier les informations de redirection
 void	handle_redirection(t_lexer **token, t_cmd *cmd)
 {
 	t_lexer	*new_redir;
@@ -24,7 +21,6 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 	if (!new_redir)
 		return ;
 	new_redir->type = (*token)->type;
-
 	if ((is_redirection(((*token)->type))) && (*token)->next)
 	{
 		remove_next_space(token);
@@ -41,9 +37,7 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 	new_redir->next = NULL;
 	new_redir->prev = NULL;
 	if (!cmd->redir)
-	{
 		cmd->redir = new_redir;
-	}
 	else
 	{
 		last_redir = cmd->redir;

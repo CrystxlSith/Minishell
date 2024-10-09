@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 12:48:02 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 13:16:22 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,8 @@ int main(int ac, char **av, char **envp)
 		if (access("/tmp/heredoc.txt", R_OK) != -1)
 			my_remove("/tmp/heredoc.txt");
 		minishell.line_read = readline("minishell> ");
+		if (lex_error(minishell.line_read))
+			continue ;
 		if (launcher_exec(minishell.line_read, &data, &cmd_parsing, &minishell) == -1)
 		{
 			exit(EXIT_FAILURE);
@@ -239,8 +241,6 @@ int main(int ac, char **av, char **envp)
 		tokens = tokenize(minishell.line_read);
 		// print_tokens(tokens);
 		cmd_parsing = parser(&tokens);
-		if (lex_error(tokens))
-			continue ;
  		// print_cmd(cmd_parsing);
 		if (!cmd_parsing)
 			continue ;
