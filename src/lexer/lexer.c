@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:01:08 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/07 17:06:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:33:17 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// Handle Single && Double quotes
 void	quotes_handler(t_lexer **tokens, char **str)
 {
 	char	quote;
@@ -38,7 +37,6 @@ void	quotes_handler(t_lexer **tokens, char **str)
 	free(content);
 }
 
-// Check if the character is a token and create a new token
 static int	check_tokens(char **str, t_lexer **tokens)
 {
 	char	unknown[2];
@@ -102,20 +100,17 @@ void	check_options(char **str, t_lexer **tokens)
 	free(options);
 }
 
-// Tokenize the input string
 t_lexer	*tokenize(char *str)
 {
 	t_lexer	*tokens;
 
 	tokens = NULL;
-	while (ft_isspace(*str))
+	while (*str && ft_isspace(*str))
 		str++;
 	if (!check_quotes(str))
 	{
 		while (*str)
 		{
-			if (!*str)
-				break ;
 			if (ft_isspace(*str))
 				space_handler(&tokens, &str);
 			else if (*str && ft_isascii(*str) && !ft_strchr(IS_TOKEN, *str) && \

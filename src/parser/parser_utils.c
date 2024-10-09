@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 08:42:11 by kali              #+#    #+#             */
-/*   Updated: 2024/10/09 13:12:40 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 14:56:40 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 	}
 	cmd->redir_nb++;
 }
-
 
 int	is_redirection(t_lexer_type type)
 {

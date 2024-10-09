@@ -3,60 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:44:42 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/03 14:25:02 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:36:52 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	redir_handler(t_lexer **token, char **str)
+void	handle_greater(t_lexer **token, char **str, char *new)
 {
-	char	*new;
-
-	new = ft_strdup("");
-/* 	if (ft_strncmp(*str, "<<", 3) == 0)
+	if (*(*str + 1) == '>')
 	{
 		free(new);
-		new = ft_strdup("<<");
-		create_new_token(E_HEREDOC, new, token);
-		(*str)++;
-	} */
-	if (**str == '>')
+		new = ft_strdup(">>");
+		create_new_token(E_REDIR_APP, new, token);
+		(*str) += 2;
+	}
+	else
 	{
-		if (*(*str + 1) == '>')
-		{
-			free(new);
-			new = ft_strdup(">>");
-			create_new_token(E_REDIR_APP, new, token);
-			(*str) += 2;
-			free(new);
-			return ;
-		}
 		free(new);
 		new = ft_strdup(">");
 		create_new_token(E_REDIR_OUT, new, token);
 		(*str)++;
 	}
-	else if (**str == '<')
+	free(new);
+}
+
+void	handle_less(t_lexer **token, char **str, char *new)
+{
+	if (*(*str + 1) == '<')
 	{
-		if (*(*str + 1) == '<')
-		{
-			free(new);
-			new = ft_strdup("<<");
-			create_new_token(E_REDIR_DEL, "<<", token);
-			(*str) += 2;
-			free(new);
-			return ;
-		}
+		free(new);
+		new = ft_strdup("<<");
+		create_new_token(E_REDIR_DEL, new, token);
+		(*str) += 2;
+	}
+	else
+	{
 		free(new);
 		new = ft_strdup("<");
 		create_new_token(E_REDIR_IN, new, token);
 		(*str)++;
 	}
 	free(new);
+}
+
+void	redir_handler(t_lexer **token, char **str)
+{
+	char	*new;
+
+	new = ft_strdup("");
+	if (**str == '>')
+		handle_greater(token, str, new);
+	else if (**str == '<')
+		handle_less(token, str, new);
+	else
+		free(new);
 }
 
 void	space_handler(t_lexer **tokens, char **str)
@@ -80,6 +84,7 @@ void	space_handler(t_lexer **tokens, char **str)
 void	pipe_handler(t_lexer **tokens, char **str)
 {
 	char	*new;
+
 	if (*(*str + 1) == '|')
 	{
 		new = ft_strdup("||");
