@@ -1,0 +1,15 @@
+build
+dep
+free_utils.c
+includes
+infile
+launch_utils.c
+libft
+main.c
+main.o
+Makefile
+minishell
+minishell.a
+obj
+README.md
+src

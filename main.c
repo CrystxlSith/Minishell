@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
 /*   Updated: 2024/10/10 15:02:38 by agiliber         ###   ########.fr       */
+=======
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
+/*   Updated: 2024/10/10 08:30:21 by jopfeiff         ###   ########.fr       */
+>>>>>>> 2c36ead87890904e4a65ff381dc03e4ceff4dbe4
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int g_sig_status;
+int g_sig_status = 0;
 
 void	print_cmd(t_cmd *head)
 {
@@ -92,6 +99,7 @@ void	free_parsed_cmd(t_cmd *head)
 			free_tokens(current->redir);
 		if (current->here_doc)
 			free(current->here_doc);
+		free(current->hdc);
 		free(current);
 		current = next;
 	}
@@ -177,6 +185,7 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 	{
 		while (1)
 		{
+			init_signals(1);
 			minishell->line_read = readline("> ");
 			if (launcher_exec(minishell->line_read, data, \
 				cmd_parsing, minishell) == -1)
@@ -189,11 +198,36 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 				free(minishell->line_read);
 				continue ;
 			}
+<<<<<<< HEAD
 			heredoc((*cmd_parsing)->hdc->hdc_nb_bis, \
 				minishell, cmd_parsing, data);
+=======
+			tokens_hdc = tokenize(minishell->line_read);
+			token_input = parser(&tokens_hdc);
+			fill_input_hdc(&tokens_hdc, cmd_parsing, data);
+>>>>>>> 2c36ead87890904e4a65ff381dc03e4ceff4dbe4
 		}
 	}
 	waitpid(pid, &status, 0);
+}
+
+int	start_error(char *input)
+{
+	if (!input)
+		exit(EXIT_FAILURE);
+	else if (input[0] == '\0')
+	{
+		free(input);
+		return (1);
+	}
+	else if (lex_error(input))
+	{
+		free(input);
+		return (1);
+	}
+	if (access("/tmp/heredoc.txt", R_OK) != -1)
+		my_remove("/tmp/heredoc.txt");
+	return (0);
 }
 
 void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing)
@@ -211,32 +245,23 @@ int main(int ac, char **av, char **envp)
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
-	// init_signals();
+	init_signals(0);
 	tokens = NULL;
 	(void)ac;
 	(void)av;
 	while (1)
 	{
-		if (access("/tmp/heredoc.txt", R_OK) != -1)
-			my_remove("/tmp/heredoc.txt");
 		minishell.line_read = readline("minishell> ");
-		if (lex_error(minishell.line_read))
+		if (start_error(minishell.line_read))
 			continue ;
 		if (launcher_exec(minishell.line_read, &data, &cmd_parsing, &minishell) == -1)
 		{
 			exit(EXIT_FAILURE);
 			return (-1);
 		}
-		if (minishell.line_read[0] == '\0')
-		{
-			free(minishell.line_read);
-			continue ;
-		}
 		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
-		// print_tokens(tokens);
 		cmd_parsing = parser(&tokens);
- 		// print_cmd(cmd_parsing);
 		if (!cmd_parsing)
 			continue ;
 		if (cmd_parsing->str)
@@ -248,61 +273,9 @@ int main(int ac, char **av, char **envp)
 		}
 		if (minishell.line_read)
 			free(minishell.line_read);
-		free_tokens(tokens);
-		free_parsed_cmd(cmd_parsing);
+		free_all_line(tokens, cmd_parsing);
 		rl_on_new_line();
 	}
 	clear_history();
 	return (0);
 }
-
-// int main(int ac, char **av, char **envp)
-// {
-// 	t_minishell	minishell;
-// 	t_cmd		*cmd_parsing;
-// 	t_lexer		*tokens;
-// 	t_env		*data;
-
-// 	data = NULL;
-// 	initiate_struc_envp(&data, envp);
-// 	init_signals(0);
-// 	tokens = NULL;
-// 	(void)ac;
-// 	(void)av;
-// 	while (1)
-// 	{
-// 		if (access("/tmp/heredoc.txt", R_OK) != -1)
-// 			my_remove("/tmp/heredoc.txt");
-// 		minishell.line_read = readline("minishell$ ");
-// 		if (launcher_exec(minishell.line_read, &data, &cmd_parsing, minishell) == -1)
-// 		{
-// 			exit(EXIT_FAILURE);
-// 			return (-1);
-// 		}
-// 		if (minishell.line_read[0] == '\0')
-// 		{
-// 			free(minishell.line_read);
-// 			continue ;
-// 		}
-// 		add_history(minishell.line_read);
-// 		tokens = tokenize(minishell.line_read);
-// 		cmd_parsing = parser(&tokens);
-// 		if (lex_error(tokens))
-// 			continue ;
-// 		if (!cmd_parsing)
-// 			continue ;
-// 		if (cmd_parsing->str)
-// 		{
-// 			if (cmd_parsing->hdc->break_word != NULL)
-// 				heredoc_launcher(&cmd_parsing, &data, minishell);
-// 			else
-// 				execute_fork(&cmd_parsing, &data);
-// 		}
-// 		if (minishell.line_read)
-// 			free(minishell.line_read);
-// 		free_all_line(tokens, cmd_parsing);
-// 		rl_on_new_line();
-// 	}
-// 	clear_history();
-// 	return (0);
-// }

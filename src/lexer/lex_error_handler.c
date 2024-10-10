@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 07:43:18 by kali              #+#    #+#             */
-/*   Updated: 2024/10/09 13:17:27 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/09 15:45:32 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,33 +94,24 @@ int	ampersand_err(t_lexer *head)
 int	lex_error(char *input)
 {
 	t_lexer	*current;
-	t_lexer	*tmp;
+	t_lexer	*head;
 
 	current = tokenize(input);
+	head = current;
 	if (!current)
 		return (1);
 	if ((!ft_strcmp(";", current->data) || \
 		!ft_strcmp("!", current->data)) && !current->next)
-		return (1);
-	tmp = remove_space_tokens(current);
-	while (tmp)
+		return (free_token(current), 1);
+	current = remove_space_tokens(current);
+	while (current)
 	{
-		if (tmp->type == E_PIPE)
-		{
-			if (pipes_err(tmp))
-				return (1);
-		}
-		else if (tmp->type == E_AMPERSAND)
-		{
-			if (ampersand_err(tmp))
-				return (1);
-		}
-		else if (is_redirection(tmp->type))
-		{
-			if (redir_err(tmp))
-				return (1);
-		}
-		tmp = tmp->next;
+		if ((current->type == E_PIPE && pipes_err(current)) || \
+		(current->type == E_AMPERSAND && ampersand_err(current)) || \
+		(is_redirection(current->type) && redir_err(current)))
+			return (free_token(current), 1);
+		current = current->next;
 	}
+	free_tokens(head);
 	return (0);
 }

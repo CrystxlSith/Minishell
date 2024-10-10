@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/07 14:46:49 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/10 07:47:58 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	free_token(t_lexer *token)
 {
 	if (token)
 	{
-		free(token->data); // Free the duplicated data
-		free(token);           // Free the token itself
+		free(token->data);
+		free(token);
 	}
 }
 
@@ -39,7 +39,6 @@ void	free_parsed_cmd(t_cmd *head)
 {
 	t_cmd	*current;
 	t_cmd	*next;
-	// int		i;
 
 	current = head;
 	while (current)
