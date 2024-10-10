@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 16:04:49 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/10 07:00:07 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	add_heredoc(t_lexer **token, t_cmd *current)
 		current = current->next;
 	if (current->str != NULL)
 	{
-  		current->hdc->command = (char **)malloc(sizeof(char *) * i + 1);
+		current->hdc->command = (char **)malloc(sizeof(char *) * i + 1);
 		if (!current->hdc->command)
 			return ;
 		i = 0;

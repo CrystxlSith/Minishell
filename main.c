@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 23:17:54 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/10 08:30:21 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int g_sig_status;
+int g_sig_status = 0;
 
 void	print_cmd(t_cmd *head)
 {
@@ -182,7 +182,7 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 	{
 		while (1)
 		{
-			init_signals(true);
+			init_signals(1);
 			minishell->line_read = readline("> ");
 			if (launcher_exec(minishell->line_read, data, cmd_parsing, minishell) == -1)
 			{
@@ -236,7 +236,7 @@ int main(int ac, char **av, char **envp)
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
-	init_signals(false);
+	init_signals(0);
 	tokens = NULL;
 	(void)ac;
 	(void)av;

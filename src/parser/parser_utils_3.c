@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:15:40 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 15:05:51 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/10 06:58:08 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ char	**env_find(char *input)
 
 int	loop_while_dollar(char **input, char **tmp, int i, char *tmp2)
 {
-	int		j;
 	int		k;
 	int		tmp_len;
 	char	*new_tmp;
