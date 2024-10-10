@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/08 13:23:41 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:54:36 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,14 @@
 char	**get_filepath_norm(char **envp)
 {
 	char	*path;
-	char	*trim_path;
 	char	**full_path;
 
 	path = find_in_env("PATH=", envp);
-	trim_path = ft_strtrim(path, "PATH=");
-	if (!trim_path)
+	printf("%s\n", path);
+	full_path = ft_split(path, ':');
+	if (!full_path)
 		return (free(path), NULL);
 	free(path);
-	full_path = ft_split(trim_path, ':');
-	if (!full_path)
-		return (free(trim_path), NULL);
-	free(trim_path);
 	return (full_path);
 }
 
@@ -84,8 +80,9 @@ int	execve_cmd(char **cmd, char **envp)
 
 int	check_cmd_minishell(t_cmd **parsing, char **envp)
 {
-	if ((*parsing)->here_doc != NULL)
+	if ((*parsing)->hdc->command != NULL)
 	{
+		printf("%s\n", "exec hdc ");
 		if (execve_cmd((*parsing)->hdc->command, envp) == -1)
 			return (perror("get_filepath"), -1);
 	}

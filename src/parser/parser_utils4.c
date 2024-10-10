@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 13:05:08 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/10 11:32:19 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	add_heredoc(t_lexer **token, t_cmd *current)
 	int		i;
 
 	i = 0;
+	current->hdc->hdc_nb++;
+	current->hdc->hdc_nb_bis = current->hdc->hdc_nb;
 	while (current->str[i])
 		i++;
 	while (current->next != NULL)
@@ -68,16 +70,15 @@ void	add_heredoc(t_lexer **token, t_cmd *current)
 		current->hdc->command = (char **)malloc(sizeof(char *) * i + 1);
 		if (!current->hdc->command)
 			return ;
-		i = 0;
-		while (current->str[i])
-		{
+		i = -1;
+		while (current->str[++i])
 			current->hdc->command[i] = ft_strdup(current->str[i]);
-			i++;
-		}
 	}
 	if ((*token)->next->type == E_SPACE)
 		(*token) = (*token)->next;
-	current->hdc->break_word = ft_strdup((*token)->next->data);
+	current->hdc->break_word = ft_realloc_hdc(current->hdc->hdc_nb, &current);
+	current->hdc->break_word[current->hdc->hdc_nb - 1] \
+		= ft_strdup((*token)->next->data);
 	(*token) = (*token)->next;
 }
 

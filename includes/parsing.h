@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/09 13:16:36 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/10 11:31:12 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,12 @@ typedef struct s_lexer
 // Heredoc
 typedef struct s_heredoc
 {
-	int		redir_nb;
+	int		hdc_nb;
+	int		hdc_nb_bis;
 	int		input_nbr;
 	t_lexer	*redir;
-	char	*break_word;
+	char	**break_word;
 	char	**command;
-	char	*single_input;
-	char	**input_hdc;
 }			t_heredoc;
 
 // Parse in command, separated by pipes
@@ -97,7 +96,7 @@ void	replace_dollar(char **input, char *res, int i, int j);
 void	add_heredoc(t_lexer **token, t_cmd *current);
 t_cmd	*create_new_cmd(void);
 void	init_cmd(t_cmd **head, t_cmd **current);
-int	add_count_elem(char **data);
+int		add_count_elem(char **data);
 void	rep_d(t_lexer *tmp, char *res);
 void	init_signals(int is_heredoc);
 void	remove_next_space(t_lexer **tmp);
@@ -113,7 +112,7 @@ void	init_temp(char **tmp, char **tmp2);
 char	**add_data_to_tab(char *data);
 t_lexer	*remove_space_tokens(t_lexer *head);
 void	rep_d(t_lexer *tmp, char *res);
-int	handle_question(char **res, char *tmp, int *i);
+int		handle_question(char **res, char *tmp, int *i);
 void	add_index_to_token(t_lexer *tokens);
 void	pipe_handler(t_lexer **tokens, char **str);
 t_cmd	*parser(t_lexer **tokens);

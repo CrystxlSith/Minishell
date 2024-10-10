@@ -6,12 +6,35 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/08 13:13:00 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:08:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/* void	exec_direct_cmd(t_cmd *parsing, t_env **data)
+{
+	t_cmd	*tmp;
+	int		pid;
+	int		status;
+
+	tmp = parsing;
+	while (tmp != NULL)
+	{
+		pid = fork();
+		if (pid == -1)
+			exit(EXIT_FAILURE);
+		if (pid == 0)
+		{
+			if (access(tmp->str[0], X_OK) != -1)
+				execve_cmd(tmp->str, (*data)->var);
+			else
+				tmp = tmp->next;
+		}
+		waitpid(pid, &status, 0);
+	}
+}
+ */
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
 	if (parsing->hdc->input_nbr != 0)
@@ -42,6 +65,7 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 
 int	multiple_cmd_iteration(t_cmd *tmp, t_env **data, int *fd, int *old_fd)
 {
+	//exec_direct_cmd(tmp, data);
 	if (pipe_multiple_cmd(tmp, data, fd, old_fd) == -1)
 		return (perror("multi exec"), -1);
 	close_fd(old_fd);

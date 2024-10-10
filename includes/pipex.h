@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 10:37:41 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:05:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		open_dup_input(int fd_in);
 char	*get_filepath(char **av, char **envp);
 char	**get_filepath_norm(char **envp);
 int		check_cmd_minishell(t_cmd **parsing, char **envp);
+int		execve_cmd(char **cmd, char **envp);
 
 // ft_redir_utils
 int		fork_redirection(t_cmd **parsing, t_env **data);

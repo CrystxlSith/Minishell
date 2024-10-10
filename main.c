@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 14:42:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:02:38 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,8 @@ int	launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minis
 
 void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 {
-	int		pid;
-	int		status;
+	int	pid;
+	int	status;
 
 	pid = fork();
 	if (pid == -1)
@@ -178,7 +178,8 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 		while (1)
 		{
 			minishell->line_read = readline("> ");
-			if (launcher_exec(minishell->line_read, data, cmd_parsing, minishell) == -1)
+			if (launcher_exec(minishell->line_read, data, \
+				cmd_parsing, minishell) == -1)
 			{
 				exit(EXIT_FAILURE);
 				return ;
@@ -188,7 +189,8 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 				free(minishell->line_read);
 				continue ;
 			}
-			fill_input_hdc(minishell, cmd_parsing, data);
+			heredoc((*cmd_parsing)->hdc->hdc_nb_bis, \
+				minishell, cmd_parsing, data);
 		}
 	}
 	waitpid(pid, &status, 0);
@@ -240,10 +242,7 @@ int main(int ac, char **av, char **envp)
 		if (cmd_parsing->str)
 		{
 			if (cmd_parsing->hdc->break_word != NULL)
-			{
-				// faire liste chainee de heredoc.
 				heredoc_launcher(&cmd_parsing, &data, &minishell);
-			}
 			else
 				execute_fork(&cmd_parsing, &data);
 		}
