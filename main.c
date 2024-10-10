@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/10 15:02:38 by agiliber         ###   ########.fr       */
-=======
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/10 08:30:21 by jopfeiff         ###   ########.fr       */
->>>>>>> 2c36ead87890904e4a65ff381dc03e4ceff4dbe4
+/*   Updated: 2024/10/10 15:13:44 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,14 +191,9 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 				free(minishell->line_read);
 				continue ;
 			}
-<<<<<<< HEAD
-			heredoc((*cmd_parsing)->hdc->hdc_nb_bis, \
-				minishell, cmd_parsing, data);
-=======
 			tokens_hdc = tokenize(minishell->line_read);
 			token_input = parser(&tokens_hdc);
 			fill_input_hdc(&tokens_hdc, cmd_parsing, data);
->>>>>>> 2c36ead87890904e4a65ff381dc03e4ceff4dbe4
 		}
 	}
 	waitpid(pid, &status, 0);
