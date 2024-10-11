@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 13:32:32 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:47:08 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ int	exec_cmd(t_cmd **parsing, t_env **data)
 {
 	if ((*parsing)->redir_nb > 0)
 	{
+		printf("%s\n", "exec redir");
 		if (fork_redirection(parsing, data) == -1)
 			return (perror("fork_redirection"), -1);
 	}
 	else
 	{
+		printf("%s\n", "exec single");
 		if (exec_single_cmd(parsing, data) == -1)
 			return (perror("exec_single_cmd"), -1);
 	}

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:06:46 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	heredoc(int index, t_minishell *mini, t_cmd **parsing, t_env **data)
 		fd = open_heredoc_file(O_CREAT | O_RDWR | O_APPEND);
 		if (check_break_word(*parsing, mini, i))
 		{
+			printf("%s\n", "pipe hdc");
+	/* 		if (open_dup_input((*parsing)->hdc->input_nbr) == -1)
+				return ; */
 			(*parsing)->hdc->input_nbr = fd;
-			(*parsing)->redir_nb--;
 			exec_multiple_cmd(parsing, data);
 			exit(EXIT_SUCCESS);
 		}
