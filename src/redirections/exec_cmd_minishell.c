@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/10 09:42:55 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/10 13:30:19 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	execute_fork(t_cmd **parsing, t_env **data)
 {
 	int		pid;
-	int		status;
 
 	setup_child_signals();
 	if (check_if_builtins((*parsing)->str[0]) && (*parsing)->next == NULL
@@ -23,6 +22,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 	{
 		if (builtins(parsing, data) == -1)
 			return (perror("builtins"), -1);
+		g_sig_status = 0;
 	}
 	else
 	{
@@ -35,7 +35,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 				exit(EXIT_FAILURE);
 			exit(EXIT_SUCCESS);
 		}
-		waitpid(pid, &status, 0);
+		waitpid(pid, &g_sig_status, 0);
 	}
 	return (0);
 }

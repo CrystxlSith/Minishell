@@ -6,13 +6,13 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/10 08:30:21 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:55:15 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
-int g_sig_status = 0;
+int	g_sig_status;
 
 void	print_cmd(t_cmd *head)
 {
@@ -166,13 +166,24 @@ int	launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minis
 	return (0);
 }
 
+void	hdc_error(char *break_word, int i)
+{
+	if (break_word)
+	{
+		printf("minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n", i, break_word);
+		free(break_word);
+	}
+}
+
 void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 {
 	t_lexer	*tokens_hdc;
 	t_cmd	*token_input;
 	int		pid;
 	int		status;
+	static int		i;
 
+	i = 0;
 	tokens_hdc = NULL;
 	token_input = NULL;
 	pid = fork();
@@ -183,7 +194,10 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 		while (1)
 		{
 			init_signals(1);
+			i += 1;
 			minishell->line_read = readline("> ");
+			if (!minishell->line_read)
+				hdc_error((*cmd_parsing)->hdc->break_word, i);
 			if (launcher_exec(minishell->line_read, data, cmd_parsing, minishell) == -1)
 			{
 				exit(EXIT_FAILURE);
@@ -236,12 +250,12 @@ int main(int ac, char **av, char **envp)
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
-	init_signals(0);
 	tokens = NULL;
 	(void)ac;
 	(void)av;
 	while (1)
 	{
+		init_signals(0);
 		minishell.line_read = readline("minishell> ");
 		if (start_error(minishell.line_read))
 			continue ;
@@ -255,6 +269,7 @@ int main(int ac, char **av, char **envp)
 		cmd_parsing = parser(&tokens);
 		if (!cmd_parsing)
 			continue ;
+		// print_cmd(cmd_parsing);
 		if (cmd_parsing->str)
 		{
 			if (cmd_parsing->hdc->break_word != NULL)

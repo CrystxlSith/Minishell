@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/08 13:13:00 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/10 13:07:29 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	int		current_fd[2];
 	int		old_fd[2];
 	int		pid;
-	int		status;
 
 	tmp = *parsing;
 	old_fd[0] = -1;
@@ -88,7 +87,7 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 		pid = fork_and_execute(tmp, data, current_fd, old_fd);
 		if (pid == -1)
 			return (-1);
-		waitpid(pid, &status, 0);
+		waitpid(pid, &g_sig_status, 0);
 		update_parent_descriptors(tmp, current_fd, old_fd);
 		tmp = tmp->next;
 	}
