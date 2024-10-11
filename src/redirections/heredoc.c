@@ -3,53 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/09 22:52:19 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/11 15:06:46 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	initiate_hdc_struc(t_cmd **parsing)
+void	heredoc(int index, t_minishell *mini, t_cmd **parsing, t_env **data)
 {
-	(*parsing)->hdc = malloc(sizeof(t_heredoc));
-	if (!(*parsing)->hdc)
-		return (-1);
-	(*parsing)->hdc->break_word = NULL;
-	(*parsing)->hdc->command = NULL;
-	(*parsing)->hdc->input_hdc = NULL;
-	(*parsing)->hdc->input_nbr = 0;
-	(*parsing)->hdc->single_input = NULL;
-	return (0);
-}
+	int	fd;
+	int	i;
 
-void	fill_input_hdc(t_lexer **tokens, t_cmd **parsing, t_env **data)
-{
-	t_lexer	*tmp;
-	char	*res;
-	int		fd;
-	int		len;
-
-	res = NULL;
-	len = ft_strlen((*parsing)->hdc->break_word);
-	tmp = *tokens;
-	fd = open("/tmp/heredoc.txt", O_CREAT | O_RDWR | O_APPEND, 0777);
-	if (fd == -1)
+	i = index - (*parsing)->hdc->hdc_nb;
+	if ((*parsing)->hdc->hdc_nb > 1)
 	{
-		perror("open fd heredoc");
-		exit(EXIT_FAILURE);
+		if (check_break_word(*parsing, mini, i))
+			(*parsing)->hdc->hdc_nb--;
+		fd = open_heredoc_file(O_CREAT | O_RDWR | O_TRUNC);
+		write_to_heredoc(fd, mini->line_read);
+		close(fd);
 	}
-	if (ft_strncmp((*parsing)->hdc->break_word, tmp->data, len) == 0)
+	else
 	{
+		fd = open_heredoc_file(O_CREAT | O_RDWR | O_APPEND);
+		if (check_break_word(*parsing, mini, i))
+		{
+			printf("%s\n", "pipe hdc");
+	/* 		if (open_dup_input((*parsing)->hdc->input_nbr) == -1)
+				return ; */
+			(*parsing)->hdc->input_nbr = fd;
+			exec_multiple_cmd(parsing, data);
+			exit(EXIT_SUCCESS);
+		}
+		write_to_heredoc(fd, mini->line_read);
 		(*parsing)->hdc->input_nbr = fd;
-		(*parsing)->redir_nb--;
-		exec_multiple_cmd(parsing, data);
-		exit(0);
+		close(fd);
 	}
-	replace_dollar(&tmp->data, res, 0, 0);
-	ft_putstr_fd(tmp->data, fd);
-	ft_putstr_fd("\n", fd);
-	(*parsing)->hdc->input_nbr = fd;
 }

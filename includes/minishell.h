@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/10/11 14:08:31 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:46:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,13 @@ void	new_token(t_lexer **tokens, t_lexer *new_node);
 //BUILTINS ---> GENERAL
 int		builtins(t_cmd **parsing, t_env **data);
 
-//Heredoc
+//Heredocs
 int		initiate_hdc_struc(t_cmd **parsing);
-int		heredoc(t_env *data, t_cmd *parsing);
-void	fill_input_hdc(t_lexer **tokens, t_cmd **parsing, t_env **data);
+void	heredoc(int index, t_minishell *mini, t_cmd **parsing, t_env **data);
+int		my_remove(const char *pathname);
+char	**ft_realloc_hdc(int new_size, t_cmd **parsing);
+int		open_heredoc_file(int flags);
+void	write_to_heredoc(int fd, char *line);
+int		check_break_word(t_cmd *parsing, t_minishell *minishell, int i);
 
 #endif

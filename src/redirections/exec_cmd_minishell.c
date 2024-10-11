@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/10 13:30:19 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:48:10 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	execute_fork(t_cmd **parsing, t_env **data)
 {
@@ -59,11 +59,13 @@ int	exec_cmd(t_cmd **parsing, t_env **data)
 {
 	if ((*parsing)->redir_nb > 0)
 	{
+		printf("%s\n", "exec redir");
 		if (fork_redirection(parsing, data) == -1)
 			return (perror("fork_redirection"), -1);
 	}
 	else
 	{
+		printf("%s\n", "exec single");
 		if (exec_single_cmd(parsing, data) == -1)
 			return (perror("exec_single_cmd"), -1);
 	}

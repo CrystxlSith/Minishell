@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/11 14:42:53 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:46:40 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,12 @@ typedef struct s_lexer
 // Heredoc
 typedef struct s_heredoc
 {
-	int		redir_nb;
+	int		hdc_nb;
+	int		hdc_nb_bis;
 	int		input_nbr;
 	t_lexer	*redir;
-	char	*break_word;
+	char	**break_word;
 	char	**command;
-	char	*single_input;
-	char	**input_hdc;
 }			t_heredoc;
 
 // Parse in command, separated by pipes
