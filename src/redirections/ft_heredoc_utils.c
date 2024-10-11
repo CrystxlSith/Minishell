@@ -6,11 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:46:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/10 14:48:46 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	initiate_hdc_struc(t_cmd **parsing)
 {
@@ -20,6 +20,7 @@ int	initiate_hdc_struc(t_cmd **parsing)
 	(*parsing)->hdc->break_word = NULL;
 	(*parsing)->hdc->command = NULL;
 	(*parsing)->hdc->hdc_nb = 0;
+	(*parsing)->hdc->hdc_nb_bis = 0;
 	return (0);
 }
 

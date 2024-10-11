@@ -6,11 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:00:25 by agiliber          #+#    #+#             */
-/*   Updated: 2024/09/20 10:25:49 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 char	*get_path(char **envp)
 {

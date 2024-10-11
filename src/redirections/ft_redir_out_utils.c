@@ -6,11 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:15:48 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/09 10:39:04 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	exec_redir_out(t_cmd **parsing, t_env **data)
 {

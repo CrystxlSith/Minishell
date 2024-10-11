@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 11:44:42 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/09 13:36:52 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	handle_greater(t_lexer **token, char **str, char *new)
 {

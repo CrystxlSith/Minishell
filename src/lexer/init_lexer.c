@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:16:44 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/09/25 09:45:51 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 // Create a new token
 void	init_new_token(t_lexer *new_token, t_lexer_type type, char *data)

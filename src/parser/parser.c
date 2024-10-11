@@ -6,15 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/09 15:19:52 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/09 15:58:05 by crycry           ###   ########.fr       */
->>>>>>> 2c36ead87890904e4a65ff381dc03e4ceff4dbe4
+/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	replace_dollar(char **input, char *res, int i, int j)
 {

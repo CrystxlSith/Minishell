@@ -6,11 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/10 15:13:09 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:32:32 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	execute_fork(t_cmd **parsing, t_env **data)
 {

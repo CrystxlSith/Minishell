@@ -6,11 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/10 15:17:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:50:20 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 /* void	exec_direct_cmd(t_cmd *parsing, t_env **data)
 {
@@ -35,12 +35,43 @@
 	}
 }
  */
+
+int	open_dup_pipe_hdc(int *fd, int fd_hdc)
+{
+	if (dup2(fd_hdc, STDIN_FILENO) == -1)
+	{
+		perror("dup2 fd[0]");
+		close(fd_hdc);
+		return (-1);
+	}
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
+	{
+		perror("dup2 fd[1]");
+		close(fd_hdc);
+		close(fd[1]);
+		return (-1);
+	}
+	close(fd_hdc);
+	close(fd[1]);
+	return (0);
+}
+
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
 	if (parsing->hdc->input_nbr != 0)
 	{
-		if (open_dup_input(parsing->hdc->input_nbr) == -1)
-			return (perror("pipe in"), -1);
+/* 		if ((parsing)->next != NULL)
+		{ */
+			printf("%s\n", "open_dup_output hdc");
+			if (open_dup_pipe_hdc(fd, (parsing)->hdc->input_nbr) == -1)
+				return (perror("pipe out"), -1);
+		//}
+/* 		else
+		{
+			printf("%s\n", "pipe hdc");
+			if (open_dup_input(parsing->hdc->input_nbr) == -1)
+				return (perror("pipe in"), -1);
+		} */
 	}
 	else if ((parsing)->prev == NULL)
 	{
@@ -59,7 +90,8 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 		if (open_dup_pipe_in(old_fd) == -1)
 			return (perror("pipe in"), -1);
 	}
-	exec_cmd(&parsing, data);
+	printf("%s\n", "exec cmd");
+	exec_cmd_minishell(&parsing, data);
 	return (0);
 }
 

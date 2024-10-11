@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/10 15:13:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:50:06 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,8 @@ void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
 				free(minishell->line_read);
 				continue ;
 			}
-			tokens_hdc = tokenize(minishell->line_read);
-			token_input = parser(&tokens_hdc);
-			fill_input_hdc(&tokens_hdc, cmd_parsing, data);
+			heredoc((*cmd_parsing)->hdc->hdc_nb_bis, \
+				minishell, cmd_parsing, data);
 		}
 	}
 	waitpid(pid, &status, 0);
