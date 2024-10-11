@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: crycry <crycry@student.42.fr>              +#+  +:+       +#+         #
+#    By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/09 15:10:29 by crycry           ###   ########.fr        #
+#    Updated: 2024/10/11 14:04:04 by jopfeiff         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ DEP_DIR = $(BUILTINS_OBJ_DEP) $(LEXER_OBJ_DEP) $(PARSER_OBJ_DEP) $(REDIREC_OBJ_D
 
 BUILTINS = builtins.c echo.c cd.c env.c export.c ft_export_utiles.c \
 	ft_utiles_cd_prev.c ft_utiles_cd.c ft_utiles_echo.c ft_utiles_echo2.c \
-	pwd.c unset.c
+	pwd.c unset.c exit.c
 
 LEXER = handler.c init_lexer.c lexer_utils.c lexer.c lex_error_handler.c
 

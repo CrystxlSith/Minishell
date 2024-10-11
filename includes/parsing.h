@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/10 08:30:03 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:42:53 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,10 @@ void	fill_nbr_element(t_cmd **parsing);
 t_cmd	*create_new_cmd(void);
 t_lexer	*find_last(t_lexer *node);
 void	fill_nbr_element(t_cmd **parsing);
+void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing);
 // Launch utils
 int		ft_remove(const char *pathname);
-char	*launch_minishell(t_env *data, char *name);
+
 
 // Free utils
 void	free_token(t_lexer *token);

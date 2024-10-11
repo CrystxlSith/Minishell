@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/02 15:19:26 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:23:54 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define BUILTINS_H
 
 # include "minishell.h"
+# include "parsing.h"
+
+#define EXIT_ARGS_ERR "bash: exit: too many arguments\n"
 
 typedef struct s_env
 {
@@ -21,6 +24,8 @@ typedef struct s_env
 	int		size;
 }			t_env;
 
+//BUILTINS ---> EXIT
+char	*launch_minishell(t_env *data, char *name);
 //BUILTINS ---> ECHO
 int		count_words(char **str);
 int		get_index(t_env **data, char *chr);

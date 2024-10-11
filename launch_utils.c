@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/07 14:52:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:34:47 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,6 @@ char	*launch_minishell(t_env *data, char *name)
 		return (NULL);
 		exit (1);
 	}
-	if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
-	{
-		free(minishell.line_read);
-		free_all(data->var);
-		free(data);
-		clear_history();
-		return (NULL);
-		exit(EXIT_FAILURE);
-	}
 	if (minishell.line_read[0] == '\0')
 	{
 		free(minishell.line_read);
@@ -64,3 +55,4 @@ int	heredoc(t_env *data, t_cmd *parsing)
 	fill_input_hdc(&tokens_hdc, &parsing, &data);
 	return (0);
 }
+

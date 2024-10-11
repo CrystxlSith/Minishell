@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/10 11:55:15 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/11 14:23:16 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,12 +157,12 @@ int	launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minis
 		clear_history();
 		return (-1);
 	}
-	if (!ft_strncmp(input, "exit", ft_strlen("exit")))
-	{
-		free_minishell(data, parsing, minishell);
-		clear_history();
-		return (-1);
-	}
+	// if (!ft_strncmp(input, "exit", ft_strlen("exit")))
+	// {
+	// 	free_minishell(data, parsing, minishell);
+	// 	clear_history();
+	// 	return (-1);
+	// }
 	return (0);
 }
 
@@ -257,6 +257,7 @@ int main(int ac, char **av, char **envp)
 	{
 		init_signals(0);
 		minishell.line_read = readline("minishell> ");
+		add_history(minishell.line_read);
 		if (start_error(minishell.line_read))
 			continue ;
 		if (launcher_exec(minishell.line_read, &data, &cmd_parsing, &minishell) == -1)
@@ -264,9 +265,19 @@ int main(int ac, char **av, char **envp)
 			exit(EXIT_FAILURE);
 			return (-1);
 		}
-		add_history(minishell.line_read);
 		tokens = tokenize(minishell.line_read);
 		cmd_parsing = parser(&tokens);
+		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
+		{
+		
+			if (ft_exit_shell(cmd_parsing, data, tokens) == 0)
+				free(minishell.line_read);
+			// free_all(data->var);
+			// free(data);
+			// clear_history();
+			// return (NULL);
+			// exit(EXIT_FAILURE);
+		}
 		if (!cmd_parsing)
 			continue ;
 		// print_cmd(cmd_parsing);
