@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/14 13:49:36 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:20:43 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ int main(int ac, char **av, char **envp)
 	t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 	t_env		*data;
-	t_heredoc	*tmp;
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
@@ -214,13 +213,7 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		if (cmd_parsing->str)
 		{
-			tmp = cmd_parsing->hdc;
-			while (cmd_parsing->hdc_count > 0)
-			{
-				heredoc_launcher(&cmd_parsing, &data, &minishell);
-				cmd_parsing->hdc_count--;
-				tmp = tmp->next;
-			}
+			handle_heredoc(cmd_parsing, &data, &minishell);
 			execute_fork(&cmd_parsing, &data);
 		}
 		if (minishell.line_read)
