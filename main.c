@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/14 14:20:43 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:55:01 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	print_tokens(t_lexer *tokens)
 	}
 }
 
-int my_remove(const char *pathname)
+int ft_remove(const char *pathname)
 {
 	struct stat path_stat;
 
@@ -173,7 +173,7 @@ int	start_error(char *input)
 		return (1);
 	}
 	if (access("/tmp/heredoc.txt", R_OK) != -1)
-		my_remove("/tmp/heredoc.txt");
+		ft_remove("/tmp/heredoc.txt");
 	return (0);
 }
 
@@ -213,8 +213,10 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		if (cmd_parsing->str)
 		{
-			handle_heredoc(cmd_parsing, &data, &minishell);
-			execute_fork(&cmd_parsing, &data);
+			if (cmd_parsing->hdc_count != 0)
+				handle_heredoc(&cmd_parsing, &data, &minishell);
+			else
+				execute_fork(&cmd_parsing, &data);
 		}
 		if (minishell.line_read)
 			free(minishell.line_read);

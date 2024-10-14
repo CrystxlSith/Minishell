@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/14 14:04:48 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:39:13 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,26 @@ int	open_dup_pipe_hdc(int *fd, int fd_hdc)
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
 	{
 		perror("dup2 fd[1]");
-		close(fd_hdc);
 		close(fd[1]);
 		close(fd[0]);
 		return (-1);
 	}
 	close(fd_hdc);
-	close(fd[1]);
-	close(fd[0]);
+	if (fd[1] != -1)
+		close(fd[1]);
 	return (0);
 }
 
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
-	if (parsing->hdc != NULL)
+	printf("parsing->hdc->hdc_fd %d\n", parsing->hdc->hdc_fd);
+	if (parsing->hdc_count != 0)
 	{
 		if (parsing->next == NULL)
 		{
 			printf("%s\n", "open_dup_input");
-			printf("parsing->hdc->hdc_fd %d\n", parsing->hdc->hdc_fd);
-			open_dup_input(parsing->hdc->hdc_fd);
-			close_fd(fd);
+			if (open_dup_input(parsing->hdc->hdc_fd) == -1)
+				return (-1);
 		}
 		else
 		{
@@ -121,7 +120,7 @@ int	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	}
 	if (pid == 0)
 	{
-
+		printf("%s\n", "multiple_cmd_iteration");
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
 			perror("multiple_cmd_iteration");

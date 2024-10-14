@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/14 14:16:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:01:57 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 	int		status;
 
 	setup_child_signals();
+	printf("%s\n", (*parsing)->str[0]);
 	if (check_if_builtins((*parsing)->str[0]) && (*parsing)->next == NULL
 		&& (*parsing)->redir_nb == 0)
 	{
