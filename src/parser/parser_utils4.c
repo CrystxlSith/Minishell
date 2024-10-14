@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:44:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_cmd(t_cmd **head, t_cmd **current)
 	(*head)->str = NULL;
 	(*head)->redir_nb = 0;
 	(*head)->here_doc = NULL;
+	(*head)->hdc_count = 0;
 	(*head)->hdc = NULL;
 	(*head)->redir = NULL;
 	(*head)->next = NULL;
@@ -47,6 +48,7 @@ t_cmd	*create_new_cmd(void)
 	new_cmd->redir_nb = 0;
 	new_cmd->elem_nb = 0;
 	new_cmd->here_doc = NULL;
+	new_cmd->hdc_count = 0;
 	new_cmd->hdc = NULL;
 	new_cmd->redir = NULL;
 	new_cmd->next = NULL;
@@ -54,32 +56,61 @@ t_cmd	*create_new_cmd(void)
 	return (new_cmd);
 }
 
-void	add_heredoc(t_lexer **token, t_cmd *current)
+void	new_heredoc(t_cmd *cmd, t_heredoc *new_hdc)
 {
-	int		i;
+	t_heredoc	*last_hdc;
+
+	new_hdc->next = NULL;
+	new_hdc->prev = NULL;
+	if (cmd->hdc_count == 0)
+		cmd->hdc = new_hdc;
+	else
+	{
+		last_hdc = cmd->hdc;
+		while (last_hdc->next)
+			last_hdc = last_hdc->next;
+		last_hdc->next = new_hdc;
+		new_hdc->prev = last_hdc;
+	}
+	cmd->hdc_count++;
+}
+
+void	fill_heredoc(t_lexer **token, t_cmd *current, t_heredoc *new_hdc)
+{
+	int	i;
 
 	i = 0;
-	current->hdc->hdc_nb++;
-	current->hdc->hdc_nb_bis = current->hdc->hdc_nb;
-	while (current->str[i])
-		i++;
-	while (current->next != NULL)
-		current = current->next;
-	if (current->str != NULL)
+	if ((*token)->type == E_REDIR_DEL && (*token)->next)
 	{
-		current->hdc->command = (char **)malloc(sizeof(char *) * i + 1);
-		if (!current->hdc->command)
-			return ;
-		i = -1;
-		while (current->str[++i])
-			current->hdc->command[i] = ft_strdup(current->str[i]);
-	}
-	if ((*token)->next->type == E_SPACE)
+		while (current->str[i])
+			i++;
+		while (current->next != NULL)
+			current = current->next;
+		if (current->str != NULL)
+		{
+			new_hdc->command = (char **)malloc(sizeof(char *) * i + 1);
+			if (!new_hdc->command)
+				return ;
+			i = -1;
+			while (current->str[++i])
+				new_hdc->command[i] = ft_strdup(current->str[i]);
+		}
+		if ((*token)->next->type == E_SPACE)
+			(*token) = (*token)->next;
+		new_hdc->break_word = ft_strdup((*token)->next->data);
+		new_heredoc(current, new_hdc);
 		(*token) = (*token)->next;
-	current->hdc->break_word = ft_realloc_hdc(current->hdc->hdc_nb, &current);
-	current->hdc->break_word[current->hdc->hdc_nb - 1] \
-		= ft_strdup((*token)->next->data);
-	(*token) = (*token)->next;
+	}
+}
+
+void	add_heredoc(t_lexer **token, t_cmd *current)
+{
+	t_heredoc	*new_hdc;
+
+	new_hdc = malloc(sizeof(t_heredoc));
+	if (!new_hdc)
+		exit(EXIT_FAILURE);
+	fill_heredoc(token, current, new_hdc);
 }
 
 int	handle_question(char **res, char *tmp, int *i)

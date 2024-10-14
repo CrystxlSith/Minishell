@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/11 10:50:06 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:49:36 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,14 +139,6 @@ void	free_minishell(t_env **data, t_cmd **parsing, t_minishell *minishell)
 		free(minishell->line_read);
 	if ((*data)->var != NULL)
 		free_all((*data)->var);
-/* 	if ((*parsing)->hdc->break_word != NULL)
-		free((*parsing)->hdc->break_word);
-	if ((*parsing)->hdc->command != NULL)
-		free((*parsing)->hdc->command);
-	if ((*parsing)->hdc != NULL)
-		free((*parsing)->hdc); */
-/* 	if (data != NULL)
-		free(data); */
 }
 
 int	launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minishell)
@@ -164,38 +156,6 @@ int	launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minis
 		return (-1);
 	}
 	return (0);
-}
-
-void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
-{
-	int	pid;
-	int	status;
-
-	pid = fork();
-	if (pid == -1)
-		exit(0);
-	if (pid == 0)
-	{
-		while (1)
-		{
-			init_signals(1);
-			minishell->line_read = readline("> ");
-			if (launcher_exec(minishell->line_read, data, \
-				cmd_parsing, minishell) == -1)
-			{
-				exit(EXIT_FAILURE);
-				return ;
-			}
-			if (minishell->line_read[0] == '\0')
-			{
-				free(minishell->line_read);
-				continue ;
-			}
-			heredoc((*cmd_parsing)->hdc->hdc_nb_bis, \
-				minishell, cmd_parsing, data);
-		}
-	}
-	waitpid(pid, &status, 0);
 }
 
 int	start_error(char *input)
@@ -229,6 +189,7 @@ int main(int ac, char **av, char **envp)
 	t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 	t_env		*data;
+	t_heredoc	*tmp;
 
 	data = NULL;
 	initiate_struc_envp(&data, envp);
@@ -253,10 +214,14 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		if (cmd_parsing->str)
 		{
-			if (cmd_parsing->hdc->break_word != NULL)
+			tmp = cmd_parsing->hdc;
+			while (cmd_parsing->hdc_count > 0)
+			{
 				heredoc_launcher(&cmd_parsing, &data, &minishell);
-			else
-				execute_fork(&cmd_parsing, &data);
+				cmd_parsing->hdc_count--;
+				tmp = tmp->next;
+			}
+			execute_fork(&cmd_parsing, &data);
 		}
 		if (minishell.line_read)
 			free(minishell.line_read);

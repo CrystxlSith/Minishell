@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 15:47:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:05:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 			return (perror("fork"), -1);
 		if (pid == 0)
 		{
+			printf("%s\n", "exec_cmd_minishell");
 			if (exec_cmd_minishell(parsing, data) == -1)
 				exit(EXIT_FAILURE);
 			exit(EXIT_SUCCESS);
@@ -42,7 +43,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 
 int	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 {
-	if ((*parsing)->next == NULL)
+	if ((*parsing)->next == NULL && ((*parsing)->hdc->hdc_fd == 0))
 	{
 		if (exec_cmd(parsing, data) == -1)
 			return (perror("exec_cmd"), -1);

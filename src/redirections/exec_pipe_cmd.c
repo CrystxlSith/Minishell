@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 16:40:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 14:04:48 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,37 +58,22 @@ int	open_dup_pipe_hdc(int *fd, int fd_hdc)
 	return (0);
 }
 
-int	open_dup_file2(int *fd, int file_fd)
-{
-	if (dup2(fd[0], STDIN_FILENO) == -1)
-	{
-		perror("Dup2 failure for STDIN");
-		close(fd[0]);
-		close(file_fd);
-		return (-1);
-	}
-	if (dup2(file_fd, STDOUT_FILENO) == -1)
-	{
-		perror("Dup2 Cmd2 copy failure");
-		return (-1);
-	}
-	return (0);
-}
-
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
-	if (parsing->hdc != NULL && parsing->hdc->input_nbr != 0)
+	if (parsing->hdc != NULL)
 	{
-		printf("parsing->str[0] %s\n", parsing->str[0]);
-		printf("%s\n", "open_dup_pipe_hdc");
-		if (dup2(parsing->hdc->input_nbr, STDIN_FILENO) == -1)
+		if (parsing->next == NULL)
 		{
-			perror("dup2 fd[1]");
-			close(fd[1]);
-			close(fd[0]);
-			return (-1);
+			printf("%s\n", "open_dup_input");
+			printf("parsing->hdc->hdc_fd %d\n", parsing->hdc->hdc_fd);
+			open_dup_input(parsing->hdc->hdc_fd);
+			close_fd(fd);
 		}
-		exec_cmd(&parsing, data);
+		else
+		{
+			printf("%s\n", "open_dup_pipe_hdc");
+			open_dup_pipe_hdc(fd, parsing->hdc->hdc_fd);
+		}
 	}
 	else if ((parsing)->prev == NULL)
 	{
@@ -115,7 +100,6 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 
 int	multiple_cmd_iteration(t_cmd *tmp, t_env **data, int *fd, int *old_fd)
 {
-	//exec_direct_cmd(tmp, data);
 	if (pipe_multiple_cmd(tmp, data, fd, old_fd) == -1)
 	{
 		perror("multi exec");
@@ -137,6 +121,7 @@ int	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	}
 	if (pid == 0)
 	{
+
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
 			perror("multiple_cmd_iteration");

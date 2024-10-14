@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:46:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:57:42 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	initiate_hdc_struc(t_cmd **parsing)
 		return (-1);
 	(*parsing)->hdc->break_word = NULL;
 	(*parsing)->hdc->command = NULL;
-	(*parsing)->hdc->hdc_nb = 0;
-	(*parsing)->hdc->hdc_nb_bis = 0;
+	(*parsing)->hdc->hdc_count = 0;
+	(*parsing)->hdc->next = NULL;
 	return (0);
 }
 
-char	**ft_realloc_hdc(int new_size, t_cmd **parsing)
+/* char	**ft_realloc_hdc(int new_size, t_cmd **parsing)
 {
 	int		old_size;
 	char	**new_tab;
@@ -51,7 +51,7 @@ char	**ft_realloc_hdc(int new_size, t_cmd **parsing)
 	}
 	new_tab[old_size] = NULL;
 	return (new_tab);
-}
+} */
 
 int	open_heredoc_file(int flags)
 {
@@ -78,7 +78,7 @@ int	check_break_word(t_cmd *parsing, t_minishell *minishell, int i)
 	char	*line;
 	size_t	len;
 
-	break_word = parsing->hdc->break_word[i];
+	break_word = parsing->hdc->break_word;
 	line = minishell->line_read;
 	len = ft_strlen(break_word);
 	if (ft_strncmp(break_word, line, len) == 0)

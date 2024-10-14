@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/10 15:17:42 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:42:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,20 @@ typedef struct s_lexer
 // Heredoc
 typedef struct s_heredoc
 {
-	int		hdc_nb;
-	int		hdc_nb_bis;
-	int		input_nbr;
-	t_lexer	*redir;
-	char	**break_word;
-	char	**command;
-}			t_heredoc;
+	int					hdc_fd;
+	int					hdc_count;
+	t_lexer				*redir;
+	char				*break_word;
+	char				**command;
+	struct s_heredoc	*next;
+	struct s_heredoc	*prev;
+}						t_heredoc;
 
 // Parse in command, separated by pipes
 typedef struct s_cmd
 {
 	int				redir_nb;
+	int				hdc_count;
 	int				index;
 	int				elem_nb;
 	char			**str;

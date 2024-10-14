@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 16:22:38 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:29:01 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	**get_filepath_norm(char **envp)
 	char	**full_path;
 
 	path = find_in_env("PATH=", envp);
-	printf("%s\n", path);
 	full_path = ft_split(path, ':');
 	if (!full_path)
 		return (free(path), NULL);
