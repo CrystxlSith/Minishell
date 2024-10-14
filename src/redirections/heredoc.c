@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/14 15:44:54 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:12:24 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini)
 		return ;
 	while (count > 0)
 	{
-		heredoc_launcher(&tmp, data, mini);
+		heredoc(&tmp, data, mini);
 		tmp = tmp->next;
 		count--;
 	}
 }
 
-void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *mini)
+void	heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini)
 {
 	int			pid;
 	int			fd;
 	int			status;
 
+	ft_remove("/tmp/heredoc.txt");
 	fd = open_heredoc_file(O_CREAT | O_RDWR | O_TRUNC);
-	(*cmd_parsing)->hdc->hdc_fd = fd;
 	pid = fork();
 	if (pid == -1)
 		exit(EXIT_FAILURE);

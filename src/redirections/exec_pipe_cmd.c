@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/14 15:39:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:11:22 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ int	open_dup_pipe_hdc(int *fd, int fd_hdc)
 
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
-	printf("parsing->hdc->hdc_fd %d\n", parsing->hdc->hdc_fd);
+	int	fd_out;
+
 	if (parsing->hdc_count != 0)
 	{
 		if (parsing->next == NULL)
 		{
+			fd_out = open("/tmp/heredoc.txt", O_RDONLY);
 			printf("%s\n", "open_dup_input");
-			if (open_dup_input(parsing->hdc->hdc_fd) == -1)
+			if (open_dup_input(fd_out) == -1)
 				return (-1);
 		}
 		else
@@ -147,6 +149,7 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 		printf("%s\n", "exec_multiple_cmd");
 		if (create_pipe_if_needed(tmp, current_fd) == -1)
 			return (-1);
+		printf("fd[0] = %d\nfd[1] = %d\n", current_fd[0], current_fd[1]);
 		pid = fork_and_execute(tmp, data, current_fd, old_fd);
 		if (pid == -1)
 			return (-1);
@@ -154,6 +157,5 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 		update_parent_descriptors(tmp, current_fd, old_fd);
 		tmp = tmp->next;
 	}
-	close_fd(old_fd);
 	return (0);
 }
