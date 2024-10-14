@@ -6,40 +6,62 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 15:06:46 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:44:54 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	heredoc(int index, t_minishell *mini, t_cmd **parsing, t_env **data)
+void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini)
 {
-	int	fd;
-	int	i;
+	int			count;
+	t_cmd		*tmp;
 
-	i = index - (*parsing)->hdc->hdc_nb;
-	if ((*parsing)->hdc->hdc_nb > 1)
+	count = (*cmd_parsing)->hdc_count;
+	tmp = *cmd_parsing;
+	if (count == 0)
+		return ;
+	while (count > 0)
 	{
-		if (check_break_word(*parsing, mini, i))
-			(*parsing)->hdc->hdc_nb--;
-		fd = open_heredoc_file(O_CREAT | O_RDWR | O_TRUNC);
-		write_to_heredoc(fd, mini->line_read);
-		close(fd);
+		heredoc_launcher(&tmp, data, mini);
+		tmp = tmp->next;
+		count--;
 	}
-	else
+}
+
+void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *mini)
+{
+	int			pid;
+	int			fd;
+	int			status;
+
+	fd = open_heredoc_file(O_CREAT | O_RDWR | O_TRUNC);
+	(*cmd_parsing)->hdc->hdc_fd = fd;
+	pid = fork();
+	if (pid == -1)
+		exit(EXIT_FAILURE);
+	if (pid == 0)
 	{
-		fd = open_heredoc_file(O_CREAT | O_RDWR | O_APPEND);
-		if (check_break_word(*parsing, mini, i))
+		while (1)
 		{
-			printf("%s\n", "pipe hdc");
-	/* 		if (open_dup_input((*parsing)->hdc->input_nbr) == -1)
-				return ; */
-			(*parsing)->hdc->input_nbr = fd;
-			exec_multiple_cmd(parsing, data);
-			exit(EXIT_SUCCESS);
+			init_signals(1);
+			mini->line_read = readline("> ");
+			if (launcher_exec(mini->line_read, data, cmd_parsing, mini) == -1)
+				exit(EXIT_FAILURE);
+			if (mini->line_read[0] == '\0')
+			{
+				free(mini->line_read);
+				continue ;
+			}
+			if (ft_strncmp((*cmd_parsing)->hdc->break_word, mini->line_read, \
+				ft_strlen((*cmd_parsing)->hdc->break_word)) == 0)
+			{
+				exec_multiple_cmd(cmd_parsing, data);
+				exit(EXIT_SUCCESS);
+			}
+			else
+				write_to_heredoc(fd, mini->line_read);
 		}
-		write_to_heredoc(fd, mini->line_read);
-		(*parsing)->hdc->input_nbr = fd;
-		close(fd);
 	}
+	waitpid(pid, &status, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/11 16:47:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:59:21 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	print_tokens(t_lexer *tokens)
 	}
 }
 
-int my_remove(const char *pathname)
+int ft_remove(const char *pathname)
 {
 	struct stat path_stat;
 
@@ -139,14 +139,6 @@ void	free_minishell(t_env **data, t_cmd **parsing, t_minishell *minishell)
 		free(minishell->line_read);
 	if ((*data)->var != NULL)
 		free_all((*data)->var);
-/* 	if ((*parsing)->hdc->break_word != NULL)
-		free((*parsing)->hdc->break_word);
-	if ((*parsing)->hdc->command != NULL)
-		free((*parsing)->hdc->command);
-	if ((*parsing)->hdc != NULL)
-		free((*parsing)->hdc); */
-/* 	if (data != NULL)
-		free(data); */
 }
 
 int	launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minishell)
@@ -166,51 +158,6 @@ int	launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minis
 	return (0);
 }
 
-void	hdc_error(char *break_word, int i)
-{
-	if (break_word)
-	{
-		printf("minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n", i, break_word);
-		free(break_word);
-	}
-}
-
-void	heredoc_launcher(t_cmd **cmd_parsing, t_env **data, t_minishell *minishell)
-{
-	int	pid;
-	int	status;
-	int	i;
-
-	i = 0;
-	pid = fork();
-	if (pid == -1)
-		exit(0);
-	if (pid == 0)
-	{
-		while (1)
-		{
-			init_signals(1);
-			i += 1;
-			minishell->line_read = readline("> ");
-			if (!minishell->line_read)
-				hdc_error((*cmd_parsing)->hdc->break_word, i);
-			if (launcher_exec(minishell->line_read, data, cmd_parsing, minishell) == -1)
-			{
-				exit(EXIT_FAILURE);
-				return ;
-			}
-			if (minishell->line_read[0] == '\0')
-			{
-				free(minishell->line_read);
-				continue ;
-			}
-			heredoc((*cmd_parsing)->hdc->hdc_nb_bis, \
-				minishell, cmd_parsing, data);
-		}
-	}
-	waitpid(pid, &status, 0);
-}
-
 int	start_error(char *input)
 {
 	if (!input)
@@ -226,7 +173,7 @@ int	start_error(char *input)
 		return (1);
 	}
 	if (access("/tmp/heredoc.txt", R_OK) != -1)
-		my_remove("/tmp/heredoc.txt");
+		ft_remove("/tmp/heredoc.txt");
 	return (0);
 }
 
@@ -278,8 +225,8 @@ int main(int ac, char **av, char **envp)
 		// print_cmd(cmd_parsing);
 		if (cmd_parsing->str)
 		{
-			if (cmd_parsing->hdc->break_word != NULL)
-				heredoc_launcher(&cmd_parsing, &data, &minishell);
+			if (cmd_parsing->hdc_count != 0)
+				handle_heredoc(&cmd_parsing, &data, &minishell);
 			else
 				execute_fork(&cmd_parsing, &data);
 		}

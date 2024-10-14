@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 16:48:10 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:59:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 	int		pid;
 
 	setup_child_signals();
+	printf("%s\n", (*parsing)->str[0]);
 	if (check_if_builtins((*parsing)->str[0]) && (*parsing)->next == NULL
 		&& (*parsing)->redir_nb == 0)
 	{
@@ -31,6 +32,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 			return (perror("fork"), -1);
 		if (pid == 0)
 		{
+			printf("%s\n", "exec_cmd_minishell");
 			if (exec_cmd_minishell(parsing, data) == -1)
 				exit(EXIT_FAILURE);
 			exit(EXIT_SUCCESS);
@@ -42,7 +44,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 
 int	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 {
-	if ((*parsing)->next == NULL)
+	if ((*parsing)->next == NULL && (*parsing)->hdc_count == 0)
 	{
 		if (exec_cmd(parsing, data) == -1)
 			return (perror("exec_cmd"), -1);
