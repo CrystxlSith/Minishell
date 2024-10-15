@@ -1,3 +1,0 @@
-/usr/bin/cat
-/usr/bin/wc
-3
