@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 17:41:03 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:57:38 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ int	multiple_cmd_iteration(t_cmd *tmp, t_env **data, int *fd, int *old_fd)
 	exit(EXIT_SUCCESS);
 }
 
-int	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
+pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 {
-	int	pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid == -1)
@@ -122,7 +122,8 @@ int	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 		}
 		exit(EXIT_SUCCESS);
 	}
-	return (0);
+	printf("PID %d\n", pid);
+	return (pid);
 }
 
 int	find_nbr_cmd(t_cmd **parsing)
@@ -140,24 +141,21 @@ int	find_nbr_cmd(t_cmd **parsing)
 	return (index);
 }
 
-int	wait_all_children(t_cmd *parsing)
+int	wait_all_children(t_cmd *parsing, pid_t *pid)
 {
 	int		count;
 	int		status;
-	pid_t	wpid;
+	int	i;
 
+	i = 0;
 	status = 0;
 	count = find_nbr_cmd(&parsing);
 	while (count > 0)
 	{
 		printf("count %d\n", count);
-		wpid = waitpid(-1, &status, 0);
-		if (wpid == -1)
-		{
-			perror("waitpid");
-			break ;
-		}
+		waitpid(pid[i], &status, 0);
 		count--;
+		i++;
 	}
 	return (status);
 }
@@ -167,19 +165,23 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	t_cmd	*tmp;
 	int		current_fd[2];
 	int		old_fd[2];
+	pid_t	*pid;
+	int		i;
 
+	i = 0;
 	tmp = *parsing;
 	old_fd[0] = -1;
 	old_fd[1] = -1;
+	pid = ft_calloc(find_nbr_cmd(parsing), sizeof(pid_t));
 	while (tmp != NULL)
 	{
 		if (create_pipe_if_needed(tmp, current_fd) == -1)
 			return (-1);
-		if (fork_and_execute(tmp, data, current_fd, old_fd) == -1)
-			return (-1);
+		pid[i] = fork_and_execute(tmp, data, current_fd, old_fd);
 		update_parent_descriptors(tmp, current_fd, old_fd);
 		tmp = tmp->next;
+		i++;
 	}
-	wait_all_children(*parsing);
+	wait_all_children(*parsing, pid);
 	return (0);
 }
