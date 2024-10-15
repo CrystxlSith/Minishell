@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/14 20:11:22 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:01:21 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	}
 	else if ((parsing)->prev == NULL)
 	{
+		printf("%s\n", "(parsing)->prev == NULL");
+		printf("%s\n", (parsing)->str[0]);
 		if (open_dup_pipe_out(fd) == -1)
 			return (perror("pipe out"), -1);
 	}
@@ -90,6 +92,7 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	}
 	else
 	{
+		printf("%s\n", (parsing)->str[0]);
 		printf("%s\n", "out file");
 		if (open_dup_pipe_in(old_fd) == -1)
 			return (perror("pipe in"), -1);

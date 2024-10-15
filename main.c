@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/14 20:10:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:43:28 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,10 +227,7 @@ int main(int ac, char **av, char **envp)
 		if (cmd_parsing->str)
 		{
 			if (cmd_parsing->hdc_count != 0)
-			{
-				//print_heredoc(cmd_parsing->hdc);
 				handle_heredoc(&cmd_parsing, &data, &minishell);
-			}
 			else
 				execute_fork(&cmd_parsing, &data);
 		}
