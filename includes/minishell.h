@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/10/14 20:08:31 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:23:07 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ int		open_heredoc_file(int flags);
 void	write_to_heredoc(int fd, char *line);
 void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini);
 int		launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minishell);
-void	heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini);
+void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini);
 
 #endif

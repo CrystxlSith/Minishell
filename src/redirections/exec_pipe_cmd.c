@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 11:01:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:32:48 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,16 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 		if (parsing->next == NULL)
 		{
 			fd_out = open("/tmp/heredoc.txt", O_RDONLY);
-			printf("%s\n", "open_dup_input");
 			if (open_dup_input(fd_out) == -1)
 				return (-1);
 		}
 		else
 		{
-			printf("%s\n", "open_dup_pipe_hdc");
 			open_dup_pipe_hdc(fd, parsing->hdc->hdc_fd);
 		}
 	}
 	else if ((parsing)->prev == NULL)
 	{
-		printf("%s\n", "(parsing)->prev == NULL");
-		printf("%s\n", (parsing)->str[0]);
 		if (open_dup_pipe_out(fd) == -1)
 			return (perror("pipe out"), -1);
 	}
@@ -92,12 +88,9 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	}
 	else
 	{
-		printf("%s\n", (parsing)->str[0]);
-		printf("%s\n", "out file");
 		if (open_dup_pipe_in(old_fd) == -1)
 			return (perror("pipe in"), -1);
 	}
-	printf("%s\n", "exec cmd");
 	exec_cmd(&parsing, data);
 	return (0);
 }
@@ -109,7 +102,6 @@ int	multiple_cmd_iteration(t_cmd *tmp, t_env **data, int *fd, int *old_fd)
 		perror("multi exec");
 		exit(EXIT_FAILURE);
 	}
-	close_fd(old_fd);
 	exit(EXIT_SUCCESS);
 }
 
@@ -125,7 +117,6 @@ int	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	}
 	if (pid == 0)
 	{
-		printf("%s\n", "multiple_cmd_iteration");
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
 			perror("multiple_cmd_iteration");
@@ -149,10 +140,8 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	old_fd[1] = -1;
 	while (tmp != NULL)
 	{
-		printf("%s\n", "exec_multiple_cmd");
 		if (create_pipe_if_needed(tmp, current_fd) == -1)
 			return (-1);
-		printf("fd[0] = %d\nfd[1] = %d\n", current_fd[0], current_fd[1]);
 		pid = fork_and_execute(tmp, data, current_fd, old_fd);
 		if (pid == -1)
 			return (-1);

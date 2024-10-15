@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:47:29 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 10:44:00 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:31:20 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 			return (perror("fork"), -1);
 		if (pid == 0)
 		{
-			printf("%s\n", "exec_cmd_minishell");
 			if (exec_cmd_minishell(parsing, data) == -1)
 				exit(EXIT_FAILURE);
 			exit(EXIT_SUCCESS);
@@ -60,13 +59,11 @@ int	exec_cmd(t_cmd **parsing, t_env **data)
 {
 	if ((*parsing)->redir_nb > 0)
 	{
-		printf("%s\n", "exec redir");
 		if (fork_redirection(parsing, data) == -1)
 			return (perror("fork_redirection"), -1);
 	}
 	else
 	{
-		printf("%s\n", "exec single");
 		if (exec_single_cmd(parsing, data) == -1)
 			return (perror("exec_single_cmd"), -1);
 	}
@@ -75,7 +72,7 @@ int	exec_cmd(t_cmd **parsing, t_env **data)
 
 int	exec_single_cmd(t_cmd **parsing, t_env **data)
 {
-	if ((*parsing)->hdc->command != NULL
+	if ((*parsing)->hdc_count != 0
 		&& check_if_builtins((*parsing)->hdc->command[0]))
 	{
 		if (builtins(parsing, data) == -1)
