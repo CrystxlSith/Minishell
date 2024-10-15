@@ -6,12 +6,14 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/10/15 11:23:07 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:46:43 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include "builtins.h"
 
 # include "../libft/libft.h"
 # include "parsing.h"
@@ -62,6 +64,9 @@ typedef struct s_minishell
 extern int	g_sig_status;
 
 //LEXER && PARSER
+int    ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
+
+
 t_lexer	*tokenize(char *str);
 void	init_cmd(t_cmd **head, t_cmd **current);
 void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens);

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 11:30:42 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:39:59 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	execve_cmd(char **cmd, char **envp)
 		path = get_filepath(cmd, envp);
 		if (path)
 		{
+			printf("%s\n", path);
 			if (execve(path, cmd, envp) == -1)
 			{
 				free(path);
@@ -72,7 +73,6 @@ int	execve_cmd(char **cmd, char **envp)
 			}
 			free(path);
 		}
-		return (perror("get_filepath"), -1);
 	}
 	return (0);
 }
