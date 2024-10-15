@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/11 16:47:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:26:05 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ int main(int ac, char **av, char **envp)
 		}
 		tokens = tokenize(minishell.line_read);
 		cmd_parsing = parser(&tokens);
+		print_cmd(cmd_parsing);
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
 		{
 
