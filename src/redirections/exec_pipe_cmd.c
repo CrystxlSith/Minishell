@@ -6,11 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/14 15:59:48 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/15 13:31:31 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Updated: 2024/10/15 13:40:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,12 +147,8 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	t_cmd	*tmp;
 	int		current_fd[2];
 	int		old_fd[2];
-<<<<<<< HEAD
-	int		pid;
-=======
 	pid_t	*pid;
 	int		i;
->>>>>>> Minishell_AGT
 
 	i = 0;
 	tmp = *parsing;
@@ -171,10 +163,6 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 		pid[i] = fork_and_execute(tmp, data, current_fd, old_fd);
 		if (pid[i] == -1)
 			return (-1);
-<<<<<<< HEAD
-		waitpid(pid, &g_sig_status, 0);
-=======
->>>>>>> Minishell_AGT
 		update_parent_descriptors(tmp, current_fd, old_fd);
 		tmp = tmp->next;
 		i++;

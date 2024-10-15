@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/14 19:47:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:42:46 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_cmd(t_cmd **head, t_cmd **current)
 {
 	*head = malloc(sizeof(t_cmd));
 	*current = *head;
+	(*head)->index = 0;
 	(*head)->elem_nb = 0;
 	(*head)->str = NULL;
 	(*head)->redir_nb = 0;

@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
+<<<<<<< HEAD
 <<<<<<< HEAD
 /*   Updated: 2024/10/14 15:59:21 by agiliber         ###   ########.fr       */
 =======
 /*   Updated: 2024/10/15 10:43:28 by agiliber         ###   ########.fr       */
 >>>>>>> Minishell_AGT
+=======
+/*   Updated: 2024/10/15 13:33:22 by jopfeiff         ###   ########.fr       */
+>>>>>>> 174bc9491df5616cafeea14000d152c7e958c2de
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +230,7 @@ int main(int ac, char **av, char **envp)
 		}
 		tokens = tokenize(minishell.line_read);
 		cmd_parsing = parser(&tokens);
+		print_cmd(cmd_parsing);
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
 		{
 
