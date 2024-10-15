@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 11:32:48 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:00:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 				return (-1);
 		}
 		else
-		{
 			open_dup_pipe_hdc(fd, parsing->hdc->hdc_fd);
-		}
 	}
 	else if ((parsing)->prev == NULL)
 	{
