@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 15:10:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:00:51 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int	wait_all_children(t_cmd *parsing)
 	count = find_nbr_cmd(&parsing);
 	while (count > 0)
 	{
+		printf("count %d\n", count);
 		wpid = waitpid(-1, &status, 0);
 		if (wpid == -1)
 		{
@@ -176,6 +177,8 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	{
 		if (create_pipe_if_needed(tmp, current_fd) == -1)
 			return (-1);
+		if (tmp->hdc_count != 0)
+			pipe_multiple_cmd(tmp, data, current_fd, old_fd);
 		if (fork_and_execute(tmp, data, current_fd, old_fd) == -1)
 			return (-1);
 		update_parent_descriptors(tmp, current_fd, old_fd);
