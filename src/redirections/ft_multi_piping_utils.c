@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:59:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/14 13:19:14 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:12:36 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,13 @@ int	open_dup_pipe_in(int *fd)
 
 int	create_pipe_if_needed(t_cmd *tmp, int *current_fd)
 {
-	if (pipe(current_fd) == -1)
+	if (tmp->next != NULL)
 	{
-		perror("multi pipe");
-		return (-1);
+		if (pipe(current_fd) == -1)
+		{
+			perror("multi pipe");
+			return (-1);
+		}
 	}
 	return (0);
 }

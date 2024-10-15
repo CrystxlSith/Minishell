@@ -6,7 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/14 15:59:21 by agiliber         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/15 10:43:28 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +112,19 @@ void	print_tokens(t_lexer *tokens)
 		printf("Type: %d\n", current->type);
 		printf("Data: %s\n", current->data);
 		printf("Index: %d\n", current->index);
+		current = current->next;
+	}
+}
+
+void	print_heredoc(t_heredoc *hdc)
+{
+	t_heredoc	*current;
+
+	current = hdc;
+	while (current)
+	{
+		printf("current->break_word: %s\n", current->break_word);
+		printf("current->command[0]: %s\n", current->command[0]);
 		current = current->next;
 	}
 }

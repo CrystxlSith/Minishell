@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/14 13:29:01 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:30:42 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	execve_cmd(char **cmd, char **envp)
 	else
 	{
 		path = get_filepath(cmd, envp);
-		printf("PATH : %s\n", path);
 		if (path)
 		{
 			if (execve(path, cmd, envp) == -1)
@@ -80,9 +79,8 @@ int	execve_cmd(char **cmd, char **envp)
 
 int	check_cmd_minishell(t_cmd **parsing, char **envp)
 {
-	if ((*parsing)->hdc->command != NULL)
+	if ((*parsing)->hdc_count != 0)
 	{
-		printf("%s\n", "exec hdc ");
 		if (execve_cmd((*parsing)->hdc->command, envp) == -1)
 			return (perror("get_filepath"), -1);
 	}

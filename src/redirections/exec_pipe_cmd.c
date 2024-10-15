@@ -6,7 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/14 15:59:48 by agiliber         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/15 13:31:31 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +63,18 @@ int	open_dup_pipe_hdc(int *fd, int fd_hdc)
 
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
-	printf("parsing->hdc->hdc_fd %d\n", parsing->hdc->hdc_fd);
+	int	fd_out;
+
 	if (parsing->hdc_count != 0)
 	{
 		if (parsing->next == NULL)
 		{
-			printf("%s\n", "open_dup_input");
-			if (open_dup_input(parsing->hdc->hdc_fd) == -1)
+			fd_out = open("/tmp/heredoc.txt", O_RDONLY);
+			if (open_dup_input(fd_out) == -1)
 				return (-1);
 		}
 		else
-		{
-			printf("%s\n", "open_dup_pipe_hdc");
 			open_dup_pipe_hdc(fd, parsing->hdc->hdc_fd);
-		}
 	}
 	else if ((parsing)->prev == NULL)
 	{
@@ -88,11 +90,9 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	}
 	else
 	{
-		printf("%s\n", "out file");
 		if (open_dup_pipe_in(old_fd) == -1)
 			return (perror("pipe in"), -1);
 	}
-	printf("%s\n", "exec cmd");
 	exec_cmd(&parsing, data);
 	return (0);
 }
@@ -104,7 +104,6 @@ int	multiple_cmd_iteration(t_cmd *tmp, t_env **data, int *fd, int *old_fd)
 		perror("multi exec");
 		exit(EXIT_FAILURE);
 	}
-	close_fd(old_fd);
 	exit(EXIT_SUCCESS);
 }
 
@@ -120,7 +119,6 @@ int	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	}
 	if (pid == 0)
 	{
-		printf("%s\n", "multiple_cmd_iteration");
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
 			perror("multiple_cmd_iteration");
@@ -131,28 +129,57 @@ int	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	return (pid);
 }
 
+int	wait_all_children(t_cmd *parsing, pid_t *pid)
+{
+	int	count;
+	int	status;
+	int	i;
+
+	i = 0;
+	count = parsing->index;
+	while (count > 0)
+	{
+		waitpid(pid[i], &status, 0);
+		i++;
+		count--;
+	}
+	return (status);
+}
+
 int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 {
 	t_cmd	*tmp;
 	int		current_fd[2];
 	int		old_fd[2];
+<<<<<<< HEAD
 	int		pid;
+=======
+	pid_t	*pid;
+	int		i;
+>>>>>>> Minishell_AGT
 
+	i = 0;
 	tmp = *parsing;
 	old_fd[0] = -1;
 	old_fd[1] = -1;
+	printf("tmp->index %d\n", tmp->index);
+	pid = ft_calloc(tmp->index, sizeof(pid_t));
 	while (tmp != NULL)
 	{
-		printf("%s\n", "exec_multiple_cmd");
 		if (create_pipe_if_needed(tmp, current_fd) == -1)
 			return (-1);
-		pid = fork_and_execute(tmp, data, current_fd, old_fd);
-		if (pid == -1)
+		pid[i] = fork_and_execute(tmp, data, current_fd, old_fd);
+		if (pid[i] == -1)
 			return (-1);
+<<<<<<< HEAD
 		waitpid(pid, &g_sig_status, 0);
+=======
+>>>>>>> Minishell_AGT
 		update_parent_descriptors(tmp, current_fd, old_fd);
 		tmp = tmp->next;
+		i++;
 	}
-	close_fd(old_fd);
+	wait_all_children(*parsing, pid);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
