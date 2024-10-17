@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/10 15:05:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:58:06 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,10 @@ int		open_dup_pipe_in(int *fd);
 int		pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd);
 int		create_pipe_if_needed(t_cmd *tmp, int *current_fd);
 void	update_parent_descriptors(t_cmd *tmp, int *current_fd, int *old_fd);
+
+// ft_pipe_dc
+int		open_dup_pipe_hdc(int *fd, int fd_hdc);
+int		pipe_heredoc(t_cmd *parsing, int *fd);
+int		find_nbr_cmd(t_cmd **parsing);
 
 #endif

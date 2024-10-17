@@ -6,88 +6,67 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 17:57:38 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:07:18 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* void	exec_direct_cmd(t_cmd *parsing, t_env **data)
+int	open_dup_pipe_middle(int *fd_in, int *fd_out)
 {
-	t_cmd	*tmp;
-	int		pid;
-	int		status;
-
-	tmp = parsing;
-	while (tmp != NULL)
+	printf("Dup Pipe Middle process, fd_in[0]: %d, fd_out[1]: %d\n", fd_in[0], fd_out[1]);
+	if (dup2(fd_in[0], STDIN_FILENO) == -1)
 	{
-		pid = fork();
-		if (pid == -1)
-			exit(EXIT_FAILURE);
-		if (pid == 0)
-		{
-			if (access(tmp->str[0], X_OK) != -1)
-				execve_cmd(tmp->str, (*data)->var);
-			else
-				tmp = tmp->next;
-		}
-		waitpid(pid, &status, 0);
-	}
-}
- */
-
-int	open_dup_pipe_hdc(int *fd, int fd_hdc)
-{
-	if (dup2(fd_hdc, STDIN_FILENO) == -1)
-	{
-		perror("dup2 fd[0]");
-		close(fd_hdc);
+		perror("dup2 fd_in[0]");
+		close(fd_in[0]);
+		close(fd_in[1]);
 		return (-1);
 	}
-	if (dup2(fd[1], STDOUT_FILENO) == -1)
+	close(fd_in[0]);
+	if (dup2(fd_out[1], STDOUT_FILENO) == -1)
 	{
-		perror("dup2 fd[1]");
-		close(fd[1]);
-		close(fd[0]);
+		perror("dup2 fd_out[1]");
+		close(fd_out[1]);
 		return (-1);
 	}
-	close(fd_hdc);
-	if (fd[1] != -1)
-		close(fd[1]);
+	close(fd_out[1]);
 	return (0);
 }
 
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
-	int	fd_out;
-
 	if (parsing->hdc_count != 0)
 	{
-		fd_out = open("/tmp/heredoc.txt", O_RDONLY);
-		if (parsing->next == NULL)
-		{
-			if (open_dup_input(fd_out) == -1)
-				return (-1);
-		}
-		else
-			open_dup_pipe_hdc(fd, fd_out);
+		if (pipe_heredoc(parsing, fd) == -1)
+			return (perror("pipe heredoc"), -1);
 	}
 	else if ((parsing)->prev == NULL)
 	{
+		printf("first cmd -> fd[1]: %d\n", fd[1]);
 		if (open_dup_pipe_out(fd) == -1)
-			return (perror("pipe out"), -1);
+			return (perror("pipe first cmd"), -1);
 	}
 	else if ((parsing)->next != NULL)
 	{
-		if (open_dup_pipe_in(old_fd) == -1)
-			return (perror("pipe in"), -1);
-		if (open_dup_pipe_out(fd) == -1)
-			return (perror("pipe out"), -1);
+		printf("middle cmd -> fd[1]: %d\n", fd[1]);
+		printf("middle cmd -> old_fd[0]: %d\n", old_fd[0]);
+		if (old_fd[0] == -1 || fd[1] == -1)
+		{
+			return (perror("invalid fd for middle cmd"), -1);
+		}
+		if (open_dup_pipe_middle(old_fd, fd) == -1)
+			return (perror("pipe middle cmd"), -1);
 	}
 	else
 	{
+		printf("last cmd -> old_fd[0]: %d\n", old_fd[0]);
+		if (old_fd[0] == -1)
+		{
+			perror("Invalid old_fd[0] for final command");
+			return (-1);
+		}
 		if (open_dup_pipe_in(old_fd) == -1)
-			return (perror("pipe in"), -1);
+			return (perror("pipe final cmd"), -1);
 	}
 	exec_cmd(&parsing, data);
 	return (0);
@@ -115,6 +94,9 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	}
 	if (pid == 0)
 	{
+		printf("Forked process, old_fd[0]: %d, current_fd[1]: %d\n", old_fd[0], current_fd[1]);
+		if (tmp->next != NULL)
+			close(current_fd[0]);
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
 			perror("multiple_cmd_iteration");
@@ -122,41 +104,31 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 		}
 		exit(EXIT_SUCCESS);
 	}
-	printf("PID %d\n", pid);
 	return (pid);
-}
-
-int	find_nbr_cmd(t_cmd **parsing)
-{
-	t_cmd	*tmp;
-	int		index;
-
-	index = 0;
-	tmp = *parsing;
-	while (tmp != NULL)
-	{
-		index++;
-		tmp = tmp->next;
-	}
-	return (index);
 }
 
 int	wait_all_children(t_cmd *parsing, pid_t *pid)
 {
-	int		count;
+	t_cmd	*tmp;
+	int		i;
 	int		status;
-	int	i;
+	pid_t	ret_pid;
 
 	i = 0;
-	status = 0;
-	count = find_nbr_cmd(&parsing);
-	while (count > 0)
+	tmp = parsing;
+	while (tmp != NULL)
 	{
-		printf("count %d\n", count);
-		waitpid(pid[i], &status, 0);
-		count--;
+		ret_pid = waitpid(pid[i], &status, 0);
+		if (ret_pid == -1)
+		{
+			perror("waitpid failed");
+			free(pid);
+			return (-1);
+		}
+		tmp = tmp->next;
 		i++;
 	}
+	free(pid);
 	return (status);
 }
 
@@ -173,11 +145,15 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	old_fd[0] = -1;
 	old_fd[1] = -1;
 	pid = ft_calloc(find_nbr_cmd(parsing), sizeof(pid_t));
+	if (!pid)
+		return (perror("ft_calloc pid failed"), -1);
 	while (tmp != NULL)
 	{
 		if (create_pipe_if_needed(tmp, current_fd) == -1)
-			return (-1);
+			return (free(pid), -1);
 		pid[i] = fork_and_execute(tmp, data, current_fd, old_fd);
+		if (pid[i] == -1)
+			return (free(pid), -1);
 		update_parent_descriptors(tmp, current_fd, old_fd);
 		tmp = tmp->next;
 		i++;

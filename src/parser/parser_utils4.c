@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/15 13:54:54 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:35:54 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_cmd(t_cmd **head, t_cmd **current)
 	(*head)->redir = NULL;
 	(*head)->next = NULL;
 	(*head)->prev = NULL;
-	(*head)->index = 0;
+	(*head)->index = 1;
 }
 
 t_cmd	*create_new_cmd(void)
@@ -54,7 +54,6 @@ t_cmd	*create_new_cmd(void)
 	new_cmd->redir = NULL;
 	new_cmd->next = NULL;
 	new_cmd->prev = NULL;
-	new_cmd->index++;
 	return (new_cmd);
 }
 

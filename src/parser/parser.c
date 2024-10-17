@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/14 13:41:02 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:35:56 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 			add_heredoc(&tmp, current);
 		else if (is_redirection(tmp->type))
 			handle_redirection(&tmp, current);
+		current->index++;
 		tmp = tmp->next;
 	}
 }
