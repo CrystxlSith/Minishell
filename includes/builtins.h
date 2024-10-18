@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/11 14:23:54 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:02:59 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include "minishell.h"
 # include "parsing.h"
 
-#define EXIT_ARGS_ERR "bash: exit: too many arguments\n"
+# ifndef EXIT_ARGS_ERR
+#  define EXIT_ARGS_ERR "bash: exit: too many arguments\n"
+# endif
 
 typedef struct s_env
 {

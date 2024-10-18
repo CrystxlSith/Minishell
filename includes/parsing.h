@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/18 10:06:54 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:02:34 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 // Token types
 typedef enum s_lexer_type
 {
-	E_CMD, //*str
+	E_CMD,
 	E_ARG,
 	E_HEREDOC,
 	E_REDIR_IN,
@@ -125,13 +125,5 @@ t_cmd	*create_new_cmd(void);
 t_lexer	*find_last(t_lexer *node);
 void	fill_nbr_element(t_cmd **parsing);
 void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing);
-// Launch utils
-int		ft_remove(const char *pathname);
-
-
-// Free utils
-void	free_token(t_lexer *token);
-void	free_tokens(t_lexer *tokens);
-void	free_parsed_cmd(t_cmd *head);
 
 #endif

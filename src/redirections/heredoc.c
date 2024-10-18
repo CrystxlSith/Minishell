@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 09:55:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:58:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini)
 		heredoc(tmp, data, mini);
 		count--;
 	}
+}
+
+int	ft_remove(const char *pathname)
+{
+	struct stat	path_stat;
+
+	if (lstat(pathname, &path_stat) == -1)
+		return (-1);
+	else
+	{
+		if (unlink(pathname) == -1)
+			return (-1);
+	}
+	return (0);
 }
 
 static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)

@@ -6,13 +6,13 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 16:46:46 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:04:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char **ft_array_dup(char **str)
+char	**ft_array_dup(char **str)
 {
 	int		i;
 	char	**res;
@@ -64,6 +64,7 @@ void	exit_code(char **str)
 int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 {
 	char	**str;
+
 	if (cmd_parsing->str[1] && !is_numeric(cmd_parsing->str[1]))
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);

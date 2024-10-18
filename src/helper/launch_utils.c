@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 10:43:15 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:56:57 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,47 @@ int	start_error(char *input)
 	if (access("/tmp/heredoc.txt", R_OK) != -1)
 		ft_remove("/tmp/heredoc.txt");
 	return (0);
+}
+
+void	input_execution(t_env *data, t_lexer *tokens, \
+	t_cmd *cmd_parsing, t_minishell minishell)
+{
+	if (cmd_parsing->str)
+	{
+		if (cmd_parsing->hdc_count != 0)
+			handle_heredoc(&cmd_parsing, &data, &minishell);
+		else
+			execute_fork(&cmd_parsing, &data);
+	}
+}
+
+int	generate_minishell_prompt(t_env *data, t_lexer *tokens, \
+	t_cmd *cmd_parsing, t_minishell minishell)
+{
+	while (1)
+	{
+		init_signals(0);
+		minishell.line_read = readline("minishell> ");
+		add_history(minishell.line_read);
+		if (start_error(minishell.line_read))
+			continue ;
+		if (launcher_exec(minishell.line_read, &data, \
+			&cmd_parsing, &minishell) == -1)
+			return (exit(EXIT_FAILURE), -1);
+		tokens = tokenize(minishell.line_read);
+		cmd_parsing = parser(&tokens);
+		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
+		{
+			if (ft_exit_shell(cmd_parsing, data, tokens) == 0)
+				free(minishell.line_read);
+		}
+		if (!cmd_parsing)
+			continue ;
+		input_execution(data, tokens, cmd_parsing, minishell);
+		if (minishell.line_read)
+			free(minishell.line_read);
+		free_all_line(tokens, cmd_parsing);
+		rl_on_new_line();
+	}
+	clear_history();
 }

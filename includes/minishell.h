@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 10:44:38 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:00:34 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,37 +35,15 @@
 # define TRUE 1
 # define FALSE 0
 
-/**
- * @file minishell.h
- * @brief Header file for the Minishell project.
- *
- * This file contains the definition of the `t_minishell` structure, which is used
- * to store the state of the Minishell application.
- */
+extern int	g_sig_status;
 
-/**
- * @struct s_minishell
- * @brief Structure to hold the state of the Minishell application.
- *
- * The `t_minishell` structure contains the following fields:
- * - `line_read`: A pointer to a string that holds the last line read from the input.
- * - `last_exit_status`: An integer that stores the exit status of the last executed command.
- *
- * @example
- * t_minishell shell;
- * shell.line_read = NULL;
- * shell.last_exit_status = 0;
- */
 typedef struct s_minishell
 {
 	char	*line_read;
 }			t_minishell;
 
-extern int	g_sig_status;
-
 //LEXER && PARSER
 int		ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
-
 
 t_lexer	*tokenize(char *str);
 void	init_cmd(t_cmd **head, t_cmd **current);
@@ -84,6 +62,10 @@ void	print_heredoc(t_heredoc *hdc);
 int		launcher_exec(char *input, t_env **data, t_cmd **parsing, \
 	t_minishell *mini);
 int		start_error(char *input);
+void	input_execution(t_env *data, t_lexer *tokens, \
+	t_cmd *cmd_parsing, t_minishell minishell);
+int		generate_minishell_prompt(t_env *data, t_lexer *tokens, \
+	t_cmd *cmd_parsing, t_minishell minishell);
 
 //free_utils
 void	free_token(t_lexer *token);
