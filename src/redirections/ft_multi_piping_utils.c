@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:59:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/17 15:40:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:41:59 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	open_dup_pipe_in(int *fd)
 		return (-1);
 	}
 	close(fd[0]);
+	close(fd[1]);
 	return (0);
 }
 
@@ -56,7 +57,6 @@ int	create_pipe_if_needed(t_cmd *tmp, int *current_fd)
 			perror("multi pipe");
 			return (-1);
 		}
-		printf("Pipe created -> current_fd[0]: %d, current_fd[1]: %d\n", current_fd[0], current_fd[1]);
 	}
 	return (0);
 }
@@ -65,14 +65,10 @@ void	update_parent_descriptors(t_cmd *tmp, int *current_fd, int *old_fd)
 {
 	if (old_fd[0] != -1)
 		close(old_fd[0]);
-	if (old_fd[1] != -1)
-		close(old_fd[1]);
 	if (tmp->next != NULL)
 	{
 		old_fd[0] = current_fd[0];
 		old_fd[1] = current_fd[1];
-		printf("Passing fd: old_fd[0]: %d, old_fd[1]: %d\n", old_fd[0], old_fd[1]);
 		close(current_fd[1]);
 	}
-	printf("After update -> old_fd[0]: %d, old_fd[1]: %d\n", old_fd[0], old_fd[1]);
 }

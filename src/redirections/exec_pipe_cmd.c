@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/17 16:07:18 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:44:31 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	open_dup_pipe_middle(int *fd_in, int *fd_out)
 {
-	printf("Dup Pipe Middle process, fd_in[0]: %d, fd_out[1]: %d\n", fd_in[0], fd_out[1]);
 	if (dup2(fd_in[0], STDIN_FILENO) == -1)
 	{
 		perror("dup2 fd_in[0]");
@@ -42,29 +41,16 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	}
 	else if ((parsing)->prev == NULL)
 	{
-		printf("first cmd -> fd[1]: %d\n", fd[1]);
 		if (open_dup_pipe_out(fd) == -1)
 			return (perror("pipe first cmd"), -1);
 	}
 	else if ((parsing)->next != NULL)
 	{
-		printf("middle cmd -> fd[1]: %d\n", fd[1]);
-		printf("middle cmd -> old_fd[0]: %d\n", old_fd[0]);
-		if (old_fd[0] == -1 || fd[1] == -1)
-		{
-			return (perror("invalid fd for middle cmd"), -1);
-		}
 		if (open_dup_pipe_middle(old_fd, fd) == -1)
 			return (perror("pipe middle cmd"), -1);
 	}
 	else
 	{
-		printf("last cmd -> old_fd[0]: %d\n", old_fd[0]);
-		if (old_fd[0] == -1)
-		{
-			perror("Invalid old_fd[0] for final command");
-			return (-1);
-		}
 		if (open_dup_pipe_in(old_fd) == -1)
 			return (perror("pipe final cmd"), -1);
 	}
@@ -94,7 +80,6 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	}
 	if (pid == 0)
 	{
-		printf("Forked process, old_fd[0]: %d, current_fd[1]: %d\n", old_fd[0], current_fd[1]);
 		if (tmp->next != NULL)
 			close(current_fd[0]);
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
@@ -158,6 +143,5 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 		tmp = tmp->next;
 		i++;
 	}
-	wait_all_children(*parsing, pid);
-	return (0);
+	return (wait_all_children(*parsing, pid), 0);
 }
