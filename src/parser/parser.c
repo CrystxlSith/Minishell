@@ -3,20 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 10:07:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:13:06 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	replace_dollar(char **input, char *res, int i, int j)
+void	replace_dollar(char **input, char *res, t_env **data)
 {
+	int		i;
+	int		j;
 	char	*tmp;
 	char	*tmp2;
 
+	i = 0;
+	j = 0;
 	res = ft_strdup("");
 	while ((*input)[j])
 	{
@@ -26,7 +30,7 @@ void	replace_dollar(char **input, char *res, int i, int j)
 			if (handle_number(input, &j, tmp, tmp2))
 				continue ;
 			j += loop_while_dollar(input, &tmp, j, tmp2);
-			handle_question(&res, tmp, &i);
+			handle_question(&res, tmp, &i, data);
 		}
 		else
 		{
@@ -52,13 +56,13 @@ void	new_cmd(t_cmd **current)
 	(*current)->index = i;
 }
 
-void	new_quote_cmd(t_lexer *tmp, char *res)
+void	new_quote_cmd(t_lexer *tmp, char *res, t_env **data)
 {
 	if (tmp->type == E_D_QUOTE)
-		replace_dollar(&tmp->data, res, 0, 0);
+		replace_dollar(&tmp->data, res, data);
 }
 
-static void	cmd_adding(t_lexer *tmp, t_cmd *current)
+static void	cmd_adding(t_lexer *tmp, t_cmd *current, t_env **data)
 {
 	char	*s_tmp;
 
@@ -86,7 +90,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 	}
 }
 
-t_cmd	*parser(t_lexer **tokens)
+t_cmd	*parser(t_lexer **tokens, t_env **data)
 {
 	char	*res;
 	t_cmd	*head;
@@ -97,7 +101,7 @@ t_cmd	*parser(t_lexer **tokens)
 	tmp = *tokens;
 	init_cmd(&head, &current);
 	initiate_hdc_struc(&head);
-	rep_d(tmp, res);
-	cmd_adding(tmp, current);
+	rep_d(tmp, res, data);
+	cmd_adding(tmp, current, data);
 	return (head);
 }

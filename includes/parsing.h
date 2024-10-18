@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/18 11:02:34 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:43:35 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,12 @@ int		is_redirection(t_lexer_type type);
 void	handle_redirection(t_lexer **token, t_cmd *cmd);
 void	redir_handler(t_lexer **token, char **str);
 void	space_handler(t_lexer **tokens, char **str);
-void	replace_dollar(char **input, char *res, int i, int j);
+
 void	add_heredoc(t_lexer **token, t_cmd *current);
 t_cmd	*create_new_cmd(void);
 void	init_cmd(t_cmd **head, t_cmd **current);
 void	setup_child_signals(void);
 int		add_count_elem(char **data);
-void	rep_d(t_lexer *tmp, char *res);
 void	init_signals(int is_heredoc);
 void	remove_next_space(t_lexer **tmp);
 void	print_cmd(t_cmd *head);
@@ -114,12 +113,10 @@ char	*build_res(char *res, int i, int j, char **input);
 void	init_temp(char **tmp, char **tmp2);
 char	**add_data_to_tab(char *data);
 t_lexer	*remove_space_tokens(t_lexer *head);
-void	rep_d(t_lexer *tmp, char *res);
-int		handle_question(char **res, char *tmp, int *i);
+
 void	add_index_to_token(t_lexer *tokens);
 void	pipe_handler(t_lexer **tokens, char **str);
-t_cmd	*parser(t_lexer **tokens);
-void	handle_env_value(char **res, char *tmp, int *i);
+
 void	fill_nbr_element(t_cmd **parsing);
 t_cmd	*create_new_cmd(void);
 t_lexer	*find_last(t_lexer *node);
