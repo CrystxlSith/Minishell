@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 10:08:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:08:48 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
+	int	fd_out;
+
 	if (parsing->hdc_count != 0)
 	{
 		if (pipe_heredoc(parsing, fd) == -1)
@@ -21,8 +23,22 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	}
 	else if ((parsing)->prev == NULL)
 	{
-		if (open_dup_pipe_out(fd) == -1)
+		if ((parsing)->next->str == NULL)
+		{
+			if ((parsing)->next->redir->type == E_REDIR_APP)
+				fd_out = open((parsing)->next->redir->data, O_CREAT | O_RDWR | O_APPEND, 0777);
+			else
+				fd_out = open((parsing)->next->redir->data, O_CREAT | O_RDWR | O_TRUNC, 0777);
+			if (open_dup_output(fd_out) == -1)
+				return (perror("pipe first cmd redir"), -1);
+			(parsing) = parsing->next;
+			exec_cmd(&parsing, data);
+		}
+		else
+		{
+			if (open_dup_pipe_out(fd) == -1)
 			return (perror("pipe first cmd"), -1);
+		}
 	}
 	else if ((parsing)->next != NULL)
 	{
@@ -56,6 +72,7 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	if (pid == -1)
 	{
 		perror("multi fork");
+		close_fd(current_fd);
 		return (-1);
 	}
 	if (pid == 0)

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 10:58:16 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:26:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,18 @@ static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 	{
 		init_signals(1);
 		mini->line_read = readline("> ");
+		if (mini->line_read == NULL)
+		{
+			perror("readline failed");
+			close(fd);
+			return ;
+		}
 		if (launcher_exec(mini->line_read, data, &cmd_parsing, mini) == -1)
+		{
+			free(mini->line_read);
 			exit(EXIT_FAILURE);
-		if (mini->line_read[0] == '\0')
+		}
+		if (mini->line_read[0] == '\0' || mini->line_read == NULL)
 		{
 			free(mini->line_read);
 			continue ;
@@ -87,6 +96,7 @@ static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 			break ;
 		}
 		write_to_heredoc(fd, mini->line_read);
+		free(mini->line_read);
 	}
 }
 
@@ -95,5 +105,11 @@ void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini)
 	int	fd;
 
 	fd = open_heredoc_file(O_CREAT | O_RDWR | O_APPEND);
+	if (fd == -1)
+	{
+		perror("Failed to open heredoc file");
+		return ;
+	}
 	handle_heredoc_input(cmd_parsing, data, mini, fd);
+	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 17:14:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:34:52 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*get_filepath(char **cmd, char **envp)
 		full_path_cmd = ft_strjoin(tmp, cmd[0]);
 		if (access(full_path_cmd, X_OK) == 0)
 			return (final_path = full_path_cmd, final_path);
+		free(full_path_cmd);
 	}
 	free(full_path);
 	return (NULL);
@@ -71,6 +72,7 @@ int	execve_cmd(char **cmd, char **envp)
 				exit(EXIT_FAILURE);
 			}
 			free(path);
+			free_all(cmd);
 		}
 	}
 	return (0);

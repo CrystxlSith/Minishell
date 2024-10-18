@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 10:43:24 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:41:57 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	free_token(t_lexer *token)
 {
 	if (token)
 	{
-		free(token->data);
+		if (token->data)
+			free(token->data);
 		free(token);
 	}
 }
@@ -37,6 +38,25 @@ void	free_tokens(t_lexer *tokens)
 	}
 }
 
+void	free_hdc(t_heredoc *head)
+{
+	t_heredoc	*current;
+	t_heredoc	*next;
+
+	current = head;
+	while (current)
+	{
+		next = current->next;
+		if (current->break_word)
+			free(current->break_word);
+		if (current->command)
+			free(current->command);
+/* 		if (current->redir)
+			free_tokens(current->redir); */
+		current = next;
+	}
+}
+
 void	free_parsed_cmd(t_cmd *head)
 {
 	t_cmd	*current;
@@ -45,6 +65,7 @@ void	free_parsed_cmd(t_cmd *head)
 	if (!head)
 		return ;
 	current = head;
+
 	while (current)
 	{
 		next = current->next;
@@ -54,6 +75,7 @@ void	free_parsed_cmd(t_cmd *head)
 			free_tokens(current->redir);
 		if (current->here_doc)
 			free(current->here_doc);
+		free_hdc(current->hdc);
 		free(current->hdc);
 		free(current);
 		current = next;
@@ -62,14 +84,14 @@ void	free_parsed_cmd(t_cmd *head)
 
 void	free_minishell(t_env **data, t_cmd **parsing, t_minishell *minishell)
 {
-	if (minishell->line_read != NULL)
-		free(minishell->line_read);
 	if ((*data)->var != NULL)
 		free_all((*data)->var);
 }
 
 void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing)
 {
-	free_tokens(tokens);
-	free_parsed_cmd(cmd_parsing);
+	if (tokens)
+		free_tokens(tokens);
+	if (cmd_parsing)
+		free_parsed_cmd(cmd_parsing);
 }

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 11:24:12 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:19:27 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	print_heredoc(t_heredoc *hdc);
 int		launcher_exec(char *input, t_env **data, t_cmd **parsing, \
 	t_minishell *mini);
 int		start_error(char *input);
-void	input_execution(t_env *data, t_cmd *cmd_parsing, t_minishell minishell);
+void	input_execution(t_env *data, t_cmd *cmd_parsing, \
+	t_minishell *minishell);
 int		generate_minishell_prompt(t_env *data, t_lexer *tokens, \
 	t_cmd *cmd_parsing);
 
@@ -79,8 +80,6 @@ int		ft_remove(const char *pathname);
 int		open_heredoc_file(int flags);
 void	write_to_heredoc(int fd, char *line);
 void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini);
-int		launcher_exec(char *input, t_env **data, t_cmd **parsing, \
-	t_minishell *minishell);
 void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini);
 
 #endif

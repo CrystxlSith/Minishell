@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 11:48:57 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:41:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	export_existing(char *flag, t_env **data, char *cmd)
 	int	i;
 
 	i = get_index(data, flag);
-	free((*data)->var[i]);
-	(*data)->var[i] = ft_strdup(cmd);
-	free(cmd);
+	//free((*data)->var[i]);
+	(*data)->var[i] = cmd;
+	//free(cmd);
 	return ;
 }
 
@@ -67,10 +67,14 @@ void	duplicate_env(t_env **data, char **input, char *cmd)
 		i++;
 	if (cmd != NULL)
 	{
-		(*data)->var[i] = ft_strdup(cmd);
-		(*data)->var[i + 1] = NULL;
+		(*data)->var[i] = cmd;
+		if (!(*data)->var[i])
+		{
+			free(cmd);
+			return ;
+		}
 		(*data)->size++;
-		free(cmd);
+		//free(cmd);
 	}
 }
 
@@ -90,7 +94,7 @@ void	export_new(t_env **data, char *cmd)
 		return ;
 	}
 	duplicate_env(data, new_tab, cmd);
-	free_all(new_tab);
+	free(new_tab);
 }
 
 // En fonction de si la variable existe deja dans le tableau d'environnement

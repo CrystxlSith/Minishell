@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 11:24:38 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:09:17 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	if (generate_minishell_prompt(data, tokens, cmd_parsing) == -1)
 		return (-1);
+	free_all(data->var);
+	free(data);
 	return (0);
 }
