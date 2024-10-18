@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:59:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 11:12:36 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:56:29 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 int	open_dup_pipe_out(int *fd)
 {
+	if (fd[1] == -1)
+	{
+		perror("Invalid fd[1] before dup2");
+		return (-1);
+	}
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
 	{
 		perror("dup2 fd[1]");
@@ -27,6 +32,11 @@ int	open_dup_pipe_out(int *fd)
 
 int	open_dup_pipe_in(int *fd)
 {
+	if (fd[0] == -1)
+	{
+		perror("Invalid fd[0] before dup2");
+		return (-1);
+	}
 	if (dup2(fd[0], STDIN_FILENO) == -1)
 	{
 		perror("dup2 fd[0]");
@@ -35,6 +45,26 @@ int	open_dup_pipe_in(int *fd)
 	}
 	close(fd[0]);
 	close(fd[1]);
+	return (0);
+}
+
+int	open_dup_pipe_middle(int *fd_in, int *fd_out)
+{
+	if (dup2(fd_in[0], STDIN_FILENO) == -1)
+	{
+		perror("dup2 fd_in[0]");
+		close(fd_in[0]);
+		close(fd_in[1]);
+		return (-1);
+	}
+	close(fd_in[0]);
+	if (dup2(fd_out[1], STDOUT_FILENO) == -1)
+	{
+		perror("dup2 fd_out[1]");
+		close(fd_out[1]);
+		return (-1);
+	}
+	close(fd_out[1]);
 	return (0);
 }
 
@@ -53,6 +83,8 @@ int	create_pipe_if_needed(t_cmd *tmp, int *current_fd)
 
 void	update_parent_descriptors(t_cmd *tmp, int *current_fd, int *old_fd)
 {
+	if (old_fd[0] != -1)
+		close(old_fd[0]);
 	if (tmp->next != NULL)
 	{
 		old_fd[0] = current_fd[0];

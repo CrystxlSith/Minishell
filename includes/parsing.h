@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/15 13:41:38 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:06:54 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define IS_TOKEN "\"'|<>&"
 # define IS_REDIRECTION "<>"
 # define LEX_ERR "minishell: syntax error near unexpected token "
+
 // Token types
 typedef enum s_lexer_type
 {

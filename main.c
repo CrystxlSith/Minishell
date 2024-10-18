@@ -3,18 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2024/10/14 15:59:21 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/15 10:43:28 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
-=======
-/*   Updated: 2024/10/15 13:33:22 by jopfeiff         ###   ########.fr       */
->>>>>>> 174bc9491df5616cafeea14000d152c7e958c2de
+/*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/18 10:05:43 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +14,7 @@
 
 int	g_sig_status;
 
-void	print_cmd(t_cmd *head)
+/* void	print_cmd(t_cmd *head)
 {
 	t_cmd	*current;
 	t_lexer	*redir;
@@ -56,7 +48,7 @@ void	print_cmd(t_cmd *head)
 			printf("Elem nb: %d\n", current->elem_nb);
 		current = current->next;
 	}
-}
+} */
 
 void free_token(t_lexer *token)
 {

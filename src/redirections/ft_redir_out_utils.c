@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:15:48 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 15:29:30 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:48:06 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	exec_redir_out(t_cmd **parsing, t_env **data)
 	t_cmd	*tmp;
 
 	tmp = *parsing;
-	printf("(*parsing)->str[0] %s\n", (*parsing)->str[0]);
 	if (tmp->redir->type == E_REDIR_APP)
 		fd_redir = open(tmp->redir->data, O_CREAT | O_RDWR | O_APPEND, 0777);
 	else
