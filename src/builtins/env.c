@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:45:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	get_env(char **envp, t_env **data)
 	(*data)->var = (char **)malloc(sizeof(char *) * ((*data)->size + 1));
 	if (!(*data)->var)
 		return ;
-	while (envp[index] && index < (*data)->size)
+	while (envp[index])
 	{
 		(*data)->var[index] = ft_strdup(envp[index]);
 		index++;
