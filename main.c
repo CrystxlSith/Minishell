@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/15 15:39:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:01:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int g_sig_status = 0;
 
-void	print_cmd(t_cmd *head)
+/* void	print_cmd(t_cmd *head)
 {
 	t_cmd	*current;
 	t_lexer	*redir;
@@ -48,7 +48,7 @@ void	print_cmd(t_cmd *head)
 			printf("Elem nb: %d\n", current->elem_nb);
 		current = current->next;
 	}
-}
+} */
 
 void free_token(t_lexer *token)
 {

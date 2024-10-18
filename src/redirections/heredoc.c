@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/15 17:41:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:55:44 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,52 +28,35 @@ void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini)
 	}
 }
 
-/* void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini)
+static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 {
-	int			fd;
-	int			status;
-	int	pid;
+	int	len;
 
-	pid = fork();
-	if (pid == -1)
-		exit(EXIT_FAILURE);
-	if (pid == 0)
+	len = ft_strlen(cmd_parsing->hdc->break_word);
+	if (ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
 	{
-		fd = open_heredoc_file(O_CREAT | O_RDWR | O_TRUNC);
-		if (fd == -1)
+		if (cmd_parsing->hdc->next != NULL)
 		{
-			perror("open heredoc");
-			exit(EXIT_FAILURE);
+			ft_remove("/tmp/heredoc.txt");
+			cmd_parsing->hdc = cmd_parsing->hdc->next;
+			close(fd);
+			return (1);
 		}
-		while (1)
+		else
 		{
-			mini->line_read = readline("> ");
-			if (ft_strncmp((cmd_parsing)->hdc->break_word, mini->line_read, \
-				ft_strlen((cmd_parsing)->hdc->break_word)) == 0)
-			{
-				free(mini->line_read);
-				break ;
-			}
-			write_to_heredoc(fd, mini->line_read);
-			free(mini->line_read);
+			close(fd);
+			return (2);
 		}
-		//close(fd);
-		(cmd_parsing)->hdc = (cmd_parsing)->hdc->next;
-		if ((cmd_parsing)->hdc->next == NULL)
-			exec_multiple_cmd(&cmd_parsing, data);
 	}
-	waitpid(pid, &status, 0);
+	return (0);
 }
- */
 
-void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini)
+static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
+	t_minishell *mini, int fd)
 {
-	int	fd;
-
 	while (1)
 	{
 		init_signals(1);
-		fd = open_heredoc_file(O_CREAT | O_RDWR | O_APPEND);
 		mini->line_read = readline("> ");
 		if (launcher_exec(mini->line_read, data, &cmd_parsing, mini) == -1)
 			exit(EXIT_FAILURE);
@@ -82,22 +65,21 @@ void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini)
 			free(mini->line_read);
 			continue ;
 		}
-		if (ft_strncmp((cmd_parsing)->hdc->break_word, mini->line_read, \
-			ft_strlen((cmd_parsing)->hdc->break_word)) == 0)
+		if (check_break_word(cmd_parsing, mini, fd) == 1)
+			break ;
+		else if (check_break_word(cmd_parsing, mini, fd) == 2)
 		{
-			if ((cmd_parsing)->hdc->next != NULL)
-			{
-				ft_remove("/tmp/heredoc.txt");
-				(cmd_parsing)->hdc = (cmd_parsing)->hdc->next;
-				break ;
-			}
-			else if ((cmd_parsing)->hdc->next == NULL)
-			{
-				close(fd);
-				exec_multiple_cmd(&cmd_parsing, data);
-					break ;
-			}
+			exec_multiple_cmd(&cmd_parsing, data);
+			break ;
 		}
 		write_to_heredoc(fd, mini->line_read);
 	}
+}
+
+void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini)
+{
+	int	fd;
+
+	fd = open_heredoc_file(O_CREAT | O_RDWR | O_APPEND);
+	handle_heredoc_input(cmd_parsing, data, mini, fd);
 }

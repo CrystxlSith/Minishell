@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:59:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 09:41:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:56:29 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,26 @@ int	open_dup_pipe_in(int *fd)
 	}
 	close(fd[0]);
 	close(fd[1]);
+	return (0);
+}
+
+int	open_dup_pipe_middle(int *fd_in, int *fd_out)
+{
+	if (dup2(fd_in[0], STDIN_FILENO) == -1)
+	{
+		perror("dup2 fd_in[0]");
+		close(fd_in[0]);
+		close(fd_in[1]);
+		return (-1);
+	}
+	close(fd_in[0]);
+	if (dup2(fd_out[1], STDOUT_FILENO) == -1)
+	{
+		perror("dup2 fd_out[1]");
+		close(fd_out[1]);
+		return (-1);
+	}
+	close(fd_out[1]);
 	return (0);
 }
 

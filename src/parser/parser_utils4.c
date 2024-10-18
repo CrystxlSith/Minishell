@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/17 14:35:54 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:55:10 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,64 +55,6 @@ t_cmd	*create_new_cmd(void)
 	new_cmd->next = NULL;
 	new_cmd->prev = NULL;
 	return (new_cmd);
-}
-
-void	new_heredoc(t_cmd *cmd, t_heredoc *new_hdc)
-{
-	t_heredoc	*last_hdc;
-
-	new_hdc->next = NULL;
-	new_hdc->prev = NULL;
-	if (cmd->hdc_count == 0)
-		cmd->hdc = new_hdc;
-	else
-	{
-		last_hdc = cmd->hdc;
-		while (last_hdc->next)
-			last_hdc = last_hdc->next;
-		last_hdc->next = new_hdc;
-		new_hdc->prev = last_hdc;
-	}
-	cmd->hdc_count++;
-}
-
-void	fill_heredoc(t_lexer **token, t_cmd *current, t_heredoc *new_hdc)
-{
-	int	i;
-
-	i = 0;
-	if ((*token)->type == E_REDIR_DEL && (*token)->next)
-	{
-		while (current->str[i])
-			i++;
-		while (current->next != NULL)
-			current = current->next;
-		if (current->str != NULL)
-		{
-			new_hdc->command = (char **)malloc(sizeof(char *) * (i + 1));
-			if (!new_hdc->command)
-				return ;
-			i = -1;
-			while (current->str[++i])
-				new_hdc->command[i] = ft_strdup(current->str[i]);
-			new_hdc->command[i] = NULL;
-		}
-		if ((*token)->next->type == E_SPACE)
-			(*token) = (*token)->next;
-		new_hdc->break_word = ft_strdup((*token)->next->data);
-		(*token) = (*token)->next;
-	}
-	new_heredoc(current, new_hdc);
-}
-
-void	add_heredoc(t_lexer **token, t_cmd *current)
-{
-	t_heredoc	*new_hdc;
-
-	new_hdc = malloc(sizeof(t_heredoc));
-	if (!new_hdc)
-		exit(EXIT_FAILURE);
-	fill_heredoc(token, current, new_hdc);
 }
 
 int	handle_question(char **res, char *tmp, int *i)

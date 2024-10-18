@@ -6,31 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 09:44:31 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:56:21 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	open_dup_pipe_middle(int *fd_in, int *fd_out)
-{
-	if (dup2(fd_in[0], STDIN_FILENO) == -1)
-	{
-		perror("dup2 fd_in[0]");
-		close(fd_in[0]);
-		close(fd_in[1]);
-		return (-1);
-	}
-	close(fd_in[0]);
-	if (dup2(fd_out[1], STDOUT_FILENO) == -1)
-	{
-		perror("dup2 fd_out[1]");
-		close(fd_out[1]);
-		return (-1);
-	}
-	close(fd_out[1]);
-	return (0);
-}
 
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {

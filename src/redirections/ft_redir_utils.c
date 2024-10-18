@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 15:13:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:48:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,9 @@ int	exec_redirection(t_cmd **parsing, t_env **data, int trigger)
 {
 	t_cmd	*tmp;
 
-	printf("%s\n", "exec redirection");
 	tmp = *parsing;
 	while (tmp->redir_nb > 0)
 	{
-		printf("tmp->redir_nb %d\n", tmp->redir_nb);
 		if (tmp->redir->type == E_REDIR_IN)
 			trigger = 1;
 		if (tmp->redir->type == E_REDIR_IN)
