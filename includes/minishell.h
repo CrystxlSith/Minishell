@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 09:03:41 by kali              #+#    #+#             */
-/*   Updated: 2024/10/15 13:46:43 by agiliber         ###   ########.fr       */
+/*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/18 11:24:12 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,37 +35,15 @@
 # define TRUE 1
 # define FALSE 0
 
-/**
- * @file minishell.h
- * @brief Header file for the Minishell project.
- *
- * This file contains the definition of the `t_minishell` structure, which is used
- * to store the state of the Minishell application.
- */
+extern int	g_sig_status;
 
-/**
- * @struct s_minishell
- * @brief Structure to hold the state of the Minishell application.
- *
- * The `t_minishell` structure contains the following fields:
- * - `line_read`: A pointer to a string that holds the last line read from the input.
- * - `last_exit_status`: An integer that stores the exit status of the last executed command.
- *
- * @example
- * t_minishell shell;
- * shell.line_read = NULL;
- * shell.last_exit_status = 0;
- */
 typedef struct s_minishell
 {
 	char	*line_read;
 }			t_minishell;
 
-extern int	g_sig_status;
-
 //LEXER && PARSER
-int    ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
-
+int		ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
 
 t_lexer	*tokenize(char *str);
 void	init_cmd(t_cmd **head, t_cmd **current);
@@ -75,13 +53,34 @@ void	new_token(t_lexer **tokens, t_lexer *new_node);
 //BUILTINS ---> GENERAL
 int		builtins(t_cmd **parsing, t_env **data);
 
+//ft_print_utils
+void	print_cmd(t_cmd *head);
+void	print_tokens(t_lexer *tokens);
+void	print_heredoc(t_heredoc *hdc);
+
+//ft_launch_utils
+int		launcher_exec(char *input, t_env **data, t_cmd **parsing, \
+	t_minishell *mini);
+int		start_error(char *input);
+void	input_execution(t_env *data, t_cmd *cmd_parsing, t_minishell minishell);
+int		generate_minishell_prompt(t_env *data, t_lexer *tokens, \
+	t_cmd *cmd_parsing);
+
+//free_utils
+void	free_token(t_lexer *token);
+void	free_tokens(t_lexer *tokens);
+void	free_parsed_cmd(t_cmd *head);
+void	free_minishell(t_env **data, t_cmd **parsing, t_minishell *minishell);
+void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing);
+
 //Heredocs
 int		initiate_hdc_struc(t_cmd **parsing);
 int		ft_remove(const char *pathname);
 int		open_heredoc_file(int flags);
 void	write_to_heredoc(int fd, char *line);
 void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini);
-int		launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *minishell);
+int		launcher_exec(char *input, t_env **data, t_cmd **parsing, \
+	t_minishell *minishell);
 void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini);
 
 #endif

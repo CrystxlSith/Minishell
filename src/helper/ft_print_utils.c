@@ -1,59 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_utils.c                                       :+:      :+:    :+:   */
+/*   ft_print_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/10 07:47:58 by jopfeiff         ###   ########.fr       */
+/*   Created: 2024/10/18 10:13:26 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/18 11:03:47 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
-
-void	free_token(t_lexer *token)
-{
-	if (token)
-	{
-		free(token->data);
-		free(token);
-	}
-}
-
-void	free_tokens(t_lexer *tokens)
-{
-	t_lexer	*current;
-	t_lexer	*next;
-
-	current = tokens;
-	while (current)
-	{
-		next = current->next;
-		free_token(current);
-		current = next;
-	}
-}
-
-void	free_parsed_cmd(t_cmd *head)
-{
-	t_cmd	*current;
-	t_cmd	*next;
-
-	current = head;
-	while (current)
-	{
-		next = current->next;
-		if (current->str)
-			free(current->str);
-		if (current->redir)
-			free_tokens(current->redir);
-		if (current->here_doc)
-			free(current->here_doc);
-		free(current);
-		current = next;
-	}
-}
+#include "../../includes/minishell.h"
 
 /* void	print_cmd(t_cmd *head)
 {
@@ -68,16 +25,16 @@ void	free_parsed_cmd(t_cmd *head)
 		{
 			printf("Command: ");
 			for (int i = 0; current->str[i]; i++)
-				printf("%s ", current->str[i]);
+				printf("%s\n", current->str[i]);
 		}
 		printf("\n");
 		printf("Redirections: ");
 		redir = current->redir;
-		while (redir)
-		{
-			printf("%s ", redir->data);
-			redir = redir->next;
-		}
+		// while (redir)
+		// {
+		// 	printf("%s ", redir->data);
+		// 	redir = redir->next;
+		// }
 		printf("\n");
 		// if (current->index)
 			printf("Index: %d\n", current->index);
@@ -89,9 +46,9 @@ void	free_parsed_cmd(t_cmd *head)
 			printf("Elem nb: %d\n", current->elem_nb);
 		current = current->next;
 	}
-} */
-
-/* void	print_tokens(t_lexer *tokens)
+}
+ */
+void	print_tokens(t_lexer *tokens)
 {
 	t_lexer	*current;
 
@@ -103,4 +60,17 @@ void	free_parsed_cmd(t_cmd *head)
 		printf("Index: %d\n", current->index);
 		current = current->next;
 	}
-} */
+}
+
+void	print_heredoc(t_heredoc *hdc)
+{
+	t_heredoc	*current;
+
+	current = hdc;
+	while (current)
+	{
+		printf("current->break_word: %s\n", current->break_word);
+		printf("current->command[0]: %s\n", current->command[0]);
+		current = current->next;
+	}
+}

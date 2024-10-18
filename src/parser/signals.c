@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:29 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/11 16:46:51 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	signal_sub_handler(int signum)
 void	setup_child_signals(void)
 {
 	signal(SIGINT, signal_sub_handler);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 void	init_signals(int is_heredoc)

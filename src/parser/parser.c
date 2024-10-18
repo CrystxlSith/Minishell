@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/17 14:35:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:07:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,13 @@ void	replace_dollar(char **input, char *res, int i, int j)
 
 void	new_cmd(t_cmd **current)
 {
+	int		i;
+
+	i = (*current)->index + 1;
 	(*current)->next = create_new_cmd();
 	(*current)->next->prev = *current;
 	*current = (*current)->next;
+	(*current)->index = i;
 }
 
 void	new_quote_cmd(t_lexer *tmp, char *res)
