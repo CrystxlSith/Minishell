@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 11:02:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:06:13 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@
 # ifndef EXIT_ARGS_ERR
 #  define EXIT_ARGS_ERR "bash: exit: too many arguments\n"
 # endif
-
-typedef struct s_env
-{
-	char	**var;
-	int		size;
-}			t_env;
 
 //BUILTINS ---> EXIT
 char	*launch_minishell(t_env *data, char *name);

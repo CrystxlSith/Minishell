@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/18 11:02:34 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:06:11 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ typedef enum s_lexer_type
 	END,
 	E_SPACE,
 }	t_lexer_type;
+
+// Env viariables
+typedef struct s_env
+{
+	char	**var;
+	int		size;
+}			t_env;
 
 // Token structure
 typedef struct s_lexer
