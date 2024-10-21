@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 15:25:50 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:49:13 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	start_error(char *input)
 
 void	input_execution(t_env *data, t_cmd *cmd_parsing, t_minishell *minishell)
 {
-	if (cmd_parsing->str)
+	if (cmd_parsing->hdc_count != 0)
+		handle_heredoc(&cmd_parsing, &data, minishell);
+	else
 	{
-		if (cmd_parsing->hdc_count != 0)
-			handle_heredoc(&cmd_parsing, &data, minishell);
-		else
+		if (cmd_parsing->str)
 			execute_fork(&cmd_parsing, &data);
 	}
 }

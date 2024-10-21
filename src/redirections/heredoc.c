@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 15:26:26 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:47:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 {
 	while (1)
 	{
+		printf("%s\n", "heredoc launcher");
 		init_signals(1);
 		mini->line_read = readline("> ");
 		if (mini->line_read == NULL)
@@ -92,6 +93,11 @@ static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 			break ;
 		else if (check_break_word(cmd_parsing, mini, fd) == 2)
 		{
+			if (cmd_parsing->hdc->command == NULL)
+			{
+				ft_remove("/tmp/heredoc.txt");
+				break ;
+			}
 			exec_multiple_cmd(&cmd_parsing, data);
 			break ;
 		}
