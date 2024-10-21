@@ -6,13 +6,13 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:00:25 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:18:50 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_path(char **envp)
+/* char	*get_path(char **envp)
 {
 	int		index;
 	char	*path;
@@ -28,14 +28,14 @@ char	*get_path(char **envp)
 	free(path);
 	return (trim_path);
 }
-
-void	pwd(t_env **data)
+ */
+void	pwd(t_env **data, t_cmd **parsing)
 {
 	char	*input;
 
-	input = find_in_env("PWD=", (*data)->var);
+/* 	input = find_in_env("PWD=", (*data)->var);
 	if (!input)
-		return ;
-	printf("%s\n", input);
-	free(input);
+		return ; */
+	printf("%s\n", (*parsing)->pwd);
+	//free(input);
 }

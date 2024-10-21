@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 15:38:07 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:38:54 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	replace_dollar(char **input, char *res, int i, int j)
 	*input = res;
 }
 
-void	new_cmd(t_cmd **current)
+void	new_cmd(t_cmd **current, t_env **data)
 {
 	int		i;
 
 	i = (*current)->index + 1;
-	(*current)->next = create_new_cmd();
+	(*current)->next = create_new_cmd(data);
 	(*current)->next->prev = *current;
 	*current = (*current)->next;
 	(*current)->index = i;
@@ -58,7 +58,7 @@ void	new_quote_cmd(t_lexer *tmp, char *res)
 		replace_dollar(&tmp->data, res, 0, 0);
 }
 
-static void	cmd_adding(t_lexer *tmp, t_cmd *current)
+static void	cmd_adding(t_lexer *tmp, t_cmd *current, t_env **data)
 {
 	char	*s_tmp;
 
@@ -76,7 +76,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 			add_to_cmd(s_tmp, current);
 		}
 		else if (tmp->type == E_PIPE)
-			new_cmd(&current);
+			new_cmd(&current, data);
 		if (tmp->type == E_REDIR_DEL)
 			add_heredoc(&tmp, current);
 		else if (is_redirection(tmp->type))
@@ -86,7 +86,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 	}
 }
 
-t_cmd	*parser(t_lexer **tokens)
+t_cmd	*parser(t_lexer **tokens, t_env **data)
 {
 	char	*res;
 	t_cmd	*head;
@@ -95,9 +95,11 @@ t_cmd	*parser(t_lexer **tokens)
 
 	res = NULL;
 	tmp = *tokens;
-	init_cmd(&head, &current);
+	init_cmd(&head, &current, data);
+	current->pwd = find_in_env("PWD=", (*data)->var);
+	current->old_pwd = find_in_env("OLDPWD=", (*data)->var);
 	initiate_hdc_struc(&head);
 	rep_d(tmp, res);
-	cmd_adding(tmp, current);
+	cmd_adding(tmp, current, data);
 	return (head);
 }

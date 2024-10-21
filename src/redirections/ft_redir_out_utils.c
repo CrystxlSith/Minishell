@@ -6,11 +6,22 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:15:48 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/21 10:24:10 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:34:22 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	exec_previous_cmd(t_cmd **parsing, t_env **data)
+{
+	t_cmd	*tmp;
+
+	tmp = *parsing;
+	while (tmp->str != NULL)
+		tmp = tmp->next;
+	printf("%s\n", tmp->str[0]);
+	exec_single_cmd(&tmp, data);
+}
 
 int	exec_redir_out(t_cmd **parsing, t_env **data)
 {
@@ -26,6 +37,12 @@ int	exec_redir_out(t_cmd **parsing, t_env **data)
 		return (perror("outfile "), -1);
 	if (open_dup_output(fd_redir) == -1)
 		return (perror("open_dup outfile "), -1);
+	if ((*parsing)->str == NULL)
+	{
+		(*parsing)->str = (char **)malloc(sizeof(char *) * 2);
+		(*parsing)->str[0] = ft_strdup("cat");
+		(*parsing)->str[1] = NULL;
+	}
 	if ((*parsing)->str != NULL)
 		exec_single_cmd(parsing, data);
 	exit(0);
@@ -33,7 +50,7 @@ int	exec_redir_out(t_cmd **parsing, t_env **data)
 
 int	create_file_out(char *file, t_cmd **parsing)
 {
-	int		fd_redir;
+	int	fd_redir;
 
 	if ((*parsing)->redir->type == E_REDIR_APP)
 		fd_redir = open(file, O_CREAT | O_RDWR | O_APPEND, 0777);
@@ -50,7 +67,6 @@ int	handle_redir_out(t_cmd *tmp, t_cmd **parsing, t_env **data)
 {
 	if (tmp->redir_nb == 1)
 	{
-		printf("%s\n", "redir out");
 		if (exec_redir_out(parsing, data) == -1)
 			return (perror("exec_redir_out "), -1);
 	}

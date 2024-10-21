@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/21 10:51:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:33:11 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,8 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	}
 	else if ((parsing)->prev == NULL)
 	{
-		if ((parsing)->next->str == NULL
-			&& ((parsing)->next->redir->type == E_REDIR_OUT
-			|| (parsing)->next->redir->type == E_REDIR_APP))
-		{
-			parsing = (parsing)->next;
-			if (exec_redirection(&parsing, data, 0) == -1)
-				return (perror("pipe first cmd"), -1);
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			if (open_dup_pipe_out(fd) == -1)
+		if (open_dup_pipe_out(fd) == -1)
 			return (perror("pipe first cmd"), -1);
-		}
 	}
 	else if ((parsing)->next != NULL)
 	{
@@ -45,6 +33,12 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	{
 		if (open_dup_pipe_in(old_fd) == -1)
 			return (perror("pipe final cmd"), -1);
+		if ((parsing)->str == NULL && ((parsing)->redir_nb > 0))
+		{
+			if (exec_redirection(&parsing, data, 0) == -1)
+				return (perror("pipe first cmd"), -1);
+			exit(EXIT_SUCCESS);
+		}
 	}
 	exec_cmd(&parsing, data);
 	return (0);

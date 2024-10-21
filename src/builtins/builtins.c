@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 14:41:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:56:52 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	builtins(t_cmd **parsing, t_env **data)
 	if (ft_strncmp((*parsing)->str[i], "echo", 5) == 0)
 		echo((*parsing)->str, data);
 	else if (ft_strncmp((*parsing)->str[i], "pwd", 4) == 0)
-		pwd(data);
+		pwd(data, parsing);
 	else if (ft_strncmp((*parsing)->str[i], "env", 4) == 0)
 		env(data);
 	else if (ft_strncmp((*parsing)->str[i], "export", 7) == 0)

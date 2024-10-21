@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 10:07:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:36:31 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ int	add_count_elem(char **data)
 	return (i);
 }
 
-void	init_cmd(t_cmd **head, t_cmd **current)
+void	init_cmd(t_cmd **head, t_cmd **current, t_env **data)
 {
 	*head = malloc(sizeof(t_cmd));
 	*current = *head;
 	(*head)->index = 0;
 	(*head)->elem_nb = 0;
 	(*head)->str = NULL;
+	(*head)->pwd = NULL;
+	(*head)->old_pwd = NULL;
 	(*head)->redir_nb = 0;
 	(*head)->here_doc = NULL;
 	(*head)->hdc_count = 0;
@@ -39,7 +41,7 @@ void	init_cmd(t_cmd **head, t_cmd **current)
 	(*head)->index = 1;
 }
 
-t_cmd	*create_new_cmd(void)
+t_cmd	*create_new_cmd(t_env **data)
 {
 	t_cmd	*new_cmd;
 
@@ -51,6 +53,8 @@ t_cmd	*create_new_cmd(void)
 	new_cmd->elem_nb = 0;
 	new_cmd->here_doc = NULL;
 	new_cmd->hdc_count = 0;
+	new_cmd->pwd = NULL;
+	new_cmd->old_pwd = NULL;
 	new_cmd->hdc = NULL;
 	new_cmd->redir = NULL;
 	new_cmd->next = NULL;
