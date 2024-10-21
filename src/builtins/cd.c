@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 16:46:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:35:45 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,8 @@ char	*cd(char *path, t_env **data)
 		chdir(path);
 		path = getcwd(NULL, 0);
 		update_env(new_path, path, data);
-		free(path);
-		free(new_path);
+		//free(path);
+		//free(new_path);
 		closedir(dir);
 		return (NULL);
 	}

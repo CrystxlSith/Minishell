@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 14:41:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:33:56 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ char	**ft_realloc_env(int new_size, t_env **data)
 // Dans le cas ou la var d'envp existe deja, cherche la var dans
 // le tableau d'environnement. Une fois trouve, la remplace par
 // la valeur donne en input
-void	export_existing(char *flag, t_env **data, char *cmd)
+int	export_existing(char *flag, t_env **data, char *cmd)
 {
 	int	i;
 
 	i = get_index(data, flag);
+	if (i == -1)
+		return (-1);
 	//free((*data)->var[i]);
 	(*data)->var[i] = cmd;
 	//free(cmd);
-	return ;
+	return (0);
 }
 
 // Duplique le tableau d'environement dans le tableau realloue, en ajoutant

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/21 14:06:11 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:20:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_env
 {
 	char	**var;
 	int		size;
+	char	*pwd;
+	char	*old_pwd;
 }			t_env;
 
 // Token structure
