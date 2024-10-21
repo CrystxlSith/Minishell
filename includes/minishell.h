@@ -6,7 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/18 11:24:12 by agiliber         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/21 13:17:20 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +50,6 @@ typedef struct s_minishell
 int		ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
 
 t_lexer	*tokenize(char *str);
-void	init_cmd(t_cmd **head, t_cmd **current);
 void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void	new_token(t_lexer **tokens, t_lexer *new_node);
 
@@ -62,7 +65,12 @@ void	print_heredoc(t_heredoc *hdc);
 int		launcher_exec(char *input, t_env **data, t_cmd **parsing, \
 	t_minishell *mini);
 int		start_error(char *input);
+<<<<<<< HEAD
 void	input_execution(t_env *data, t_cmd *cmd_parsing, t_minishell minishell);
+=======
+void	input_execution(t_env *data, t_cmd *cmd_parsing, \
+	t_minishell *minishell);
+>>>>>>> Minishell_AGT
 int		generate_minishell_prompt(t_env *data, t_lexer *tokens, \
 	t_cmd *cmd_parsing);
 
@@ -79,8 +87,11 @@ int		ft_remove(const char *pathname);
 int		open_heredoc_file(int flags);
 void	write_to_heredoc(int fd, char *line);
 void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini);
+<<<<<<< HEAD
 int		launcher_exec(char *input, t_env **data, t_cmd **parsing, \
 	t_minishell *minishell);
+=======
+>>>>>>> Minishell_AGT
 void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini);
 
 #endif

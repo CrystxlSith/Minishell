@@ -6,7 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/18 10:08:13 by agiliber         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/21 10:51:27 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +25,20 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 	}
 	else if ((parsing)->prev == NULL)
 	{
-		if (open_dup_pipe_out(fd) == -1)
+		if ((parsing)->next->str == NULL
+			&& ((parsing)->next->redir->type == E_REDIR_OUT
+			|| (parsing)->next->redir->type == E_REDIR_APP))
+		{
+			parsing = (parsing)->next;
+			if (exec_redirection(&parsing, data, 0) == -1)
+				return (perror("pipe first cmd"), -1);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			if (open_dup_pipe_out(fd) == -1)
 			return (perror("pipe first cmd"), -1);
+		}
 	}
 	else if ((parsing)->next != NULL)
 	{
@@ -56,6 +72,7 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	if (pid == -1)
 	{
 		perror("multi fork");
+		close_fd(current_fd);
 		return (-1);
 	}
 	if (pid == 0)

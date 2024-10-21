@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:33:56 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ char	**ft_realloc_env(int new_size, t_env **data)
 // Dans le cas ou la var d'envp existe deja, cherche la var dans
 // le tableau d'environnement. Une fois trouve, la remplace par
 // la valeur donne en input
-void	export_existing(char *flag, t_env **data, char *cmd)
+int	export_existing(char *flag, t_env **data, char *cmd)
 {
 	int	i;
 
 	i = get_index(data, flag);
-	free((*data)->var[i]);
-	(*data)->var[i] = ft_strdup(cmd);
-	free(cmd);
-	return ;
+	if (i == -1)
+		return (-1);
+	//free((*data)->var[i]);
+	(*data)->var[i] = cmd;
+	//free(cmd);
+	return (0);
 }
 
 // Duplique le tableau d'environement dans le tableau realloue, en ajoutant
@@ -63,14 +65,18 @@ void	duplicate_env(t_env **data, char **input, char *cmd)
 	int	i;
 
 	i = 0;
-	while (input[i] && i < (*data)->size)
+	while (input[i])
 		i++;
 	if (cmd != NULL)
 	{
-		(*data)->var[i] = ft_strdup(cmd);
-		(*data)->var[i + 1] = NULL;
+		(*data)->var[i] = cmd;
+		if (!(*data)->var[i])
+		{
+			free(cmd);
+			return ;
+		}
 		(*data)->size++;
-		free(cmd);
+		//free(cmd);
 	}
 }
 
@@ -90,7 +96,7 @@ void	export_new(t_env **data, char *cmd)
 		return ;
 	}
 	duplicate_env(data, new_tab, cmd);
-	free_all(new_tab);
+	free(new_tab);
 }
 
 // En fonction de si la variable existe deja dans le tableau d'environnement

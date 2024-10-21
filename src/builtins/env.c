@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:18:39 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	initiate_struc_envp(t_env **data, char **envp)
 	count_env(envp, data);
 	if ((*data)->size != 0)
 		get_env(envp, data);
+	(*data)->pwd = find_in_env("PWD=", envp);
+	(*data)->old_pwd = find_in_env("OLDPWD=", envp);
 }
 
 void	count_env(char **envp, t_env **data)
@@ -42,9 +44,9 @@ void	get_env(char **envp, t_env **data)
 	(*data)->var = (char **)malloc(sizeof(char *) * ((*data)->size + 1));
 	if (!(*data)->var)
 		return ;
-	while (envp[index] && index < (*data)->size)
+	while (envp[index])
 	{
-		(*data)->var[index] = ft_strdup(envp[index]);
+		(*data)->var[index] = envp[index];
 		index++;
 	}
 	(*data)->var[index] = NULL;
@@ -60,7 +62,7 @@ void	env(t_env **data)
 		perror("env");
 		return ;
 	}
-	while ((*data)->var[index] != NULL && index < (*data)->size)
+	while (index < (*data)->size)
 	{
 		printf("%s\n", (*data)->var[index]);
 		index++;

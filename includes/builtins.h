@@ -6,7 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/18 11:02:59 by agiliber         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/21 15:34:13 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +19,17 @@
 
 # include "minishell.h"
 # include "parsing.h"
+<<<<<<< HEAD
 
 # ifndef EXIT_ARGS_ERR
 #  define EXIT_ARGS_ERR "bash: exit: too many arguments\n"
 # endif
+=======
+>>>>>>> Minishell_AGT
 
-typedef struct s_env
-{
-	char	**var;
-	int		size;
-}			t_env;
+# ifndef EXIT_ARGS_ERR
+#  define EXIT_ARGS_ERR "bash: exit: too many arguments\n"
+# endif
 
 //BUILTINS ---> EXIT
 char	*launch_minishell(t_env *data, char *name);
@@ -52,7 +57,7 @@ void	free_rest_tab(char **s, int index);
 void	print_tab(t_env **data);
 void	update_env_tab_export(char *flag, char *cmd, t_env **data);
 char	**ft_realloc_env(int new_size, t_env **data);
-void	export_existing(char *flag, t_env **data, char *cmd);
+int	export_existing(char *flag, t_env **data, char *cmd);
 void	duplicate_env(t_env **data, char **input, char *cmd);
 void	export_new(t_env **data, char *cmd);
 

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:37:09 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 	char	*old_pwd;
 	char	*pwd;
 
+	(*data)->pwd = tmp_new;
+	(*data)->old_pwd = tmp_old;
 	old_pwd = ft_strdup("OLDPWD=");
 	pwd = ft_strdup("PWD=");
 	old_path = ft_strjoin(old_pwd, tmp_old);
@@ -43,10 +45,18 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 		perror("new_path");
 		return ;
 	}
-	export(old_path, data);
-	export(new_path, data);
-	free(old_path);
-	free(new_path);
+	if (export_existing("OLDPWD=", data, old_path) == -1)
+	{
+		free(old_path);
+		free(new_path);
+		return ;
+	}
+	if (export_existing("PWD=", data, new_path) == -1)
+	{
+		//free(old_path);
+		free(new_path);
+		return ;
+	}
 }
 
 // Navigation dans un dossier avec un path donne.

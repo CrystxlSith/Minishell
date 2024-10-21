@@ -6,7 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/18 11:23:42 by agiliber         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/21 10:49:13 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +46,7 @@ int	start_error(char *input)
 	return (0);
 }
 
+<<<<<<< HEAD
 void	input_execution(t_env *data, t_cmd *cmd_parsing, t_minishell minishell)
 {
 	if (cmd_parsing->str)
@@ -49,6 +54,15 @@ void	input_execution(t_env *data, t_cmd *cmd_parsing, t_minishell minishell)
 		if (cmd_parsing->hdc_count != 0)
 			handle_heredoc(&cmd_parsing, &data, &minishell);
 		else
+=======
+void	input_execution(t_env *data, t_cmd *cmd_parsing, t_minishell *minishell)
+{
+	if (cmd_parsing->hdc_count != 0)
+		handle_heredoc(&cmd_parsing, &data, minishell);
+	else
+	{
+		if (cmd_parsing->str)
+>>>>>>> Minishell_AGT
 			execute_fork(&cmd_parsing, &data);
 	}
 }
@@ -76,7 +90,11 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		}
 		if (!cmd_parsing)
 			continue ;
+<<<<<<< HEAD
 		input_execution(data, cmd_parsing, minishell);
+=======
+		input_execution(data, cmd_parsing, &minishell);
+>>>>>>> Minishell_AGT
 		if (minishell.line_read)
 			free(minishell.line_read);
 		free_all_line(tokens, cmd_parsing);

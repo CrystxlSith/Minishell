@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:54:37 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 09:57:52 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 10:41:22 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	fill_heredoc(t_lexer **token, t_cmd *current, t_heredoc *new_hdc)
 	i = 0;
 	if ((*token)->type == E_REDIR_DEL && (*token)->next)
 	{
-		while (current->str[i])
+		while (current->str != NULL && current->str[i])
 			i++;
 		while (current->next != NULL)
 			current = current->next;

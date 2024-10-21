@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 13:48:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:28:44 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ int	open_dup_input(int fd_in)
 
 void	close_fd(int *fd)
 {
-	close(fd[0]);
-	close(fd[1]);
+	if (fd[0] >= 0)
+		close(fd[0]);
+	if (fd[1] >= 0)
+		close(fd[1]);
 }
 
 int	find_index_file(t_cmd *parsing, int i)
@@ -56,6 +58,8 @@ int	find_index_file(t_cmd *parsing, int i)
 
 int	check_if_builtins(char *input)
 {
+	if (input == NULL)
+		return (FALSE);
 	if (ft_strncmp(input, "echo", 4) == 0
 		|| ft_strncmp(input, "pwd", 3) == 0
 		|| ft_strncmp(input, "env", 3) == 0
