@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 10:58:16 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:11:52 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 	int	len;
 
 	len = ft_strlen(cmd_parsing->hdc->break_word);
-	if (ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
+	if (mini->line_read == NULL || ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
 	{
 		if (cmd_parsing->hdc->next != NULL)
 		{
@@ -68,17 +68,14 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 	t_minishell *mini, int fd)
 {
+	static int i ;
+	
+	i = 0;
 	while (1)
 	{
 		init_signals(1);
 		mini->line_read = readline("> ");
-		if (launcher_exec(mini->line_read, data, &cmd_parsing, mini) == -1)
-			exit(EXIT_FAILURE);
-		if (mini->line_read[0] == '\0')
-		{
-			free(mini->line_read);
-			continue ;
-		}
+		i++;
 		if (check_break_word(cmd_parsing, mini, fd) == 1)
 			break ;
 		else if (check_break_word(cmd_parsing, mini, fd) == 2)
@@ -86,8 +83,16 @@ static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 			exec_multiple_cmd(&cmd_parsing, data);
 			break ;
 		}
-		write_to_heredoc(fd, mini->line_read);
+		if (mini->line_read[0] == '\0')
+		{
+			write_to_heredoc(fd, mini->line_read);
+			continue ;
+		}
+		if (mini->line_read)
+			write_to_heredoc(fd, mini->line_read);
 	}
+	if (!mini->line_read)
+		print_hdc_error(ft_itoa(i) , cmd_parsing->hdc->break_word);
 }
 
 void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini)

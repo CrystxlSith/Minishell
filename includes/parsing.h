@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/18 14:43:35 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:11:49 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		is_redirection(t_lexer_type type);
 void	handle_redirection(t_lexer **token, t_cmd *cmd);
 void	redir_handler(t_lexer **token, char **str);
 void	space_handler(t_lexer **tokens, char **str);
-
+void	init_replace_dollar(int *i, int *j, char **res);
 void	add_heredoc(t_lexer **token, t_cmd *current);
 t_cmd	*create_new_cmd(void);
 void	init_cmd(t_cmd **head, t_cmd **current);
@@ -113,10 +113,8 @@ char	*build_res(char *res, int i, int j, char **input);
 void	init_temp(char **tmp, char **tmp2);
 char	**add_data_to_tab(char *data);
 t_lexer	*remove_space_tokens(t_lexer *head);
-
 void	add_index_to_token(t_lexer *tokens);
 void	pipe_handler(t_lexer **tokens, char **str);
-
 void	fill_nbr_element(t_cmd **parsing);
 t_cmd	*create_new_cmd(void);
 t_lexer	*find_last(t_lexer *node);

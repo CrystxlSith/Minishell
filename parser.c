@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 15:13:35 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:06:55 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current, t_env **data)
 
 	while (tmp)
 	{
-		s_tmp = tmp->data;
+		s_tmp = ft_strdup(tmp->data);
 		if (is_cmd(tmp->type) || is_quote(tmp->type))
 		{
 			while (tmp->next && (is_quote(tmp->next->type) \
@@ -75,6 +75,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current, t_env **data)
 				tmp = tmp->next;
 			}
 			add_to_cmd(s_tmp, current);
+			free(s_tmp);
 		}
 		else if (tmp->type == E_PIPE)
 			new_cmd(&current);

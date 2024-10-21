@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:54:37 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 09:57:52 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 15:10:03 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,11 @@ void	add_heredoc(t_lexer **token, t_cmd *current)
 	if (!new_hdc)
 		exit(EXIT_FAILURE);
 	fill_heredoc(token, current, new_hdc);
+}
+
+void	init_replace_dollar(int *i, int *j, char **res)
+{
+	*i = 0;
+	*j = 0;
+	*res = ft_strdup("");
 }

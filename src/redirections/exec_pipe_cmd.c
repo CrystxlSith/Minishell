@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 10:08:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:14:00 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,27 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	return (pid);
 }
 
-int	wait_all_children(t_cmd *parsing, pid_t *pid)
+static void	wait_all_children(t_cmd *parsing, pid_t *pid)
 {
 	t_cmd	*tmp;
 	int		i;
-	int		status;
 	pid_t	ret_pid;
 
 	i = 0;
 	tmp = parsing;
 	while (tmp != NULL)
 	{
-		ret_pid = waitpid(pid[i], &status, 0);
+		ret_pid = waitpid(pid[i], &g_sig_status, 0);
 		if (ret_pid == -1)
 		{
 			perror("waitpid failed");
 			free(pid);
-			return (-1);
+			return ;
 		}
 		tmp = tmp->next;
 		i++;
 	}
 	free(pid);
-	return (status);
 }
 
 int	exec_multiple_cmd(t_cmd **parsing, t_env **data)

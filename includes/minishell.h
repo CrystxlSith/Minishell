@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 14:35:11 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:12:13 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ extern int	g_sig_status;
 typedef struct s_minishell
 {
 	char	*line_read;
+	int		i;
 }			t_minishell;
 
 //LEXER && PARSER
 int		ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
-
 t_lexer	*tokenize(char *str);
 void	init_cmd(t_cmd **head, t_cmd **current);
 void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
@@ -82,5 +82,6 @@ void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini);
 int		launcher_exec(char *input, t_env **data, t_cmd **parsing, \
 	t_minishell *minishell);
 void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini);
+void	print_hdc_error(char *token , char *token2);
 
 #endif

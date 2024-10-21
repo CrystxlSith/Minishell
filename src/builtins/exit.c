@@ -3,34 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 11:04:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:49:16 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	**ft_array_dup(char **str)
+char **ft_array_dup(char **array)
 {
-	int		i;
-	char	**res;
+	char **new_array;
+	int i;
 
-	i = 0;
-	res = NULL;
-	while (str[i])
-		i++;
-	res = malloc(sizeof(char *) * (i + 1));
-	if (!res)
+	if (!array)
 		return (NULL);
 	i = 0;
-	while (str[i])
+	while (array[i])
+		i++;
+	new_array = malloc((i + 1) * sizeof(char *));
+	if (!new_array)
+		return (NULL);
+	i = 0;
+	while (array[i])
 	{
-		res[i] = ft_strdup(str[i]);
+		new_array[i] = strdup(array[i]);
 		i++;
 	}
-	return (res);
+	new_array[i] = NULL;
+	return (new_array);
 }
 
 int	is_numeric(char *str)
@@ -51,13 +53,11 @@ void	exit_code(char **str)
 {
 	int		code;
 
-	if (!str[1])
+	if (!str || !str[1])
 		code = 0;
 	else
 		code = ft_atoi(str[1]);
-	free(str[0]);
-	free(str[1]);
-	free(str);
+	ft_free_array(str);
 	exit(code);
 }
 
