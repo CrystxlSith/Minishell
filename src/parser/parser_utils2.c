@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:38:32 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:46:41 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ void	fill_nbr_element(t_cmd **parsing)
 	}
 }
 
-void	handle_env_value(char **res, char *tmp, int *i)
+void	handle_env_value(char **res, char *tmp, int *i, t_env **data)
 {
 	char	*env_value;
 	char	*new_res;
 
-	env_value = getenv(tmp);
+	tmp = ft_strjoin(tmp, "=");
+	env_value = find_in_env(tmp, (*data)->var);
 	if (env_value)
 	{
 		new_res = ft_strjoin(*res, env_value);

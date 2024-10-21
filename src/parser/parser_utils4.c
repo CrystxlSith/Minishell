@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 10:07:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:43:05 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_cmd	*create_new_cmd(void)
 	return (new_cmd);
 }
 
-int	handle_question(char **res, char *tmp, int *i)
+int	handle_question(char **res, char *tmp, int *i, t_env **data)
 {
 	char	*tmp2;
 
@@ -71,6 +71,6 @@ int	handle_question(char **res, char *tmp, int *i)
 		return (1);
 	}
 	free(tmp2);
-	handle_env_value(res, tmp, i);
+	handle_env_value(res, tmp, i, data);
 	return (0);
 }

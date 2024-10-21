@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/10/11 16:46:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/21 14:49:17 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	signal_handler(int signum)
 {
-	printf("\n");
+	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -26,7 +26,7 @@ void	here_doc_signal_handler(int signum)
 {
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 	(void)signum;
 }
 
@@ -52,7 +52,9 @@ void	setup_child_signals(void)
 void	init_signals(int is_heredoc)
 {
 	if (is_heredoc == 1)
+	{
 		signal(SIGINT, here_doc_signal_handler);
+	}
 	else
 	{
 		signal(SIGINT, signal_handler);

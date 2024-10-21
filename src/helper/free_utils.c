@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
+<<<<<<< HEAD
 <<<<<<< HEAD
 /*   Updated: 2024/10/18 10:43:24 by agiliber         ###   ########.fr       */
 =======
 /*   Updated: 2024/10/18 15:41:57 by agiliber         ###   ########.fr       */
 >>>>>>> Minishell_AGT
+=======
+/*   Updated: 2024/10/18 17:11:34 by jopfeiff         ###   ########.fr       */
+>>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +25,16 @@ void	free_token(t_lexer *token)
 	if (token)
 	{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		free(token->data);
 =======
 		if (token->data)
 			free(token->data);
 >>>>>>> Minishell_AGT
+=======
+		if (token->data)
+			free(token->data);
+>>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
 		free(token);
 	}
 }

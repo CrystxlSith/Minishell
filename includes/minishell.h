@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
+<<<<<<< HEAD
 <<<<<<< HEAD
 /*   Updated: 2024/10/18 11:24:12 by agiliber         ###   ########.fr       */
 =======
 /*   Updated: 2024/10/21 13:17:20 by agiliber         ###   ########.fr       */
 >>>>>>> Minishell_AGT
+=======
+/*   Updated: 2024/10/21 15:12:13 by jopfeiff         ###   ########.fr       */
+>>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +48,11 @@ extern int	g_sig_status;
 typedef struct s_minishell
 {
 	char	*line_read;
+	int		i;
 }			t_minishell;
 
 //LEXER && PARSER
 int		ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
-
 t_lexer	*tokenize(char *str);
 void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void	new_token(t_lexer **tokens, t_lexer *new_node);
@@ -93,5 +97,6 @@ int		launcher_exec(char *input, t_env **data, t_cmd **parsing, \
 =======
 >>>>>>> Minishell_AGT
 void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini);
+void	print_hdc_error(char *token , char *token2);
 
 #endif

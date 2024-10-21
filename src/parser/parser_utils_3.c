@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:15:40 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/18 14:11:19 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	rep_d(t_lexer *tmp, char *res)
+void	rep_d(t_lexer *tmp, char *res, t_env **data)
 {
 	while (tmp)
 	{
 		if (is_cmd(tmp->type) || tmp->type == E_D_QUOTE)
-			replace_dollar(&tmp->data, res, 0, 0);
+			replace_dollar(&tmp->data, res, data);
 		tmp = tmp->next;
 	}
 }

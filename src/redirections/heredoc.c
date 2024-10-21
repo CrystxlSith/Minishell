@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
+<<<<<<< HEAD
 <<<<<<< HEAD
 /*   Updated: 2024/10/18 10:58:16 by agiliber         ###   ########.fr       */
 =======
 /*   Updated: 2024/10/21 10:47:25 by agiliber         ###   ########.fr       */
 >>>>>>> Minishell_AGT
+=======
+/*   Updated: 2024/10/21 15:11:52 by jopfeiff         ###   ########.fr       */
+>>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +55,7 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 	int	len;
 
 	len = ft_strlen(cmd_parsing->hdc->break_word);
-	if (ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
+	if (mini->line_read == NULL || ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
 	{
 		if (cmd_parsing->hdc->next != NULL)
 		{
@@ -72,11 +76,15 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 	t_minishell *mini, int fd)
 {
+	static int i ;
+	
+	i = 0;
 	while (1)
 	{
 		printf("%s\n", "heredoc launcher");
 		init_signals(1);
 		mini->line_read = readline("> ");
+<<<<<<< HEAD
 		if (mini->line_read == NULL)
 		{
 			perror("readline failed");
@@ -93,6 +101,9 @@ static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 			free(mini->line_read);
 			continue ;
 		}
+=======
+		i++;
+>>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
 		if (check_break_word(cmd_parsing, mini, fd) == 1)
 			break ;
 		else if (check_break_word(cmd_parsing, mini, fd) == 2)
@@ -105,9 +116,21 @@ static void	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 			exec_multiple_cmd(&cmd_parsing, data);
 			break ;
 		}
+<<<<<<< HEAD
 		write_to_heredoc(fd, mini->line_read);
 		free(mini->line_read);
+=======
+		if (mini->line_read[0] == '\0')
+		{
+			write_to_heredoc(fd, mini->line_read);
+			continue ;
+		}
+		if (mini->line_read)
+			write_to_heredoc(fd, mini->line_read);
+>>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
 	}
+	if (!mini->line_read)
+		print_hdc_error(ft_itoa(i) , cmd_parsing->hdc->break_word);
 }
 
 void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini)

@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
+<<<<<<< HEAD
 <<<<<<< HEAD
 /*   Updated: 2024/10/18 11:02:59 by agiliber         ###   ########.fr       */
 =======
 /*   Updated: 2024/10/21 15:34:13 by agiliber         ###   ########.fr       */
 >>>>>>> Minishell_AGT
+=======
+/*   Updated: 2024/10/18 15:13:56 by jopfeiff         ###   ########.fr       */
+>>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +82,9 @@ char	*format_dir_path(char *path);
 
 //BUILTINS ---> EXPORT
 void	unset(char *input, t_env **data);
-
+void	replace_dollar(char **input, char *res, t_env **data);
+void	rep_d(t_lexer *tmp, char *res, t_env **data);
+int		handle_question(char **res, char *tmp, int *i, t_env **data);
+t_cmd	*parser(t_lexer **tokens, t_env **data);
+void	handle_env_value(char **res, char *tmp, int *i, t_env **data);
 #endif
