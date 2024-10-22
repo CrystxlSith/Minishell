@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:46:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/14 15:51:43 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:13:13 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ void	write_to_heredoc(int fd, char *line)
 		ft_putstr_fd("\n", fd);
 	ft_putstr_fd(line, fd);
 	ft_putstr_fd("\n", fd);
+}
+
+int	handle_readline_error(int fd)
+{
+	perror("readline failed");
+	close(fd);
+	return (-1);
+}
+
+int	exit_failure(int fd)
+{
+	close(fd);
+	exit(EXIT_FAILURE);
+	return (-1);
 }

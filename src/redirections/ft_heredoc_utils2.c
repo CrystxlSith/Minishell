@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_heredoc_utils2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/21 14:18:41 by agiliber         ###   ########.fr       */
+/*   Created: 2024/10/22 11:13:54 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/22 11:17:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	g_sig_status;
-
-int	main(int ac, char **av, char **envp)
+int	handle_break_word(t_cmd *cmd_parsing, t_env **data, int fd)
 {
-	t_cmd		*cmd_parsing;
-	t_lexer		*tokens;
-	t_env		*data;
+	if (cmd_parsing->hdc->command == NULL)
+	{
+		ft_remove("/tmp/heredoc.txt");
+		return (1);
+	}
+	exec_multiple_cmd(&cmd_parsing, data);
+	return (1);
+}
 
-	data = NULL;
-	initiate_struc_envp(&data, envp);
-	tokens = NULL;
-	cmd_parsing = NULL;
-	(void)ac;
-	(void)av;
-	if (generate_minishell_prompt(data, tokens, cmd_parsing) == -1)
+int	ft_remove(const char *pathname)
+{
+	struct stat	path_stat;
+
+	if (lstat(pathname, &path_stat) == -1)
 		return (-1);
-	free_all(data->var);
-	free(data);
+	else
+	{
+		if (unlink(pathname) == -1)
+			return (-1);
+	}
 	return (0);
 }
