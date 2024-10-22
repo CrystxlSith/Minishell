@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:15:48 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/21 10:24:10 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:43:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,15 @@ int	exec_redir_out(t_cmd **parsing, t_env **data)
 		return (perror("outfile "), -1);
 	if (open_dup_output(fd_redir) == -1)
 		return (perror("open_dup outfile "), -1);
-	if ((*parsing)->str != NULL)
-		exec_single_cmd(parsing, data);
+	if ((*parsing)->str == NULL)
+	{
+		(*parsing)->str = (char **)malloc(sizeof(char *) * 2);
+		if (!(*parsing)->str)
+			return (0);
+		(*parsing)->str[0] = ft_strdup("cat");
+		(*parsing)->str[1] = NULL;
+	}
+	exec_single_cmd(parsing, data);
 	exit(0);
 }
 
