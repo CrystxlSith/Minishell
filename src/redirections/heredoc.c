@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/22 11:19:50 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:18:13 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
 			return (handle_readline_error(fd));
 		if (launcher_exec(mini->line_read, data, &cmd_parsing, mini) == -1)
 			return (free(mini->line_read), exit_failure(fd));
-
 		if (mini->line_read[0] == '\0' || mini->line_read == NULL)
 		{
 			free(mini->line_read);

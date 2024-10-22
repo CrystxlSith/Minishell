@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:15:48 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/22 10:43:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:33:07 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	handle_redir_out(t_cmd *tmp, t_cmd **parsing, t_env **data)
 {
 	if (tmp->redir_nb == 1)
 	{
-		printf("%s\n", "redir out");
 		if (exec_redir_out(parsing, data) == -1)
 			return (perror("exec_redir_out "), -1);
 	}

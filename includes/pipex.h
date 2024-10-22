@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 10:07:18 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:28:27 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ int		open_dup_pipe_middle(int *fd_in, int *fd_out);
 int		pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd);
 int		create_pipe_if_needed(t_cmd *tmp, int *current_fd);
 void	update_parent_descriptors(t_cmd *tmp, int *current_fd, int *old_fd);
+
+// ft_multipipe.c
+int		handle_heredoc_pipe(t_cmd *parsing, int *fd);
+int		handle_first_cmd_pipe(t_cmd *parsing, t_env **data, int *fd);
+int		handle_middle_cmd_pipe(int *old_fd, int *fd);
+int		handle_last_cmd_pipe(int *old_fd);
+int		is_redirected_cmd(t_cmd *parsing);
 
 // ft_pipe_dc
 int		open_dup_pipe_hdc(int *fd, int fd_hdc);

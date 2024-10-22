@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/22 10:43:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:30:59 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,13 @@
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
 	if (parsing->hdc_count != 0)
-	{
-		if (pipe_heredoc(parsing, fd) == -1)
-			return (perror("pipe heredoc"), -1);
-	}
+		handle_heredoc_pipe(parsing, fd);
 	else if ((parsing)->prev == NULL)
-	{
-		if ((parsing)->next->str == NULL
-			&& ((parsing)->next->redir->type == E_REDIR_OUT
-			|| (parsing)->next->redir->type == E_REDIR_APP))
-		{
-			parsing = (parsing)->next;
-			if (exec_redirection(&parsing, data, 0) == -1)
-				return (perror("pipe first cmd"), -1);
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			if (open_dup_pipe_out(fd) == -1)
-			return (perror("pipe first cmd"), -1);
-		}
-	}
+		handle_first_cmd_pipe(parsing, data, fd);
 	else if ((parsing)->next != NULL)
-	{
-		if (open_dup_pipe_middle(old_fd, fd) == -1)
-			return (perror("pipe middle cmd"), -1);
-	}
+		handle_middle_cmd_pipe(old_fd, fd);
 	else
-	{
-		if (open_dup_pipe_in(old_fd) == -1)
-			return (perror("pipe final cmd"), -1);
-	}
+		handle_last_cmd_pipe(old_fd);
 	exec_cmd(&parsing, data);
 	return (0);
 }
