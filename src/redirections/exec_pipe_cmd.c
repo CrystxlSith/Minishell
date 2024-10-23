@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 14:04:24 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:51:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	pid_t	*pid;
 	int		i;
 
-	i = 0;
+	i = -1;
 	tmp = *parsing;
 	old_fd[0] = -1;
 	old_fd[1] = -1;
@@ -107,12 +107,11 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 			return (free(pid), -1);
 		if (tmp->hdc_count != 0)
 			handle_heredoc(&tmp, data);
-		pid[i] = fork_and_execute(tmp, data, current_fd, old_fd);
+		pid[++i] = fork_and_execute(tmp, data, current_fd, old_fd);
 		if (pid[i] == -1)
 			return (free(pid), -1);
 		update_parent_descriptors(tmp, current_fd, old_fd);
 		tmp = tmp->next;
-		i++;
 	}
 	return (wait_all_children(*parsing, pid), 0);
 }
