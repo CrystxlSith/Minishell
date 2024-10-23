@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/22 11:30:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:04:24 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	{
 		if (create_pipe_if_needed(tmp, current_fd) == -1)
 			return (free(pid), -1);
+		if (tmp->hdc_count != 0)
+			handle_heredoc(&tmp, data);
 		pid[i] = fork_and_execute(tmp, data, current_fd, old_fd);
 		if (pid[i] == -1)
 			return (free(pid), -1);

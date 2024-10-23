@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/22 12:21:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:56:03 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ int	start_error(char *input)
 	return (0);
 }
 
-void	input_execution(t_env *data, t_cmd *cmd_parsing, t_minishell *minishell)
+void	input_execution(t_env *data, t_cmd *cmd_parsing)
 {
-	if (cmd_parsing->hdc_count != 0)
+/* 	if (cmd_parsing->hdc_count != 0)
 	{
-		handle_heredoc(&cmd_parsing, &data, minishell);
+		handle_heredoc(&cmd_parsing, &data);
 	}
 	else
-	{
+	{ */
 		if (cmd_parsing->str)
 			execute_fork(&cmd_parsing, &data);
-	}
+	//}
 }
 
 int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
@@ -78,7 +78,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		}
 		if (!cmd_parsing)
 			continue ;
-		input_execution(data, cmd_parsing, &minishell);
+		input_execution(data, cmd_parsing);
 		if (minishell.line_read)
 			free(minishell.line_read);
 		free_all_line(tokens, cmd_parsing);

@@ -6,22 +6,23 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:13:54 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/22 12:19:49 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:41:54 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	handle_break_word(t_cmd *cmd_parsing, t_env **data, int fd)
+int	handle_break_word(t_cmd *cmd_parsing, t_env **data)
 {
-	if (cmd_parsing->hdc->command == NULL
-		|| cmd_parsing->next->hdc != NULL)
+	if (cmd_parsing->hdc->command == NULL)
 	{
 		ft_remove("/tmp/heredoc.txt");
 		return (1);
 	}
 	else
+	{
 		exec_multiple_cmd(&cmd_parsing, data);
+	}
 	return (1);
 }
 

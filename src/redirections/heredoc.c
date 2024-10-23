@@ -6,13 +6,13 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/22 12:18:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:03:54 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini)
+int	handle_heredoc(t_cmd **cmd_parsing, t_env **data)
 {
 	int			count;
 	t_cmd		*tmp;
@@ -20,12 +20,13 @@ void	handle_heredoc(t_cmd **cmd_parsing, t_env **data, t_minishell *mini)
 	count = (*cmd_parsing)->hdc_count;
 	tmp = *cmd_parsing;
 	if (count == 0)
-		return ;
+		return (-1);
 	while (count > 0 && tmp != NULL)
 	{
-		heredoc(tmp, data, mini);
+		heredoc(tmp, data);
 		count--;
 	}
+	return (0);
 }
 
 static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
@@ -51,36 +52,38 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 	return (0);
 }
 
-static int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, \
-	t_minishell *mini, int fd)
+static int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, int fd)
 {
+	t_minishell	mini;
+
 	while (1)
 	{
 		init_signals(1);
-		mini->line_read = readline("> ");
-		if (mini->line_read == NULL)
+		mini.line_read = readline("> ");
+		if (mini.line_read == NULL)
 			return (handle_readline_error(fd));
-		if (launcher_exec(mini->line_read, data, &cmd_parsing, mini) == -1)
-			return (free(mini->line_read), exit_failure(fd));
-		if (mini->line_read[0] == '\0' || mini->line_read == NULL)
+		if (launcher_exec(mini.line_read, data, &cmd_parsing, &mini) == -1)
+			return (free(mini.line_read), exit_failure(fd));
+		if (mini.line_read[0] == '\0' || mini.line_read == NULL)
 		{
-			free(mini->line_read);
+			free(mini.line_read);
 			continue ;
 		}
-		if (check_break_word(cmd_parsing, mini, fd) == 1)
+		if (check_break_word(cmd_parsing, &mini, fd) == 1)
 			break ;
-		else if (check_break_word(cmd_parsing, mini, fd) == 2)
+		else if (check_break_word(cmd_parsing, &mini, fd) == 2)
 		{
-			if (handle_break_word(cmd_parsing, data, fd) == 1)
-				break ;
+			if (cmd_parsing->hdc->command == NULL)
+				return (ft_remove("/tmp/heredoc.txt"), 1);
+			break ;
 		}
-		write_to_heredoc(fd, mini->line_read);
-		free(mini->line_read);
+		write_to_heredoc(fd, mini.line_read);
+		free(mini.line_read);
 	}
 	return (0);
 }
 
-void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini)
+void	heredoc(t_cmd *cmd_parsing, t_env **data)
 {
 	int	fd;
 
@@ -90,6 +93,6 @@ void	heredoc(t_cmd *cmd_parsing, t_env **data, t_minishell *mini)
 		perror("Failed to open heredoc file");
 		return ;
 	}
-	handle_heredoc_input(cmd_parsing, data, mini, fd);
+	handle_heredoc_input(cmd_parsing, data, fd);
 	close(fd);
 }

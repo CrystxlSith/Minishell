@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 13:06:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:27:08 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ char	*cd(char *path, t_env **data)
 	DIR		*dir;
 	char	*new_path;
 
+	if (!path || (path[0] == '~' && path[1] == '\0'))
+		return (cd_home(path, data), NULL);
 	dir = opendir(path);
 	if (dir != NULL)
 	{
@@ -128,13 +130,13 @@ char	*cd(char *path, t_env **data)
 		closedir(dir);
 		return (NULL);
 	}
-	else if (path[0] == '~')
-		return (cd_home(path, data), NULL);
+	else if (path[0] == '~' && path[1] != '\0')
+	{
+		path = ft_strjoin(find_in_env("HOME=", (*data)->var), &path[1]);
+		return (cd(path, data), NULL);
+	}
 	else if (path[0] == '-')
 		return (cd_prev(path, data), NULL);
 	else
-	{
-		perror("cd");
-		return (NULL);
-	}
+		return (perror("cd"), NULL);
 }
