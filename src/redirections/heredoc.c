@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 14:03:54 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:08:07 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data, int fd)
 			break ;
 		else if (check_break_word(cmd_parsing, &mini, fd) == 2)
 		{
-			if (cmd_parsing->hdc->command == NULL)
-				return (ft_remove("/tmp/heredoc.txt"), 1);
+			if (cmd_parsing->prev == NULL && cmd_parsing->next == NULL)
+				handle_break_word(cmd_parsing, data);
 			break ;
 		}
 		write_to_heredoc(fd, mini.line_read);

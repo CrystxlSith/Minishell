@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:13:54 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 13:41:54 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:02:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ int	handle_break_word(t_cmd *cmd_parsing, t_env **data)
 		ft_remove("/tmp/heredoc.txt");
 		return (1);
 	}
-	else
-	{
-		exec_multiple_cmd(&cmd_parsing, data);
-	}
-	return (1);
+	return (0);
 }
 
 int	ft_remove(const char *pathname)
