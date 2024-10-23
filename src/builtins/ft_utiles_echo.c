@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 09:29:32 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:38:20 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	get_index(t_env **data, char *chr)
 	tmp = *data;
 	len = ft_strlen(chr);
 	i = 0;
-	while (tmp->var[i])
+	while (tmp->var[i] && i < (*data)->size)
 	{
 		if (ft_strncmp(tmp->var[i], chr, len) == 0)
 			return (i);
