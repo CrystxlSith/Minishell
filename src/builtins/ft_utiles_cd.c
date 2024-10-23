@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/21 15:37:09 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:03:51 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	file_compliant(char *dir_path)
 
 // Fonction permettant de mettre a jour les var d'environnement OLDPWD, PWD
 // suite a un changement de dossier
-void	update_env(char *tmp_old, char *tmp_new, t_env **data)
+int	update_env(char *tmp_old, char *tmp_new, t_env **data)
 {
 	char	*old_path;
 	char	*new_path;
@@ -35,28 +35,15 @@ void	update_env(char *tmp_old, char *tmp_new, t_env **data)
 	pwd = ft_strdup("PWD=");
 	old_path = ft_strjoin(old_pwd, tmp_old);
 	if (!old_path)
-	{
-		perror("old_path");
-		return ;
-	}
+		return (perror("old_path"), -1);
 	new_path = ft_strjoin(pwd, tmp_new);
 	if (!new_path)
-	{
-		perror("new_path");
-		return ;
-	}
+		return (perror("new_path"), -1);
 	if (export_existing("OLDPWD=", data, old_path) == -1)
-	{
-		free(old_path);
-		free(new_path);
-		return ;
-	}
+		return (free(old_path), free(new_path), -1);
 	if (export_existing("PWD=", data, new_path) == -1)
-	{
-		//free(old_path);
-		free(new_path);
-		return ;
-	}
+		return (free(new_path), -1);
+	return (0);
 }
 
 // Navigation dans un dossier avec un path donne.

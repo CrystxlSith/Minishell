@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/21 15:35:45 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:06:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	cd_home(char *path, t_env **data)
 	}
 	tmp_new = getcwd(NULL, 0);
 	update_env(tmp_old, tmp_new, data);
-	free(tmp_old);
-	free(tmp_new);
 }
 
 // fonction pour entrer dans le dossier suivant de son choix
@@ -84,8 +82,6 @@ void	cd_prev(char *path, t_env **data)
 			return ;
 	}
 	update_env(current_path, prev_path, data);
-	free(current_path);
-	free(prev_path);
 }
 
 void	cd_entry_compare(char *path, char *new_path, t_env **data, DIR *dir)
@@ -117,41 +113,6 @@ void	cd_entry_compare(char *path, char *new_path, t_env **data, DIR *dir)
 // fonction general qui ouvre le canal de navigation des dossiers
 // et gere la lecture du contenu des dossiers. Appelle ensuite "move_to_dir"
 // pour changer de dossier
-/* char	*cd(char *path, t_env **data)
-{
-	DIR		*dir;
-	DIR		*long_dir;
-	char	*new_path;
-
-	printf("Path cd : %s\n", path);
-	long_dir = opendir(path);
-	if (long_dir != NULL)
-	{
-		printf("%s\n", "in long dir");
-		new_path = find_in_env("PWD=", (*data)->var);
-		chdir(path);
-		path = getcwd(NULL, 0);
-		update_env(new_path, path, data);
-		free(path);
-		closedir(long_dir);
-	}
-	else
-	{
-		printf("%s\n", "in short dir");
-		printf("PWD %s\n", find_in_env("PWD=", (*data)->var));
-		dir = opendir(find_in_env("PWD=", (*data)->var));
-		if (dir == NULL)
-			return (perror("opendir"), NULL);
-		new_path = format_dir_path(path);
-		printf("new_path : %s\n", new_path);
-		cd_entry_compare(path, new_path, data, dir);
-		free(new_path);
-		printf("%s\n", "path free");
-		closedir(dir);
-	}
-	return (NULL);
-} */
-
 char	*cd(char *path, t_env **data)
 {
 	DIR		*dir;
@@ -164,11 +125,13 @@ char	*cd(char *path, t_env **data)
 		chdir(path);
 		path = getcwd(NULL, 0);
 		update_env(new_path, path, data);
-		//free(path);
-		//free(new_path);
 		closedir(dir);
 		return (NULL);
 	}
+	else if (path[0] == '~')
+		return (cd_home(path, data), NULL);
+	else if (path[0] == '-')
+		return (cd_prev(path, data), NULL);
 	else
 	{
 		perror("cd");
