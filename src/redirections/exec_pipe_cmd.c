@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 15:51:26 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:31:27 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	multiple_cmd_iteration(t_cmd *tmp, t_env **data, int *fd, int *old_fd)
 pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -49,6 +50,7 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 	}
 	if (pid == 0)
 	{
+		printf("tmp->hdc_count %d\n", tmp->hdc_count);
 		if (tmp->next != NULL)
 			close(current_fd[0]);
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
@@ -65,14 +67,13 @@ int	wait_all_children(t_cmd *parsing, pid_t *pid)
 {
 	t_cmd	*tmp;
 	int		i;
-	int		status;
 	pid_t	ret_pid;
 
 	i = 0;
 	tmp = parsing;
 	while (tmp != NULL)
 	{
-		ret_pid = waitpid(pid[i], &status, 0);
+		ret_pid = waitpid(pid[i], &g_sig_status, 0);
 		if (ret_pid == -1)
 		{
 			perror("waitpid failed");
@@ -83,7 +84,7 @@ int	wait_all_children(t_cmd *parsing, pid_t *pid)
 		i++;
 	}
 	free(pid);
-	return (status);
+	return (g_sig_status);
 }
 
 int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
@@ -101,17 +102,20 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	pid = ft_calloc(find_nbr_cmd(parsing), sizeof(pid_t));
 	if (!pid)
 		return (perror("ft_calloc pid failed"), -1);
-	while (tmp != NULL)
+	while ((tmp) != NULL)
 	{
-		if (create_pipe_if_needed(tmp, current_fd) == -1)
+		if (create_pipe_if_needed((tmp), current_fd) == -1)
 			return (free(pid), -1);
-		if (tmp->hdc_count != 0)
-			handle_heredoc(&tmp, data);
-		pid[++i] = fork_and_execute(tmp, data, current_fd, old_fd);
+		pid[++i] = fork_and_execute((tmp), data, current_fd, old_fd);
 		if (pid[i] == -1)
 			return (free(pid), -1);
-		update_parent_descriptors(tmp, current_fd, old_fd);
-		tmp = tmp->next;
+		if (tmp->hdc_count != 0)
+		{
+			handle_heredoc(&tmp, data);
+			waitpid(pid[i], &g_sig_status, 0);
+		}
+		update_parent_descriptors((tmp), current_fd, old_fd);
+		(tmp) = (tmp)->next;
 	}
 	return (wait_all_children(*parsing, pid), 0);
 }

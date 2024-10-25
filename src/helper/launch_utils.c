@@ -6,17 +6,17 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 15:13:04 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:11:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	launcher_exec(char *input, t_env **data, t_cmd **parsing, t_minishell *mini)
+int	launcher_exec(char *input, t_env **data)
 {
 	if (input == NULL)
 	{
-		free_minishell(data, parsing, mini);
+		free_minishell(data);
 		clear_history();
 		return (-1);
 	}
@@ -37,15 +37,34 @@ int	start_error(char *input)
 		free(input);
 		return (1);
 	}
-	if (access("/tmp/heredoc.txt", R_OK) != -1)
-		ft_remove("/tmp/heredoc.txt");
 	return (0);
+}
+
+void	remove_hdc_file(t_cmd *cmd_parsing)
+{
+	t_cmd	*tmp;
+
+	tmp = cmd_parsing;
+	while (tmp)
+	{
+		if (tmp->hdc->hdc_fd != 0)
+			ft_remove(tmp->hdc->file_name);
+		tmp = tmp->next;
+	}
 }
 
 void	input_execution(t_env *data, t_cmd *cmd_parsing)
 {
-	if (cmd_parsing->hdc_count != 0 && !cmd_parsing->str)
-		handle_heredoc(&cmd_parsing, &data);
+	if (detect_hdc(&cmd_parsing) != 0)
+	{
+		if (cmd_parsing->hdc_count != 0)
+		{
+			handle_heredoc(&cmd_parsing, &data);
+			remove_hdc_file(cmd_parsing);
+		}
+		else
+			execute_fork(&cmd_parsing, &data);
+	}
 	else
 	{
 		if (cmd_parsing->str)
@@ -64,8 +83,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		add_history(minishell.line_read);
 		if (start_error(minishell.line_read))
 			continue ;
-		if (launcher_exec(minishell.line_read, &data, \
-			&cmd_parsing, &minishell) == -1)
+		if (launcher_exec(minishell.line_read, &data) == -1)
 			return (exit(EXIT_FAILURE), -1);
 		tokens = tokenize(minishell.line_read);
 		cmd_parsing = parser(&tokens);

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:27:56 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/17 11:29:14 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:37:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	pipe_heredoc(t_cmd *parsing, int *fd)
 {
 	int	fd_out;
 
-	fd_out = open("/tmp/heredoc.txt", O_RDONLY);
+	fd_out = open(parsing->hdc->file_name, O_RDONLY);
 	if (parsing->next == NULL)
 	{
 		if (open_dup_input(fd_out) == -1)

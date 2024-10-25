@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 13:51:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:42:49 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 
 int	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 {
-	if ((*parsing)->next == NULL && (*parsing)->hdc_count == 0)
+	if ((*parsing)->next == NULL)
 	{
 		if (exec_cmd(parsing, data) == -1)
 			return (perror("exec_cmd"), -1);

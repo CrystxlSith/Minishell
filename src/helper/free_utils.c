@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 15:41:57 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:44:03 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ void	free_parsed_cmd(t_cmd *head)
 			free_tokens(current->redir);
 		if (current->here_doc)
 			free(current->here_doc);
-		free_hdc(current->hdc);
+		//free_hdc(current->hdc);
 		free(current->hdc);
 		free(current);
 		current = next;
 	}
 }
 
-void	free_minishell(t_env **data, t_cmd **parsing, t_minishell *minishell)
+void	free_minishell(t_env **data)
 {
 	if ((*data)->var != NULL)
 		free_all((*data)->var);

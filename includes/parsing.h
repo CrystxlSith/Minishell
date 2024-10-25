@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-/*   Updated: 2024/10/21 14:20:04 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:44:57 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct s_lexer
 typedef struct s_heredoc
 {
 	int					hdc_fd;
+	char				*file_name;
+	int					trigger;
 	int					hdc_count;
 	t_lexer				*redir;
 	char				*break_word;
