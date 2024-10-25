@@ -5,8 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2024/10/25 12:41:13 by agiliber          #+#    #+#             */
 /*   Updated: 2024/10/25 12:48:29 by agiliber         ###   ########.fr       */
+=======
+/*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/25 14:53:33 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +74,7 @@ void	free_token(t_lexer *token);
 void	free_tokens(t_lexer *tokens);
 void	free_parsed_cmd(t_cmd *head);
 void	free_minishell(t_env **data);
-void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing);
+void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing, t_env *data);
 
 //Heredocs
 int		initiate_hdc_struc(t_cmd **parsing);

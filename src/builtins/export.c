@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:27:49 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/24 10:11:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:24:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static int	check_input_export(char *input, t_env **data)
 		return (-1);
 	while (input[i] && input[i] != '=')
 		i++;
+	if (input[i] == '\0')
+		return (-1);
 	return (i);
 }
 

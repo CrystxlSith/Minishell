@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 12:43:48 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 12:44:01 by agiliber         ###   ########.fr       */
+/*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/25 16:17:59 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	remove_hdc_file();
 	if (generate_minishell_prompt(data, tokens, cmd_parsing) == -1)
-		return (-1);
+		return (free_all(data->var), free(data), -1);
 	free_all(data->var);
 	free(data);
 	return (0);

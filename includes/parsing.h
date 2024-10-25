@@ -5,8 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2024/10/25 12:32:22 by agiliber          #+#    #+#             */
 /*   Updated: 2024/10/25 12:48:37 by agiliber         ###   ########.fr       */
+=======
+/*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
+/*   Updated: 2024/10/25 14:51:04 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +135,5 @@ void	fill_nbr_element(t_cmd **parsing);
 t_cmd	*create_new_cmd(void);
 t_lexer	*find_last(t_lexer *node);
 void	fill_nbr_element(t_cmd **parsing);
-void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing);
 
 #endif

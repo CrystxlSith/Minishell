@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2024/10/18 10:43:24 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/18 15:41:57 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
-=======
-/*   Updated: 2024/10/18 17:11:34 by jopfeiff         ###   ########.fr       */
->>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
-=======
-/*   Updated: 2024/10/24 11:44:03 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Created: 2024/10/25 16:16:55 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/25 16:16:56 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +16,10 @@ void	free_token(t_lexer *token)
 {
 	if (token)
 	{
-<<<<<<< HEAD
-<<<<<<< HEAD
-		free(token->data);
-=======
 		if (token->data)
 			free(token->data);
->>>>>>> Minishell_AGT
-=======
 		if (token->data)
 			free(token->data);
->>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
 		free(token);
 	}
 }
@@ -59,8 +40,6 @@ void	free_tokens(t_lexer *tokens)
 	}
 }
 
-<<<<<<< HEAD
-=======
 void	free_hdc(t_heredoc *head)
 {
 	t_heredoc	*current;
@@ -80,7 +59,6 @@ void	free_hdc(t_heredoc *head)
 	}
 }
 
->>>>>>> Minishell_AGT
 void	free_parsed_cmd(t_cmd *head)
 {
 	t_cmd	*current;
@@ -89,10 +67,6 @@ void	free_parsed_cmd(t_cmd *head)
 	if (!head)
 		return ;
 	current = head;
-<<<<<<< HEAD
-=======
-
->>>>>>> Minishell_AGT
 	while (current)
 	{
 		next = current->next;
@@ -102,40 +76,26 @@ void	free_parsed_cmd(t_cmd *head)
 			free_tokens(current->redir);
 		if (current->here_doc)
 			free(current->here_doc);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 		free_hdc(current->hdc);
->>>>>>> Minishell_AGT
-=======
-		//free_hdc(current->hdc);
->>>>>>> Minishell_AGT
-		free(current->hdc);
-		free(current);
 		current = next;
 	}
 }
 
 void	free_minishell(t_env **data)
 {
-<<<<<<< HEAD
-	if (minishell->line_read != NULL)
-		free(minishell->line_read);
-=======
->>>>>>> Minishell_AGT
 	if ((*data)->var != NULL)
 		free_all((*data)->var);
+	if ((*data)->pwd != NULL)
+		free((*data)->pwd);
+	if ((*data)->old_pwd != NULL)
+		free((*data)->old_pwd);
 }
 
-void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing)
+void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing, t_env *data)
 {
-<<<<<<< HEAD
-	free_tokens(tokens);
-	free_parsed_cmd(cmd_parsing);
-=======
+	(void)data;
 	if (tokens)
 		free_tokens(tokens);
 	if (cmd_parsing)
 		free_parsed_cmd(cmd_parsing);
->>>>>>> Minishell_AGT
 }
