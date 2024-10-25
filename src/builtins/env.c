@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 12:59:12 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:44:51 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 void	initiate_struc_envp(t_env **data, char **envp)
 {
+	char	*pwd;
+	char	*oldpwd;
+
 	*data = malloc(sizeof(t_env));
 	if (!data)
 		return ;
 	count_env(envp, data);
 	if ((*data)->size != 0)
 		get_env(envp, data);
-	(*data)->pwd = find_in_env("PWD=", envp);
-	(*data)->old_pwd = find_in_env("OLDPWD=", envp);
+	pwd = find_in_env("PWD=", envp);
+	oldpwd = find_in_env("OLDPWD=", envp);
+	(*data)->pwd = ft_strdup(pwd);
+	(*data)->old_pwd = ft_strdup(oldpwd);
+	free(pwd);
+	free(oldpwd);
 }
 
 void	count_env(char **envp, t_env **data)

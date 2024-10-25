@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 15:26:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:05:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	**ft_realloc_env(int new_size, t_env **data)
 		i++;
 	}
 	new_tab[old_size] = NULL;
+	(*data)->var = new_tab;
 	return (new_tab);
 }
 
@@ -52,20 +53,19 @@ int	export_existing(char *flag, t_env **data, char *cmd)
 	i = get_index(data, flag);
 	if (i == -1)
 		return (-1);
-	//free((*data)->var[i]);
-	(*data)->var[i] = cmd;
-	//free(cmd);
+	(*data)->var[i] = ft_strdup(cmd);
+	free(cmd);
 	return (0);
 }
 
 // Duplique le tableau d'environement dans le tableau realloue, en ajoutant
 // a la fin la nouvelle variable. Met a jour la variable "size" de la structure.
-void	duplicate_env(t_env **data, char **input, char *cmd)
+void	duplicate_env(t_env **data, char *cmd)
 {
 	int	i;
 
 	i = 0;
-	while (input[i])
+	while (i < (*data)->size)
 		i++;
 	if (cmd != NULL)
 	{
@@ -76,7 +76,6 @@ void	duplicate_env(t_env **data, char **input, char *cmd)
 			return ;
 		}
 		(*data)->size++;
-		//free(cmd);
 	}
 }
 
@@ -85,18 +84,16 @@ void	duplicate_env(t_env **data, char **input, char *cmd)
 // la nouvelle variable a ajouter.
 void	export_new(t_env **data, char *cmd)
 {
-	char	**new_tab;
 	int		size;
 
 	size = (*data)->size;
-	new_tab = ft_realloc_env(size + 2, data);
-	if (!new_tab)
+	(*data)->var = ft_realloc_env(size + 2, data);
+	if (!(*data)->var)
 	{
 		free(cmd);
 		return ;
 	}
-	duplicate_env(data, new_tab, cmd);
-	free(new_tab);
+	duplicate_env(data, cmd);
 }
 
 // En fonction de si la variable existe deja dans le tableau d'environnement

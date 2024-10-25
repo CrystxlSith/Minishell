@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 13:03:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 16:09:40 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	update_env(char *tmp_old, char *tmp_new, t_env **data)
 	char	*old_pwd;
 	char	*pwd;
 
-	(*data)->pwd = tmp_new;
-	(*data)->old_pwd = tmp_old;
+	(*data)->pwd = ft_strdup(tmp_new);
+	(*data)->old_pwd = ft_strdup(tmp_old);
 	old_pwd = ft_strdup("OLDPWD=");
 	pwd = ft_strdup("PWD=");
 	old_path = ft_strjoin(old_pwd, tmp_old);
 	if (!old_path)
-		return (perror("old_path"), -1);
+		return (free(pwd), perror("old_path"), -1);
 	new_path = ft_strjoin(pwd, tmp_new);
 	if (!new_path)
 		return (perror("new_path"), -1);
@@ -79,16 +79,4 @@ char	*format_dir_path(char *path)
 	else
 		return (path);
 	return (new_path);
-}
-
-// Defini quelle fonction de deplacement de dossier faire
-void	move_to_dir(char *path, t_env **data)
-{
-	if (path == NULL || ft_strcmp(path, "") == 0)
-		cd_home(path, data);
-	else if (ft_strncmp(path, "../", 3) == 0
-		|| ft_strncmp(path, "..", 3) == 0)
-		cd_prev(path, data);
-	else if (path != NULL || ft_strncmp(path, "./", 2) == 0)
-		cd_next(path, data);
 }

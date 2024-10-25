@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 11:36:20 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:55:22 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	remove_hdc_file()
 		file_name = ft_strjoin(file_name, ft_itoa(i));
 		file_name = ft_strjoin(file_name, ".txt");
 	}
+	free(file_name);
 }
 
 void	input_execution(t_env *data, t_cmd *cmd_parsing)
@@ -105,7 +106,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		input_execution(data, cmd_parsing);
 		if (minishell.line_read)
 			free(minishell.line_read);
-		free_all_line(tokens, cmd_parsing);
+		free_all_line(tokens, cmd_parsing, data);
 		rl_on_new_line();
 	}
 	clear_history();

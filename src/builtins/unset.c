@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 15:27:47 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 15:55:08 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ char	**ft_realloc_env_unset(int new_size, t_env **data, int index)
 	if (old_size > new_size)
 		old_size = new_size;
 	new_tab = realloc_utils(old_size, new_tab, data, index);
-	(*data)->size--;
+	free_rest_tab((*data)->var, (*data)->size);
+	(*data)->var = new_tab;
 	return (new_tab);
 }
 
 void	unset(char *input, t_env **data)
 {
-	char	**new_env;
 	int		i;
 	char	*str;
 	int		size;
@@ -66,16 +66,14 @@ void	unset(char *input, t_env **data)
 	str = find_in_env(input, (*data)->var);
 	if (str == NULL || ft_strchr(input, '=') != NULL)
 	{
-		perror("unset");
 		free(str);
 		return ;
 	}
 	else
 	{
 		i = get_index(data, input);
-		size = (*data)->size - 1;
-		new_env = ft_realloc_env_unset(size, data, i);
-		(*data)->var = new_env;
+		(*data)->size--;
+		(*data)->var = ft_realloc_env_unset((*data)->size, data, i);
 		free(str);
 	}
 }
