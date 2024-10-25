@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2024/10/18 10:07:33 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/21 14:06:17 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
-=======
-/*   Updated: 2024/10/18 15:13:35 by jopfeiff         ###   ########.fr       */
->>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
-=======
-/*   Updated: 2024/10/25 11:11:33 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Created: 2024/10/25 12:44:57 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/25 12:45:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

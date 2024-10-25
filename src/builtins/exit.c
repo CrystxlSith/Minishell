@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 16:49:16 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:46:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char **ft_array_dup(char **array)
+char	**ft_array_dup(char **array)
 {
-	char **new_array;
-	int i;
+	char	**new_array;
+	int		i;
 
 	if (!array)
 		return (NULL);

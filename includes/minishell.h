@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:41:13 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 12:43:36 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:48:29 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		initiate_hdc_struc(t_cmd **parsing);
 int		ft_remove(const char *pathname);
 int		open_heredoc_file(int flags);
 void	write_to_heredoc(int fd, char *line);
-void	print_hdc_error(char *token , char *token2);
+void	print_hdc_error(char *token, char *token2);
 int		handle_heredoc(t_cmd **cmd_parsing, t_env **data);
 int		handle_readline_error(int fd);
 int		exit_failure(int fd);
