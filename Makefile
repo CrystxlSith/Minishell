@@ -6,7 +6,7 @@
 #    By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/18 10:42:51 by agiliber         ###   ########.fr        #
+#    Updated: 2024/10/22 11:26:20 by agiliber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,8 @@ PARSER = parser_utils.c parser.c parser_utils2.c parser_utils_3.c print_error.c 
 
 REDIREC = exec_cmd_minishell.c get_path_cmd.c ft_redir_utils.c exec_pipe_cmd.c \
 	ft_multi_piping_utils.c heredoc.c ft_exec_utils.c ft_redir_in_utils.c \
-	ft_redir_out_utils.c ft_heredoc_utils.c ft_pipe_hdc.c
+	ft_redir_out_utils.c ft_heredoc_utils.c ft_pipe_hdc.c ft_heredoc_utils2.c \
+	ft_multi_pipe.c
 
 SIGNALS =
 

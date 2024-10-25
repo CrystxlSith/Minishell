@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/21 15:33:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:26:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	duplicate_env(t_env **data, char **input, char *cmd)
 		i++;
 	if (cmd != NULL)
 	{
-		(*data)->var[i] = cmd;
+		(*data)->var[i] = ft_strdup(cmd);
 		if (!(*data)->var[i])
 		{
 			free(cmd);

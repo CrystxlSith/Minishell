@@ -8,6 +8,7 @@
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2024/10/18 10:07:33 by agiliber         ###   ########.fr       */
 =======
 /*   Updated: 2024/10/21 14:06:17 by agiliber         ###   ########.fr       */
@@ -15,6 +16,9 @@
 =======
 /*   Updated: 2024/10/18 15:13:35 by jopfeiff         ###   ########.fr       */
 >>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
+=======
+/*   Updated: 2024/10/25 11:11:33 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +69,7 @@ void	new_cmd(t_cmd **current)
 	(*current)->next->prev = *current;
 	*current = (*current)->next;
 	(*current)->index = i;
+	initiate_hdc_struc(current);
 }
 
 static void	cmd_adding(t_lexer *tmp, t_cmd *current, t_env **data)

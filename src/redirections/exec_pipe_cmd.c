@@ -3,18 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2024/10/18 10:08:13 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/21 10:51:27 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
-=======
-/*   Updated: 2024/10/21 13:14:00 by jopfeiff         ###   ########.fr       */
->>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
+/*   Created: 2024/10/25 12:32:44 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/25 12:33:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +15,13 @@
 int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 {
 	if (parsing->hdc_count != 0)
-	{
-		if (pipe_heredoc(parsing, fd) == -1)
-			return (perror("pipe heredoc"), -1);
-	}
+		handle_heredoc_pipe(parsing, fd);
 	else if ((parsing)->prev == NULL)
-	{
-		if ((parsing)->next->str == NULL
-			&& ((parsing)->next->redir->type == E_REDIR_OUT
-			|| (parsing)->next->redir->type == E_REDIR_APP))
-		{
-			parsing = (parsing)->next;
-			if (exec_redirection(&parsing, data, 0) == -1)
-				return (perror("pipe first cmd"), -1);
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			if (open_dup_pipe_out(fd) == -1)
-			return (perror("pipe first cmd"), -1);
-		}
-	}
+		handle_first_cmd_pipe(parsing, data, fd);
 	else if ((parsing)->next != NULL)
-	{
-		if (open_dup_pipe_middle(old_fd, fd) == -1)
-			return (perror("pipe middle cmd"), -1);
-	}
+		handle_middle_cmd_pipe(old_fd, fd);
 	else
-	{
-		if (open_dup_pipe_in(old_fd) == -1)
-			return (perror("pipe final cmd"), -1);
-	}
+		handle_last_cmd_pipe(old_fd);
 	exec_cmd(&parsing, data);
 	return (0);
 }
@@ -74,15 +42,17 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 
 	pid = fork();
 	if (pid == -1)
-	{
-		perror("multi fork");
-		close_fd(current_fd);
-		return (-1);
-	}
+		return (perror("multi fork"), close_fd(current_fd), -1);
 	if (pid == 0)
 	{
 		if (tmp->next != NULL)
 			close(current_fd[0]);
+		if (tmp->hdc_count != 0 && tmp->hdc->trigger != 2)
+		{
+			tmp->hdc->trigger = 1;
+			create_hdc_file(tmp);
+			handle_heredoc_input(tmp, data);
+		}
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
 			perror("multiple_cmd_iteration");
@@ -114,6 +84,7 @@ static void	wait_all_children(t_cmd *parsing, pid_t *pid)
 		i++;
 	}
 	free(pid);
+	return (g_sig_status);
 }
 
 int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
@@ -124,23 +95,23 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	pid_t	*pid;
 	int		i;
 
-	i = 0;
+	i = -1;
 	tmp = *parsing;
 	old_fd[0] = -1;
 	old_fd[1] = -1;
 	pid = ft_calloc(find_nbr_cmd(parsing), sizeof(pid_t));
 	if (!pid)
 		return (perror("ft_calloc pid failed"), -1);
-	while (tmp != NULL)
+	while ((tmp) != NULL)
 	{
-		if (create_pipe_if_needed(tmp, current_fd) == -1)
+		if (create_pipe_if_needed((tmp), current_fd) == -1)
 			return (free(pid), -1);
-		pid[i] = fork_and_execute(tmp, data, current_fd, old_fd);
+		pid[++i] = fork_and_execute((tmp), data, current_fd, old_fd);
 		if (pid[i] == -1)
 			return (free(pid), -1);
-		update_parent_descriptors(tmp, current_fd, old_fd);
-		tmp = tmp->next;
-		i++;
+		update_parent_descriptors((tmp), current_fd, old_fd);
+		(tmp) = (tmp)->next;
 	}
-	return (wait_all_children(*parsing, pid), 0);
+	wait_all_children(*parsing, pid);
+	return (0);
 }

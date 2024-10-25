@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/21 15:22:10 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:27:47 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**realloc_utils(int old_size, char **new_tab, t_env **data, int index)
 	j = 0;
 	while (i <= old_size && j < (*data)->size)
 	{
-		if (i == index)
+		if (i == index && i + 1 <= old_size)
 			i++;
 		size = ft_strlen((*data)->var[i]);
 		new_tab[j] = (char *)malloc(size + 1);

@@ -8,6 +8,7 @@
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2024/10/18 10:43:24 by agiliber         ###   ########.fr       */
 =======
 /*   Updated: 2024/10/18 15:41:57 by agiliber         ###   ########.fr       */
@@ -15,6 +16,9 @@
 =======
 /*   Updated: 2024/10/18 17:11:34 by jopfeiff         ###   ########.fr       */
 >>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
+=======
+/*   Updated: 2024/10/24 11:44:03 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +103,12 @@ void	free_parsed_cmd(t_cmd *head)
 		if (current->here_doc)
 			free(current->here_doc);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		free_hdc(current->hdc);
+>>>>>>> Minishell_AGT
+=======
+		//free_hdc(current->hdc);
 >>>>>>> Minishell_AGT
 		free(current->hdc);
 		free(current);
@@ -108,7 +116,7 @@ void	free_parsed_cmd(t_cmd *head)
 	}
 }
 
-void	free_minishell(t_env **data, t_cmd **parsing, t_minishell *minishell)
+void	free_minishell(t_env **data)
 {
 <<<<<<< HEAD
 	if (minishell->line_read != NULL)

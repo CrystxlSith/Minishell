@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:27:56 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/17 11:29:14 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:42:58 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,34 @@ int	open_dup_pipe_hdc(int *fd, int fd_hdc)
 	return (0);
 }
 
+void	create_hdc_file(t_cmd *parsing)
+{
+	char	*file_name;
+	int		fd_out;
+
+	file_name = ft_strdup("/tmp/heredoc");
+	file_name = ft_strjoin(file_name, ft_itoa(1));
+	file_name = ft_strjoin(file_name, ".txt");
+	parsing->hdc->file_name = ft_strdup(file_name);
+	fd_out = open(parsing->hdc->file_name, O_CREAT | O_RDWR | O_APPEND, 0777);
+	if (fd_out == -1)
+	{
+		perror("create heredoc open failed");
+		return ;
+	}
+	parsing->hdc->hdc_fd = fd_out;
+	close(fd_out);
+	free(file_name);
+}
+
 int	pipe_heredoc(t_cmd *parsing, int *fd)
 {
-	int	fd_out;
+	int		fd_out;
 
-	fd_out = open("/tmp/heredoc.txt", O_RDONLY);
+	printf("parsing->hdc->file_name %s\n", parsing->hdc->file_name);
+	fd_out = open(parsing->hdc->file_name, O_RDONLY);
+	if (fd_out == -1)
+		return (perror("heredoc open failed"), -1);
 	if (parsing->next == NULL)
 	{
 		if (open_dup_input(fd_out) == -1)

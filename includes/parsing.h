@@ -3,18 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 10:51:59 by kali              #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2024/10/18 11:02:34 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/21 14:20:04 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
-=======
-/*   Updated: 2024/10/18 15:11:49 by jopfeiff         ###   ########.fr       */
->>>>>>> 0f2fb0de3936a87fb5364b63e3d089244d360d71
+/*   Created: 2024/10/25 12:32:22 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/25 12:32:25 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +70,8 @@ typedef struct s_lexer
 typedef struct s_heredoc
 {
 	int					hdc_fd;
+	char				*file_name;
+	int					trigger;
 	int					hdc_count;
 	t_lexer				*redir;
 	char				*break_word;
