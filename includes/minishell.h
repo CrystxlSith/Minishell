@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/24 14:00:30 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:24:02 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,8 @@ int		exit_failure(int fd);
 int		handle_break_word(t_cmd *cmd_parsing, t_env **data);
 int		handle_heredoc_input(t_cmd *cmd_parsing, t_env **data);
 int		detect_hdc(t_cmd **cmd_parsing);
+int		generate_hdc_files(t_cmd **cmd_parsing, int count);
+void	remove_hdc_file();
+void	create_hdc_file(t_cmd *parsing);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:46:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/22 11:13:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 11:09:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	initiate_hdc_struc(t_cmd **parsing)
 	if (!(*parsing)->hdc)
 		return (-1);
 	(*parsing)->hdc->break_word = NULL;
+	(*parsing)->hdc->file_name = NULL;
 	(*parsing)->hdc->command = NULL;
 	(*parsing)->hdc->hdc_count = 0;
 	(*parsing)->hdc->next = NULL;

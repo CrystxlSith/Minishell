@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 15:15:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 10:54:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int ac, char **av, char **envp)
 	cmd_parsing = NULL;
 	(void)ac;
 	(void)av;
+	remove_hdc_file();
 	if (generate_minishell_prompt(data, tokens, cmd_parsing) == -1)
 		return (-1);
 	free_all(data->var);

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:50:59 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/24 15:31:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:28:46 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,20 @@ int	multiple_cmd_iteration(t_cmd *tmp, t_env **data, int *fd, int *old_fd)
 pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 {
 	pid_t	pid;
-	int		status;
 
 	pid = fork();
 	if (pid == -1)
-	{
-		perror("multi fork");
-		close_fd(current_fd);
-		return (-1);
-	}
+		return (perror("multi fork"), close_fd(current_fd), -1);
 	if (pid == 0)
 	{
-		printf("tmp->hdc_count %d\n", tmp->hdc_count);
 		if (tmp->next != NULL)
 			close(current_fd[0]);
+		if (tmp->hdc_count != 0 && tmp->hdc->trigger != 2)
+		{
+			tmp->hdc->trigger = 1;
+			create_hdc_file(tmp);
+			handle_heredoc_input(tmp, data);
+		}
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
 			perror("multiple_cmd_iteration");
@@ -109,13 +109,9 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 		pid[++i] = fork_and_execute((tmp), data, current_fd, old_fd);
 		if (pid[i] == -1)
 			return (free(pid), -1);
-		if (tmp->hdc_count != 0)
-		{
-			handle_heredoc(&tmp, data);
-			waitpid(pid[i], &g_sig_status, 0);
-		}
 		update_parent_descriptors((tmp), current_fd, old_fd);
 		(tmp) = (tmp)->next;
 	}
-	return (wait_all_children(*parsing, pid), 0);
+	wait_all_children(*parsing, pid);
+	return (0);
 }
