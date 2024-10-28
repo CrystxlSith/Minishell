@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/28 16:19:04 by agiliber         ###   ########.fr       */
+/*   Created: 2024/10/25 16:16:55 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/28 16:22:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	free_token(t_lexer *token)
 {
 	if (token)
 	{
-		if (token->data)
-			free(token->data);
 		if (token->data)
 			free(token->data);
 		free(token);
