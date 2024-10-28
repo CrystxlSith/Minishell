@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:13:26 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 16:17:00 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 07:28:52 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* void	print_cmd(t_cmd *head)
+ void	print_cmd(t_cmd *head)
 {
 	t_cmd	*current;
 	t_lexer	*redir;
@@ -47,7 +47,7 @@
 		current = current->next;
 	}
 }
- */
+ 
 void	print_tokens(t_lexer *tokens)
 {
 	t_lexer	*current;

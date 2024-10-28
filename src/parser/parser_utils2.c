@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:38:32 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 14:46:41 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/28 07:34:01 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	handle_env_value(char **res, char *tmp, int *i, t_env **data)
 	char	*new_res;
 
 	tmp = ft_strjoin(tmp, "=");
+	printf("tmp: %s\n", tmp);
 	env_value = find_in_env(tmp, (*data)->var);
 	if (env_value)
 	{
