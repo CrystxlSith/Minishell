@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 16:16:55 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 16:16:56 by agiliber         ###   ########.fr       */
+/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
+/*   Updated: 2024/10/28 16:19:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ void	free_hdc(t_heredoc *head)
 		if (current->break_word)
 			free(current->break_word);
 		if (current->command)
-			free(current->command);
-/* 		if (current->redir)
-			free_tokens(current->redir); */
+			free_all(current->command);
+		if (current->file_name)
+			free(current->file_name);
+		free(current);
 		current = next;
 	}
 }
@@ -76,7 +77,9 @@ void	free_parsed_cmd(t_cmd *head)
 			free_tokens(current->redir);
 		if (current->here_doc)
 			free(current->here_doc);
-		free_hdc(current->hdc);
+		if (current->hdc)
+			free_hdc(current->hdc);
+		free(current);
 		current = next;
 	}
 }
@@ -91,9 +94,8 @@ void	free_minishell(t_env **data)
 		free((*data)->old_pwd);
 }
 
-void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing, t_env *data)
+void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing)
 {
-	(void)data;
 	if (tokens)
 		free_tokens(tokens);
 	if (cmd_parsing)

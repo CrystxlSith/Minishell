@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 12:44:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 12:45:25 by agiliber         ###   ########.fr       */
+/*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
+/*   Updated: 2024/10/28 16:20:11 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	new_cmd(t_cmd **current)
 	(*current)->next->prev = *current;
 	*current = (*current)->next;
 	(*current)->index = i;
-	initiate_hdc_struc(current);
+	(*current)->hdc = new_hdc_struc(current);
 }
 
 static void	cmd_adding(t_lexer *tmp, t_cmd *current, t_env **data)

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:23:26 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/22 11:33:15 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:47:12 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ int	handle_middle_cmd_pipe(int *old_fd, int *fd)
 
 int	handle_last_cmd_pipe(int *old_fd)
 {
-	if (open_dup_pipe_in(old_fd) == -1)
-		return (perror("pipe final cmd"), -1);
+	if (old_fd[0] != -1)
+	{
+		if (open_dup_pipe_in(old_fd) == -1)
+			return (perror("pipe final cmd"), -1);
+	}
 	return (0);
 }
 
