@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/28 11:04:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:57:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	free_hdc(t_heredoc *head)
 		if (current->break_word)
 			free(current->break_word);
 		if (current->command)
-			free(current->command);
+			free_all(current->command);
 		if (current->file_name)
 			free(current->file_name);
 		free(current);

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 13:17:11 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:47:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,10 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			continue ;
 		}
 		if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 1)
+		{
+			free(mini.line_read);
 			continue ;
+		}
 		if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 2)
 		{
 			free(mini.line_read);

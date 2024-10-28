@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:43:21 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/28 10:57:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:07:58 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	new_cmd(t_cmd **current)
 	(*current)->next->prev = *current;
 	*current = (*current)->next;
 	(*current)->index = i;
-	initiate_hdc_struc(current);
+	(*current)->hdc = new_hdc_struc(current);
 }
 
 void	new_quote_cmd(t_lexer *tmp, char *res)

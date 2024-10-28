@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:13:26 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 11:03:47 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:44:12 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	print_heredoc(t_heredoc *hdc)
 	{
 		printf("current->break_word: %s\n", current->break_word);
 		printf("current->command[0]: %s\n", current->command[0]);
+		printf("current->file_name: %s\n", current->file_name);
 		current = current->next;
 	}
 }

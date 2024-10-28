@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:13:54 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 11:45:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:14:20 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	handle_break_word(t_cmd *cmd_parsing, t_env **data)
 		return (1);
 	else
 	{
+		printf("%s\n", "exec multiple");
 		cmd_parsing->hdc->trigger = 2;
 		exec_multiple_cmd(&cmd_parsing, data);
 	}

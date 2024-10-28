@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:54:37 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 13:38:41 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:58:22 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	new_heredoc(t_cmd *cmd, t_heredoc *new_hdc)
 	else
 	{
 		last_hdc = cmd->hdc;
-		while (last_hdc->next)
+		while (last_hdc->next != NULL)
 			last_hdc = last_hdc->next;
 		last_hdc->next = new_hdc;
 		new_hdc->prev = last_hdc;
@@ -49,7 +49,7 @@ void	fill_heredoc(t_lexer **token, t_cmd *current, t_heredoc *new_hdc)
 				return ;
 			i = -1;
 			while (current->str[++i])
-				new_hdc->command[i] = current->str[i];
+				new_hdc->command[i] = ft_strdup(current->str[i]);
 			new_hdc->command[i] = NULL;
 		}
 		if ((*token)->next->type == E_SPACE)
@@ -64,13 +64,18 @@ void	add_heredoc(t_lexer **token, t_cmd *current)
 {
 	t_heredoc	*new_hdc;
 
-	if (current->prev != NULL)
+	if (current->hdc_count != 0)
 	{
 		new_hdc = new_hdc_struc(&current);
-		if (!new_hdc)
-			exit(EXIT_FAILURE);
 		fill_heredoc(token, current, new_hdc);
 	}
 	else
 		fill_heredoc(token, current, current->hdc);
+}
+
+void	init_replace_dollar(int *i, int *j, char **res)
+{
+	*i = 0;
+	*j = 0;
+	*res = ft_strdup("");
 }
