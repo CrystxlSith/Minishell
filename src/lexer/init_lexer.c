@@ -18,6 +18,8 @@ void	init_new_token(t_lexer *new_token, t_lexer_type type, char *data)
 	new_token->next = NULL;
 	new_token->prev = NULL;
 	new_token->data = ft_strdup(data);
+	if (!new_token->data)
+		return;
 	new_token->type = type;
 	new_token->index = 0;
 }

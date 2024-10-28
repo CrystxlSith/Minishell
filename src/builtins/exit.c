@@ -6,11 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2024/10/25 16:17:34 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/28 16:28:54 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +71,7 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 		ft_putstr_fd("minishell : exit ", STDERR_FILENO);
 		ft_putstr_fd(cmd_parsing->str[1], STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-		free_all_line(tokens, cmd_parsing);
+		free_all_line(tokens, cmd_parsing, data);
 		ft_free_array(data->var);
 		free(data);
 		exit(255);
@@ -86,7 +82,7 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 		return (EXIT_FAILURE);
 	}
 	str = ft_array_dup(cmd_parsing->str);
-	free_all_line(tokens, cmd_parsing);
+	free_all_line(tokens, cmd_parsing, data);
 	ft_free_array(data->var);
 	free(data);
 	exit_code(str);

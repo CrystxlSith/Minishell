@@ -26,10 +26,10 @@ char	**add_data_to_tab(char *data)
 
 void	init_temp(char **tmp, char **tmp2)
 {
-	*tmp = malloc(sizeof(char) * 100);
+	*tmp = malloc(sizeof(char) * 4096);
 	if (!*tmp)
 		return ;
-	*tmp2 = malloc(sizeof(char) * 100);
+	*tmp2 = malloc(sizeof(char) * 4096);
 	if (!*tmp2)
 		return ;
 	(*tmp)[0] = '\0';
@@ -66,14 +66,17 @@ void	handle_env_value(char **res, char *tmp, int *i, t_env **data)
 	char	*env_value;
 	char	*new_res;
 
-	tmp = ft_strjoin(tmp, "=");
-	printf("tmp: %s\n", tmp);
-	env_value = find_in_env(tmp, (*data)->var);
-	if (env_value)
+	if (tmp)
 	{
-		new_res = ft_strjoin(*res, env_value);
-		*res = new_res;
-		*i += ft_strlen(env_value);
+		tmp = ft_strjoin(tmp, "=");
+		env_value = find_in_env(tmp, (*data)->var);
+		if (env_value)
+		{
+			new_res = ft_strjoin(*res, env_value);
+			*res = new_res;
+			*i += ft_strlen(env_value);
+			free(env_value);
+		}
 	}
 	free(tmp);
 }

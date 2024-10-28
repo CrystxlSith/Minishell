@@ -6,11 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2024/10/25 12:43:10 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/28 16:34:33 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +47,12 @@ int	exec_cmd_minishell(t_cmd **parsing, t_env **data)
 	if ((*parsing)->next == NULL)
 	{
 		if (exec_cmd(parsing, data) == -1)
-			return (-1);
+			return (perror("exec_cmd"), -1);
 	}
 	else
 	{
 		if (exec_multiple_cmd(parsing, data) == -1)
-			return (-1);
+			return (perror("exec_multiple_cmd"), -1);
 	}
 	return (0);
 }
@@ -66,12 +62,12 @@ int	exec_cmd(t_cmd **parsing, t_env **data)
 	if ((*parsing)->redir_nb > 0)
 	{
 		if (fork_redirection(parsing, data) == -1)
-			return (-1);
+			return (perror("fork_redirection"), -1);
 	}
 	else
 	{
 		if (exec_single_cmd(parsing, data) == -1)
-			return (-1);
+			return (perror("exec_single_cmd"), -1);
 	}
 	return (0);
 }

@@ -3,19 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
 /*   Created: 2024/10/25 16:16:55 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 16:22:04 by agiliber         ###   ########.fr       */
-=======
-/*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/28 16:41:26 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Updated: 2024/10/28 07:25:22 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	free_token(t_lexer *token)
+{
+	if (token)
+	{
+		if (token->data)
+		{
+			free(token->data);
+			token->data = NULL;
+		}
+		if (token)
+			free(token);
+	}
+}
+
+void	free_tokens(t_lexer *tokens)
+{
+	t_lexer	*current;
+	t_lexer	*next;
+
+	if (!tokens)
+		return ;
+	current = tokens;
+	while (current)
+	{
+		next = current->next;
+		free_token(current);
+		current = next;
+	}
+}
 
 void	free_hdc(t_heredoc *head)
 {
@@ -29,10 +54,9 @@ void	free_hdc(t_heredoc *head)
 		if (current->break_word)
 			free(current->break_word);
 		if (current->command)
-			free_all(current->command);
-		if (current->file_name)
-			free(current->file_name);
-		free(current);
+			free(current->command);
+/* 		if (current->redir)
+			free_tokens(current->redir); */
 		current = next;
 	}
 }
@@ -54,9 +78,7 @@ void	free_parsed_cmd(t_cmd *head)
 			free_tokens(current->redir);
 		if (current->here_doc)
 			free(current->here_doc);
-		if (current->hdc)
-			free_hdc(current->hdc);
-		free(current);
+		free_hdc(current->hdc);
 		current = next;
 	}
 }
@@ -71,8 +93,9 @@ void	free_minishell(t_env **data)
 		free((*data)->old_pwd);
 }
 
-void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing)
+void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing, t_env *data)
 {
+	(void)data;
 	if (tokens)
 		free_tokens(tokens);
 	if (cmd_parsing)

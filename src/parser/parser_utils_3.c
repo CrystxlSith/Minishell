@@ -79,40 +79,84 @@ char	**env_find(char *input)
 	return (env_vars);
 }
 
-int	loop_while_dollar(char **input, char **tmp, int i, char *tmp2)
-{
-	int		k;
-	int		tmp_len;
-	char	*new_tmp;
+int loop_while_dollar(char **input, char **tmp, int i, char *tmp2) {
+    int k = 0;
+    int tmp_len = i;
+    char *new_tmp;
 
-	tmp_len = i;
-	k = 0;
-	while (ft_isdigit((*input)[i++]) || \
-	ft_isalpha((*input)[i]) || (*input)[i] == '?' || (*input)[i] == '_')
-		k++;
-	new_tmp = malloc(sizeof(char) * (i + 1));
-	if (!new_tmp)
-		return (0);
-	free(*tmp);
-	*tmp = new_tmp;
-	i = 0;
-	while (ft_isdigit((*input)[tmp_len]) || \
-	ft_isalpha((*input)[tmp_len]) || (*input)[tmp_len] == '?' || \
-	(*input)[tmp_len] == '_')
-		(*tmp)[i++] = (*input)[tmp_len++];
-	(*tmp)[i] = '\0';
-	free(tmp2);
-	return (k + 1);
+    if (!(*input)[i + 1]) {
+        free(*tmp);
+        free(tmp2);
+        return 0;
+    }
+
+    // Calculate the length of the new string
+    while (ft_isdigit((*input)[i]) || ft_isalpha((*input)[i]) || (*input)[i] == '?' || (*input)[i] == '_') {
+        k++;
+        i++;
+    }
+
+    // Allocate memory for the new string
+    new_tmp = malloc(sizeof(char) * (k + 1));
+    if (!new_tmp) {
+        return 0;
+    }
+
+    // Free the old tmp and assign the new memory
+    free(*tmp);
+    *tmp = new_tmp;
+
+    // Reset i to 0 for the new string
+    i = 0;
+
+    // Copy the characters to the new string
+    while (ft_isdigit((*input)[tmp_len]) || ft_isalpha((*input)[tmp_len]) || (*input)[tmp_len] == '?' || (*input)[tmp_len] == '_') {
+        (*tmp)[i++] = (*input)[tmp_len++];
+    }
+
+    // Null-terminate the new string
+    (*tmp)[i] = '\0';
+
+    // Free the temporary string
+    free(tmp2);
+    return (k);
 }
+
+// int	loop_while_dollar(char **input, char **tmp, int i, char *tmp2)
+// {
+// 	int		k;
+// 	int		tmp_len;
+// 	char	*new_tmp;
+
+// 	tmp_len = i;
+// 	k = 0;
+// 	if (!(*input)[i + 1])
+// 		return(free(*tmp), free(tmp2), 0);
+// 	while (ft_isdigit((*input)[i++]) || \
+// 	ft_isalpha((*input)[i]) || (*input)[i] == '?' || (*input)[i] == '_')
+// 		k++;
+// 	new_tmp = malloc(sizeof(char) * (k + 1));
+// 	if (!new_tmp)
+// 		return (0);
+// 	free(*tmp);
+// 	*tmp = new_tmp;
+// 	i = 0;
+// 	while (ft_isdigit((*input)[tmp_len]) || \
+// 	ft_isalpha((*input)[tmp_len]) || (*input)[tmp_len] == '?' || \
+// 	(*input)[tmp_len] == '_')
+// 		(*tmp)[i++] = (*input)[tmp_len++];
+// 	(*tmp)[i] = '\0';
+// 	free(tmp2);
+// 	return (k + 1);
+// }
 
 char	*build_res(char *res, int i, int j, char **input)
 {
 	char	*new_res;
 
-	new_res = ft_realloc(res, ft_strlen(res), ft_strlen(res) + 3);
+	new_res = ft_realloc(res, ft_strlen(res) + 1, ft_strlen(res) + 2);
 	if (!new_res)
 		return (NULL);
-	free(res);
 	res = new_res;
 	res[i] = (*input)[j];
 	res[i + 1] = '\0';
