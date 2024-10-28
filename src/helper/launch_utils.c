@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 16:14:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:42:39 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	start_error(char *input)
 	return (0);
 }
 
-void	remove_hdc_file()
+void	remove_hdc_file(void)
 {
 	char	*file_name;
 	int		i;
