@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 14:55:22 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:44:06 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	remove_hdc_file()
 {
 	char	*file_name;
 	int		i;
+	char	*index;
 
 	i = 1;
 	file_name = ft_strdup("/tmp/heredoc1.txt");
@@ -51,10 +52,12 @@ void	remove_hdc_file()
 	{
 		ft_remove(file_name);
 		i++;
+		index = ft_itoa(i);
 		free(file_name);
 		file_name = ft_strdup("/tmp/heredoc");
-		file_name = ft_strjoin(file_name, ft_itoa(i));
+		file_name = ft_strjoin(file_name, index);
 		file_name = ft_strjoin(file_name, ".txt");
+		free(index);
 	}
 	free(file_name);
 }

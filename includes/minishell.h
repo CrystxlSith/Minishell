@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 14:53:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:29:57 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	free_minishell(t_env **data);
 void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing, t_env *data);
 
 //Heredocs
-int		initiate_hdc_struc(t_cmd **parsing);
+void	initiate_hdc_struc(t_cmd **parsing);
 int		ft_remove(const char *pathname);
 int		open_heredoc_file(int flags);
 void	write_to_heredoc(int fd, char *line);
@@ -82,8 +82,9 @@ int		exit_failure(int fd);
 int		handle_break_word(t_cmd *cmd_parsing, t_env **data);
 int		handle_heredoc_input(t_cmd *cmd_parsing, t_env **data);
 int		detect_hdc(t_cmd **cmd_parsing);
-int		generate_hdc_files(t_cmd **cmd_parsing, int count);
+void	generate_hdc_files(t_cmd **cmd_parsing, int count);
 void	remove_hdc_file();
 void	create_hdc_file(t_cmd *parsing);
+t_heredoc	*new_hdc_struc(t_cmd **parsing);
 
 #endif

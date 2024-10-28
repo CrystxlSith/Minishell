@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:13:54 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 12:23:12 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:45:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,17 @@
 
 int	handle_break_word(t_cmd *cmd_parsing, t_env **data)
 {
-	if (cmd_parsing->hdc->command == NULL)
+	if (!cmd_parsing->hdc->command && cmd_parsing->next == NULL)
 	{
 		ft_remove(cmd_parsing->hdc->file_name);
+		exit_failure(cmd_parsing->hdc->hdc_fd);
 		return (1);
+	}
+	else if ((!cmd_parsing->hdc->command && cmd_parsing->next != NULL))
+	{
+		ft_remove(cmd_parsing->hdc->file_name);
+		cmd_parsing = cmd_parsing->next;
+		exec_multiple_cmd(&cmd_parsing, data);
 	}
 	else if (cmd_parsing->hdc->trigger == 1)
 		return (1);

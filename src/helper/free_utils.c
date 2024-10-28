@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/25 16:03:02 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:04:56 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ void	free_hdc(t_heredoc *head)
 			free(current->break_word);
 		if (current->command)
 			free(current->command);
-/* 		if (current->redir)
-			free_tokens(current->redir); */
+		if (current->file_name)
+			free(current->file_name);
+		free(current);
 		current = next;
 	}
 }
@@ -65,7 +66,6 @@ void	free_parsed_cmd(t_cmd *head)
 	if (!head)
 		return ;
 	current = head;
-
 	while (current)
 	{
 		next = current->next;
@@ -75,8 +75,8 @@ void	free_parsed_cmd(t_cmd *head)
 			free_tokens(current->redir);
 		if (current->here_doc)
 			free(current->here_doc);
-		//free_hdc(current->hdc);
-		free(current->hdc);
+		if (current->hdc)
+			free_hdc(current->hdc);
 		free(current);
 		current = next;
 	}

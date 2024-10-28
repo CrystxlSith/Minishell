@@ -6,23 +6,37 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:46:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 11:09:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:29:22 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	initiate_hdc_struc(t_cmd **parsing)
+void	initiate_hdc_struc(t_cmd **parsing)
 {
 	(*parsing)->hdc = malloc(sizeof(t_heredoc));
 	if (!(*parsing)->hdc)
-		return (-1);
+		return ;
 	(*parsing)->hdc->break_word = NULL;
 	(*parsing)->hdc->file_name = NULL;
 	(*parsing)->hdc->command = NULL;
+	(*parsing)->hdc->trigger = 0;
 	(*parsing)->hdc->hdc_count = 0;
 	(*parsing)->hdc->next = NULL;
-	return (0);
+}
+
+t_heredoc	*new_hdc_struc(t_cmd **parsing)
+{
+	(*parsing)->hdc = malloc(sizeof(t_heredoc));
+	if (!(*parsing)->hdc)
+		return (NULL);
+	(*parsing)->hdc->break_word = NULL;
+	(*parsing)->hdc->file_name = NULL;
+	(*parsing)->hdc->command = NULL;
+	(*parsing)->hdc->trigger = 0;
+	(*parsing)->hdc->hdc_count = 0;
+	(*parsing)->hdc->next = NULL;
+	return ((*parsing)->hdc);
 }
 
 int	open_heredoc_file(int flags)

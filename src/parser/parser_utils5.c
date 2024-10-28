@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 09:54:37 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/24 11:10:58 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:36:34 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	fill_heredoc(t_lexer **token, t_cmd *current, t_heredoc *new_hdc)
 				return ;
 			i = -1;
 			while (current->str[++i])
-				new_hdc->command[i] = ft_strdup(current->str[i]);
+				new_hdc->command[i] = current->str[i];
 			new_hdc->command[i] = NULL;
 		}
 		if ((*token)->next->type == E_SPACE)
@@ -64,8 +64,13 @@ void	add_heredoc(t_lexer **token, t_cmd *current)
 {
 	t_heredoc	*new_hdc;
 
-	new_hdc = malloc(sizeof(t_heredoc));
-	if (!new_hdc)
-		exit(EXIT_FAILURE);
-	fill_heredoc(token, current, new_hdc);
+	if (current->prev != NULL)
+	{
+		new_hdc = new_hdc_struc(&current);
+		if (!new_hdc)
+			exit(EXIT_FAILURE);
+		fill_heredoc(token, current, new_hdc);
+	}
+	else
+		fill_heredoc(token, current, current->hdc);
 }

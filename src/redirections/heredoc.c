@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 12:22:14 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:06:52 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,20 @@ int	detect_hdc(t_cmd **cmd_parsing)
 	return (count);
 }
 
-int	generate_hdc_files(t_cmd **cmd_parsing, int count)
+int	open_hdc_file(char *file_name)
+{
+	int		fd;
+
+	fd = open(file_name, O_CREAT | O_RDWR | O_APPEND, 0777);
+	return (fd);
+}
+
+void	generate_hdc_files(t_cmd **cmd_parsing, int count)
 {
 	t_cmd	*tmp;
 	char	*file_name;
-	int		fd;
 	int		i;
+	char	*index;
 
 	i = 1;
 	tmp = *cmd_parsing;
@@ -41,20 +49,20 @@ int	generate_hdc_files(t_cmd **cmd_parsing, int count)
 	{
 		if (tmp->hdc_count != 0)
 		{
+			index = ft_itoa(i);
 			file_name = ft_strdup("/tmp/heredoc");
-			file_name = ft_strjoin(file_name, ft_itoa(i));
+			file_name = ft_strjoin(file_name, index);
 			file_name = ft_strjoin(file_name, ".txt");
-			fd = open(file_name, O_CREAT | O_RDWR | O_APPEND, 0777);
-			if (fd == -1)
-				return (perror("Failed to open heredoc file"), -1);
+			tmp->hdc->hdc_fd = open_hdc_file(file_name);
+			if (tmp->hdc->hdc_fd == -1)
+				return ;
 			tmp->hdc->file_name = ft_strdup(file_name);
-			tmp->hdc->hdc_fd = fd;
 			i++;
 			free(file_name);
+			free(index);
 		}
 		tmp = tmp->next;
 	}
-	return (0);
 }
 
 int	handle_heredoc(t_cmd **cmd_parsing, t_env **data)
@@ -128,6 +136,7 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			continue ;
 		if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 2)
 		{
+			free(mini.line_read);
 			handle_break_word(cmd_parsing, data);
 			break ;
 		}
