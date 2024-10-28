@@ -6,7 +6,11 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/10/21 14:10:02 by jopfeiff         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/28 16:36:34 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +30,7 @@ int	fork_redirection(t_cmd **parsing, t_env **data)
 	if (pid == 0)
 	{
 		if (exec_redirection(parsing, data, trigger))
-			return (perror("exec_redirection "), -1);
+			return (-1);
 	}
 	else
 		waitpid(pid, &g_sig_status, 0);
@@ -46,7 +50,7 @@ int	exec_redirection(t_cmd **parsing, t_env **data, int trigger)
 		if (tmp->redir->type == E_REDIR_IN)
 		{
 			if (exec_redir_in(parsing, data) == -1)
-				return (perror("exec_redir_in "), -1);
+				return (-1);
 		}
 		else if (tmp->redir->type == E_REDIR_OUT
 			|| tmp->redir->type == E_REDIR_APP)

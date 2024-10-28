@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 16:05:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:39:19 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ char	**ft_realloc_env(int new_size, t_env **data)
 		i++;
 	}
 	new_tab[old_size] = NULL;
-	(*data)->var = new_tab;
-	return (new_tab);
+	return ((*data)->var = new_tab, new_tab);
 }
 
 // Dans le cas ou la var d'envp existe deja, cherche la var dans
