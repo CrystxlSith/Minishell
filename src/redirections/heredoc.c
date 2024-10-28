@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 16:38:00 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:00:32 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,26 @@ int	handle_heredoc(t_cmd **cmd_parsing, t_env **data)
 	int		count;
 	t_cmd	*tmp;
 	int		nbr;
+	int		pid;
 
 	nbr = detect_hdc(cmd_parsing);
 	generate_hdc_files(cmd_parsing, nbr);
 	count = (*cmd_parsing)->hdc_count;
 	tmp = *cmd_parsing;
-	if (count == 0)
+	pid = fork();
+	if (pid == -1)
 		return (-1);
-	while (nbr > 0 && tmp)
+	if (pid == 0)
 	{
-		handle_heredoc_input(tmp, data);
-		close(tmp->hdc->hdc_fd);
-		tmp = tmp->next;
-		nbr--;
+		while (nbr > 0 && tmp)
+		{
+			handle_heredoc_input(tmp, data);
+			close(tmp->hdc->hdc_fd);
+			tmp = tmp->next;
+			nbr--;
+		}
 	}
+	waitpid(pid, &g_sig_status, 0);
 	return (0);
 }
 

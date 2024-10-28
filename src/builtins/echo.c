@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:03:06 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	echo(char **input, t_env **data)
 	int		trigger;
 
 	trigger = 0;
+	if (input[1] == NULL)
+		return ;
 	if (ft_strncmp(input[1], "-n", 3) == 0)
 		i = 2;
 	else
