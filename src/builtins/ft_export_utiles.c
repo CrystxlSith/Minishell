@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 16:39:19 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:28:19 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_realloc_env(int new_size, t_env **data)
 
 	if (new_size == 0)
 		return (NULL);
-	new_tab = (char **)malloc(sizeof(char *) * (new_size + 1));
+	new_tab = ft_calloc(new_size + 1, sizeof(char *));
 	if (!new_tab)
 		return (NULL);
 	old_size = (*data)->size;
@@ -39,6 +39,7 @@ char	**ft_realloc_env(int new_size, t_env **data)
 		i++;
 	}
 	new_tab[old_size] = NULL;
+	free_all((*data)->var);
 	return ((*data)->var = new_tab, new_tab);
 }
 
@@ -52,8 +53,8 @@ int	export_existing(char *flag, t_env **data, char *cmd)
 	i = get_index(data, flag);
 	if (i == -1)
 		return (-1);
+	free((*data)->var[i]);
 	(*data)->var[i] = ft_strdup(cmd);
-	free(cmd);
 	return (0);
 }
 
@@ -71,6 +72,7 @@ void	duplicate_env(t_env **data, char *cmd)
 		(*data)->var[i] = ft_strdup(cmd);
 		if (!(*data)->var[i])
 		{
+			free_all((*data)->var);
 			free(cmd);
 			return ;
 		}

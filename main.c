@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 16:16:22 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:23:51 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	remove_hdc_file();
 	if (generate_minishell_prompt(data, tokens, cmd_parsing) == -1)
-		return (free_all(data->var), free(data), -1);
-	free_all(data->var);
-	free(data);
+		return (free_minishell(&data), -1);
+	free_minishell(&data);
 	return (0);
 }
