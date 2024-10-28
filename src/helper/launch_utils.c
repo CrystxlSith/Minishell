@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 10:44:06 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:14:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		input_execution(data, cmd_parsing);
 		if (minishell.line_read)
 			free(minishell.line_read);
-		free_all_line(tokens, cmd_parsing, data);
+		free_all_line(tokens, cmd_parsing);
 		rl_on_new_line();
 	}
 	clear_history();
