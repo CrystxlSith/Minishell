@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 11:06:52 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:17:11 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,14 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 {
 	t_minishell	mini;
+	static int	i;
 
+	i = 0;
 	while (1)
 	{
 		init_signals(1);
 		mini.line_read = readline("> ");
+		i++;
 		if (mini.line_read == NULL)
 			return (handle_readline_error(cmd_parsing->hdc->hdc_fd));
 		if (launcher_exec(mini.line_read, data) == -1)
@@ -143,5 +146,7 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 		write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
 		free(mini.line_read);
 	}
+	if (!mini.line_read)
+		print_hdc_error(ft_itoa(i), cmd_parsing->hdc->break_word);
 	return (0);
 }
