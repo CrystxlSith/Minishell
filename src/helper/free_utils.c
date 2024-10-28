@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 16:16:55 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 16:16:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 07:25:22 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	free_token(t_lexer *token)
 {
 	if (token)
 	{
-		if (token->data)
-			free(token->data);
 		if (token->data)
 			free(token->data);
 		free(token);

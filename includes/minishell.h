@@ -3,15 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
 /*   Created: 2024/10/25 12:41:13 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 12:48:29 by agiliber         ###   ########.fr       */
-=======
-/*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 14:53:33 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Updated: 2024/10/28 07:23:20 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

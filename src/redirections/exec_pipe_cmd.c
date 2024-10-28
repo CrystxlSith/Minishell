@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:32:44 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 12:33:16 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 07:23:52 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static void	wait_all_children(t_cmd *parsing, pid_t *pid)
 		i++;
 	}
 	free(pid);
-	return (g_sig_status);
 }
 
 int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
