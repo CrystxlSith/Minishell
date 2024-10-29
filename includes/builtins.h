@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/25 12:48:09 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 07:55:56 by jopfeiff         ###   ########.fr       */
+/*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
+/*   Updated: 2024/10/29 08:00:27 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,5 @@ char	*format_dir_path(char *path);
 
 //BUILTINS ---> EXPORT
 void	unset(char *input, t_env **data);
-void	replace_dollar(char **input, char *res, t_env **data);
-void	rep_d(t_lexer *tmp, char *res, t_env **data);
-int		handle_question(char **res, char *tmp, int *i, char **input);
-t_cmd	*parser(t_lexer **tokens, t_env **data);
-void	handle_env_value(char **res, char *tmp, int *i, t_env **data);
 
 #endif

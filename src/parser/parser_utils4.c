@@ -58,7 +58,7 @@ t_cmd	*create_new_cmd(void)
 	return (new_cmd);
 }
 
-int	handle_question(char **res, char *tmp, int *i, char **input)
+int	handle_question(char **res, int *i, char **input, int *j)
 {
 	char	*tmp2;
 
@@ -67,6 +67,7 @@ int	handle_question(char **res, char *tmp, int *i, char **input)
 	{
 		*res = ft_strjoin(*res, tmp2);
 		*i += ft_strlen(tmp2);
+		*j += 2;
 		free(tmp2);
 		return (1);
 	}

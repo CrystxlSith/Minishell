@@ -20,12 +20,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		i;
 	int		j;
 
+	if (!s1 || !s2)
+		return (NULL);
 	i = -1;
 	j = 0;
 	i1 = ft_strlen(s1);
 	i2 = ft_strlen(s2);
-	if (!s1 || !s2)
-		return (NULL);
 	str = (char *)malloc(sizeof(char) * (i1 + i2 + 1));
 	if (!str)
 		return (NULL);

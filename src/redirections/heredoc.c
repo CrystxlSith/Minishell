@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 12:36:49 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:40:14 by agiliber         ###   ########.fr       */
+/*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/29 12:48:27 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 	int	len;
 
 	len = ft_strlen(cmd_parsing->hdc->break_word);
-	if (mini->line_read == NULL
-		|| ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
+	if (ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
 	{
 		if (cmd_parsing->hdc->next != NULL)
 		{

@@ -6,11 +6,16 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:40:18 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:48:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
+
+/*
+echo seul segfuault
+fausse commande devrait ecrire bash: <commande>:command not found
+*/
 
 int	g_sig_status;
 
@@ -32,3 +37,5 @@ int	main(int ac, char **av, char **envp)
 	free_minishell(data);
 	return (0);
 }
+
+/*d*/

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 12:39:24 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:39:28 by agiliber         ###   ########.fr       */
+/*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/29 12:48:34 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 {
 	int		pid;
 
+	setup_child_signals();
 	if (check_if_builtins((*parsing)->str[0]) && (*parsing)->next == NULL
 		&& (*parsing)->redir_nb == 0)
 	{
@@ -30,13 +31,10 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 			return (perror("fork"), -1);
 		if (pid == 0)
 		{
-			setup_child_signals();
 			if (exec_cmd_minishell(parsing, data) == -1)
 				exit(EXIT_FAILURE);
 			exit(EXIT_SUCCESS);
 		}
-		if (pid != 0)
-			signal(SIGINT, SIG_IGN);
 		waitpid(pid, &g_sig_status, 0);
 	}
 	return (0);

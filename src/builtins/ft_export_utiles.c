@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utiles.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 17:28:19 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 07:59:03 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**ft_realloc_env(int new_size, t_env **data)
 	}
 	new_tab[old_size] = NULL;
 	free_all((*data)->var);
-	return ((*data)->var = new_tab, new_tab);
+	return (new_tab);
 }
 
 // Dans le cas ou la var d'envp existe deja, cherche la var dans

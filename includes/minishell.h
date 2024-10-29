@@ -3,24 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Created: 2024/10/28 16:18:22 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 16:18:49 by agiliber         ###   ########.fr       */
-=======
-/*   Created: 2024/10/25 12:41:13 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 07:23:20 by jopfeiff         ###   ########.fr       */
->>>>>>> 95a8c9dd8c1ae5da3db0c2eb65c2bace3fa882bd
-=======
-/*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/28 16:40:29 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
-=======
-/*   Updated: 2024/10/29 10:36:02 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/29 12:48:21 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +40,13 @@ extern int	g_sig_status;
 typedef struct s_minishell
 {
 	char	*line_read;
-	int		i;
 }			t_minishell;
 
 //LEXER && PARSER
-<<<<<<< HEAD
-int		ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
-t_lexer	*tokenize(char *str);
-void	create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
-void	new_token(t_lexer **tokens, t_lexer *new_node);
-=======
 int			ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
 t_lexer		*tokenize(char *str);
 void		create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void		new_token(t_lexer **tokens, t_lexer *new_node);
->>>>>>> Minishell_AGT
 
 //BUILTINS ---> GENERAL
 int			builtins(t_cmd **parsing, t_env **data);
