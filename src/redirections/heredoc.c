@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:48:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:01:50 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,13 +131,9 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			init_signals(1);
 			mini.line_read = readline("> ");
 			i++;
-			if (mini.line_read == NULL)
-				return (handle_readline_error(cmd_parsing->hdc->hdc_fd));
-			if (launcher_exec(mini.line_read, data) == -1)
-				return (free(mini.line_read), exit_failure(cmd_parsing->hdc->hdc_fd));
-			if (mini.line_read[0] == '\0' || mini.line_read == NULL)
+			if (mini.line_read && mini.line_read[0] == '\0')
 			{
-				free(mini.line_read);
+				write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
 				continue ;
 			}
 			if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 1)
@@ -151,12 +147,17 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 				handle_break_word(cmd_parsing, data);
 				exit(g_sig_status);
 			}
-			write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
+			if (mini.line_read)
+				write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
 			free(mini.line_read);
 		}
 		if (!mini.line_read)
-			print_hdc_error(ft_itoa(i), cmd_parsing->hdc->break_word);
+		{
+			print_hdc_error(i, cmd_parsing->hdc->break_word);
+			close(cmd_parsing->hdc->hdc_fd);
+			exit(1);
+		}
 	}
 	waitpid(pid, &g_sig_status, 0);
-	//return (0);
+	return (0);
 }
