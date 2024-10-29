@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:46:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 07:57:50 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:49:17 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ t_heredoc	*new_hdc_struc(t_cmd **parsing)
 void	write_to_heredoc(int fd, char *line)
 {
 	if (line == NULL)
+	{
 		ft_putstr_fd("\n", fd);
+		return ;
+	}
 	ft_putstr_fd(line, fd);
 	ft_putstr_fd("\n", fd);
 }

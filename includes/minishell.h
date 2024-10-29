@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:48:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:22:50 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void		generate_hdc_files(t_cmd **cmd_parsing, int count);
 void		remove_hdc_file(void);
 void		create_hdc_file(t_cmd *parsing);
 t_heredoc	*new_hdc_struc(t_cmd **parsing);
-void		print_hdc_error(char *token, char *token2);
+void		print_hdc_error(int i, char *token2);
 
 #endif
