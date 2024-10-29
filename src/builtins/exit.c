@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 10:36:29 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:28:27 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	exit_code(char **str)
 {
 	int		code;
 
+	if (!str)
+		return ;
 	if (!str[1])
 		code = 0;
 	else

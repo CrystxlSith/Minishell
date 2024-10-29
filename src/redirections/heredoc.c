@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 10:21:16 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:35:53 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			{
 				free(mini.line_read);
 				handle_break_word(cmd_parsing, data);
-				break ;
+				exit(g_sig_status);
 			}
 			write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
 			free(mini.line_read);
@@ -158,5 +158,5 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			print_hdc_error(ft_itoa(i), cmd_parsing->hdc->break_word);
 	}
 	waitpid(pid, &g_sig_status, 0);
-	return (0);
+	//return (0);
 }
