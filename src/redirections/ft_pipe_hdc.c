@@ -57,7 +57,6 @@ int	pipe_heredoc(t_cmd *parsing, int *fd)
 {
 	int		fd_out;
 
-	printf("parsing->hdc->file_name %s\n", parsing->hdc->file_name);
 	fd_out = open(parsing->hdc->file_name, O_RDONLY);
 	if (fd_out == -1)
 		return (perror("heredoc open failed"), -1);

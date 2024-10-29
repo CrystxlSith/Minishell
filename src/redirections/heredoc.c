@@ -102,10 +102,7 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 			cmd_parsing->hdc->file_name = cmd_parsing->hdc->prev->file_name;
 			cmd_parsing->hdc->command = cmd_parsing->hdc->prev->command;
 			if (cmd_parsing->hdc->hdc_fd == -1)
-			{
-				perror("Failed to open heredoc file");
-				return (-1);
-			}
+				return (perror("Failed to open heredoc file"), -1);
 			return (close(fd), 1);
 		}
 		else
@@ -131,13 +128,6 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			init_signals(1);
 			mini.line_read = readline("> ");
 			i++;
-<<<<<<< HEAD
-			// if (mini.line_read == NULL)
-			// 	return (handle_readline_error(cmd_parsing->hdc->hdc_fd));
-			// if (launcher_exec(mini.line_read, data) == -1)
-			// 	return (free(mini.line_read), exit_failure(cmd_parsing->hdc->hdc_fd));
-=======
->>>>>>> Minishell_AGT
 			if (mini.line_read && mini.line_read[0] == '\0')
 			{
 				write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
@@ -145,10 +135,10 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			}
 			if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 1)
 			{
-				free(mini.line_read);
 				continue ;
+				free(mini.line_read);
 			}
-			if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 2)
+			else if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 2)
 			{
 				free(mini.line_read);
 				handle_break_word(cmd_parsing, data);

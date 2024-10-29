@@ -6,11 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 13:57:35 by crycry            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/29 13:22:35 by jopfeiff         ###   ########.fr       */
-=======
 /*   Updated: 2024/10/29 15:02:15 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +26,6 @@ void	print_error(char *error, char *token)
 void	print_hdc_error(int i , char *token2)
 {
 	char	*token;
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> Minishell_AGT
 	token = ft_itoa(i);
 	ft_putstr_fd("minishell: warning: here-document at line ", STDERR_FILENO);
 	ft_putstr_fd(token, STDERR_FILENO);
