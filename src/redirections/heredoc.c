@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 17:00:32 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:21:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,19 @@ int	handle_heredoc(t_cmd **cmd_parsing, t_env **data)
 	int		count;
 	t_cmd	*tmp;
 	int		nbr;
-	int		pid;
+
 
 	nbr = detect_hdc(cmd_parsing);
 	generate_hdc_files(cmd_parsing, nbr);
 	count = (*cmd_parsing)->hdc_count;
 	tmp = *cmd_parsing;
-	pid = fork();
-	if (pid == -1)
-		return (-1);
-	if (pid == 0)
+	while (nbr > 0 && tmp)
 	{
-		while (nbr > 0 && tmp)
-		{
-			handle_heredoc_input(tmp, data);
-			close(tmp->hdc->hdc_fd);
-			tmp = tmp->next;
-			nbr--;
-		}
+		handle_heredoc_input(tmp, data);
+		close(tmp->hdc->hdc_fd);
+		tmp = tmp->next;
+		nbr--;
 	}
-	waitpid(pid, &g_sig_status, 0);
 	return (0);
 }
 
@@ -125,37 +118,45 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 {
 	t_minishell	mini;
 	static int	i;
+	int		pid;
 
 	i = 0;
-	while (1)
+	pid = fork();
+	if (pid == -1)
+		return (-1);
+	if (pid == 0)
 	{
-		init_signals(1);
-		mini.line_read = readline("> ");
-		i++;
-		if (mini.line_read == NULL)
-			return (handle_readline_error(cmd_parsing->hdc->hdc_fd));
-		if (launcher_exec(mini.line_read, data) == -1)
-			return (free(mini.line_read), exit_failure(cmd_parsing->hdc->hdc_fd));
-		if (mini.line_read[0] == '\0' || mini.line_read == NULL)
+		while (1)
 		{
+			init_signals(1);
+			mini.line_read = readline("> ");
+			i++;
+			if (mini.line_read == NULL)
+				return (handle_readline_error(cmd_parsing->hdc->hdc_fd));
+			if (launcher_exec(mini.line_read, data) == -1)
+				return (free(mini.line_read), exit_failure(cmd_parsing->hdc->hdc_fd));
+			if (mini.line_read[0] == '\0' || mini.line_read == NULL)
+			{
+				free(mini.line_read);
+				continue ;
+			}
+			if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 1)
+			{
+				free(mini.line_read);
+				continue ;
+			}
+			if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 2)
+			{
+				free(mini.line_read);
+				handle_break_word(cmd_parsing, data);
+				break ;
+			}
+			write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
 			free(mini.line_read);
-			continue ;
 		}
-		if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 1)
-		{
-			free(mini.line_read);
-			continue ;
-		}
-		if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 2)
-		{
-			free(mini.line_read);
-			handle_break_word(cmd_parsing, data);
-			break ;
-		}
-		write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
-		free(mini.line_read);
+		if (!mini.line_read)
+			print_hdc_error(ft_itoa(i), cmd_parsing->hdc->break_word);
 	}
-	if (!mini.line_read)
-		print_hdc_error(ft_itoa(i), cmd_parsing->hdc->break_word);
+	waitpid(pid, &g_sig_status, 0);
 	return (0);
 }

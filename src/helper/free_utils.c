@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/28 16:41:26 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:35:54 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,20 @@ void	free_parsed_cmd(t_cmd *head)
 	}
 }
 
-void	free_minishell(t_env **data)
+void	free_minishell(t_env *data)
 {
-	if ((*data)->var != NULL)
-		free_all((*data)->var);
-	if ((*data)->pwd != NULL)
-		free((*data)->pwd);
-	if ((*data)->old_pwd != NULL)
-		free((*data)->old_pwd);
+	if ((data)->var != NULL)
+		free_all((data)->var);
+	if ((data)->pwd != NULL)
+		free((data)->pwd);
+	if ((data)->old_pwd != NULL)
+		free((data)->old_pwd);
 }
 
 void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing)
 {
-	if (tokens)
-		free_tokens(tokens);
 	if (cmd_parsing)
 		free_parsed_cmd(cmd_parsing);
+	if (tokens)
+		free_tokens(tokens);
 }

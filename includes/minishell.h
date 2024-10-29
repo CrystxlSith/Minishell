@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:06:23 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 16:40:29 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:36:02 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,9 @@ int			generate_minishell_prompt(t_env *data, t_lexer *tokens, \
 void		free_token(t_lexer *token);
 void		free_tokens(t_lexer *tokens);
 void		free_parsed_cmd(t_cmd *head);
-void		free_minishell(t_env **data);
+void		free_minishell(t_env *data);
 void		free_all_line(t_lexer *tokens, t_cmd *cmd_parsing);
+void		free_hdc(t_heredoc *head);
 
 //Heredocs
 void		initiate_hdc_struc(t_cmd **parsing);
