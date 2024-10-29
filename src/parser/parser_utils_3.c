@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:15:40 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/29 09:16:51 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:23:50 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int loop_while_dollar(char **input, char **tmp, int i, char *tmp2) {
     // Allocate memory for the new string
     new_tmp = malloc(sizeof(char) * (k + 1));
     if (!new_tmp) {
+		free(*tmp2);
         return 0;
     }
 

@@ -6,7 +6,7 @@
 #    By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/29 08:06:37 by jopfeiff         ###   ########.fr        #
+#    Updated: 2024/10/29 10:43:06 by jopfeiff         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME_A = minishell.a
 # ------------------------------------------------------------------------------
 
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -fPIE -I./includes/
+CFLAGS = -g3 -o -Wall -Wextra -fPIE -I./includes/
 RM = rm -rf
 LIBFT_FLAGS = -L./$(LIB_DIR) -l:libft.a
 CLEAN = $(MAKE) clean

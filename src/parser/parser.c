@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:44:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 08:00:40 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:36:54 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	replace_dollar(char **input, char *res, t_env **data)
 				continue ;
 			j += loop_while_dollar(input, &tmp, j, tmp2);
 			handle_env_value(&res, tmp, &i, data);
+			free(tmp);
 		}
 		else
 		{
@@ -74,7 +75,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current, t_env **data)
 
 	while (tmp)
 	{
-		s_tmp = tmp->data;
+		s_tmp = ft_strdup(tmp->data);
 		if (is_cmd(tmp->type) || is_quote(tmp->type))
 		{
 			while (tmp->next && (is_quote(tmp->next->type) \
