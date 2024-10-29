@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 13:54:13 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:49:07 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	execve_cmd(char **cmd, char **envp)
 		if (execve(cmd[0], cmd, envp) == -1)
 		{
 			perror("bash :");
-			exit(EXIT_FAILURE);
+			exit(g_sig_status);
 		}
 	}
 	else
@@ -73,7 +73,7 @@ int	execve_cmd(char **cmd, char **envp)
 			{
 				free(path);
 				perror("bash :");
-				exit(EXIT_FAILURE);
+				exit(g_sig_status);
 			}
 			free(path);
 			free_all(cmd);

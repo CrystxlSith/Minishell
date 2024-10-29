@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:48:34 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:46:35 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 		if (pid == 0)
 		{
 			if (exec_cmd_minishell(parsing, data) == -1)
-				exit(EXIT_FAILURE);
-			exit(EXIT_SUCCESS);
+				exit(g_sig_status);
+			exit(g_sig_status);
 		}
 		waitpid(pid, &g_sig_status, 0);
 	}

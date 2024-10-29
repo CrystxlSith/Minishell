@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/10/21 14:49:17 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:57:42 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	here_doc_signal_handler(int signum)
 {
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	exit(EXIT_SUCCESS);
+	exit(1);
 	(void)signum;
 }
 
