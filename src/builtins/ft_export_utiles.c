@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utiles.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 07:59:03 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:12:18 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,14 @@ char	**ft_realloc_env(int new_size, t_env **data)
 	while (i < old_size)
 	{
 		size = ft_strlen((*data)->var[i]);
-		new_tab[i] = (char *)malloc(size + 1);
+		new_tab[i] = ft_calloc((size + 1), sizeof(char));
 		if (!new_tab[i])
 			return (free_rest_tab(new_tab, i - 1), NULL);
 		ft_memcpy(new_tab[i], (*data)->var[i], size + 1);
 		i++;
 	}
-	new_tab[old_size] = NULL;
 	free_all((*data)->var);
-	return (new_tab);
+	return ((*data)->var = new_tab, new_tab);
 }
 
 // Dans le cas ou la var d'envp existe deja, cherche la var dans

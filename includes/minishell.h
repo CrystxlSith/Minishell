@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:48:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:07:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int			ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
 t_lexer		*tokenize(char *str);
 void		create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void		new_token(t_lexer **tokens, t_lexer *new_node);
+t_cmd		*parser(t_lexer **tokens, t_env **data);
 
 //BUILTINS ---> GENERAL
 int			builtins(t_cmd **parsing, t_env **data);

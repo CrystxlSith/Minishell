@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:27:49 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 14:24:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:34:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	export(char *input, t_env **data)
 
 	i = check_input_export(input, data);
 	if (i == -1 || i == 0)
+	{
+		perror("export");
 		return ;
+	}
 	flag = malloc(sizeof(char) * (i + 1));
 	if (!flag)
 		return ;

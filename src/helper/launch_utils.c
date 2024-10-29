@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:48:43 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:06:03 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	launcher_exec(char *input, t_env **data)
 {
 	if (input == NULL)
 	{
-		free_minishell(data);
+		free_minishell(*data);
 		clear_history();
 		return (-1);
 	}

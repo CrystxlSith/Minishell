@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:32:22 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 07:23:27 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:04:31 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,9 @@ void	fill_nbr_element(t_cmd **parsing);
 t_cmd	*create_new_cmd(void);
 t_lexer	*find_last(t_lexer *node);
 void	fill_nbr_element(t_cmd **parsing);
+void	handle_env_value(char **res, char *tmp, int *i, t_env **data);
+int		handle_question(char **res, int *i, char **input, int *j);
+void	rep_d(t_lexer *tmp, char *res, t_env **data);
+void	replace_dollar(char **input, char *res, t_env **data);
 
 #endif

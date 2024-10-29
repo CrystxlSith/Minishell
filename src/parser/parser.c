@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:44:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 08:00:40 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:15:08 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	new_cmd(t_cmd **current)
 	(*current)->next->prev = *current;
 	*current = (*current)->next;
 	(*current)->index = i;
-	initiate_hdc_struc(current);
+	(*current)->hdc = new_hdc_struc(current);
 }
 
 static void	cmd_adding(t_lexer *tmp, t_cmd *current, t_env **data)

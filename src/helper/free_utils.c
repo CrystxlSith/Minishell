@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/29 12:48:50 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:24:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,6 @@ void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing)
 {
 	if (cmd_parsing)
 		free_parsed_cmd(cmd_parsing);
+	if (tokens)
+		free_tokens(tokens);
 }

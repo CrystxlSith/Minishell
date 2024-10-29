@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 17:19:16 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:12:04 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ char	**realloc_utils(int old_size, char **new_tab, t_env **data, int index)
 		if (i == index && i + 1 <= old_size)
 			i++;
 		size = ft_strlen((*data)->var[i]);
-		new_tab[j] = (char *)malloc(size + 1);
+		new_tab[j] = ft_calloc((size + 1), sizeof(char));
 		if (!new_tab[j])
 			return (free_rest_tab(new_tab, j - 1), NULL);
 		ft_memcpy(new_tab[j], (*data)->var[i], size + 1);
 		i++;
 		j++;
 	}
-	new_tab[j] = NULL;
 	return (new_tab);
 }
 
