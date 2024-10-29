@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 15:55:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:19:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**ft_realloc_env_unset(int new_size, t_env **data, int index)
 
 	if (new_size == 0)
 		return (NULL);
-	new_tab = (char **)malloc(sizeof(char *) * (new_size + 1));
+	new_tab = ft_calloc((new_size + 1), sizeof(char *));
 	if (!new_tab)
 		return (NULL);
 	old_size = (*data)->size;

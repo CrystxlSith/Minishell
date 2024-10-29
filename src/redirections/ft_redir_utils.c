@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/21 14:10:02 by jopfeiff         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/28 16:36:34 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Updated: 2024/10/29 12:40:01 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

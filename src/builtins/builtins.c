@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/21 14:22:30 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:07:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	builtins(t_cmd **parsing, t_env **data)
 	int	i;
 
 	if (!(*parsing)->str)
-		return (free_all((*data)->var), free_all((*parsing)->str), 0);
+		return (-1);
 	i = 0;
 	if (ft_strncmp((*parsing)->str[i], "echo", 5) == 0)
 		echo((*parsing)->str, data);
@@ -32,6 +32,6 @@ int	builtins(t_cmd **parsing, t_env **data)
 	else if (ft_strncmp((*parsing)->str[i], "unset", 6) == 0)
 		unset((*parsing)->str[++i], data);
 	else
-		return (free_all((*parsing)->str), 0);
+		return (-1);
 	return (0);
 }

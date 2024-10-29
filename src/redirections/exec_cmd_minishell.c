@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/25 12:43:10 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/28 16:34:33 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Created: 2024/10/29 12:39:24 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/29 12:39:28 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +20,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 		&& (*parsing)->redir_nb == 0)
 	{
 		if (builtins(parsing, data) == -1)
-			return (perror("builtins"), -1);
+			return (-1);
 		g_sig_status = 0;
 	}
 	else

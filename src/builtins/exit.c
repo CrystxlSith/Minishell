@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/10/25 16:17:34 by agiliber         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/28 16:28:54 by agiliber         ###   ########.fr       */
->>>>>>> Minishell_AGT
+/*   Created: 2024/10/29 12:37:11 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/29 12:37:34 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +72,8 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 		ft_putstr_fd(cmd_parsing->str[1], STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		free_all_line(tokens, cmd_parsing);
-		ft_free_array(data->var);
-		free(data);
+		free_minishell(data);
+		//free(data);
 		exit(255);
 	}
 	if (cmd_parsing->str[1] && cmd_parsing->str[2])
@@ -87,8 +83,8 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 	}
 	str = ft_array_dup(cmd_parsing->str);
 	free_all_line(tokens, cmd_parsing);
-	ft_free_array(data->var);
-	free(data);
+	free_minishell(data);
+	//free(data);
 	exit_code(str);
 	return (EXIT_SUCCESS);
 }
