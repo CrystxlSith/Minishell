@@ -3,36 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 16:17:34 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:08:37 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	**ft_array_dup(char **array)
+char	**ft_array_dup(char **str)
 {
-	char	**new_array;
 	int		i;
+	char	**res;
 
-	if (!array)
-		return (NULL);
 	i = 0;
-	while (array[i])
+	res = NULL;
+	while (str[i])
 		i++;
-	new_array = malloc((i + 1) * sizeof(char *));
-	if (!new_array)
+	res = malloc(sizeof(char *) * (i + 1));
+	if (!res)
 		return (NULL);
 	i = 0;
-	while (array[i])
+	while (str[i])
 	{
-		new_array[i] = strdup(array[i]);
+		res[i] = ft_strdup(str[i]);
 		i++;
 	}
-	new_array[i] = NULL;
-	return (new_array);
+	return (res);
 }
 
 int	is_numeric(char *str)
@@ -53,11 +51,13 @@ void	exit_code(char **str)
 {
 	int		code;
 
-	if (!str || !str[1])
+	if (!str[1])
 		code = 0;
 	else
 		code = ft_atoi(str[1]);
-	ft_free_array(str);
+	free(str[0]);
+	free(str[1]);
+	free(str);
 	exit(code);
 }
 
@@ -71,7 +71,7 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 		ft_putstr_fd("minishell : exit ", STDERR_FILENO);
 		ft_putstr_fd(cmd_parsing->str[1], STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-		free_all_line(tokens, cmd_parsing, data);
+		free_all_line(tokens, cmd_parsing);
 		ft_free_array(data->var);
 		free(data);
 		exit(255);
@@ -82,7 +82,7 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 		return (EXIT_FAILURE);
 	}
 	str = ft_array_dup(cmd_parsing->str);
-	free_all_line(tokens, cmd_parsing, data);
+	free_all_line(tokens, cmd_parsing);
 	ft_free_array(data->var);
 	free(data);
 	exit_code(str);

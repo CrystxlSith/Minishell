@@ -3,39 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:46:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 11:09:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 07:57:50 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	initiate_hdc_struc(t_cmd **parsing)
+void	initiate_hdc_struc(t_cmd **parsing)
 {
 	(*parsing)->hdc = malloc(sizeof(t_heredoc));
 	if (!(*parsing)->hdc)
-		return (-1);
+		return ;
 	(*parsing)->hdc->break_word = NULL;
 	(*parsing)->hdc->file_name = NULL;
 	(*parsing)->hdc->command = NULL;
-	(*parsing)->hdc->hdc_count = 0;
+	(*parsing)->hdc->trigger = 0;
 	(*parsing)->hdc->next = NULL;
-	return (0);
 }
 
-int	open_heredoc_file(int flags)
+t_heredoc	*new_hdc_struc(t_cmd **parsing)
 {
-	int	fd;
+	t_heredoc	*new_hdc;
 
-	fd = open("/tmp/heredoc.txt", flags, 0777);
-	if (fd == -1)
-	{
-		perror("open fd heredoc");
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
+	(void)parsing;
+	new_hdc = malloc(sizeof(t_heredoc));
+	if (!new_hdc)
+		return (NULL);
+	new_hdc->break_word = NULL;
+	new_hdc->file_name = NULL;
+	new_hdc->command = NULL;
+	new_hdc->trigger = 0;
+	new_hdc->next = NULL;
+	return (new_hdc);
 }
 
 void	write_to_heredoc(int fd, char *line)

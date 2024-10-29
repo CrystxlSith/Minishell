@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:38:32 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/28 07:34:01 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:58:13 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	handle_env_value(char **res, char *tmp, int *i, t_env **data)
 
 	if (tmp)
 	{
-		tmp = ft_strjoin(tmp, "=");
+		tmp = ft_strjoin(ft_strdup(tmp), "=");
+		printf("tmp = %s\n", tmp);
 		env_value = find_in_env(tmp, (*data)->var);
 		if (env_value)
 		{
@@ -77,6 +78,6 @@ void	handle_env_value(char **res, char *tmp, int *i, t_env **data)
 			*i += ft_strlen(env_value);
 			free(env_value);
 		}
+		free(tmp);
 	}
-	free(tmp);
 }

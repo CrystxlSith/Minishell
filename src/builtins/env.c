@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 14:44:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:33:44 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,18 @@ void	get_env(char **envp, t_env **data)
 	int	index;
 
 	index = 0;
-	(*data)->var = (char **)malloc(sizeof(char *) * ((*data)->size + 1));
+	(*data)->var = ft_calloc((*data)->size + 1, sizeof(char *));
 	if (!(*data)->var)
 		return ;
 	while (envp[index])
 	{
-		(*data)->var[index] = envp[index];
+		(*data)->var[index] = ft_strdup(envp[index]);
+		if (!(*data)->var[index])
+		{
+			free_all((*data)->var);
+			(*data)->var = NULL;
+			return ;
+		}
 		index++;
 	}
 	(*data)->var[index] = NULL;

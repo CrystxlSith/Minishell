@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 16:17:05 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:08:27 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ int	start_error(char *input)
 	return (0);
 }
 
-void	remove_hdc_file()
+void	remove_hdc_file(void)
 {
 	char	*file_name;
 	int		i;
+	char	*index;
 
 	i = 1;
 	file_name = ft_strdup("/tmp/heredoc1.txt");
@@ -51,10 +52,12 @@ void	remove_hdc_file()
 	{
 		ft_remove(file_name);
 		i++;
+		index = ft_itoa(i);
 		free(file_name);
 		file_name = ft_strdup("/tmp/heredoc");
-		file_name = ft_strjoin(file_name, ft_itoa(i));
+		file_name = ft_strjoin(file_name, index);
 		file_name = ft_strjoin(file_name, ".txt");
+		free(index);
 	}
 	free(file_name);
 }
@@ -106,7 +109,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		input_execution(data, cmd_parsing);
 		if (minishell.line_read)
 			free(minishell.line_read);
-		free_all_line(tokens, cmd_parsing, data);
+		free_all_line(tokens, cmd_parsing);
 		rl_on_new_line();
 	}
 	clear_history();

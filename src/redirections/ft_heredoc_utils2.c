@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc_utils2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:13:54 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 12:23:12 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 07:57:32 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 int	handle_break_word(t_cmd *cmd_parsing, t_env **data)
 {
-	if (cmd_parsing->hdc->command == NULL)
+	if (!cmd_parsing->hdc->command && cmd_parsing->next == NULL)
 	{
 		ft_remove(cmd_parsing->hdc->file_name);
 		return (1);
+	}
+	else if ((!cmd_parsing->hdc->command && cmd_parsing->next != NULL))
+	{
+		ft_remove(cmd_parsing->hdc->file_name);
+		cmd_parsing = cmd_parsing->next;
+		exec_multiple_cmd(&cmd_parsing, data);
 	}
 	else if (cmd_parsing->hdc->trigger == 1)
 		return (1);
@@ -41,4 +47,17 @@ int	ft_remove(const char *pathname)
 			return (-1);
 	}
 	return (0);
+}
+
+int	open_heredoc_file(int flags)
+{
+	int	fd;
+
+	fd = open("/tmp/heredoc.txt", flags, 0777);
+	if (fd == -1)
+	{
+		perror("open fd heredoc");
+		exit(EXIT_FAILURE);
+	}
+	return (fd);
 }

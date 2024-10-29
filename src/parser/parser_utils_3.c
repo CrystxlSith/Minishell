@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:15:40 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/28 08:00:33 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:16:51 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ char	*build_res(char *res, int i, int j, char **input)
 	new_res = ft_realloc(res, ft_strlen(res) + 1, ft_strlen(res) + 2);
 	if (!new_res)
 		return (NULL);
+	free(res);
 	res = new_res;
 	res[i] = (*input)[j];
 	res[i + 1] = '\0';
