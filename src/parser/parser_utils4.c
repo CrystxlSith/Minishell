@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/18 10:07:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/28 08:00:55 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ t_cmd	*create_new_cmd(void)
 	return (new_cmd);
 }
 
-int	handle_question(char **res, char *tmp, int *i)
+int	handle_question(char **res, int *i, char **input, int *j)
 {
 	char	*tmp2;
 
 	tmp2 = ft_itoa(g_sig_status);
-	if (!ft_strncmp(tmp, "?", 1))
+	if ((*input)[0] == '$' && (*input)[1] == '?')
 	{
 		*res = ft_strjoin(*res, tmp2);
 		*i += ft_strlen(tmp2);
+		*j += 2;
 		free(tmp2);
 		return (1);
 	}
 	free(tmp2);
-	handle_env_value(res, tmp, i);
 	return (0);
 }

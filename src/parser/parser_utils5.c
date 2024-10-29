@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/18 09:54:37 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 10:08:03 by agiliber         ###   ########.fr       */
+/*   Created: 2024/10/25 12:45:44 by agiliber          #+#    #+#             */
+/*   Updated: 2024/10/29 12:48:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	new_heredoc(t_cmd *cmd, t_heredoc *new_hdc)
 	else
 	{
 		last_hdc = cmd->hdc;
-		while (last_hdc->next != NULL)
+		while (last_hdc->next)
 			last_hdc = last_hdc->next;
 		last_hdc->next = new_hdc;
 		new_hdc->prev = last_hdc;
@@ -64,13 +64,10 @@ void	add_heredoc(t_lexer **token, t_cmd *current)
 {
 	t_heredoc	*new_hdc;
 
-	if (current->hdc_count != 0)
-	{
-		new_hdc = new_hdc_struc(&current);
-		fill_heredoc(token, current, new_hdc);
-	}
-	else
-		fill_heredoc(token, current, current->hdc);
+	new_hdc = malloc(sizeof(t_heredoc));
+	if (!new_hdc)
+		exit(EXIT_FAILURE);
+	fill_heredoc(token, current, new_hdc);
 }
 
 void	init_replace_dollar(int *i, int *j, char **res)

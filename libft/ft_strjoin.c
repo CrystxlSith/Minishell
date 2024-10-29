@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 22:29:06 by crystal           #+#    #+#             */
-/*   Updated: 2024/09/26 14:25:44 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/18 18:06:14 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		i;
 	int		j;
 
+	if (!s1 || !s2)
+		return (NULL);
 	i = -1;
 	j = 0;
 	i1 = ft_strlen(s1);
 	i2 = ft_strlen(s2);
-	if (!s1 || !s2)
-		return (NULL);
 	str = (char *)malloc(sizeof(char) * (i1 + i2 + 1));
 	if (!str)
 		return (NULL);

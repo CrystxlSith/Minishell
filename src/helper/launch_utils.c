@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 10:15:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:48:43 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		if (launcher_exec(minishell.line_read, &data) == -1)
 			return (free(minishell.line_read), exit(EXIT_FAILURE), -1);
 		tokens = tokenize(minishell.line_read);
-		cmd_parsing = parser(&tokens);
+		cmd_parsing = parser(&tokens, &data);
 		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
 		{
 			if (ft_exit_shell(cmd_parsing, data, tokens) == 0)
