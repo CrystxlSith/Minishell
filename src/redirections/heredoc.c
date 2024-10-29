@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
 /*   Updated: 2024/10/29 15:01:50 by agiliber         ###   ########.fr       */
@@ -131,6 +131,13 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			init_signals(1);
 			mini.line_read = readline("> ");
 			i++;
+<<<<<<< HEAD
+			// if (mini.line_read == NULL)
+			// 	return (handle_readline_error(cmd_parsing->hdc->hdc_fd));
+			// if (launcher_exec(mini.line_read, data) == -1)
+			// 	return (free(mini.line_read), exit_failure(cmd_parsing->hdc->hdc_fd));
+=======
+>>>>>>> Minishell_AGT
 			if (mini.line_read && mini.line_read[0] == '\0')
 			{
 				write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);

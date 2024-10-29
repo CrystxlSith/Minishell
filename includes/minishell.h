@@ -6,7 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2024/10/29 14:39:06 by agiliber         ###   ########.fr       */
+=======
 /*   Updated: 2024/10/29 14:57:22 by agiliber         ###   ########.fr       */
+>>>>>>> Minishell_AGT
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +91,10 @@ void		generate_hdc_files(t_cmd **cmd_parsing, int count);
 void		remove_hdc_file(void);
 void		create_hdc_file(t_cmd *parsing);
 t_heredoc	*new_hdc_struc(t_cmd **parsing);
+<<<<<<< HEAD
+void		print_hdc_error(int i, char *token2);
+=======
 void		print_hdc_error(int i , char *token2);
+>>>>>>> Minishell_AGT
 
 #endif
