@@ -74,7 +74,7 @@ void	replace_dollar_hdc(char **input, t_env **data)
 			{
 				handle_question(&res, &i, input, &j);
 				res = build_res(res, i, j, input);
-				free_increment(&tmp, &tmp2, &i, &j);
+				//free_increment(&tmp, &tmp2, &i, &j);
 			}
 		}
 		free(*input);
