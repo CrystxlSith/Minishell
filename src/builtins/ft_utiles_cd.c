@@ -29,11 +29,9 @@ int	update_env(char *tmp_old, char *tmp_new, t_env **data)
 	char	*old_pwd;
 	char	*pwd;
 
-	if ((*data)->pwd)
-		free((*data)->pwd);
-	if ((*data)->old_pwd)
-		free((*data)->old_pwd);
+	free((*data)->pwd);
 	(*data)->pwd = ft_strdup(tmp_new);
+	free((*data)->old_pwd);
 	(*data)->old_pwd = ft_strdup(tmp_old);
 	old_pwd = ft_strdup("OLDPWD=");
 	pwd = ft_strdup("PWD=");

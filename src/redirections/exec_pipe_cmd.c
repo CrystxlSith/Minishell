@@ -22,7 +22,7 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 		handle_middle_cmd_pipe(old_fd, fd);
 	else
 		handle_last_cmd_pipe(old_fd);
-	if (!parsing->hdc->command)
+	if (parsing->hdc_count != 0 && !parsing->hdc->command)
 		exit(g_sig_status);
 	exec_cmd(&parsing, data);
 	return (0);
