@@ -43,10 +43,12 @@ int	exec_redir_in(t_cmd **parsing, t_env **data)
 	while (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_IN)
 		tmp->redir = tmp->redir->next;
 	if (!tmp->redir->data)
-		exit(0);
+		return (ft_printf_fd(2, "bash: %s: No such file or directory\n", \
+			tmp->redir->data), -1);
 	fd_redir = open(tmp->redir->data, O_RDONLY);
 	if (fd_redir == -1)
-		return (perror("infile "), -1);
+		return (ft_printf_fd(2, "bash: %s: No such file or directory\n", \
+			tmp->redir->data), -1);
 	if (open_dup_input(fd_redir) == -1)
 		return (perror("open_dup infile "), -1);
 	if (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_OUT)
