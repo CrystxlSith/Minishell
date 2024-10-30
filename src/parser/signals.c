@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/10/29 12:57:42 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/30 19:30:52 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	signal_handler(int signum)
 	rl_replace_line("", 0);
 	rl_redisplay();
 	g_sig_status = signum;
+	// printf("code = %d\n", g_sig_status);
 	(void)signum;
 }
 
@@ -40,6 +41,7 @@ void	signal_sub_handler(int signum)
 		write(1, "\n", 1);
 	i += 1;
 	g_sig_status = signum;
+	// printf("code = %d\n", g_sig_status);
 	(void)signum;
 }
 

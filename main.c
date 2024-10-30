@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 14:36:46 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/30 19:27:36 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,9 @@ exec_redirection : Bad address
 ==15204==    by 0x11003A: generate_minishell_prompt (launch_utils.c:107)
 ==15204==    by 0x11032F: main (main.c:35)
 ==15204== 
+
+Unset sans argument segfault
+Nombre d'arguments des builtins
 */
 
 int	g_sig_status;
@@ -105,5 +108,3 @@ int	main(int ac, char **av, char **envp)
 	free_minishell(data);
 	return (0);
 }
-
-/*d*/

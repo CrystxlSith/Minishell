@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 17:19:59 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/30 19:24:05 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**ft_realloc_env_unset(int new_size, t_env **data, int index)
 	return (new_tab);
 }
 
-void	unset(char *input, t_env **data)
+int	unset(char *input, t_env **data)
 {
 	int		i;
 	char	*str;
@@ -64,7 +64,7 @@ void	unset(char *input, t_env **data)
 	if (str == NULL || ft_strchr(input, '=') != NULL)
 	{
 		free(str);
-		return ;
+		return (1);
 	}
 	else
 	{
@@ -73,4 +73,5 @@ void	unset(char *input, t_env **data)
 		(*data)->var = ft_realloc_env_unset((*data)->size, data, i);
 		free(str);
 	}
+	return (0);
 }
