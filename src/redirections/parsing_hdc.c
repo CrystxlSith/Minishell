@@ -12,10 +12,10 @@
 
 #include "../../includes/minishell.h"
 
-int loop_while_dollar_hdc(char **input, char **tmp, int i, char *tmp2)
+int	loop_while_dollar_hdc(char **input, char **tmp, int i, char *tmp2)
 {
-	int k = 0;
-	int tmp_len = i;
+	int	k = 0;
+	int	tmp_len = i;
 	char *new_tmp;
 
 	if (!(*input)[i + 1])
@@ -61,7 +61,7 @@ void	replace_dollar_hdc(char **input, t_env **data)
 				if (!(*input)[j + 1])
 				{
 					j++;
-					free(tmp); 
+					free(tmp);
 					free(tmp2);
 					continue ;
 				}
