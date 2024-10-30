@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:48:31 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:20:20 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 int	fork_redirection(t_cmd **parsing, t_env **data)
 {
 	int		pid;
-	t_cmd	*tmp;
 	int		trigger;
 
 	trigger = 0;
-	tmp = *parsing;
 	pid = fork();
 	if (pid == -1)
 		return (perror("pid "), -1);

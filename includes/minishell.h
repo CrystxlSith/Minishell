@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 13:20:38 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/30 17:48:47 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void		create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void		new_token(t_lexer **tokens, t_lexer *new_node);
 t_cmd		*parser(t_lexer **tokens, t_env **data);
 void	replace_dollar_hdc(char **input, t_env **data);
+void	free_increment(char **tmp, char **tmp2, int *i, int *j);
 
 //BUILTINS ---> GENERAL
 int			builtins(t_cmd **parsing, t_env **data);

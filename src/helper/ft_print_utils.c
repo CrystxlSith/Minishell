@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:13:26 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/28 07:28:52 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:21:02 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
  void	print_cmd(t_cmd *head)
 {
 	t_cmd	*current;
-	t_lexer	*redir;
 
-	redir = NULL;
 	current = head;
 	while (current)
 	{
@@ -29,20 +27,10 @@
 		}
 		printf("\n");
 		printf("Redirections: ");
-		redir = current->redir;
-		// while (redir)
-		// {
-		// 	printf("%s ", redir->data);
-		// 	redir = redir->next;
-		// }
 		printf("\n");
-		// if (current->index)
 			printf("Index: %d\n", current->index);
-		// if (current->here_doc)
 			printf("Here_doc: %s\n", current->here_doc);
-		// if (current->redir_nb)
 			printf("Redir_nb: %d\n", current->redir_nb);
-		// if (current->elem_nb)
 			printf("Elem nb: %d\n", current->elem_nb);
 		current = current->next;
 	}

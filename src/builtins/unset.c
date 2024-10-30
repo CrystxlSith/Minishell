@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 14:12:04 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:19:59 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ void	unset(char *input, t_env **data)
 {
 	int		i;
 	char	*str;
-	int		size;
 
 	i = 0;
-	size = 0;
 	str = find_in_env(input, (*data)->var);
 	if (str == NULL || ft_strchr(input, '=') != NULL)
 	{

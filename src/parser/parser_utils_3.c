@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 16:15:40 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/29 09:16:51 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:32:31 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,70 +85,25 @@ int loop_while_dollar(char **input, char **tmp, int i, char *tmp2)
 	int tmp_len = i;
 	char *new_tmp;
 
-	if (!(*input)[i + 1]) {
-		free(*tmp);
-		free(tmp2);
-		return 0;
-	}
-	// Calculate the length of the new string
-	while (ft_isdigit((*input)[i]) || ft_isalpha((*input)[i]) || (*input)[i] == '?' || (*input)[i] == '_') {
+	if (!(*input)[i + 1])
+		return (free(tmp2), 0);
+	while (ft_isdigit((*input)[i]) || ft_isalpha((*input)[i]) || (*input)[i] == '?' || (*input)[i] == '_')
+	{
 		k++;
 		i++;
 	}
-
-	// Allocate memory for the new string
 	new_tmp = malloc(sizeof(char) * (k + 1));
-	if (!new_tmp) {
+	if (!new_tmp)
 		return 0;
-	}
-
-	// Free the old tmp and assign the new memory
 	free(*tmp);
 	*tmp = new_tmp;
-
-	// Reset i to 0 for the new string
 	i = 0;
-
-	// Copy the characters to the new string
-	while (ft_isdigit((*input)[tmp_len]) || ft_isalpha((*input)[tmp_len]) || (*input)[tmp_len] == '?' || (*input)[tmp_len] == '_') {
+	while (ft_isdigit((*input)[tmp_len]) || ft_isalpha((*input)[tmp_len]) || (*input)[tmp_len] == '?' || (*input)[tmp_len] == '_')
 		(*tmp)[i++] = (*input)[tmp_len++];
-	}
-
-	// Null-terminate the new string
 	(*tmp)[i] = '\0';
-
-	// Free the temporary string
 	free(tmp2);
 	return (k);
 }
-
-// int	loop_while_dollar(char **input, char **tmp, int i, char *tmp2)
-// {
-// 	int		k;
-// 	int		tmp_len;
-// 	char	*new_tmp;
-
-// 	tmp_len = i;
-// 	k = 0;
-// 	if (!(*input)[i + 1])
-// 		return(free(*tmp), free(tmp2), 0);
-// 	while (ft_isdigit((*input)[i++]) || \
-// 	ft_isalpha((*input)[i]) || (*input)[i] == '?' || (*input)[i] == '_')
-// 		k++;
-// 	new_tmp = malloc(sizeof(char) * (k + 1));
-// 	if (!new_tmp)
-// 		return (0);
-// 	free(*tmp);
-// 	*tmp = new_tmp;
-// 	i = 0;
-// 	while (ft_isdigit((*input)[tmp_len]) || \
-// 	ft_isalpha((*input)[tmp_len]) || (*input)[tmp_len] == '?' || \
-// 	(*input)[tmp_len] == '_')
-// 		(*tmp)[i++] = (*input)[tmp_len++];
-// 	(*tmp)[i] = '\0';
-// 	free(tmp2);
-// 	return (k + 1);
-// }
 
 char	*build_res(char *res, int i, int j, char **input)
 {

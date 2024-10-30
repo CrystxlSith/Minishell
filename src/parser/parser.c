@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:44:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 13:15:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:46:07 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,31 @@ void	replace_dollar(char **input, char *res, t_env **data)
 	while ((*input)[j])
 	{
 		init_temp(&tmp, &tmp2);
-		if ((*input)[j] == '$' && (*input)[j + 1] != '?')
+		if ((*input)[j] == '$')
 		{
 			if (!(*input)[j + 1])
 			{
 				j++;
+				free(res);
+				res = ft_strdup("$");
 				free(tmp);
 				free(tmp2);
 				continue ;
 			}
-			if (handle_number(input, &j, tmp, tmp2))
+			else if (handle_question(&res, &i, input, &j))
+			{
+				free(tmp);
+				free(tmp2);
+				continue;
+			}
+			else if (handle_number(input, &j, tmp, tmp2))
 				continue ;
 			j += loop_while_dollar(input, &tmp, j, tmp2);
 			handle_env_value(&res, tmp, &i, data);
+			free(tmp);
 		}
 		else
 		{
-			handle_question(&res, &i, input, &j);
 			res = build_res(res, i, j, input);
 			free_increment(&tmp, &tmp2, &i, &j);
 		}
