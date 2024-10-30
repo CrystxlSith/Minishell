@@ -42,6 +42,8 @@ int	exec_redir_in(t_cmd **parsing, t_env **data)
 	tmp = *parsing;
 	while (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_IN)
 		tmp->redir = tmp->redir->next;
+	if (!tmp->redir->data)
+		exit(0);
 	fd_redir = open(tmp->redir->data, O_RDONLY);
 	if (fd_redir == -1)
 		return (perror("infile "), -1);
