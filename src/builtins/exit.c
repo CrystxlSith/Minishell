@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:49:07 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/30 18:13:41 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	**ft_array_dup(char **str)
 		res[i] = ft_strdup(str[i]);
 		i++;
 	}
+	res[i] = NULL;
 	return (res);
 }
 
@@ -55,9 +56,7 @@ void	exit_code(char **str)
 		code = 0;
 	else
 		code = ft_atoi(str[1]);
-	free(str[0]);
-	free(str[1]);
-	free(str);
+	ft_free_array(str);
 	exit(code);
 }
 
