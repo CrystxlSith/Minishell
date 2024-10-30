@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 15:01:50 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:25:08 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 	int	len;
 
 	len = ft_strlen(cmd_parsing->hdc->break_word);
-	if (ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
+	if (mini->line_read == NULL || ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
 	{
 		if (cmd_parsing->hdc->next != NULL)
 		{
@@ -126,10 +126,12 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			if (cmd_parsing->hdc->trigger == 3)
 				exit(g_sig_status);
 			mini.line_read = readline("> ");
+			// parse_hdc(&mini.line_read);
 			i++;
 			if (mini.line_read && mini.line_read[0] == '\0')
 			{
 				write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
+				free(mini.line_read);
 				continue ;
 			}
 			if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 1)
@@ -141,7 +143,7 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			{
 				free(mini.line_read);
 				handle_break_word(cmd_parsing, data);
-				exit(g_sig_status);
+				break;
 			}
 			if (mini.line_read)
 				write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
@@ -151,7 +153,7 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 		{
 			print_hdc_error(i, cmd_parsing->hdc->break_word);
 			close(cmd_parsing->hdc->hdc_fd);
-			exit(1);
+			exit(EXIT_SUCCESS);
 		}
 	}
 	waitpid(pid, &g_sig_status, 0);
