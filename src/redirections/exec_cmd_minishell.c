@@ -17,7 +17,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 	int		pid;
 
 	setup_child_signals();
-	if (check_if_builtins((*parsing)->str[0]) && (*parsing)->next == NULL
+	if (check_if_builtins((*parsing)->str[0]) == 0 && (*parsing)->next == NULL
 		&& (*parsing)->redir_nb == 0)
 	{
 		if (builtins(parsing, data) == -1)
@@ -73,12 +73,12 @@ int	exec_cmd(t_cmd **parsing, t_env **data)
 int	exec_single_cmd(t_cmd **parsing, t_env **data)
 {
 	if ((*parsing)->hdc_count != 0
-		&& check_if_builtins((*parsing)->hdc->command[0]))
+		&& check_if_builtins((*parsing)->hdc->command[0]) == 0)
 	{
 		if (builtins(parsing, data) == -1)
 			return (perror("builtins"), -1);
 	}
-	else if (check_if_builtins((*parsing)->str[0]))
+	else if (check_if_builtins((*parsing)->str[0]) == 0)
 	{
 		if (builtins(parsing, data) == -1)
 			return (perror("builtins"), -1);

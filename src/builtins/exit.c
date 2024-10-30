@@ -73,7 +73,6 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		free_all_line(tokens, cmd_parsing);
 		free_minishell(data);
-		//free(data);
 		exit(255);
 	}
 	if (cmd_parsing->str[1] && cmd_parsing->str[2])
@@ -84,7 +83,6 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 	str = ft_array_dup(cmd_parsing->str);
 	free_all_line(tokens, cmd_parsing);
 	free_minishell(data);
-	//free(data);
 	exit_code(str);
 	return (EXIT_SUCCESS);
 }

@@ -59,13 +59,13 @@ int	find_index_file(t_cmd *parsing, int i)
 int	check_if_builtins(char *input)
 {
 	if (input == NULL)
-		return (FALSE);
+		return (-1);
 	if (ft_strncmp(input, "echo", 4) == 0
 		|| ft_strncmp(input, "pwd", 3) == 0
 		|| ft_strncmp(input, "env", 3) == 0
 		|| ft_strncmp(input, "export", 6) == 0
 		|| ft_strncmp(input, "cd", 2) == 0
 		|| ft_strncmp(input, "unset", 5) == 0)
-		return (TRUE);
-	return (FALSE);
+		return (0);
+	return (-1);
 }

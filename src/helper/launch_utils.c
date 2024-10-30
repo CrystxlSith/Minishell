@@ -23,6 +23,29 @@ int	launcher_exec(char *input, t_env **data)
 	return (0);
 }
 
+int	check_cmd_parsing(t_cmd **parsing, t_env **data)
+{
+	char	*path;
+	int		trigger;
+
+	trigger = 0;
+	if (access((*parsing)->str[0], X_OK) != -1)
+		trigger++;
+	path = get_filepath((*parsing)->str, (*data)->var);
+	if (path != NULL)
+		trigger++;
+	if (check_if_builtins((*parsing)->str[0]) != -1)
+		trigger++;
+	if (trigger == 0)
+	{
+		free(path);
+		ft_printf_fd(2, "bash: %s:command not found\n", (*parsing)->str[0]);
+		return (-1);
+	}
+	free(path);
+	return (0);
+}
+
 int	start_error(char *input)
 {
 	if (!input)
@@ -94,14 +117,17 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 			return (free(minishell.line_read), exit(EXIT_FAILURE), -1);
 		tokens = tokenize(minishell.line_read);
 		cmd_parsing = parser(&tokens, &data);
-		if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
+		if (check_cmd_parsing(&cmd_parsing, &data) == 0)
 		{
-			if (ft_exit_shell(cmd_parsing, data, tokens) == 0)
-				free(minishell.line_read);
+			if (!ft_strncmp(minishell.line_read, "exit", ft_strlen("exit")))
+			{
+				if (ft_exit_shell(cmd_parsing, data, tokens) == 0)
+					free(minishell.line_read);
+			}
+			if (!cmd_parsing)
+				continue ;
+			input_execution(data, cmd_parsing);
 		}
-		if (!cmd_parsing)
-			continue ;
-		input_execution(data, cmd_parsing);
 		if (minishell.line_read)
 			free(minishell.line_read);
 		free_all_line(tokens, cmd_parsing);

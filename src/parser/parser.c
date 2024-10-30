@@ -38,7 +38,7 @@ void	replace_dollar(char **input, char *res, t_env **data)
 				j++;
 				free(tmp);
 				free(tmp2);
-				continue;
+				continue ;
 			}
 			if (handle_number(input, &j, tmp, tmp2))
 				continue ;
@@ -68,7 +68,7 @@ void	new_cmd(t_cmd **current)
 	(*current)->hdc = new_hdc_struc(current);
 }
 
-static void	cmd_adding(t_lexer *tmp, t_cmd *current, t_env **data)
+static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 {
 	char	*s_tmp;
 
@@ -108,6 +108,6 @@ t_cmd	*parser(t_lexer **tokens, t_env **data)
 	init_cmd(&head, &current);
 	initiate_hdc_struc(&head);
 	rep_d(tmp, res, data);
-	cmd_adding(tmp, current, data);
+	cmd_adding(tmp, current);
 	return (head);
 }

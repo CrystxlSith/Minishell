@@ -75,7 +75,6 @@ void		free_hdc(t_heredoc *head);
 //Heredocs
 void		initiate_hdc_struc(t_cmd **parsing);
 int			ft_remove(const char *pathname);
-int			open_heredoc_file(int flags);
 void		write_to_heredoc(int fd, char *line);
 int			handle_heredoc(t_cmd **cmd_parsing, t_env **data);
 int			handle_readline_error(int fd);
@@ -88,6 +87,5 @@ void		remove_hdc_file(void);
 void		create_hdc_file(t_cmd *parsing);
 t_heredoc	*new_hdc_struc(t_cmd **parsing);
 void		print_hdc_error(int i, char *token2);
-int			handle_input_loop(t_cmd *pars, t_env **data);
 
 #endif
