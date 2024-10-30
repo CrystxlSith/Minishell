@@ -22,6 +22,8 @@ int	pipe_multiple_cmd(t_cmd *parsing, t_env **data, int *fd, int *old_fd)
 		handle_middle_cmd_pipe(old_fd, fd);
 	else
 		handle_last_cmd_pipe(old_fd);
+	if (!parsing->hdc->command)
+		exit(g_sig_status);
 	exec_cmd(&parsing, data);
 	return (0);
 }
@@ -49,16 +51,17 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 			close(current_fd[0]);
 		if (tmp->hdc_count != 0 && tmp->hdc->trigger != 2)
 		{
-			tmp->hdc->trigger = 1;
-			create_hdc_file(tmp);
+			tmp->hdc->trigger = 3;
+			if (!tmp->hdc->file_name)
+				create_hdc_file(tmp);
 			handle_heredoc_input(tmp, data);
 		}
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
 			perror("multiple_cmd_iteration");
-			exit(EXIT_FAILURE);
+			exit(g_sig_status);
 		}
-		exit(EXIT_SUCCESS);
+		exit(g_sig_status);
 	}
 	return (pid);
 }

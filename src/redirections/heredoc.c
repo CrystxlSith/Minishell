@@ -67,14 +67,11 @@ void	generate_hdc_files(t_cmd **cmd_parsing, int count)
 
 int	handle_heredoc(t_cmd **cmd_parsing, t_env **data)
 {
-	int		count;
 	t_cmd	*tmp;
 	int		nbr;
 
-
 	nbr = detect_hdc(cmd_parsing);
 	generate_hdc_files(cmd_parsing, nbr);
-	count = (*cmd_parsing)->hdc_count;
 	tmp = *cmd_parsing;
 	while (nbr > 0 && tmp)
 	{
@@ -126,6 +123,8 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 		while (1)
 		{
 			init_signals(1);
+			if (cmd_parsing->hdc->trigger == 3)
+				exit(g_sig_status);
 			mini.line_read = readline("> ");
 			i++;
 			if (mini.line_read && mini.line_read[0] == '\0')
@@ -135,8 +134,8 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			}
 			if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 1)
 			{
-				continue ;
 				free(mini.line_read);
+				continue ;
 			}
 			else if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 2)
 			{

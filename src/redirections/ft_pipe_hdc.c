@@ -37,9 +37,11 @@ void	create_hdc_file(t_cmd *parsing)
 {
 	char	*file_name;
 	int		fd_out;
+	char	*index;
 
+	index = ft_itoa(1);
 	file_name = ft_strdup("/tmp/heredoc");
-	file_name = ft_strjoin(file_name, ft_itoa(1));
+	file_name = ft_strjoin(file_name, index);
 	file_name = ft_strjoin(file_name, ".txt");
 	parsing->hdc->file_name = ft_strdup(file_name);
 	fd_out = open(parsing->hdc->file_name, O_CREAT | O_RDWR | O_APPEND, 0777);
@@ -49,8 +51,8 @@ void	create_hdc_file(t_cmd *parsing)
 		return ;
 	}
 	parsing->hdc->hdc_fd = fd_out;
-	close(fd_out);
 	free(file_name);
+	free(index);
 }
 
 int	pipe_heredoc(t_cmd *parsing, int *fd)

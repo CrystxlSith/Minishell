@@ -31,9 +31,9 @@ int	main(int ac, char **av, char **envp)
 	cmd_parsing = NULL;
 	(void)ac;
 	(void)av;
+	remove_hdc_file();
 	if (generate_minishell_prompt(data, tokens, cmd_parsing) == -1)
 		return (free_minishell(data), -1);
-	remove_hdc_file();
 	free_minishell(data);
 	return (0);
 }

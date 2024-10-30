@@ -67,15 +67,9 @@ void	input_execution(t_env *data, t_cmd *cmd_parsing)
 	if (detect_hdc(&cmd_parsing) != 0)
 	{
 		if (cmd_parsing->hdc_count != 0)
-		{
 			handle_heredoc(&cmd_parsing, &data);
-			remove_hdc_file();
-		}
 		else
-		{
-			printf("%s\n", "exec_multiple_cmd");
 			exec_multiple_cmd(&cmd_parsing, &data);
-		}
 	}
 	else
 	{
@@ -90,6 +84,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 
 	while (1)
 	{
+		remove_hdc_file();
 		init_signals(0);
 		minishell.line_read = readline("minishell> ");
 		add_history(minishell.line_read);

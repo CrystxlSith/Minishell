@@ -23,6 +23,7 @@ int	handle_break_word(t_cmd *cmd_parsing, t_env **data)
 	{
 		ft_remove(cmd_parsing->hdc->file_name);
 		cmd_parsing = cmd_parsing->next;
+		cmd_parsing->hdc->trigger = 2;
 		exec_multiple_cmd(&cmd_parsing, data);
 	}
 	else if (cmd_parsing->hdc->trigger == 1)
@@ -47,17 +48,4 @@ int	ft_remove(const char *pathname)
 			return (-1);
 	}
 	return (0);
-}
-
-int	open_heredoc_file(int flags)
-{
-	int	fd;
-
-	fd = open("/tmp/heredoc.txt", flags, 0777);
-	if (fd == -1)
-	{
-		perror("open fd heredoc");
-		exit(EXIT_FAILURE);
-	}
-	return (fd);
 }
