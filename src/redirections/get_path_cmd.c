@@ -18,6 +18,8 @@ char	**get_filepath_norm(char **envp)
 	char	**full_path;
 
 	path = find_in_env("PATH=", envp);
+	if (!path)
+		return (NULL);
 	full_path = ft_split(path, ':');
 	if (!full_path)
 		return (free(path), NULL);
@@ -45,7 +47,8 @@ char	*get_filepath(char **cmd, char **envp)
 		tmp = ft_strjoin(full_path[index], "/");
 		full_path_cmd = ft_strjoin(tmp, cmd[0]);
 		if (access(full_path_cmd, X_OK) == 0)
-			return (final_path = full_path_cmd, final_path);
+			return (free_remaining_tab(full_path, index + 1), \
+				final_path = full_path_cmd, final_path);
 		free(full_path_cmd);
 	}
 	free(full_path);

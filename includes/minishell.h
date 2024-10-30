@@ -71,6 +71,7 @@ void		free_parsed_cmd(t_cmd *head);
 void		free_minishell(t_env *data);
 void		free_all_line(t_lexer *tokens, t_cmd *cmd_parsing);
 void		free_hdc(t_heredoc *head);
+void		free_remaining_tab(char **s, int index);
 
 //Heredocs
 void		initiate_hdc_struc(t_cmd **parsing);

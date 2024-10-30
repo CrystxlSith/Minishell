@@ -25,6 +25,18 @@ void	free_all(char **s)
 	free(s);
 }
 
+void	free_remaining_tab(char **s, int index)
+{
+	if (!s)
+		return ;
+	while (s[index])
+	{
+		free(s[index]);
+		index++;
+	}
+	free(s);
+}
+
 void	free_rest_tab(char **s, int index)
 {
 	while (index > 0)

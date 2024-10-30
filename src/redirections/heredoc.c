@@ -126,7 +126,6 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			if (cmd_parsing->hdc->trigger == 3)
 				exit(g_sig_status);
 			mini.line_read = readline("> ");
-			// parse_hdc(&mini.line_read);
 			i++;
 			if (mini.line_read && mini.line_read[0] == '\0')
 			{
@@ -143,7 +142,7 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			{
 				free(mini.line_read);
 				handle_break_word(cmd_parsing, data);
-				break;
+				exit(g_sig_status);
 			}
 			if (mini.line_read)
 				write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);

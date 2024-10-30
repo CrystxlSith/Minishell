@@ -29,6 +29,8 @@ int	check_cmd_parsing(t_cmd **parsing, t_env **data)
 	int		trigger;
 
 	trigger = 0;
+	if (detect_hdc(parsing) != 0)
+		return (0);
 	if (access((*parsing)->str[0], X_OK) != -1)
 		trigger++;
 	path = get_filepath((*parsing)->str, (*data)->var);
