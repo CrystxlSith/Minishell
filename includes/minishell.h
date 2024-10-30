@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 14:57:22 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:20:38 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_lexer		*tokenize(char *str);
 void		create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void		new_token(t_lexer **tokens, t_lexer *new_node);
 t_cmd		*parser(t_lexer **tokens, t_env **data);
+void	replace_dollar_hdc(char **input, t_env **data);
 
 //BUILTINS ---> GENERAL
 int			builtins(t_cmd **parsing, t_env **data);

@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 12:25:08 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/30 15:35:01 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 			if (cmd_parsing->hdc->trigger == 3)
 				exit(g_sig_status);
 			mini.line_read = readline("> ");
+			replace_dollar_hdc(&mini.line_read, data);
 			i++;
 			if (mini.line_read && mini.line_read[0] == '\0')
 			{
