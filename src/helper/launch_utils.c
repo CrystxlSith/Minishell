@@ -29,7 +29,7 @@ int	check_cmd_parsing(t_cmd **parsing, t_env **data)
 	int		trigger;
 
 	trigger = 0;
-	if (detect_hdc(parsing) != 0)
+	if (detect_hdc(parsing) != 0 || (*parsing)->redir != 0)
 		return (0);
 	if (access((*parsing)->str[0], X_OK) != -1)
 		trigger++;

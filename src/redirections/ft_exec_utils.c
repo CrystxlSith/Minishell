@@ -65,6 +65,7 @@ int	check_if_builtins(char *input)
 		|| ft_strncmp(input, "env", 3) == 0
 		|| ft_strncmp(input, "export", 6) == 0
 		|| ft_strncmp(input, "cd", 2) == 0
+		|| ft_strncmp(input, "exit", 4) == 0
 		|| ft_strncmp(input, "unset", 5) == 0)
 		return (0);
 	return (-1);

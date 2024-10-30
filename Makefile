@@ -23,7 +23,7 @@ NAME_A = minishell.a
 # ------------------------------------------------------------------------------
 
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -fPIE -I./includes/
+CFLAGS = -g3 -Wall -Wextra -Werror -fPIE -I./includes/
 RM = rm -rf
 LIBFT_FLAGS = -L./$(LIB_DIR) -l:libft.a
 CLEAN = $(MAKE) clean

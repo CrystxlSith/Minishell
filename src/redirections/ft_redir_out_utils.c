@@ -28,11 +28,12 @@ int	exec_redir_out(t_cmd **parsing, t_env **data)
 		return (perror("open_dup outfile "), -1);
 	if ((*parsing)->str == NULL)
 	{
-		(*parsing)->str = (char **)malloc(sizeof(char *) * 2);
+		exit(0);
+/* 		(*parsing)->str = (char **)malloc(sizeof(char *) * 2);
 		if (!(*parsing)->str)
 			return (0);
 		(*parsing)->str[0] = ft_strdup("cat");
-		(*parsing)->str[1] = NULL;
+		(*parsing)->str[1] = NULL; */
 	}
 	exec_single_cmd(parsing, data);
 	exit(0);
