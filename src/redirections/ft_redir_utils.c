@@ -46,7 +46,7 @@ int	exec_redirection(t_cmd **parsing, t_env **data, int trigger)
 		if (tmp->redir->type == E_REDIR_IN)
 		{
 			if (exec_redir_in(parsing, data) == -1)
-				return (-1);
+				return (exit(g_sig_status), -1);
 		}
 		else if (tmp->redir->type == E_REDIR_OUT
 			|| tmp->redir->type == E_REDIR_APP)

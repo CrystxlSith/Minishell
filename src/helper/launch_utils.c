@@ -45,6 +45,8 @@ void	input_execution(t_env *data, t_cmd *cmd_parsing)
 	}
 	else
 	{
+		if (!cmd_parsing->str && cmd_parsing->redir_nb != 0)
+			fork_redirection(&cmd_parsing, &data);
 		if (cmd_parsing->str)
 			execute_fork(&cmd_parsing, &data);
 	}

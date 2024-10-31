@@ -12,50 +12,45 @@
 
 #include "../../includes/minishell.h"
 
-// void	echo(char **input, t_env **data)
-// {
-// 	int		i;
-// 	int		len;
-// 	int		trigger;
+int	check_flag(char **input)
+{
+	int	i;
+	int	j;
 
-// 	trigger = 0;
-// 	if (input[1] == NULL)
-// 		return ;
-// 	if (ft_strncmp(input[1], "-n", 3) == 0)
-// 		i = 2;
-// 	else
-// 	{
-// 		trigger = 1;
-// 		i = 1;
-// 	}
-// 	len = count_words(input);
-// 	(void)data;
-// 	while (input[i])
-// 	{
-// 		printf("%s", input[i]);
-// 		if (i - 1 != len)
-// 			printf("%s", " ");
-// 		i++;
-// 	}
-// 	if (trigger == 1)
-// 		printf("%c", '\n');
-// }
+	i = 1;
+	while (input[i])
+	{
+		j = 1;
+		while (input[i][j])
+		{
+			if (input[i][0] != '-')
+				return (i);
+			if (input[i][j] != 'n')
+				return (i);
+			j++;
+		}
+		i++;
+	}
+	return (i);
+}
 
 int	echo(char **input, t_env **data)
 {
 	int		i;
 	int		trigger;
+	int		index;
 
 	if (input[1] == NULL)
 		return (1);
-	if (ft_strncmp(input[1], "-n", 3) != 0)
+	index = check_flag(input);
+	if (index != 1)
 		trigger = 1;
 	else
 		trigger = 0;
-	if (trigger)
+	if (!trigger)
 		i = 1;
 	else
-		i = 2;
+		i = index;
 	(void)data;
 	while (input[i])
 	{
@@ -63,7 +58,7 @@ int	echo(char **input, t_env **data)
 		if (input[++i])
 			printf(" ");
 	}
-	if (trigger)
+	if (!trigger)
 		printf("\n");
 	return (0);
 }

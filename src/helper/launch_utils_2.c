@@ -23,13 +23,29 @@ int	launcher_exec(char *input, t_env **data)
 	return (0);
 }
 
+int	check_if_redir(t_cmd **parsing)
+{
+	t_cmd	*tmp;
+	int		count;
+
+	count = 0;
+	tmp = *parsing;
+	while (tmp)
+	{
+		if (tmp->redir != NULL)
+			count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}
+
 int	check_cmd_parsing(t_cmd **parsing, t_env **data)
 {
 	char	*path;
 	int		trigger;
 
 	trigger = 0;
-	if (detect_hdc(parsing) != 0 || (*parsing)->redir != 0)
+	if (detect_hdc(parsing) != 0 || check_if_redir(parsing) != 0)
 		return (0);
 	if (access((*parsing)->str[0], X_OK) != -1)
 		trigger++;

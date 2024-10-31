@@ -37,34 +37,3 @@ int	builtins(t_cmd **parsing, t_env **data)
 	g_sig_status = status;
 	return (status);
 }
-
-// int	builtins(t_cmd **parsing, t_env **data)
-// {
-// 	int	i;
-// 	int save;
-
-// 	if (!(*parsing)->str)
-// 		return (-1);
-// 	save = g_sig_status;
-// 	printf("save = %d\n", save);
-// 	i = 0;
-// 	if (ft_strncmp((*parsing)->str[i], "echo", 5) == 0)
-// 	{
-// 		echo((*parsing)->str, data);
-// 		g_sig_status = save;
-// 	}
-// 	else if (ft_strncmp((*parsing)->str[i], "pwd", 4) == 0)
-// 		pwd(data);
-// 	else if (ft_strncmp((*parsing)->str[i], "env", 4) == 0)
-// 		env(data);
-// 	else if (ft_strncmp((*parsing)->str[i], "export", 7) == 0)
-// 		export((*parsing)->str[++i], data);
-// 	else if (ft_strncmp((*parsing)->str[i], "cd", 3) == 0)
-// 		cd((*parsing)->str[++i], data);
-// 	else if (ft_strncmp((*parsing)->str[i], "unset", 6) == 0)
-// 		unset((*parsing)->str[++i], data);
-// 	else
-// 		return (-1);
-//  	printf("sig status = %d\n", g_sig_status);
-// 	return (0);
-// }

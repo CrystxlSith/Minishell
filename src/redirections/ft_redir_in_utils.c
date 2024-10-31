@@ -44,7 +44,7 @@ int	exec_redir_in(t_cmd **parsing, t_env **data)
 		tmp->redir = tmp->redir->next;
 	if (!tmp->redir->data)
 		return (ft_printf_fd(2, "bash: %s: No such file or directory\n", \
-			tmp->redir->data), g_sig_status = 1,-1);
+			tmp->redir->data), g_sig_status = 1, -1);
 	fd_redir = open(tmp->redir->data, O_RDONLY);
 	if (fd_redir == -1)
 		return (ft_printf_fd(2, "bash: %s: No such file or directory\n", \
@@ -55,7 +55,7 @@ int	exec_redir_in(t_cmd **parsing, t_env **data)
 	{
 		tmp->redir = tmp->redir->next;
 		if (exec_multiple_redir_in(tmp, data) == -1)
-			return (perror("exec_multiple_redir_in "), g_sig_status = 1,-1);
+			return (perror("exec_multiple_redir_in "), g_sig_status = 1, -1);
 	}
 	g_sig_status = 0;
 	exec_single_cmd(parsing, data);
