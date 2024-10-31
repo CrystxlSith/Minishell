@@ -41,7 +41,6 @@ static int	check_input_export(char *input, t_env **data)
 	return (i);
 }
 
-
 // Fonction principale appelee dans la fonction Builtins. Recupere le flag
 // donne en input. Duplique la commande a inserer/modifier dans le tableau
 // d'environnement
