@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_in_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:16:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/11 10:58:25 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/31 03:32:28 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,20 @@ int	exec_redir_in(t_cmd **parsing, t_env **data)
 		tmp->redir = tmp->redir->next;
 	if (!tmp->redir->data)
 		return (ft_printf_fd(2, "bash: %s: No such file or directory\n", \
-			tmp->redir->data), -1);
+			tmp->redir->data), g_sig_status = 1,-1);
 	fd_redir = open(tmp->redir->data, O_RDONLY);
 	if (fd_redir == -1)
 		return (ft_printf_fd(2, "bash: %s: No such file or directory\n", \
-			tmp->redir->data), -1);
+			tmp->redir->data), g_sig_status = 1, -1);
 	if (open_dup_input(fd_redir) == -1)
 		return (perror("open_dup infile "), -1);
 	if (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_OUT)
 	{
 		tmp->redir = tmp->redir->next;
 		if (exec_multiple_redir_in(tmp, data) == -1)
-			return (perror("exec_multiple_redir_in "), -1);
+			return (perror("exec_multiple_redir_in "), g_sig_status = 1,-1);
 	}
+	g_sig_status = 0;
 	exec_single_cmd(parsing, data);
 	exit(0);
 }

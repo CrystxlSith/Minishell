@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 14:49:07 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/31 02:13:05 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,16 @@ int	execve_cmd(char **cmd, char **envp)
 	else
 	{
 		path = get_filepath(cmd, envp);
-		if (path)
+		if (!path)
+			return (0);
+		if (execve(path, cmd, envp) == -1)
 		{
-			if (execve(path, cmd, envp) == -1)
-			{
-				free(path);
-				perror("bash :");
-				exit(g_sig_status);
-			}
 			free(path);
-			free_all(cmd);
+			perror("bash :");
+			exit(g_sig_status);
 		}
+		free(path);
+		free_all(cmd);
 	}
 	return (0);
 }

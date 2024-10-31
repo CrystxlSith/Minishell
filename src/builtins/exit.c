@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 12:49:07 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/31 03:15:19 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	**ft_array_dup(char **str)
 		res[i] = ft_strdup(str[i]);
 		i++;
 	}
+	res[i] = NULL;
 	return (res);
 }
 
@@ -55,9 +56,7 @@ void	exit_code(char **str)
 		code = 0;
 	else
 		code = ft_atoi(str[1]);
-	free(str[0]);
-	free(str[1]);
-	free(str);
+	ft_free_array(str);
 	exit(code);
 }
 
@@ -68,12 +67,12 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 	if (cmd_parsing->str[1] && !is_numeric(cmd_parsing->str[1]))
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-		ft_putstr_fd("minishell : exit ", STDERR_FILENO);
+		ft_putstr_fd("minishell : exit: ", STDERR_FILENO);
 		ft_putstr_fd(cmd_parsing->str[1], STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		free_all_line(tokens, cmd_parsing);
 		free_minishell(data);
-		exit(255);
+		exit(2);
 	}
 	if (cmd_parsing->str[1] && cmd_parsing->str[2])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 08:33:44 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/30 22:03:54 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	initiate_struc_envp(t_env **data, char **envp)
 	oldpwd = find_in_env("OLDPWD=", envp);
 	(*data)->pwd = ft_strdup(pwd);
 	(*data)->old_pwd = ft_strdup(oldpwd);
+	(*data)->exit_code = 0;
 	free(pwd);
 	free(oldpwd);
 }
@@ -65,7 +66,7 @@ void	get_env(char **envp, t_env **data)
 	(*data)->var[index] = NULL;
 }
 
-void	env(t_env **data)
+int	env(t_env **data)
 {
 	int	index;
 
@@ -73,13 +74,14 @@ void	env(t_env **data)
 	if ((*data)->var == NULL)
 	{
 		perror("env");
-		return ;
+		return (1);
 	}
 	while (index < (*data)->size)
 	{
 		printf("%s\n", (*data)->var[index]);
 		index++;
 	}
+	return (0);
 }
 
 char	*find_in_env(char *input, char **env)

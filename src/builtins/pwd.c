@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:00:25 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/23 12:54:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/31 03:20:49 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,13 @@
 	return (trim_path);
 } */
 
-void	pwd(t_env **data)
+int	pwd(t_env **data)
 {
-	printf("%s\n", (*data)->pwd);
+	if ((*data)->pwd)
+	{
+		printf("%s\n", (*data)->pwd);
+		return (0);
+	}
+	else
+		return (1);
 }

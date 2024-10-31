@@ -3,18 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 14:46:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/30 23:01:20 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	exit_status(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+			g_sig_status = 130;
+		return (WTERMSIG(status) + 128);
+	}
+	return (0);
+}
+
 int	execute_fork(t_cmd **parsing, t_env **data)
 {
 	int		pid;
+	int		status;
 
 	setup_child_signals();
 	if (check_if_builtins((*parsing)->str[0]) == 0 && (*parsing)->next == NULL
@@ -22,7 +36,6 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 	{
 		if (builtins(parsing, data) == -1)
 			return (-1);
-		g_sig_status = 0;
 	}
 	else
 	{
@@ -35,7 +48,8 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 				exit(g_sig_status);
 			exit(g_sig_status);
 		}
-		waitpid(pid, &g_sig_status, 0);
+		waitpid(pid, &status, 0);
+		g_sig_status = exit_status(status);
 	}
 	return (0);
 }

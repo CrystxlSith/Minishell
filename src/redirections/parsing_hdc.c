@@ -6,78 +6,104 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 14:42:08 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 02:51:27 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	loop_while_dollar_hdc(char **input, char **tmp, int i, char *tmp2)
+int	handle_heredoc(t_cmd **cmd_parsing, t_env **data)
 {
-	int	k = 0;
-	int	tmp_len = i;
-	char *new_tmp;
+	t_cmd	*tmp;
+	int		nbr;
 
-	if (!(*input)[i + 1])
+	nbr = detect_hdc(cmd_parsing);
+	generate_hdc_files(cmd_parsing, nbr);
+	tmp = *cmd_parsing;
+	while (nbr > 0 && tmp)
 	{
-		free(*tmp);
-		free(tmp2);
-		return 0;
+		handle_heredoc_input(tmp, data);
+		close(tmp->hdc->hdc_fd);
+		tmp = tmp->next;
+		nbr--;
 	}
-	while (ft_isdigit((*input)[i]) || ft_isalpha((*input)[i]) || (*input)[i] == '?' || (*input)[i] == '_')
-	{
-		k++;
-		i++;
-	}
-	new_tmp = malloc(sizeof(char) * (k + 1));
-	if (!new_tmp)
-		return 0;
-	free(*tmp);
-	*tmp = new_tmp;
-	i = 0;
-	while (ft_isdigit((*input)[tmp_len]) || ft_isalpha((*input)[tmp_len]) || (*input)[tmp_len] == '?' || (*input)[tmp_len] == '_')
-		(*tmp)[i++] = (*input)[tmp_len++];
-	(*tmp)[i] = '\0';
-	free(tmp2);
-	return (k);
+	return (0);
 }
 
-void	replace_dollar_hdc(char **input, t_env **data)
+void	hdc_force_exit(int i, t_cmd *cmd_parsing)
 {
-	int		i;
-	int		j;
-	char	*tmp;
-	char	*tmp2;
-	char    *res;
+	print_hdc_error(i, cmd_parsing->hdc->break_word);
+	close(cmd_parsing->hdc->hdc_fd);
+	exit(EXIT_SUCCESS);
+}
 
-	init_replace_dollar(&i, &j, &res);
+void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
+{
+	t_minishell	mini;
+	static int	i;
+
+	i = 0;
+	while (1)
+	{
+		init_signals(1);
+		if (cmd_parsing->hdc->trigger == 3)
+			exit(g_sig_status);
+		mini.line_read = readline("> ");
+		replace_dollar_hdc(&mini.line_read, res, data);
+		i++;
+		if (need_to_continue(mini, cmd_parsing, data) == 1)
+			continue ;
+		else if (check_break_word(cmd_parsing, &mini, \
+		cmd_parsing->hdc->hdc_fd, data) > 1)
+			break ;
+		write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
+		free(mini.line_read);
+	}
+	if (!mini.line_read)
+		hdc_force_exit(i, cmd_parsing);
+}
+
+int	need_to_continue(t_minishell mini, t_cmd *cmd_parsing, t_env **data)
+{
+	if (mini.line_read && mini.line_read[0] == '\0')
+	{
+		write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
+		free(mini.line_read);
+		return (1);
+	}
+	if (check_break_word(cmd_parsing, &mini, \
+	cmd_parsing->hdc->hdc_fd, data) == 1)
+	{
+		free(mini.line_read);
+		return (1);
+	}
+	return (0);
+}
+
+void	replace_dollar_hdc(char **input, char *res, t_env **data)
+{
+	t_replace_params	params;
+
 	if (*input)
 	{
-		while ((*input)[j])
+		params.input = input;
+		params.res = res;
+		params.data = data;
+		init_replace_dollar(&params.i, &params.j, &params.res);
+		while ((*params.input)[params.j])
 		{
-			init_temp(&tmp, &tmp2);
-			if ((*input)[j] == '$' && (*input)[j + 1] != '?')
+			if ((*params.input)[params.j] == '$')
 			{
-				if (!(*input)[j + 1])
-				{
-					j++;
-					free(tmp);
-					free(tmp2);
-					continue ;
-				}
-				if (handle_number(input, &j, tmp, tmp2))
-					continue ;
-				j += loop_while_dollar_hdc(input, &tmp, j, tmp2);
-				handle_env_value(&res, tmp, &i, data);
+				process_dollar(&params);
 			}
 			else
 			{
-				handle_question(&res, &i, input, &j);
-				res = build_res(res, i, j, input);
-				//free_increment(&tmp, &tmp2, &i, &j);
+				params.res = build_res(params.res, params.i, \
+				params.j, params.input);
+				free_increment(&params.i, &params.j);
 			}
 		}
-		free(*input);
-		*input = res;
+		free(*params.input);
+		*params.input = params.res;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 16:17:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/31 02:10:03 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ int	cd(char *path, t_env **data)
 	else if (path[0] == '-')
 		return (cd_prev(path, data), -1);
 	else
-		return (perror("cd"), -1);
+		return (perror("cd"), g_sig_status = 1, 1);
 }

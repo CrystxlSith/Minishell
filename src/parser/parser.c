@@ -3,57 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:44:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 13:15:08 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/31 02:09:00 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_increment(char **tmp, char **tmp2, int *i, int *j)
+void	free_increment(int *i, int *j)
 {
-	free(*tmp);
-	free(*tmp2);
 	(*i)++;
 	(*j)++;
 }
 
 void	replace_dollar(char **input, char *res, t_env **data)
 {
-	int		i;
-	int		j;
-	char	*tmp;
-	char	*tmp2;
+	t_replace_params	params;
 
-	init_replace_dollar(&i, &j, &res);
-	while ((*input)[j])
+	params.input = input;
+	params.res = res;
+	params.data = data;
+	init_replace_dollar(&params.i, &params.j, &params.res);
+	while ((*params.input)[params.j])
 	{
-		init_temp(&tmp, &tmp2);
-		if ((*input)[j] == '$' && (*input)[j + 1] != '?')
+		if ((*params.input)[params.j] == '$')
 		{
-			if (!(*input)[j + 1])
-			{
-				j++;
-				free(tmp);
-				free(tmp2);
-				continue ;
-			}
-			if (handle_number(input, &j, tmp, tmp2))
-				continue ;
-			j += loop_while_dollar(input, &tmp, j, tmp2);
-			handle_env_value(&res, tmp, &i, data);
+			process_dollar(&params);
 		}
 		else
 		{
-			handle_question(&res, &i, input, &j);
-			res = build_res(res, i, j, input);
-			free_increment(&tmp, &tmp2, &i, &j);
+			params.res = build_res(params.res, params.i, \
+			params.j, params.input);
+			free_increment(&params.i, &params.j);
 		}
 	}
-	free(*input);
-	*input = res;
+	free(*params.input);
+	*params.input = params.res;
 }
 
 void	new_cmd(t_cmd **current)
@@ -74,7 +61,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 
 	while (tmp)
 	{
-		s_tmp = tmp->data;
+		s_tmp = ft_strdup(tmp->data);
 		if (is_cmd(tmp->type) || is_quote(tmp->type))
 		{
 			while (tmp->next && (is_quote(tmp->next->type) \
@@ -83,7 +70,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 				s_tmp = ft_strjoin(s_tmp, tmp->next->data);
 				tmp = tmp->next;
 			}
-			add_to_cmd(s_tmp, current);
+			add_to_cmd(s_tmp, current, 0);
 		}
 		else if (tmp->type == E_PIPE)
 			new_cmd(&current);
@@ -92,6 +79,7 @@ static void	cmd_adding(t_lexer *tmp, t_cmd *current)
 		else if (is_redirection(tmp->type))
 			handle_redirection(&tmp, current);
 		current->index++;
+		free(s_tmp);
 		tmp = tmp->next;
 	}
 }

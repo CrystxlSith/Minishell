@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 13:57:35 by crycry            #+#    #+#             */
-/*   Updated: 2024/10/29 15:02:15 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/30 23:13:37 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ void	print_error(char *error, char *token)
 	g_sig_status = 258;
 }
 
-void	print_hdc_error(int i , char *token2)
+void	print_hdc_error(int i, char *token2)
 {
 	char	*token;
+
 	token = ft_itoa(i);
 	ft_putstr_fd("minishell: warning: here-document at line ", STDERR_FILENO);
 	ft_putstr_fd(token, STDERR_FILENO);

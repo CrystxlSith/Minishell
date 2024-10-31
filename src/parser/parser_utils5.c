@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils5.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:45:44 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 13:24:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/31 02:09:41 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	process_dollar(t_replace_params *params)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	init_temp(&tmp, &tmp2);
+	if (!(*params->input)[params->j + 1])
+	{
+		params->j++;
+		free(params->res);
+		params->res = ft_strdup("$");
+		free(tmp);
+		free(tmp2);
+		return ;
+	}
+	else if (handle_question(&params->res, &params->i, \
+	params->input, &params->j))
+	{
+		free(tmp);
+		free(tmp2);
+		return ;
+	}
+	else if (handle_number(params->input, &params->j, tmp, tmp2))
+		return ;
+	params->j += loop_while_dollar(params->input, &tmp, params->j, tmp2);
+	handle_env_value(&params->res, tmp, &params->i, params->data);
+	free(tmp);
+}
 
 void	new_heredoc(t_cmd *cmd, t_heredoc *new_hdc)
 {

@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:38:32 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/30 14:45:50 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 00:52:22 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**add_data_to_tab(char *data)
 	new_tab = malloc(sizeof(char *) * 2);
 	if (!new_tab)
 		return (NULL);
-	new_tab[0] = data;
+	new_tab[0] = ft_strdup(data);
 	new_tab[1] = NULL;
 	return (new_tab);
 }

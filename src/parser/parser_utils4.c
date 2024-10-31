@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/28 08:00:55 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/10/30 23:09:21 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,27 @@ t_cmd	*create_new_cmd(void)
 int	handle_question(char **res, int *i, char **input, int *j)
 {
 	char	*tmp2;
+	char	*new_res;
 
 	tmp2 = ft_itoa(g_sig_status);
-	if ((*input)[0] == '$' && (*input)[1] == '?')
+	if (!tmp2)
+		return (0);
+	if ((*input)[*j] && (*input)[*j + 1])
 	{
-		*res = ft_strjoin(*res, tmp2);
-		*i += ft_strlen(tmp2);
-		*j += 2;
-		free(tmp2);
-		return (1);
+		if ((*input)[*j] == '$' && (*input)[*j + 1] == '?')
+		{
+			new_res = ft_strjoin(*res, tmp2);
+			if (!new_res)
+			{
+				free(tmp2);
+				return (0);
+			}
+			*res = new_res;
+			*i += ft_strlen(tmp2);
+			*j += 2;
+			free(tmp2);
+			return (1);
+		}
 	}
 	free(tmp2);
 	return (0);
