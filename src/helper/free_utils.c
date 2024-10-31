@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/29 13:24:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/31 01:14:44 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	free_parsed_cmd(t_cmd *head)
 	{
 		next = current->next;
 		if (current->str)
-			free(current->str);
+			ft_free_array(current->str);
 		if (current->redir)
 			free_tokens(current->redir);
 		if (current->here_doc)

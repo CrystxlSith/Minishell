@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:32:22 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 13:04:31 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/10/31 02:08:37 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_env
 	int		size;
 	char	*pwd;
 	char	*old_pwd;
+	int		exit_code;
 }			t_env;
 
 // Token structure
@@ -118,7 +119,7 @@ void	print_error(char *error, char *token);
 int		handle_number(char **input, int *i, char *tmp, char *tmp2);
 int		loop_while_dollar(char **input, char **tmp, int i, char *tmp2);
 char	*build_res(char *res, int i, int j, char **input);
-void	add_to_cmd(char *data, t_cmd *current);
+void	add_to_cmd(char *data, t_cmd *current, int count);
 char	**env_find(char *input);
 char	*build_res(char *res, int i, int j, char **input);
 void	init_temp(char **tmp, char **tmp2);

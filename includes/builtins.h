@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/30 19:26:48 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 03:04:20 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		count_words(char **str);
 int		get_index(t_env **data, char *chr);
 int		count_letters(char **str);
 void	free_all(char **s);
-int     echo(char **input, t_env **data);
+int		echo(char **input, t_env **data);
 char	*find_in_env(char *input, char **env);
 
 //BUILTINS ---> PWD
@@ -37,7 +37,7 @@ void	pwd(t_env **data);
 //BUILTINS ---> ENV
 void	count_env(char **envp, t_env **data);
 void	get_env(char **envp, t_env **data);
-int	env(t_env **data);
+int		env(t_env **data);
 void	initiate_struc_envp(t_env **data, char **envp);
 
 //BUILTINS ---> EXPORT
@@ -65,6 +65,6 @@ void	move_to_dir(char *path, t_env **data);
 char	*format_dir_path(char *path);
 
 //BUILTINS ---> EXPORT
-int unset(char *input, t_env **data);
+int		unset(char *input, t_env **data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 19:28:51 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/30 22:03:54 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	initiate_struc_envp(t_env **data, char **envp)
 	oldpwd = find_in_env("OLDPWD=", envp);
 	(*data)->pwd = ft_strdup(pwd);
 	(*data)->old_pwd = ft_strdup(oldpwd);
+	(*data)->exit_code = 0;
 	free(pwd);
 	free(oldpwd);
 }
@@ -80,7 +81,7 @@ int	env(t_env **data)
 		printf("%s\n", (*data)->var[index]);
 		index++;
 	}
-	return (1);
+	return (0);
 }
 
 char	*find_in_env(char *input, char **env)

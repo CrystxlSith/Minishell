@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 19:27:36 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 01:13:28 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ Unset sans argument segfault
 Nombre d'arguments des builtins
 */
 
-int	g_sig_status;
+int	g_sig_status = 0;
 
 int	main(int ac, char **av, char **envp)
 {

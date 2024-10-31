@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 17:48:47 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 03:05:17 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,33 @@ typedef struct s_minishell
 	char	*line_read;
 }			t_minishell;
 
+typedef struct s_replace_params
+{
+	char	**input;
+	char	*res;
+	t_env	**data;
+	int		i;
+	int		j;
+}	t_replace_params;
+
 //LEXER && PARSER
 int			ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
 t_lexer		*tokenize(char *str);
 void		create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
 void		new_token(t_lexer **tokens, t_lexer *new_node);
 t_cmd		*parser(t_lexer **tokens, t_env **data);
-void	replace_dollar_hdc(char **input, t_env **data);
-void	free_increment(char **tmp, char **tmp2, int *i, int *j);
+void		replace_dollar_hdc(char **input, char *res, t_env **data);
+void		free_increment(int *i, int *j);
+int			exit_status(int status);
+char		**ft_array_dup(char **str);
+void		process_dollar(t_replace_params *params);
+int			need_to_continue(t_minishell \
+mini, t_cmd *cmd_parsing, t_env **data);
+int			check_break_word(t_cmd *cmd_parsing, \
+t_minishell *mini, int fd, t_env **data);
+void		handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res);
+int			handle_heredoc(t_cmd **cmd_parsing, t_env **data);
+void		hdc_force_exit(int i, t_cmd *cmd_parsing);
 
 //BUILTINS ---> GENERAL
 int			builtins(t_cmd **parsing, t_env **data);
@@ -65,6 +84,7 @@ int			start_error(char *input);
 void		input_execution(t_env *data, t_cmd *cmd_parsing);
 int			generate_minishell_prompt(t_env *data, t_lexer *tokens, \
 		t_cmd *cmd_parsing);
+int			check_cmd_parsing(t_cmd **parsing, t_env **data);
 
 //free_utils
 void		free_token(t_lexer *token);

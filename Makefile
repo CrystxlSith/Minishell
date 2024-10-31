@@ -6,7 +6,7 @@
 #    By: crycry <crycry@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/30 13:22:59 by crycry           ###   ########.fr        #
+#    Updated: 2024/10/31 03:01:56 by crycry           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ REDIREC = exec_cmd_minishell.c get_path_cmd.c ft_redir_utils.c exec_pipe_cmd.c \
 
 SIGNALS =
 
-HELPER = ft_print_utils.c launch_utils.c free_utils.c free_utils2.c
+HELPER = ft_print_utils.c launch_utils.c free_utils.c free_utils2.c launch_utils_2.c
 
 MAIN = main.c
 

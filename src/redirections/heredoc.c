@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 15:35:01 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 02:50:42 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,14 @@ void	generate_hdc_files(t_cmd **cmd_parsing, int count)
 	}
 }
 
-int	handle_heredoc(t_cmd **cmd_parsing, t_env **data)
-{
-	t_cmd	*tmp;
-	int		nbr;
-
-	nbr = detect_hdc(cmd_parsing);
-	generate_hdc_files(cmd_parsing, nbr);
-	tmp = *cmd_parsing;
-	while (nbr > 0 && tmp)
-	{
-		handle_heredoc_input(tmp, data);
-		close(tmp->hdc->hdc_fd);
-		tmp = tmp->next;
-		nbr--;
-	}
-	return (0);
-}
-
-static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
+int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, \
+int fd, t_env **data)
 {
 	int	len;
 
 	len = ft_strlen(cmd_parsing->hdc->break_word);
-	if (mini->line_read == NULL || ft_strncmp(cmd_parsing->hdc->break_word, mini->line_read, len) == 0)
+	if (mini->line_read == NULL || ft_strncmp(cmd_parsing->hdc->break_word, \
+	mini->line_read, len) == 0)
 	{
 		if (cmd_parsing->hdc->next != NULL)
 		{
@@ -103,59 +87,28 @@ static int	check_break_word(t_cmd *cmd_parsing, t_minishell *mini, int fd)
 			return (close(fd), 1);
 		}
 		else
-			return (close(fd), 2);
+		{
+			handle_break_word(cmd_parsing, data);
+			return (free(mini->line_read), close(fd), 2);
+		}
 	}
 	return (0);
 }
 
 int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 {
-	t_minishell	mini;
-	static int	i;
 	int		pid;
+	int		status;
+	char	*res;
 
-	i = 0;
+	res = NULL;
+	status = 0;
 	pid = fork();
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
-	{
-		while (1)
-		{
-			init_signals(1);
-			if (cmd_parsing->hdc->trigger == 3)
-				exit(g_sig_status);
-			mini.line_read = readline("> ");
-			replace_dollar_hdc(&mini.line_read, data);
-			i++;
-			if (mini.line_read && mini.line_read[0] == '\0')
-			{
-				write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
-				free(mini.line_read);
-				continue ;
-			}
-			if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 1)
-			{
-				free(mini.line_read);
-				continue ;
-			}
-			else if (check_break_word(cmd_parsing, &mini, cmd_parsing->hdc->hdc_fd) == 2)
-			{
-				free(mini.line_read);
-				handle_break_word(cmd_parsing, data);
-				exit(g_sig_status);
-			}
-			if (mini.line_read)
-				write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
-			free(mini.line_read);
-		}
-		if (!mini.line_read)
-		{
-			print_hdc_error(i, cmd_parsing->hdc->break_word);
-			close(cmd_parsing->hdc->hdc_fd);
-			exit(EXIT_SUCCESS);
-		}
-	}
-	waitpid(pid, &g_sig_status, 0);
+		handle_heredoc_child(cmd_parsing, data, res);
+	waitpid(pid, &status, 0);
+	g_sig_status = exit_status(status);
 	return (0);
 }

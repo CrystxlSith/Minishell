@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/30 19:36:34 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/30 23:09:21 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,16 @@ t_cmd	*create_new_cmd(void)
 int	handle_question(char **res, int *i, char **input, int *j)
 {
 	char	*tmp2;
+	char	*new_res;
 
-	printf("sig status = %d", g_sig_status);
 	tmp2 = ft_itoa(g_sig_status);
-	printf("sig status = %s \n", tmp2);
 	if (!tmp2)
 		return (0);
 	if ((*input)[*j] && (*input)[*j + 1])
 	{
 		if ((*input)[*j] == '$' && (*input)[*j + 1] == '?')
 		{
-			char *new_res = ft_strjoin(*res, tmp2);
+			new_res = ft_strjoin(*res, tmp2);
 			if (!new_res)
 			{
 				free(tmp2);
