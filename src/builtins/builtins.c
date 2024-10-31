@@ -27,7 +27,7 @@ int	builtins(t_cmd **parsing, t_env **data)
 	else if (ft_strncmp((*parsing)->str[i], "env", 4) == 0)
 		status = env(data);
 	else if (ft_strncmp((*parsing)->str[i], "pwd", 4) == 0)
-		status = pwd(data);
+		status = pwd(parsing, data);
 	else if (ft_strncmp((*parsing)->str[i], "export", 7) == 0)
 		status = export((*parsing)->str[++i], data);
 	else if (ft_strncmp((*parsing)->str[i], "cd", 3) == 0)

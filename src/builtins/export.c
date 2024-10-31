@@ -36,7 +36,9 @@ static int	check_input_export(char *input, t_env **data)
 			return (-1);
 		i++;
 	}
-	return (1);
+	if (input[i] != '=')
+		return (-1);
+	return (i);
 }
 
 

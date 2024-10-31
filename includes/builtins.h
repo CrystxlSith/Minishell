@@ -32,7 +32,7 @@ char	*find_in_env(char *input, char **env);
 
 //BUILTINS ---> PWD
 char	*get_path(char **envp);
-int		pwd(t_env **data);
+int		pwd(t_cmd **parsing, t_env **data);
 
 //BUILTINS ---> ENV
 void	count_env(char **envp, t_env **data);

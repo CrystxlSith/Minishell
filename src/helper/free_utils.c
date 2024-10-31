@@ -24,7 +24,7 @@ void	free_hdc(t_heredoc *head)
 		if (current->break_word)
 			free(current->break_word);
 		if (current->command)
-			free_all(current->command);
+			ft_free_array(current->command);
 		if (current->file_name)
 			free(current->file_name);
 		free(current);
@@ -59,7 +59,7 @@ void	free_parsed_cmd(t_cmd *head)
 void	free_minishell(t_env *data)
 {
 	if ((data)->var != NULL)
-		free_all((data)->var);
+		ft_free_array((data)->var);
 	if ((data)->pwd != NULL)
 		free((data)->pwd);
 	if ((data)->old_pwd != NULL)

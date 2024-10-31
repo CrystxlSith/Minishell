@@ -33,9 +33,9 @@ int	multiple_cmd_iteration(t_cmd *tmp, t_env **data, int *fd, int *old_fd)
 	if (pipe_multiple_cmd(tmp, data, fd, old_fd) == -1)
 	{
 		perror("multi exec");
-		exit(EXIT_FAILURE);
+		exit(g_sig_status);
 	}
-	exit(EXIT_SUCCESS);
+	exit(g_sig_status);
 }
 
 pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
@@ -54,7 +54,7 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 			tmp->hdc->trigger = 3;
 			if (!tmp->hdc->file_name)
 				create_hdc_file(tmp);
-			handle_heredoc_input(tmp, data);
+			handle_heredoc_child(tmp, data, NULL);
 		}
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{

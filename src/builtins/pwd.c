@@ -29,11 +29,24 @@
 	return (trim_path);
 } */
 
-int	pwd(t_env **data)
+int	pwd(t_cmd **parsing, t_env **data)
 {
+	int	i;
+
+	i = 0;
+	while ((*parsing)->str[i])
+		i++;
 	if ((*data)->pwd)
 	{
-		printf("%s\n", (*data)->pwd);
+		if (i > 1 && (*parsing)->str[1][0] == '-')
+		{
+			ft_printf_fd(2, "bash: pwd: %c%c: invalid option\n", \
+				(*parsing)->str[1][0], (*parsing)->str[1][1]);
+			ft_printf_fd(2, "pwd: usage: pwd [-LP]\n");
+			return (1);
+		}
+		else
+			printf("%s\n", (*data)->pwd);
 		return (0);
 	}
 	else

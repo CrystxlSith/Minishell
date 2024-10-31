@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-// Realloc de la memoire avec l'ajout et la suppression de variables d'env
+/* // Realloc de la memoire avec l'ajout et la suppression de variables d'env
 char	**ft_realloc_env(int new_size, t_env **data)
 {
 	int		old_size;
@@ -40,6 +40,35 @@ char	**ft_realloc_env(int new_size, t_env **data)
 	}
 	free_all((*data)->var);
 	return ((*data)->var = new_tab, new_tab);
+} */
+
+// Realloc de la memoire avec l'ajout et la suppression de variables d'env
+char	**ft_realloc_env(int new_size, t_env **data)
+{
+	int		old_size;
+	char	**new_tab;
+	int		i;
+	int		size;
+
+	if (new_size == 0)
+		return (NULL);
+	new_tab = ft_calloc(new_size + 1, sizeof(char *));
+	if (!new_tab)
+		return (NULL);
+	old_size = (*data)->size;
+	if (old_size > new_size)
+		old_size = new_size;
+	i = 0;
+	while (i < old_size)
+	{
+		size = ft_strlen((*data)->var[i]);
+		new_tab[i] = ft_strdup((*data)->var[i]);
+		if (!new_tab[i])
+			return (free_rest_tab(new_tab, i - 1), NULL);
+		i++;
+	}
+	free_all((*data)->var);
+	return (new_tab);
 }
 
 // Dans le cas ou la var d'envp existe deja, cherche la var dans

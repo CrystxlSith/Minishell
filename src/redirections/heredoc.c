@@ -89,7 +89,7 @@ int fd, t_env **data)
 		else
 		{
 			handle_break_word(cmd_parsing, data);
-			return (free(mini->line_read), close(fd), 2);
+			return (exit(g_sig_status), close(fd), 2);
 		}
 	}
 	return (0);

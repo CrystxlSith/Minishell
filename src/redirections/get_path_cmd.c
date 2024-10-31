@@ -62,10 +62,7 @@ int	execve_cmd(char **cmd, char **envp)
 	if (access(cmd[0], X_OK) == 0)
 	{
 		if (execve(cmd[0], cmd, envp) == -1)
-		{
-			perror("bash :");
 			exit(g_sig_status);
-		}
 	}
 	else
 	{
@@ -75,7 +72,6 @@ int	execve_cmd(char **cmd, char **envp)
 		if (execve(path, cmd, envp) == -1)
 		{
 			free(path);
-			perror("bash :");
 			exit(g_sig_status);
 		}
 		free(path);

@@ -23,12 +23,14 @@ char	**realloc_utils(int old_size, char **new_tab, t_env **data, int index)
 	while (i <= old_size && j < (*data)->size)
 	{
 		if (i == index && i + 1 <= old_size)
+		{
+			free((*data)->var[i]);
 			i++;
+		}
 		size = ft_strlen((*data)->var[i]);
-		new_tab[j] = ft_calloc((size + 1), sizeof(char));
+		new_tab[j] = ft_strdup((*data)->var[i]);
 		if (!new_tab[j])
 			return (free_rest_tab(new_tab, j - 1), NULL);
-		ft_memcpy(new_tab[j], (*data)->var[i], size + 1);
 		i++;
 		j++;
 	}
@@ -49,8 +51,7 @@ char	**ft_realloc_env_unset(int new_size, t_env **data, int index)
 	if (old_size > new_size)
 		old_size = new_size;
 	new_tab = realloc_utils(old_size, new_tab, data, index);
-	free_rest_tab((*data)->var, (*data)->size);
-	(*data)->var = new_tab;
+	ft_free_array((*data)->var);
 	return (new_tab);
 }
 

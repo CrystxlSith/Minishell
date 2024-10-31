@@ -46,8 +46,6 @@ void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
 	while (1)
 	{
 		init_signals(1);
-		if (cmd_parsing->hdc->trigger == 3)
-			exit(g_sig_status);
 		mini.line_read = readline("> ");
 		replace_dollar_hdc(&mini.line_read, res, data);
 		i++;
@@ -55,7 +53,7 @@ void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
 			continue ;
 		else if (check_break_word(cmd_parsing, &mini, \
 		cmd_parsing->hdc->hdc_fd, data) > 1)
-			break ;
+			exit(g_sig_status);
 		write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
 		free(mini.line_read);
 	}
