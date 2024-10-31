@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 18:13:41 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 03:15:19 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 	if (cmd_parsing->str[1] && !is_numeric(cmd_parsing->str[1]))
 	{
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-		ft_putstr_fd("minishell : exit ", STDERR_FILENO);
+		ft_putstr_fd("minishell : exit: ", STDERR_FILENO);
 		ft_putstr_fd(cmd_parsing->str[1], STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		free_all_line(tokens, cmd_parsing);
 		free_minishell(data);
-		exit(255);
+		exit(2);
 	}
 	if (cmd_parsing->str[1] && cmd_parsing->str[2])
 	{

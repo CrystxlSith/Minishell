@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 19:24:05 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 03:11:39 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	unset(char *input, t_env **data)
 	if (str == NULL || ft_strchr(input, '=') != NULL)
 	{
 		free(str);
+		g_sig_status = 1;
 		return (1);
 	}
 	else
@@ -73,5 +74,6 @@ int	unset(char *input, t_env **data)
 		(*data)->var = ft_realloc_env_unset((*data)->size, data, i);
 		free(str);
 	}
+	g_sig_status = 0;
 	return (0);
 }

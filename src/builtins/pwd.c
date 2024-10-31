@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 10:00:25 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 18:37:06 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 03:20:49 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@
 	return (trim_path);
 } */
 
-void	pwd(t_env **data)
+int	pwd(t_env **data)
 {
 	if ((*data)->pwd)
 	{
 		printf("%s\n", (*data)->pwd);
-		g_sig_status = 0;
+		return (0);
 	}
 	else
-		g_sig_status = 1;
+		return (1);
 }

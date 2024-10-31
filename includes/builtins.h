@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/31 03:04:20 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 03:23:04 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*find_in_env(char *input, char **env);
 
 //BUILTINS ---> PWD
 char	*get_path(char **envp);
-void	pwd(t_env **data);
+int		pwd(t_env **data);
 
 //BUILTINS ---> ENV
 void	count_env(char **envp, t_env **data);
@@ -41,7 +41,7 @@ int		env(t_env **data);
 void	initiate_struc_envp(t_env **data, char **envp);
 
 //BUILTINS ---> EXPORT
-void	export(char *input, t_env **data);
+int		export(char *input, t_env **data);
 void	free_rest_tab(char **s, int index);
 void	print_tab(t_env **data);
 void	update_env_tab_export(char *flag, char *cmd, t_env **data);

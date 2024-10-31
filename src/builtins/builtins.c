@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 02:09:54 by crycry           ###   ########.fr       */
+/*   Updated: 2024/10/31 03:23:34 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	builtins(t_cmd **parsing, t_env **data)
 	else if (ft_strncmp((*parsing)->str[i], "env", 4) == 0)
 		status = env(data);
 	else if (ft_strncmp((*parsing)->str[i], "pwd", 4) == 0)
-		pwd(data);
+		status = pwd(data);
 	else if (ft_strncmp((*parsing)->str[i], "export", 7) == 0)
-		export((*parsing)->str[++i], data);
+		status = export((*parsing)->str[++i], data);
 	else if (ft_strncmp((*parsing)->str[i], "cd", 3) == 0)
 		status = cd((*parsing)->str[++i], data);
 	else
-		return (-1);
+		return (1);
 	g_sig_status = status;
 	return (status);
 }
