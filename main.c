@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 01:13:28 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 08:16:18 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ exec_redirection : Bad address
 ==15204==    by 0x11032F: main (main.c:35)
 ==15204== 
 
-Unset sans argument segfault
-Nombre d'arguments des builtins
 */
 
 int	g_sig_status = 0;
