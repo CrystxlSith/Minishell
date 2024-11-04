@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 17:24:59 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:56:52 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		add_history(minishell.line_read);
 		if (!minishell.line_read)
 		{
-			g_sig_status = exit_status(g_sig_status);	
+			g_sig_status = exit_status(g_sig_status);
 			return (-1);
 		}
 		if (start_error(minishell.line_read, cmd_parsing))

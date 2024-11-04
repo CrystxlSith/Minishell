@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:32:44 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 22:17:14 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 17:36:47 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 			if (!tmp->hdc->file_name)
 				create_hdc_file(tmp);
 			handle_heredoc_child(tmp, data, NULL);
+			exit(g_sig_status);
 		}
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
