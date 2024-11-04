@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 19:18:07 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 07:54:53 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	echo(char **input, t_env **data)
 {
 	int		i;
 	int		trigger;
-	int		index;
+	int		index = 0;
 
 	if (input[1] == NULL)
 		return (1);
