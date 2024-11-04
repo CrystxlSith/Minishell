@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 03:05:17 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 16:45:00 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ mini, t_cmd *cmd_parsing, t_env **data);
 int			check_break_word(t_cmd *cmd_parsing, \
 t_minishell *mini, int fd, t_env **data);
 void		handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res);
-int			handle_heredoc(t_cmd **cmd_parsing, t_env **data);
 void		hdc_force_exit(int i, t_cmd *cmd_parsing);
 
 //BUILTINS ---> GENERAL
@@ -80,7 +79,7 @@ void		print_heredoc(t_heredoc *hdc);
 
 //ft_launch_utils
 int			launcher_exec(char *input, t_env **data);
-int			start_error(char *input);
+int			start_error(char *input, t_cmd *parsing);
 void		input_execution(t_env *data, t_cmd *cmd_parsing);
 int			generate_minishell_prompt(t_env *data, t_lexer *tokens, \
 		t_cmd *cmd_parsing);

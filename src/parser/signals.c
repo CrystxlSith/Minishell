@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/10/30 23:13:04 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 14:40:55 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,17 @@ void	signal_sub_handler(int signum)
 	(void)signum;
 }
 
+void	sigquit_handler(int signum)
+{
+	write(2, "\\ quit (core dumped)\n", 21);
+	g_sig_status = SIGQUIT + 128;
+	(void)signum;
+}
+
 void	setup_child_signals(void)
 {
 	signal(SIGINT, signal_sub_handler);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, sigquit_handler);
 }
 
 void	init_signals(int is_heredoc)

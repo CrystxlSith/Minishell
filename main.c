@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 08:16:18 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:17:54 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	remove_hdc_file();
 	if (generate_minishell_prompt(data, tokens, cmd_parsing) == -1)
-		return (free_minishell(data), -1);
+		return (free_minishell(data), exit(g_sig_status),-1);
 	free_minishell(data);
 	return (0);
 }

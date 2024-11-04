@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 11:37:31 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/04 16:45:11 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,22 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 
 	while (1)
 	{
-		remove_hdc_file();
 		init_signals(0);
 		minishell.line_read = readline("minishell> ");
 		add_history(minishell.line_read);
-		if (start_error(minishell.line_read))
+		if (!minishell.line_read)
 		{
-			free_parsed_cmd(cmd_parsing);
-			// free_all_line(tokens, cmd_parsing);
+			g_sig_status = exit_status(g_sig_status);	
+			return (-1);
+		}
+		if (start_error(minishell.line_read, cmd_parsing))
+		{
 			rl_on_new_line();
 			continue ;
 		}
-		if (launcher_exec(minishell.line_read, &data) == -1)
-			return (free(minishell.line_read), exit(EXIT_FAILURE), -1);
-		if (execute_commands(&minishell, &data, &tokens, &cmd_parsing))
-			continue ;
-		if (minishell.line_read)
-			free(minishell.line_read);
+		execute_commands(&minishell, &data, &tokens, &cmd_parsing);
 		free_all_line(tokens, cmd_parsing);
+		free(minishell.line_read);
 		rl_on_new_line();
 	}
 	clear_history();
