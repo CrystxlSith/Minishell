@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:33:26 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/31 01:14:44 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 16:46:57 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	free_minishell(t_env *data)
 		free((data)->pwd);
 	if ((data)->old_pwd != NULL)
 		free((data)->old_pwd);
+	free(data);
 }
 
 void	free_all_line(t_lexer *tokens, t_cmd *cmd_parsing)

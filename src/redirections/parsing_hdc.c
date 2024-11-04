@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_hdc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 02:51:27 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 16:36:27 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
 			continue ;
 		else if (check_break_word(cmd_parsing, &mini, \
 		cmd_parsing->hdc->hdc_fd, data) > 1)
-			exit(g_sig_status);
+			break ;
 		write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
 		free(mini.line_read);
 	}
