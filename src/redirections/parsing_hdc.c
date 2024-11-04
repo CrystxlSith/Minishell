@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 17:38:56 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:59:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
 		mini.line_read = readline("> ");
 		replace_dollar_hdc(&mini.line_read, res, data);
 		i++;
-		printf("%s\n", cmd_parsing->hdc->break_word);
 		if (need_to_continue(mini, cmd_parsing, data) == 1)
 			continue ;
 		else if (check_break_word(cmd_parsing, &mini, \
