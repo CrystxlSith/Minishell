@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 23:01:20 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 15:20:01 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ int	exit_status(int status)
 {
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	if (WIFSIGNALED(status))
+	else if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGINT)
+		{
 			g_sig_status = 130;
-		return (WTERMSIG(status) + 128);
+			return (WTERMSIG(status) + 128);
+		}	
+		return (WTERMSIG(status) );
 	}
-	return (0);
+	return (-1);
 }
 
 int	execute_fork(t_cmd **parsing, t_env **data)

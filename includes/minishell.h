@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 16:44:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/04 17:22:39 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		print_heredoc(t_heredoc *hdc);
 
 //ft_launch_utils
 int			launcher_exec(char *input, t_env **data);
-int			start_error(char *input);
+int			start_error(char *input, t_cmd *parsing);
 void		input_execution(t_env *data, t_cmd *cmd_parsing);
 int			generate_minishell_prompt(t_env *data, t_lexer *tokens, \
 		t_cmd *cmd_parsing);
