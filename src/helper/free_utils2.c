@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 16:41:04 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 13:23:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:31:39 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	free_tokens(t_lexer *tokens)
 
 	if (!tokens)
 		return ;
+	printf("free_tokens\n");
 	current = tokens;
 	while (current)
 	{

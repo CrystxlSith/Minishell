@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 02:59:40 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 11:37:31 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		minishell.line_read = readline("minishell> ");
 		add_history(minishell.line_read);
 		if (start_error(minishell.line_read))
+		{
+			free_parsed_cmd(cmd_parsing);
+			// free_all_line(tokens, cmd_parsing);
+			rl_on_new_line();
 			continue ;
+		}
 		if (launcher_exec(minishell.line_read, &data) == -1)
 			return (free(minishell.line_read), exit(EXIT_FAILURE), -1);
 		if (execute_commands(&minishell, &data, &tokens, &cmd_parsing))

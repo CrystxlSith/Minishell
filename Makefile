@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: crycry <crycry@student.42.fr>              +#+  +:+       +#+         #
+#    By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/20 10:25:55 by agiliber          #+#    #+#              #
-#    Updated: 2024/10/31 03:01:56 by crycry           ###   ########.fr        #
+#    Updated: 2024/11/04 11:51:29 by jopfeiff         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -236,7 +236,7 @@ clean:
 fclean: clean
 	echo "${RED}Cleaning executable files...${RESET}"
 	$(F_CLEAN) --no-print-directory -C $(LIB_DIR)
-	rm -f $(NAME_A)
+	rm -f $(NAME_A) $(NAME)
 	echo "${GREEN}Succes!!!${RESET}"
 
 re : fclean all

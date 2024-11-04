@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 07:43:18 by kali              #+#    #+#             */
-/*   Updated: 2024/10/18 16:05:50 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:49:25 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,19 @@ int	lex_error(char *input)
 	t_lexer	*head;
 
 	current = tokenize(input);
-	head = current;
 	if (!current)
 		return (1);
+	head = current;
 	if ((!ft_strcmp(";", current->data) || \
 		!ft_strcmp("!", current->data)) && !current->next)
-		return (free_token(current), 1);
+		return (free_tokens(current), 1);
 	current = remove_space_tokens(current);
 	while (current)
 	{
 		if ((current->type == E_PIPE && pipes_err(current)) || \
 		(current->type == E_AMPERSAND && ampersand_err(current)) || \
 		(is_redirection(current->type) && redir_err(current)))
-			return (free_token(current), 1);
+			return (free_tokens(head), 1);
 		current = current->next;
 	}
 	free_tokens(head);
