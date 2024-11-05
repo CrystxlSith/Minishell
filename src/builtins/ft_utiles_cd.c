@@ -6,18 +6,58 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/29 11:07:50 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 11:53:38 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 // Fonction permettant de verifier l'accessibilite d'un dossier
-int	file_compliant(char *dir_path)
+int	handle_new_pwd(char *tmp_new, char *pwd, char *new_path, t_env **data)
 {
-	if (!opendir(dir_path))
-		return (TRUE);
-	return (perror("Dir"), FALSE);
+	if (tmp_new)
+	{
+		if ((*data)->pwd != NULL)
+			free((*data)->pwd);
+		(*data)->pwd = ft_strdup(tmp_new);
+		if (!(*data)->pwd)
+			return (free(tmp_new), -1);
+		pwd = ft_strdup("PWD=");
+		if (!pwd)
+			return (free((*data)->pwd), free(tmp_new), -1);
+		new_path = ft_strjoin(pwd, tmp_new);
+		if (!new_path)
+			return (free((*data)->pwd), free(tmp_new), perror("new_path"), -1);
+		if (export_existing("PWD=", data, new_path) == -1)
+			return (free((*data)->pwd), free(new_path), free(tmp_new), -1);
+		free(new_path);
+		free(tmp_new);
+		return (0);
+	}
+	return (-1);
+}
+
+int	handle_old_pwd(char *tmp_old, char **old_pwd, char **old_path, t_env **data)
+{
+	if (tmp_old)
+	{
+		if ((*data)->old_pwd != NULL)
+			free((*data)->old_pwd);
+		(*data)->old_pwd = ft_strdup(tmp_old);
+		if (!(*data)->old_pwd)
+			return (free(tmp_old), -1);
+		*old_pwd = ft_strdup("OLDPWD=");
+		if (!*old_pwd)
+			return (free((*data)->old_pwd), free(tmp_old), -1);
+		*old_path = ft_strjoin(*old_pwd, tmp_old);
+		if (!*old_path)
+			return (free((*data)->old_pwd), free(tmp_old), -1);
+		if (export_existing("OLDPWD=", data, *old_path) == -1)
+			return (free((*data)->old_pwd), free(*old_path), free(tmp_old), -1);
+		free(*old_path);
+		free(tmp_old);
+	}
+	return (-1);
 }
 
 // Fonction permettant de mettre a jour les var d'environnement OLDPWD, PWD
@@ -29,23 +69,15 @@ int	update_env(char *tmp_old, char *tmp_new, t_env **data)
 	char	*old_pwd;
 	char	*pwd;
 
-	free((*data)->pwd);
-	(*data)->pwd = ft_strdup(tmp_new);
-	free((*data)->old_pwd);
-	(*data)->old_pwd = ft_strdup(tmp_old);
-	old_pwd = ft_strdup("OLDPWD=");
-	pwd = ft_strdup("PWD=");
-	old_path = ft_strjoin(old_pwd, tmp_old);
-	if (!old_path)
-		return (free(pwd), perror("old_path"), -1);
-	new_path = ft_strjoin(pwd, tmp_new);
-	if (!new_path)
-		return (perror("new_path"), -1);
-	if (export_existing("OLDPWD=", data, old_path) == -1)
-		return (free(old_path), free(new_path), -1);
-	if (export_existing("PWD=", data, new_path) == -1)
-		return (free(new_path), -1);
-	return (free(new_path), free(old_path), 0);
+	new_path = NULL;
+	old_path = NULL;
+	pwd = NULL;
+	old_pwd = NULL;
+	if (handle_new_pwd(tmp_new, pwd, new_path, data) == -1)
+		return (-1);
+	if (handle_old_pwd(tmp_old, &old_pwd, &old_path, data) == -1)
+		return (-1);
+	return (0);
 }
 
 // Navigation dans un dossier avec un path donne.
