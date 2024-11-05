@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 11:02:37 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 13:49:42 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	unset(char *input, t_env **data)
 	int		i;
 	char	*str;
 
+	if (!*data)
+		return (-1);
 	if (input == NULL)
 		return (printf("unset: not enough arguments\n"), 1);
 	i = 0;

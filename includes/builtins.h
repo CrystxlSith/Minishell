@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:07:38 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/31 03:23:04 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 14:01:08 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int		pwd(t_cmd **parsing, t_env **data);
 void	count_env(char **envp, t_env **data);
 void	get_env(char **envp, t_env **data);
 int		env(t_env **data);
-void	initiate_struc_envp(t_env **data, char **envp);
+int		initiate_struc_envp(t_env **data, char **envp);
+int		initiate_env_supp(t_env **data);
 
 //BUILTINS ---> EXPORT
 int		export(char *input, t_env **data);

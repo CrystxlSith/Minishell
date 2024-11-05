@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:27:49 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 03:24:35 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 14:16:01 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_input_export(char *input, t_env **data)
 	int	i;
 
 	i = 0;
-	if (!input)
+	if (!input && (*data)->var)
 	{
 		i = -1;
 		while ((*data)->var[++i])

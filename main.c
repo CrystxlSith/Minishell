@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 10:33:59 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:16:18 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	main(int ac, char **av, char **envp)
 	t_env		*data;
 
 	data = NULL;
-	initiate_struc_envp(&data, envp);
+	if (*envp)
+		initiate_struc_envp(&data, envp);
+	else
+		initiate_env_supp(&data);
 	tokens = NULL;
 	cmd_parsing = NULL;
 	(void)ac;
