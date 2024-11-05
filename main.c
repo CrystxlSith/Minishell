@@ -6,13 +6,25 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 14:16:18 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:44:35 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 
 int	g_sig_status = 0;
+
+int	initiate_env_supp(t_env **data)
+{
+	*data = malloc(sizeof(t_env));
+	if (!data)
+		return (-1);
+	(*data)->var = NULL;
+	(*data)->pwd = NULL;
+	(*data)->old_pwd = NULL;
+	(*data)->exit_code = 0;
+	return (0);
+}
 
 int	main(int ac, char **av, char **envp)
 {

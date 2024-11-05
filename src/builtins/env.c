@@ -6,23 +6,11 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 14:28:33 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:44:28 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	initiate_env_supp(t_env **data)
-{
-	*data = malloc(sizeof(t_env));
-	if (!data)
-		return (-1);
-	(*data)->var = NULL;
-	(*data)->pwd = NULL;
-	(*data)->old_pwd = NULL;
-	(*data)->exit_code = 0;
-	return (0);
-}
 
 int	initiate_struc_envp(t_env **data, char **envp)
 {
