@@ -6,14 +6,14 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 15:19:15 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:31:10 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_exit_err(char *str, t_lexer *tokens,\
- t_cmd *cmd_parsing, t_env *data)
+void	print_exit_err(char *str, t_lexer *tokens, \
+t_cmd *cmd_parsing, t_env *data)
 {
 	ft_putstr_fd("exit\n", STDERR_FILENO);
 	ft_putstr_fd("minishell : exit: ", STDERR_FILENO);

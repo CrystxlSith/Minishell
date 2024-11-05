@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/11/05 10:25:23 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:29:54 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,7 @@ void	signal_sub_handler(int signum)
 void	sigquit_handler(int signum)
 {
 	write(2, "quit (core dumped)\n", 19);
-	// g_sig_status = SIGQUIT + 127;
 	(void)signum;
-}
-
-void	setup_child_signals(void)
-{
-	signal(SIGINT, signal_sub_handler);
-	signal(SIGQUIT, sigquit_handler);
 }
 
 void	init_signals(int is_heredoc)
@@ -61,6 +54,11 @@ void	init_signals(int is_heredoc)
 	if (is_heredoc == 1)
 	{
 		signal(SIGINT, here_doc_signal_handler);
+	}
+	else if (is_heredoc == 2)
+	{
+		signal(SIGINT, signal_sub_handler);
+		signal(SIGQUIT, sigquit_handler);
 	}
 	else
 	{

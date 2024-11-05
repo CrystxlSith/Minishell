@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:23:10 by crystal           #+#    #+#             */
-/*   Updated: 2024/11/04 14:19:15 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:31:27 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_atoi(const char *nptr)
 	int	result;
 	int	sign;
 	int	i;
-	int trigger;
+	int	trigger;
 
 	i = 0;
 	result = 0;
@@ -47,4 +47,3 @@ int	ft_atoi(const char *nptr)
 		return (INT_MAX);
 	return (result * sign);
 }
-

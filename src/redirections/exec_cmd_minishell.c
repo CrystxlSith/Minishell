@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 10:27:05 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:29:39 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 	int		pid;
 	int		status;
 
-	setup_child_signals();
+	init_signals(2);
 	if (check_if_builtins((*parsing)->str[0]) == 0 && (*parsing)->next == NULL
 		&& (*parsing)->redir_nb == 0)
 	{

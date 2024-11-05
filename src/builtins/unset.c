@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 07:59:02 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:30:50 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	unset(char *input, t_env **data)
 	char	*str;
 
 	if (input == NULL)
-		return (printf("unset: not enough arguments\n") ,1);
+		return (printf("unset: not enough arguments\n"), 1);
 	i = 0;
 	str = find_in_env(input, (*data)->var);
 	if (str == NULL || ft_strchr(input, '=') != NULL)

@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:59:42 by crycry            #+#    #+#             */
-/*   Updated: 2024/11/05 10:24:28 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:30:32 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	check_cmd_parsing(t_cmd **parsing, t_env **data)
 	if (trigger == 0)
 	{
 		free(path);
-		ft_printf_fd(2, "minishell: %s:command not found\n", (*parsing)->str[0]);
+		ft_printf_fd(2, "minishell: %s:command not found\n", \
+		(*parsing)->str[0]);
 		g_sig_status = 127;
 		return (-1);
 	}
