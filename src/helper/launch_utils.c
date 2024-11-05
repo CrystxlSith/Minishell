@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 18:04:21 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:13:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 
 	while (1)
 	{
+		remove_hdc_file();
 		init_signals(0);
 		minishell.line_read = readline("minishell> ");
 		add_history(minishell.line_read);

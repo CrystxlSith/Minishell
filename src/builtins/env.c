@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 22:03:54 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 10:07:45 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	initiate_struc_envp(t_env **data, char **envp)
 	char	*pwd;
 	char	*oldpwd;
 
+	if (!envp)
+		return ;
 	*data = malloc(sizeof(t_env));
 	if (!data)
 		return ;
