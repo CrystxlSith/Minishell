@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 14:15:51 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:36:58 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,12 @@ void	export_new(t_env **data, char *cmd)
 
 // En fonction de si la variable existe deja dans le tableau d'environnement
 // la fonctionne redirige la commande pour ajout ou modification du tableau
-void	update_env_tab_export(char *flag, char *cmd, t_env **data)
+int	update_env_tab_export(char *flag, char *cmd, t_env **data)
 {
 	int		target;
 
 	if (!flag)
-		return ;
+		return (-1);
 	if (!(*data)->var)
 		export_new(data, cmd);
 	else
@@ -143,4 +143,5 @@ void	update_env_tab_export(char *flag, char *cmd, t_env **data)
 		else
 			export_new(data, cmd);
 	}
+	return (0);
 }

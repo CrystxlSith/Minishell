@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 13:45:55 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:37:20 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_new_pwd(char *tmp_new, char *pwd, char *new_path, t_env **data)
 		new_path = ft_strjoin(pwd, tmp_new);
 		if (!new_path)
 			return (free((*data)->pwd), free(tmp_new), perror("new_path"), -1);
-		if (export_existing("PWD=", data, new_path) == -1)
+		if (update_env_tab_export("PWD", new_path, data) == -1)
 			return (free((*data)->pwd), free(new_path), free(tmp_new), -1);
 		free(new_path);
 		free(tmp_new);
@@ -52,7 +52,7 @@ int	handle_old_pwd(char *tmp_old, char **old_pwd, char **old_path, t_env **data)
 		*old_path = ft_strjoin(*old_pwd, tmp_old);
 		if (!*old_path)
 			return (free((*data)->old_pwd), free(tmp_old), -1);
-		if (export_existing("OLDPWD=", data, *old_path) == -1)
+		if (update_env_tab_export("OLDPWD=", *old_path, data) == -1)
 			return (free((*data)->old_pwd), free(*old_path), free(tmp_old), -1);
 		free(*old_path);
 		free(tmp_old);
@@ -69,8 +69,6 @@ int	update_env(char *tmp_old, char *tmp_new, t_env **data)
 	char	*old_pwd;
 	char	*pwd;
 
-	if (!*data)
-		return (-1);
 	new_path = NULL;
 	old_path = NULL;
 	pwd = NULL;

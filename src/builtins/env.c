@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 14:23:36 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:28:33 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,7 @@ int	env(t_env **data)
 	if (!*data)
 		return (-1);
 	if ((*data)->var == NULL)
-	{
-		perror("env");
 		return (1);
-	}
 	while (index < (*data)->size)
 	{
 		printf("%s\n", (*data)->var[index]);
