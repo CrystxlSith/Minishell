@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 15:20:01 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:27:05 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@ int	exit_status(int status)
 		{
 			g_sig_status = 130;
 			return (WTERMSIG(status) + 128);
-		}	
-		return (WTERMSIG(status) );
+		}
+		else if (WTERMSIG(status) == SIGQUIT)
+		{
+			g_sig_status = 131;
+			return (WTERMSIG(status) + 128);
+		}
+		return (WTERMSIG(status));
 	}
 	return (-1);
 }

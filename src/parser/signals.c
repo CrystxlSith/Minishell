@@ -6,7 +6,7 @@
 /*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/11/04 14:40:55 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/05 10:25:23 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	signal_sub_handler(int signum)
 
 void	sigquit_handler(int signum)
 {
-	write(2, "\\ quit (core dumped)\n", 21);
-	g_sig_status = SIGQUIT + 128;
+	write(2, "quit (core dumped)\n", 19);
+	// g_sig_status = SIGQUIT + 127;
 	(void)signum;
 }
 
