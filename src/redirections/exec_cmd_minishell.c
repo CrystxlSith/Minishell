@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 10:33:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:25:47 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 	{
 		pid = fork();
 		if (pid == -1)
-			return (perror("fork"), -1);
+			return (-1);
 		if (pid == 0)
 		{
 			if (exec_cmd_minishell(parsing, data) == -1)
@@ -98,17 +98,17 @@ int	exec_single_cmd(t_cmd **parsing, t_env **data)
 		&& check_if_builtins((*parsing)->hdc->command[0]) == 0)
 	{
 		if (builtins(parsing, data) == -1)
-			return (perror("builtins"), -1);
+			return (-1);
 	}
 	else if (check_if_builtins((*parsing)->str[0]) == 0)
 	{
 		if (builtins(parsing, data) == -1)
-			return (perror("builtins"), -1);
+			return (-1);
 	}
 	else
 	{
 		if (check_cmd_minishell(parsing, (*data)->var) == -1)
-			return (perror("check_cmd_minishell"), -1);
+			return (-1);
 	}
 	return (0);
 }

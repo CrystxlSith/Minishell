@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:32:44 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 17:36:47 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:28:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	multiple_cmd_iteration(t_cmd *tmp, t_env **data, int *fd, int *old_fd)
 {
 	if (pipe_multiple_cmd(tmp, data, fd, old_fd) == -1)
 	{
-		perror("multi exec");
 		exit(g_sig_status);
 	}
 	exit(g_sig_status);
@@ -44,7 +43,7 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 
 	pid = fork();
 	if (pid == -1)
-		return (perror("multi fork"), close_fd(current_fd), -1);
+		return (close_fd(current_fd), -1);
 	if (pid == 0)
 	{
 		if (tmp->next != NULL)
@@ -59,7 +58,6 @@ pid_t	fork_and_execute(t_cmd *tmp, t_env **data, int *current_fd, int *old_fd)
 		}
 		if (multiple_cmd_iteration(tmp, data, current_fd, old_fd) == -1)
 		{
-			perror("multiple_cmd_iteration");
 			exit(g_sig_status);
 		}
 		exit(g_sig_status);
@@ -80,7 +78,6 @@ static void	wait_all_children(t_cmd *parsing, pid_t *pid)
 		ret_pid = waitpid(pid[i], &g_sig_status, 0);
 		if (ret_pid == -1)
 		{
-			perror("waitpid failed");
 			free(pid);
 			return ;
 		}
@@ -104,7 +101,7 @@ int	exec_multiple_cmd(t_cmd **parsing, t_env **data)
 	old_fd[1] = -1;
 	pid = ft_calloc(find_nbr_cmd(parsing), sizeof(pid_t));
 	if (!pid)
-		return (perror("ft_calloc pid failed"), -1);
+		return (-1);
 	while ((tmp) != NULL)
 	{
 		if (create_pipe_if_needed((tmp), current_fd) == -1)

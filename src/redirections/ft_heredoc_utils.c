@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 14:46:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 02:41:10 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 17:28:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	write_to_heredoc(int fd, char *line)
 
 int	handle_readline_error(int fd)
 {
-	perror("readline failed");
 	close(fd);
 	return (-1);
 }

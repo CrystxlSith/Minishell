@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:59:42 by crycry            #+#    #+#             */
-/*   Updated: 2024/11/05 13:58:27 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:32:11 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_cmd_parsing(t_cmd **parsing, t_env **data)
 		ft_printf_fd(2, "minishell: %s: command not found\n", \
 		(*parsing)->str[0]);
 		g_sig_status = 127;
-		return (-1);
+		return (1);
 	}
 	return (free(path), 0);
 }

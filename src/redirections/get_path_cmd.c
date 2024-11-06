@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 02:13:05 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 17:29:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ int	check_cmd_minishell(t_cmd **parsing, char **envp)
 	if ((*parsing)->hdc_count != 0)
 	{
 		if (execve_cmd((*parsing)->hdc->command, envp) == -1)
-			return (perror("get_filepath"), -1);
+			return (-1);
 	}
 	else
 	{
 		if (execve_cmd((*parsing)->str, envp) == -1)
-			return (perror("get_filepath"), -1);
+			return (-1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:27:56 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/25 12:42:58 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:28:23 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ int	open_dup_pipe_hdc(int *fd, int fd_hdc)
 {
 	if (dup2(fd_hdc, STDIN_FILENO) == -1)
 	{
-		perror("dup2 fd[0]");
 		close(fd_hdc);
 		return (-1);
 	}
 	if (dup2(fd[1], STDOUT_FILENO) == -1)
 	{
-		perror("dup2 fd[1]");
 		close(fd[1]);
 		close(fd[0]);
 		return (-1);
@@ -47,7 +45,6 @@ void	create_hdc_file(t_cmd *parsing)
 	fd_out = open(parsing->hdc->file_name, O_CREAT | O_RDWR | O_APPEND, 0777);
 	if (fd_out == -1)
 	{
-		perror("create heredoc open failed");
 		return ;
 	}
 	parsing->hdc->hdc_fd = fd_out;
@@ -61,7 +58,7 @@ int	pipe_heredoc(t_cmd *parsing, int *fd)
 
 	fd_out = open(parsing->hdc->file_name, O_RDONLY);
 	if (fd_out == -1)
-		return (perror("heredoc open failed"), -1);
+		return (-1);
 	if (parsing->next == NULL)
 	{
 		if (open_dup_input(fd_out) == -1)

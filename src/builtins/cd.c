@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 14:38:11 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:29:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	cd_home(char *path, t_env **data)
 
 	path = find_in_env("HOME=", (*data)->var);
 	if (!path)
-	{
-		perror("Home");
 		return (-1);
-	}
 	tmp_old = getcwd(NULL, 0);
 	if (go_to_path(path) == -1)
 	{
@@ -94,5 +91,5 @@ int	cd(char *path, t_env **data)
 	else if (path[0] == '-')
 		return (cd_prev(path, data), -1);
 	else
-		return (perror("cd"), g_sig_status = 1, 1);
+		return (g_sig_status = 1, 1);
 }

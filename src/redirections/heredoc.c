@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 10:30:50 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:29:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int fd, t_env **data)
 			cmd_parsing->hdc->hdc_fd = open(cmd_parsing->hdc->prev->file_name, \
 				O_CREAT | O_RDWR | O_APPEND, 0777);
 			if (cmd_parsing->hdc->hdc_fd == -1)
-				return (perror("Failed to open heredoc file"), -1);
+				return (-1);
 			cmd_parsing->hdc->file_name = \
 				ft_strdup(cmd_parsing->hdc->prev->file_name);
 			return (close(fd), 1);

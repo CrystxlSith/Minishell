@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/18 15:28:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:31:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	open_dup_output(int fd_in)
 {
 	if (dup2(fd_in, STDOUT_FILENO) == -1)
 	{
-		perror("dup2 fd_ouput");
 		close(fd_in);
 		return (-1);
 	}
@@ -28,7 +27,6 @@ int	open_dup_input(int fd_in)
 {
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 	{
-		perror("dup2 fd_input");
 		close(fd_in);
 		return (-1);
 	}
@@ -60,13 +58,13 @@ int	check_if_builtins(char *input)
 {
 	if (input == NULL)
 		return (-1);
-	if (ft_strncmp(input, "echo", 4) == 0
-		|| ft_strncmp(input, "pwd", 3) == 0
-		|| ft_strncmp(input, "env", 3) == 0
-		|| ft_strncmp(input, "export", 6) == 0
-		|| ft_strncmp(input, "cd", 2) == 0
-		|| ft_strncmp(input, "exit", 4) == 0
-		|| ft_strncmp(input, "unset", 5) == 0)
+	if (ft_strncmp(input, "echo", 5) == 0
+		|| ft_strncmp(input, "pwd", 4) == 0
+		|| ft_strncmp(input, "env", 4) == 0
+		|| ft_strncmp(input, "export", 7) == 0
+		|| ft_strncmp(input, "cd", 3) == 0
+		|| ft_strncmp(input, "exit", 5) == 0
+		|| ft_strncmp(input, "unset", 6) == 0)
 		return (0);
 	return (-1);
 }

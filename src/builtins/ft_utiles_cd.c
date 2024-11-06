@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 14:37:20 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:25:53 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	handle_new_pwd(char *tmp_new, char *pwd, char *new_path, t_env **data)
 			return (free((*data)->pwd), free(tmp_new), -1);
 		new_path = ft_strjoin(pwd, tmp_new);
 		if (!new_path)
-			return (free((*data)->pwd), free(tmp_new), perror("new_path"), -1);
+			return (free((*data)->pwd), free(tmp_new), -1);
 		if (update_env_tab_export("PWD", new_path, data) == -1)
 			return (free((*data)->pwd), free(new_path), free(tmp_new), -1);
 		free(new_path);
@@ -85,7 +85,6 @@ int	go_to_path(char *path)
 {
 	if (chdir(path) == -1)
 	{
-		perror("Cant find Dir");
 		return (-1);
 	}
 	else
