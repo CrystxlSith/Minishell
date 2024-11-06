@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/30 19:18:07 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/04 11:02:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int	check_flag(char **input)
 	i = 1;
 	while (input[i])
 	{
+		if (input[i][0] != '-')
+			return (i);
 		j = 1;
 		while (input[i][j])
 		{
-			if (input[i][0] != '-')
-				return (i);
 			if (input[i][j] != 'n')
 				return (i);
 			j++;
@@ -36,9 +36,8 @@ int	check_flag(char **input)
 
 int	echo(char **input, t_env **data)
 {
-	int		i;
-	int		trigger;
-	int		index;
+	int	trigger;
+	int	index;
 
 	if (input[1] == NULL)
 		return (1);
@@ -47,18 +46,15 @@ int	echo(char **input, t_env **data)
 		trigger = 1;
 	else
 		trigger = 0;
-	if (!trigger)
-		i = 1;
-	else
-		i = index;
 	(void)data;
-	while (input[i])
+	while (input[index])
 	{
-		printf("%s", input[i]);
-		if (input[++i])
+		printf("%s", input[index]);
+		if (input[index + 1])
 			printf(" ");
+		index++;
 	}
-	if (!trigger)
+	if (trigger == 0)
 		printf("\n");
 	return (0);
 }

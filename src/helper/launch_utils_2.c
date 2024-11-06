@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:59:42 by crycry            #+#    #+#             */
-/*   Updated: 2024/10/31 03:28:13 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 17:32:11 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,29 @@ int	check_cmd_parsing(t_cmd **parsing, t_env **data)
 		return (0);
 	if (access((*parsing)->str[0], X_OK) != -1)
 		trigger++;
-	path = get_filepath((*parsing)->str, (*data)->var);
+	if ((*data)->var)
+		path = get_filepath((*parsing)->str, (*data)->var);
+	else
+		path = NULL;
 	if (path != NULL)
 		trigger++;
 	if (check_if_builtins((*parsing)->str[0]) != -1)
-	{
-		g_sig_status = 0;
 		trigger++;
-	}
 	if (trigger == 0)
 	{
 		free(path);
-		ft_printf_fd(2, "bash: %s:command not found\n", (*parsing)->str[0]);
+		ft_printf_fd(2, "minishell: %s: command not found\n", \
+		(*parsing)->str[0]);
 		g_sig_status = 127;
-		return (-1);
+		return (1);
 	}
-	free(path);
-	return (0);
+	return (free(path), 0);
 }
 
-int	start_error(char *input)
+int	start_error(char *input, t_cmd *parsing)
 {
-	if (!input)
-		exit(EXIT_FAILURE);
-	else if (input[0] == '\0')
+	(void)parsing;
+	if (input[0] == '\0')
 	{
 		free(input);
 		return (1);

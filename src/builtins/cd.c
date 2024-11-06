@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 02:10:03 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 17:29:26 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	cd_home(char *path, t_env **data)
 
 	path = find_in_env("HOME=", (*data)->var);
 	if (!path)
-	{
-		perror("Home");
 		return (-1);
-	}
 	tmp_old = getcwd(NULL, 0);
 	if (go_to_path(path) == -1)
 	{
@@ -34,8 +31,6 @@ int	cd_home(char *path, t_env **data)
 	tmp_new = getcwd(NULL, 0);
 	free(path);
 	update_env(tmp_old, tmp_new, data);
-	free(tmp_old);
-	free(tmp_new);
 	return (0);
 }
 
@@ -79,22 +74,22 @@ int	cd(char *path, t_env **data)
 	if (!path || (path[0] == '~' && path[1] == '\0'))
 		return (cd_home(path, data), -1);
 	dir = opendir(path);
-	if (dir != NULL)
+	if (dir == NULL)
+		return (ft_printf_fd(2, "%s\n", "No such file or directory"), -1);
+	else if (dir != NULL)
 	{
 		new_path = getcwd(NULL, 0);
 		chdir(path);
 		path = getcwd(NULL, 0);
-		update_env(new_path, path, data);
-		return (free(new_path), free(path), closedir(dir), -1);
+		return (update_env(new_path, path, data), closedir(dir), -1);
 	}
 	else if (path[0] == '~' && path[1] != '\0')
 	{
 		tmp = find_in_env("HOME=", (*data)->var);
-		path = ft_strjoin(tmp, &path[1]);
-		return (cd(path, data), -1);
+		return (path = ft_strjoin(tmp, &path[1]), cd(path, data), -1);
 	}
 	else if (path[0] == '-')
 		return (cd_prev(path, data), -1);
 	else
-		return (perror("cd"), g_sig_status = 1, 1);
+		return (g_sig_status = 1, 1);
 }

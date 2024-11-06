@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 02:35:28 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 17:29:16 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	fork_redirection(t_cmd **parsing, t_env **data)
 	trigger = 0;
 	pid = fork();
 	if (pid == -1)
-		return (perror("pid "), -1);
+		return (-1);
 	if (pid == 0)
 	{
 		if (exec_redirection(parsing, data, trigger))
@@ -52,7 +52,7 @@ int	exec_redirection(t_cmd **parsing, t_env **data, int trigger)
 			|| tmp->redir->type == E_REDIR_APP)
 		{
 			if (handle_redir_out(tmp, parsing, data) == -1)
-				return (perror("handle_redir_out "), -1);
+				return (-1);
 		}
 		if (trigger == 1)
 			tmp->redir_nb--;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:32:22 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 02:08:37 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 10:29:42 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,6 @@ void	handle_env_value(char **res, char *tmp, int *i, t_env **data);
 int		handle_question(char **res, int *i, char **input, int *j);
 void	rep_d(t_lexer *tmp, char *res, t_env **data);
 void	replace_dollar(char **input, char *res, t_env **data);
+void	signal_handler(int signum);
 
 #endif

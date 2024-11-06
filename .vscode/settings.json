@@ -1,14 +1,5 @@
 {
-<<<<<<< HEAD
     "files.associations": {
-        "libft.h": "c",
         "minishell.h": "c"
     }
-=======
-	"files.associations": {
-		"readline.h": "c",
-		"history.h": "c",
-		"minishell.h": "c"
-	}
->>>>>>> Minishell_AGT
 }

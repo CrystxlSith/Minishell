@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 03:11:39 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/05 13:49:42 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ char	**realloc_utils(int old_size, char **new_tab, t_env **data, int index)
 	while (i <= old_size && j < (*data)->size)
 	{
 		if (i == index && i + 1 <= old_size)
-		{
-			free((*data)->var[i]);
 			i++;
-		}
 		size = ft_strlen((*data)->var[i]);
 		new_tab[j] = ft_strdup((*data)->var[i]);
 		if (!new_tab[j])
@@ -60,6 +57,10 @@ int	unset(char *input, t_env **data)
 	int		i;
 	char	*str;
 
+	if (!*data)
+		return (-1);
+	if (input == NULL)
+		return (printf("unset: not enough arguments\n"), 1);
 	i = 0;
 	str = find_in_env(input, (*data)->var);
 	if (str == NULL || ft_strchr(input, '=') != NULL)
