@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 14:44:28 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:20:29 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	initiate_struc_envp(t_env **data, char **envp)
 
 	*data = malloc(sizeof(t_env));
 	if (!data)
-		return (-1);
+		return (1);
 	count_env(envp, data);
 	if ((*data)->size != 0)
 		get_env(envp, data);
@@ -28,10 +28,10 @@ int	initiate_struc_envp(t_env **data, char **envp)
 	(*data)->exit_code = 0;
 	pwd = find_in_env("PWD=", envp);
 	if (pwd == NULL)
-		return (-1);
+		return (1);
 	oldpwd = find_in_env("OLDPWD=", envp);
 	if (oldpwd == NULL)
-		return (free(pwd), -1);
+		return (free(pwd), 1);
 	(*data)->pwd = ft_strdup(pwd);
 	(*data)->old_pwd = ft_strdup(oldpwd);
 	return (free(pwd), free(oldpwd), 0);

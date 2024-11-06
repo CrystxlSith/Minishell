@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:59:42 by crycry            #+#    #+#             */
-/*   Updated: 2024/11/05 17:32:11 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:35:57 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	start_error(char *input, t_cmd *parsing)
 	else if (lex_error(input))
 	{
 		free(input);
-		return (1);
+		return (2);
 	}
 	return (0);
 }

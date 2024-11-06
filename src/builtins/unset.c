@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 13:49:42 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 15:23:02 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,14 @@ int	unset(char *input, t_env **data)
 	char	*str;
 
 	if (!*data)
-		return (-1);
+		return (1);
 	if (input == NULL)
-		return (printf("unset: not enough arguments\n"), 1);
+		return (0);
 	i = 0;
 	str = find_in_env(input, (*data)->var);
 	if (str == NULL || ft_strchr(input, '=') != NULL)
 	{
 		free(str);
-		g_sig_status = 1;
 		return (1);
 	}
 	else
@@ -76,6 +75,5 @@ int	unset(char *input, t_env **data)
 		(*data)->var = ft_realloc_env_unset((*data)->size, data, i);
 		free(str);
 	}
-	g_sig_status = 0;
 	return (0);
 }

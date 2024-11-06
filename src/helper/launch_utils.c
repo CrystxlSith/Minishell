@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:18:05 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 13:32:02 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 16:37:24 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,42 @@ void	input_execution(t_env *data, t_cmd *cmd_parsing)
 	}
 }
 
+void print_tokens(t_lexer *tokens)
+{
+	t_lexer	*tmp;
+
+	tmp = tokens;
+	while (tmp)
+	{
+		printf("type: %d, data: %s\n", tmp->type, tmp->data);
+		tmp = tmp->next;
+	}
+}
+
+void	print_cmd(t_cmd *cmd_parsing)
+{
+	t_cmd	*tmp;
+	int		i;
+
+	tmp = cmd_parsing;
+	while (tmp)
+	{
+		i = 0;
+		while (tmp->str && tmp->str[i])
+		{
+			printf("str[%d]: %s\n", i, tmp->str[i]);
+			i++;
+		}
+		i = 0;
+		// while (tmp->redir && tmp->redir[i])
+		// {
+		// 	printf("redir[%d]: %s\n", i, tmp->redir[i]->data);
+		// 	i++;
+		// }
+		tmp = tmp->next;
+	}
+}
+
 int	execute_commands(t_minishell *minishell, \
 t_env **data, t_lexer **tokens, t_cmd **cmd_parsing)
 {
@@ -89,6 +125,7 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 		if (start_error(minishell.line_read, cmd_parsing))
 		{
 			rl_on_new_line();
+			g_sig_status = 2;
 			continue ;
 		}
 		execute_commands(&minishell, &data, &tokens, &cmd_parsing);

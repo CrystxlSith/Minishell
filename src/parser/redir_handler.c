@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:10:17 by crycry            #+#    #+#             */
-/*   Updated: 2024/10/09 15:14:16 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/06 15:03:28 by jopfeiff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ void	add_redirection(t_cmd *cmd, t_lexer *new_redir)
 	cmd->redir_nb++;
 }
 
+void	print_redir(t_lexer *redir)
+{
+	printf("redir type: %d\n", redir->type);
+	printf("redir data: %s\n", redir->data);
+}
+
 void	handle_redirection(t_lexer **token, t_cmd *cmd)
 {
 	t_lexer	*new_redir;
@@ -41,7 +47,8 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 	new_redir->type = (*token)->type;
 	if ((is_redirection(((*token)->type))) && (*token)->next)
 	{
-		remove_next_space(token);
+		while ((*token)->next && !is_cmd((*token)->type))
+			*token = (*token)->next;
 		if (is_cmd((*token)->type))
 		{
 			new_redir->data = ft_strdup((*token)->data);
@@ -57,8 +64,9 @@ void	handle_redirection(t_lexer **token, t_cmd *cmd)
 
 void	remove_next_space(t_lexer **tmp)
 {
-	if ((*tmp)->next->next && (*tmp)->next->type == E_SPACE)
+	while ((*tmp)->next && ((*tmp)->type == SPACE))
 	{
-		*tmp = (*tmp)->next->next;
+		printf("removing space\n");
+		*tmp = (*tmp)->next;
 	}
 }

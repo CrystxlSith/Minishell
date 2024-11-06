@@ -1,0 +1,15 @@
+total 588
+drwxr-xr-x 7 jopfeiff 2024_paris     83 Nov  6 13:02 dep
+drwxr-xr-x 2 jopfeiff 2024_paris     75 Nov  6 13:02 includes
+-rwxr-xr-x 1 jopfeiff 2024_paris      0 Nov  6 14:44 infile
+-rwxr-xr-x 1 jopfeiff 2024_paris     16 Nov  6 13:02 infile.txt
+-rwxr-xr-x 1 jopfeiff 2024_paris      0 Nov  6 14:44 l
+drwxr-xr-x 2 jopfeiff 2024_paris   4096 Nov  6 13:02 libft
+-rw-r--r-- 1 jopfeiff 2024_paris   1591 Nov  6 13:02 main.c
+-rw-r--r-- 1 jopfeiff 2024_paris   6136 Nov  6 13:02 main.o
+-rw-r--r-- 1 jopfeiff 2024_paris   8651 Nov  6 13:02 Makefile
+-rwxr-xr-x 1 jopfeiff 2024_paris 146968 Nov  6 14:42 minishell
+-rw-r--r-- 1 jopfeiff 2024_paris 409814 Nov  6 14:42 minishell.a
+drwxr-xr-x 7 jopfeiff 2024_paris     83 Nov  6 13:02 obj
+-rwxr-xr-x 1 jopfeiff 2024_paris    174 Nov  6 14:44 p
+drwxr-xr-x 7 jopfeiff 2024_paris     83 Nov  6 13:02 src
