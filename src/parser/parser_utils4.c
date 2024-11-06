@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:50:52 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/30 23:09:21 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/06 20:36:15 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,27 @@ t_cmd	*create_new_cmd(void)
 	return (new_cmd);
 }
 
-int	handle_question(char **res, int *i, char **input, int *j)
+int	handle_question(t_replace_params *params, t_env **data)
 {
 	char	*tmp2;
 	char	*new_res;
 
-	tmp2 = ft_itoa(g_sig_status);
+	tmp2 = ft_itoa((*data)->exit_code);
 	if (!tmp2)
 		return (0);
-	if ((*input)[*j] && (*input)[*j + 1])
+	if ((*params->input)[params->j] && (*params->input)[params->j + 1])
 	{
-		if ((*input)[*j] == '$' && (*input)[*j + 1] == '?')
+		if ((*params->input)[params->j] == '$' && (*params->input)[params->j + 1] == '?')
 		{
-			new_res = ft_strjoin(*res, tmp2);
+			new_res = ft_strjoin(params->res, tmp2);
 			if (!new_res)
 			{
 				free(tmp2);
 				return (0);
 			}
-			*res = new_res;
-			*i += ft_strlen(tmp2);
-			*j += 2;
+			params->res = new_res;
+			params->i += ft_strlen(tmp2);
+			params->j += 2;
 			free(tmp2);
 			return (1);
 		}
@@ -86,3 +86,33 @@ int	handle_question(char **res, int *i, char **input, int *j)
 	free(tmp2);
 	return (0);
 }
+
+
+// int	handle_question(char **res, int *i, char **input, int *j)
+// {
+// 	char	*tmp2;
+// 	char	*new_res;
+
+// 	tmp2 = ft_itoa(g_sig_status);
+// 	if (!tmp2)
+// 		return (0);
+// 	if ((*input)[*j] && (*input)[*j + 1])
+// 	{
+// 		if ((*input)[*j] == '$' && (*input)[*j + 1] == '?')
+// 		{
+// 			new_res = ft_strjoin(*res, tmp2);
+// 			if (!new_res)
+// 			{
+// 				free(tmp2);
+// 				return (0);
+// 			}
+// 			*res = new_res;
+// 			*i += ft_strlen(tmp2);
+// 			*j += 2;
+// 			free(tmp2);
+// 			return (1);
+// 		}
+// 	}
+// 	free(tmp2);
+// 	return (0);
+// }

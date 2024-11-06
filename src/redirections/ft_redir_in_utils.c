@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_in_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 10:16:47 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 17:28:23 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 21:34:07 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,21 @@ int	exec_redir_in(t_cmd **parsing, t_env **data)
 	while (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_IN)
 		tmp->redir = tmp->redir->next;
 	if (!tmp->redir->data)
-		return (ft_printf_fd(2, "bash: %s: No such file or directory\n", \
-			tmp->redir->data), g_sig_status = 1, -1);
+		return (ft_printf_fd(2, "minishell: %s: No such file or directory\n", \
+			tmp->redir->data), (*data)->exit_code = 1, -1);
 	fd_redir = open(tmp->redir->data, O_RDONLY);
 	if (fd_redir == -1)
-		return (ft_printf_fd(2, "bash: %s: No such file or directory\n", \
-			tmp->redir->data), g_sig_status = 1, -1);
+		return (ft_printf_fd(2, "minishell: %s: No such file or directory\n", \
+			tmp->redir->data), (*data)->exit_code = 1, -1);
 	if (open_dup_input(fd_redir) == -1)
 		return (-1);
 	if (tmp->redir->next != NULL && tmp->redir->next->type == E_REDIR_OUT)
 	{
 		tmp->redir = tmp->redir->next;
 		if (exec_multiple_redir_in(tmp, data) == -1)
-			return (g_sig_status = 1, -1);
+			return ((*data)->exit_code = 1, -1);
 	}
-	g_sig_status = 0;
+	(*data)->exit_code = 0;
 	exec_single_cmd(parsing, data);
 	exit(0);
 }

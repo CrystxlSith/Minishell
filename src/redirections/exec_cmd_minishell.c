@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 17:25:47 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 22:38:15 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,9 @@ int	exit_status(int status)
 	else if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGINT)
-		{
-			g_sig_status = 130;
 			return (WTERMSIG(status) + 128);
-		}
 		else if (WTERMSIG(status) == SIGQUIT)
-		{
-			g_sig_status = 131;
 			return (WTERMSIG(status) + 128);
-		}
 		return (WTERMSIG(status));
 	}
 	return (-1);
@@ -53,11 +47,14 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 		if (pid == 0)
 		{
 			if (exec_cmd_minishell(parsing, data) == -1)
-				exit(g_sig_status);
-			exit(g_sig_status);
+			{
+				// printf("%d\n", (*data)->exit_code);
+				exit((*data)->exit_code);
+			}
+			exit((*data)->exit_code);
 		}
 		waitpid(pid, &status, 0);
-		g_sig_status = exit_status(status);
+		(*data)->exit_code = exit_status(status);
 	}
 	return (0);
 }
@@ -107,7 +104,7 @@ int	exec_single_cmd(t_cmd **parsing, t_env **data)
 	}
 	else
 	{
-		if (check_cmd_minishell(parsing, (*data)->var) == -1)
+		if (check_cmd_minishell(parsing, (*data)->var, data) == -1)
 			return (-1);
 	}
 	return (0);

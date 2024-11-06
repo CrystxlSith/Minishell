@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utiles.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:15:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 15:21:15 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:05:09 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ char	**ft_realloc_env(int new_size, t_env **data)
 	int		old_size;
 	char	**new_tab;
 	int		i;
-	int		size;
 
 	if (new_size == 0)
 		return (NULL);
@@ -61,7 +60,6 @@ char	**ft_realloc_env(int new_size, t_env **data)
 	i = 0;
 	while (i < old_size)
 	{
-		size = ft_strlen((*data)->var[i]);
 		new_tab[i] = ft_strdup((*data)->var[i]);
 		if (!new_tab[i])
 			return (free_rest_tab(new_tab, i - 1), NULL);

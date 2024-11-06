@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 15:19:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 03:23:34 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/06 19:23:09 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ int	builtins(t_cmd **parsing, t_env **data)
 		status = cd((*parsing)->str[++i], data);
 	else
 		return (1);
-	g_sig_status = status;
+	(*data)->exit_code = status;
 	return (status);
 }

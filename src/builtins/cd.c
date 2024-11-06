@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 15:19:39 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/06 22:00:29 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	cd(char *path, t_env **data)
 		return (cd_home(path, data), 0);
 	dir = opendir(path);
 	if (dir == NULL)
-		return (ft_printf_fd(2, "%s\n", "No such file or directory"), 1);
+		return (ft_printf_fd(2, "%s\n", "cd: No such file or directory"), 1);
 	else if (dir != NULL)
 	{
 		new_path = getcwd(NULL, 0);

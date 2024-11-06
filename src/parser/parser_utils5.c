@@ -6,17 +6,18 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:45:44 by agiliber          #+#    #+#             */
-/*   Updated: 2024/10/31 02:09:41 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/06 20:35:06 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	process_dollar(t_replace_params *params)
+void	process_dollar(t_replace_params *params, t_env **data)
 {
 	char	*tmp;
 	char	*tmp2;
 
+	(void)data;
 	init_temp(&tmp, &tmp2);
 	if (!(*params->input)[params->j + 1])
 	{
@@ -27,8 +28,7 @@ void	process_dollar(t_replace_params *params)
 		free(tmp2);
 		return ;
 	}
-	else if (handle_question(&params->res, &params->i, \
-	params->input, &params->j))
+	else if (handle_question(params, data))
 	{
 		free(tmp);
 		free(tmp2);

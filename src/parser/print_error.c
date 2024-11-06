@@ -6,7 +6,7 @@
 /*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 13:57:35 by crycry            #+#    #+#             */
-/*   Updated: 2024/10/30 23:13:37 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/06 19:08:23 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void	print_hdc_error(int i, char *token2)
 	ft_putstr_fd(")", STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	free(token);
-	g_sig_status = 258;
 }

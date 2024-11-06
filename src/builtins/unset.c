@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 09:43:38 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 15:23:02 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/06 21:59:42 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	**realloc_utils(int old_size, char **new_tab, t_env **data, int index)
 {
 	int		i;
-	int		size;
 	int		j;
 
 	i = 0;
@@ -24,7 +23,6 @@ char	**realloc_utils(int old_size, char **new_tab, t_env **data, int index)
 	{
 		if (i == index && i + 1 <= old_size)
 			i++;
-		size = ft_strlen((*data)->var[i]);
 		new_tab[j] = ft_strdup((*data)->var[i]);
 		if (!new_tab[j])
 			return (free_rest_tab(new_tab, j - 1), NULL);
@@ -66,7 +64,7 @@ int	unset(char *input, t_env **data)
 	if (str == NULL || ft_strchr(input, '=') != NULL)
 	{
 		free(str);
-		return (1);
+		return (0);
 	}
 	else
 	{

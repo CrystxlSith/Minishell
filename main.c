@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 14:44:35 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 21:36:20 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	initiate_env_supp(t_env **data)
 
 int	main(int ac, char **av, char **envp)
 {
+	int			stored_status;
 	t_cmd		*cmd_parsing;
 	t_lexer		*tokens;
 	t_env		*data;
@@ -43,7 +44,10 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	remove_hdc_file();
 	if (generate_minishell_prompt(data, tokens, cmd_parsing) == -1)
-		return (free_minishell(data), exit(g_sig_status), -1);
+	{
+		stored_status = data->exit_code;
+		return (free_minishell(data), exit(stored_status), 1);
+	}
 	free_minishell(data);
 	return (0);
 }

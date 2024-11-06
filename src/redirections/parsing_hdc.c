@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_hdc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 17:59:41 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 21:10:33 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	hdc_force_exit(int i, t_cmd *cmd_parsing)
 {
 	print_hdc_error(i, cmd_parsing->hdc->break_word);
 	close(cmd_parsing->hdc->hdc_fd);
-	exit(EXIT_SUCCESS);
+	exit(1);
 }
 
 void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
@@ -53,7 +53,7 @@ void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
 			continue ;
 		else if (check_break_word(cmd_parsing, &mini, \
 		cmd_parsing->hdc->hdc_fd, data) > 1)
-			exit(g_sig_status);
+			exit(EXIT_SUCCESS);
 		write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
 		free(mini.line_read);
 	}
@@ -92,7 +92,7 @@ void	replace_dollar_hdc(char **input, char *res, t_env **data)
 		{
 			if ((*params.input)[params.j] == '$')
 			{
-				process_dollar(&params);
+				process_dollar(&params, data);
 			}
 			else
 			{

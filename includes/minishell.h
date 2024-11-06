@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 17:22:39 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:35:31 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@ void		replace_dollar_hdc(char **input, char *res, t_env **data);
 void		free_increment(int *i, int *j);
 int			exit_status(int status);
 char		**ft_array_dup(char **str);
-void		process_dollar(t_replace_params *params);
+void		process_dollar(t_replace_params *params, t_env **data);
 int			need_to_continue(t_minishell \
 mini, t_cmd *cmd_parsing, t_env **data);
 int			check_break_word(t_cmd *cmd_parsing, \
 t_minishell *mini, int fd, t_env **data);
 void		handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res);
 void		hdc_force_exit(int i, t_cmd *cmd_parsing);
+int		handle_question(t_replace_params *params, t_env **data);
 
 //BUILTINS ---> GENERAL
 int			builtins(t_cmd **parsing, t_env **data);

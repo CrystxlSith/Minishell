@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 10:17:27 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 13:49:07 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 21:57:58 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int	is_numeric(char *str)
 	return (1);
 }
 
-void	exit_code(char **str)
+void	exit_code(char **str, t_env *data)
 {
 	int		code;
 
 	if (!str[1])
-		code = g_sig_status;
+		code = data->exit_code;
 	else
 		code = ft_atoi(str[1]);
 	ft_free_array(str);
@@ -83,12 +83,12 @@ int	ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens)
 	if (cmd_parsing->str[1] && cmd_parsing->str[2])
 	{
 		ft_putstr_fd(EXIT_ARGS_ERR, STDERR_FILENO);
-		return (EXIT_FAILURE);
+		return (data->exit_code = 1, EXIT_FAILURE);
 	}
 	str = ft_array_dup(cmd_parsing->str);
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	free_all_line(tokens, cmd_parsing);
 	free_minishell(data);
-	exit_code(str);
-	return (g_sig_status);
+	exit_code(str, data);
+	return (data->exit_code);
 }

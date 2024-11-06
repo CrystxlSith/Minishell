@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:34:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/04 11:02:26 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 22:10:57 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	echo(char **input, t_env **data)
 	int	index;
 
 	if (input[1] == NULL)
-		return (1);
+		return (0);
 	index = check_flag(input);
 	if (index != 1)
 		trigger = 1;

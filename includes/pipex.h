@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/10/25 12:48:44 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 20:53:07 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int		open_dup_input(int fd_in);
 // get_path_cmd
 char	*get_filepath(char **av, char **envp);
 char	**get_filepath_norm(char **envp);
-int		check_cmd_minishell(t_cmd **parsing, char **envp);
-int		execve_cmd(char **cmd, char **envp);
+int		check_cmd_minishell(t_cmd **parsing, char **envp, t_env **data);
+int		execve_cmd(char **cmd, char **envp, t_env **data);
 
 // ft_redir_utils
 int		fork_redirection(t_cmd **parsing, t_env **data);

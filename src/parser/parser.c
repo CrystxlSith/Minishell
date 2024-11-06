@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:44:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 13:55:21 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/06 19:26:20 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	replace_dollar(char **input, char *res, t_env **data)
 	{
 		if ((*params.input)[params.j] == '$')
 		{
-			process_dollar(&params);
+			process_dollar(&params, data);
 		}
 		else
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 02:59:42 by crycry            #+#    #+#             */
-/*   Updated: 2024/11/06 16:35:57 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/06 21:10:02 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	check_cmd_parsing(t_cmd **parsing, t_env **data)
 		free(path);
 		ft_printf_fd(2, "minishell: %s: command not found\n", \
 		(*parsing)->str[0]);
-		g_sig_status = 127;
+		(*data)->exit_code = 127;
 		return (1);
 	}
 	return (free(path), 0);

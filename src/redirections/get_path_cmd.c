@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
+/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:14:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 17:29:16 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/06 22:44:40 by crycry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ char	*get_filepath(char **cmd, char **envp)
 	return (NULL);
 }
 
-int	execve_cmd(char **cmd, char **envp)
+int	execve_cmd(char **cmd, char **envp, t_env **data)
 {
 	char	*path;
 
 	if (access(cmd[0], X_OK) == 0)
 	{
 		if (execve(cmd[0], cmd, envp) == -1)
-			exit(g_sig_status);
+			exit((*data)->exit_code);
 	}
 	else
 	{
@@ -72,7 +72,7 @@ int	execve_cmd(char **cmd, char **envp)
 		if (execve(path, cmd, envp) == -1)
 		{
 			free(path);
-			exit(g_sig_status);
+			exit((*data)->exit_code);
 		}
 		free(path);
 		free_all(cmd);
@@ -80,16 +80,16 @@ int	execve_cmd(char **cmd, char **envp)
 	return (0);
 }
 
-int	check_cmd_minishell(t_cmd **parsing, char **envp)
+int	check_cmd_minishell(t_cmd **parsing, char **envp, t_env **data)
 {
 	if ((*parsing)->hdc_count != 0)
 	{
-		if (execve_cmd((*parsing)->hdc->command, envp) == -1)
+		if (execve_cmd((*parsing)->hdc->command, envp, data) == -1)
 			return (-1);
 	}
 	else
 	{
-		if (execve_cmd((*parsing)->str, envp) == -1)
+		if (execve_cmd((*parsing)->str, envp, data) == -1)
 			return (-1);
 	}
 	return (0);
