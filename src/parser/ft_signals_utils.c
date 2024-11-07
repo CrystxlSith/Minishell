@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:28:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 10:29:14 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/07 12:20:41 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	signal_handler(int signum)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	g_sig_status = 130;
+	g_sig_status = signum;
 	(void)signum;
 }

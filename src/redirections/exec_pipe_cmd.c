@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe_cmd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:32:44 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 20:55:59 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/07 12:23:20 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	wait_all_children(t_cmd *parsing, pid_t *pid, t_env **data)
 	while (tmp != NULL)
 	{
 		ret_pid = waitpid(pid[i], &status, 0);
-		(*data)->exit_code = exit_status(status);
+		(*data)->exit_code = exit_status(status, data);
 		if (ret_pid == -1)
 		{
 			free(pid);

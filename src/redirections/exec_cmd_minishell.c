@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 22:38:15 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/07 12:26:00 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exit_status(int status)
+int	exit_status(int status, t_env **data)
 {
+	(void)data;
+	if (WIFSIGNALED(g_sig_status))
+		return (g_sig_status + 128);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
@@ -47,14 +50,11 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 		if (pid == 0)
 		{
 			if (exec_cmd_minishell(parsing, data) == -1)
-			{
-				// printf("%d\n", (*data)->exit_code);
 				exit((*data)->exit_code);
-			}
 			exit((*data)->exit_code);
 		}
 		waitpid(pid, &status, 0);
-		(*data)->exit_code = exit_status(status);
+		(*data)->exit_code = exit_status(status, data);
 	}
 	return (0);
 }

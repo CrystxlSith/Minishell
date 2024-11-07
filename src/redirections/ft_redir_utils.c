@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:39:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 20:44:28 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/07 12:23:05 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	fork_redirection(t_cmd **parsing, t_env **data)
 	}
 	else
 		waitpid(pid, &status, 0);
-	(*data)->exit_code = exit_status(status);
+	(*data)->exit_code = exit_status(status, data);
 	return (0);
 }
 

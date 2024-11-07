@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:48:17 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 20:35:31 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/07 12:23:15 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ extern int	g_sig_status;
 typedef struct s_minishell
 {
 	char	*line_read;
+	int		i;
 }			t_minishell;
 
 typedef struct s_replace_params
@@ -59,7 +60,7 @@ void		new_token(t_lexer **tokens, t_lexer *new_node);
 t_cmd		*parser(t_lexer **tokens, t_env **data);
 void		replace_dollar_hdc(char **input, char *res, t_env **data);
 void		free_increment(int *i, int *j);
-int			exit_status(int status);
+int			exit_status(int status, t_env **data);
 char		**ft_array_dup(char **str);
 void		process_dollar(t_replace_params *params, t_env **data);
 int			need_to_continue(t_minishell \

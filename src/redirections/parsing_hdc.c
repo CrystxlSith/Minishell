@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_hdc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 21:10:33 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/07 12:14:55 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,19 @@ void	hdc_force_exit(int i, t_cmd *cmd_parsing)
 {
 	print_hdc_error(i, cmd_parsing->hdc->break_word);
 	close(cmd_parsing->hdc->hdc_fd);
-	exit(1);
 }
 
 void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
 {
 	t_minishell	mini;
-	static int	i;
 
-	i = 0;
+	mini.i = 0;
 	while (1)
 	{
 		init_signals(1);
 		mini.line_read = readline("> ");
 		replace_dollar_hdc(&mini.line_read, res, data);
-		i++;
+		mini.i++;
 		if (need_to_continue(mini, cmd_parsing, data) == 1)
 			continue ;
 		else if (check_break_word(cmd_parsing, &mini, \
@@ -57,8 +55,6 @@ void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
 		write_to_heredoc(cmd_parsing->hdc->hdc_fd, mini.line_read);
 		free(mini.line_read);
 	}
-	if (!mini.line_read)
-		hdc_force_exit(i, cmd_parsing);
 }
 
 int	need_to_continue(t_minishell mini, t_cmd *cmd_parsing, t_env **data)

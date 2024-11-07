@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 20:43:32 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/07 12:23:01 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int fd, t_env **data)
 		}
 		else
 		{
+			if (!mini->line_read)
+				hdc_force_exit(mini->i, cmd_parsing);
 			handle_break_word(cmd_parsing, data);
 			return (exit((*data)->exit_code), close(fd), 2);
 		}
@@ -109,6 +111,6 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 	if (pid == 0)
 		handle_heredoc_child(cmd_parsing, data, res);
 	waitpid(pid, &status, 0);
-	(*data)->exit_code = exit_status(status);
+	(*data)->exit_code = exit_status(status, data);
 	return (0);
 }

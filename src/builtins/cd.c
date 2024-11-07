@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 22:00:29 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/07 11:57:09 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ int	cd(char *path, t_env **data)
 	{
 		new_path = getcwd(NULL, 0);
 		path = getcwd(NULL, 0);
-		return (update_env(new_path, path, data), chdir(path), closedir(dir), 0);
+		return (update_env(new_path, path, data), \
+			chdir(path), closedir(dir), 0);
 	}
 	else if (path[0] == '~' && path[1] != '\0')
 	{
 		tmp = find_in_env("HOME=", (*data)->var);
-
 		return (path = ft_strjoin(tmp, &path[1]), cd(path, data), 0);
 	}
 	else if (path[0] == '-')
