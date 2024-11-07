@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:48:42 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/05 17:25:53 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:06:46 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	handle_new_pwd(char *tmp_new, char *pwd, char *new_path, t_env **data)
 		if (update_env_tab_export("PWD", new_path, data) == -1)
 			return (free((*data)->pwd), free(new_path), free(tmp_new), -1);
 		free(new_path);
-		free(tmp_new);
 		return (0);
 	}
 	return (-1);
@@ -55,7 +54,6 @@ int	handle_old_pwd(char *tmp_old, char **old_pwd, char **old_path, t_env **data)
 		if (update_env_tab_export("OLDPWD=", *old_path, data) == -1)
 			return (free((*data)->old_pwd), free(*old_path), free(tmp_old), -1);
 		free(*old_path);
-		free(tmp_old);
 	}
 	return (-1);
 }

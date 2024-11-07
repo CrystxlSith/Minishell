@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 11:07:33 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/07 11:57:09 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:18:44 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	cd_home(char *path, t_env **data)
 	tmp_new = getcwd(NULL, 0);
 	free(path);
 	update_env(tmp_old, tmp_new, data);
+	free(tmp_new);
+	free(tmp_old);
 	return (0);
 }
 
@@ -59,6 +61,7 @@ int	cd_prev(char *path, t_env **data)
 	update_env(current_path, prev_path, data);
 	free(prev_path);
 	free(current_path);
+	free(tmp);
 	return (0);
 }
 
@@ -73,23 +76,23 @@ int	cd(char *path, t_env **data)
 
 	if (!path || (path[0] == '~' && path[1] == '\0'))
 		return (cd_home(path, data), 0);
+	else if (path[0] == '-')
+		return (cd_prev(path, data), 0);
 	dir = opendir(path);
 	if (dir == NULL)
 		return (ft_printf_fd(2, "%s\n", "cd: No such file or directory"), 1);
 	else if (dir != NULL)
 	{
 		new_path = getcwd(NULL, 0);
-		path = getcwd(NULL, 0);
-		return (update_env(new_path, path, data), \
-			chdir(path), closedir(dir), 0);
+		chdir(path);
+		return (path = getcwd(NULL, 0), update_env(new_path, path, data), \
+			free(path), free(new_path), closedir(dir), 0);
 	}
 	else if (path[0] == '~' && path[1] != '\0')
 	{
 		tmp = find_in_env("HOME=", (*data)->var);
 		return (path = ft_strjoin(tmp, &path[1]), cd(path, data), 0);
 	}
-	else if (path[0] == '-')
-		return (cd_prev(path, data), 0);
 	else
 		return (1);
 }
