@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 10:27:40 by kali              #+#    #+#             */
-/*   Updated: 2024/11/07 12:19:57 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:51:45 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,17 @@ void	init_signals(int is_heredoc, t_env *data)
 	if (is_heredoc == 1)
 	{
 		signal(SIGINT, here_doc_signal_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (is_heredoc == 2)
 	{
 		signal(SIGINT, signal_sub_handler);
 		signal(SIGQUIT, sigquit_handler);
+	}
+	else if (is_heredoc == 3)
+	{
+		signal(SIGINT, signal_sub_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else
 	{

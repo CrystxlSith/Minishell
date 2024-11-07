@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:08:00 by jopfeiff          #+#    #+#             */
-/*   Updated: 2024/11/06 20:53:07 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/07 17:54:48 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 
 // exec_cmd_minishell
-int		execute_fork(t_cmd **parsing, t_env **data);
+void	execute_fork(t_cmd **parsing, t_env **data);
 int		exec_cmd(t_cmd **parsing, t_env **data);
 int		exec_single_cmd(t_cmd **parsing, t_env **data);
 int		exec_multiple_cmd(t_cmd **parsing, t_env **data);

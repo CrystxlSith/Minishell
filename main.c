@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:05:35 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/07 16:11:09 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:41:21 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	initiate_env_supp(t_env **data)
 	(*data)->pwd = NULL;
 	(*data)->old_pwd = NULL;
 	(*data)->exit_code = 0;
+	(*data)->heredoc = 0;
 	return (0);
 }
 

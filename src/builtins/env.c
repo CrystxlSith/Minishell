@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jopfeiff <jopfeiff@student.42.fr>          +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:09:11 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 15:20:29 by jopfeiff         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:41:20 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	initiate_struc_envp(t_env **data, char **envp)
 		return (free(pwd), 1);
 	(*data)->pwd = ft_strdup(pwd);
 	(*data)->old_pwd = ft_strdup(oldpwd);
+	(*data)->heredoc = 0;
 	return (free(pwd), free(oldpwd), 0);
 }
 

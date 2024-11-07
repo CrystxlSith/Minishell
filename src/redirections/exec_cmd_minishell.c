@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:07:57 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/07 12:26:00 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:54:37 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	exit_status(int status, t_env **data)
 	else if (g_sig_status == 2)
 	{
 		g_sig_status = 0;
+		if ((*data)->heredoc == 1)
+			return (130);
 		return (131);
 	}
 	if (WIFEXITED(status))
@@ -38,25 +40,26 @@ int	exit_status(int status, t_env **data)
 	return (-1);
 }
 
-int	execute_fork(t_cmd **parsing, t_env **data)
+void	execute_fork(t_cmd **parsing, t_env **data)
 {
 	int		pid;
 	int		status;
 
-	init_signals(2, *data);
+	init_signals(3, *data);
 	if (check_if_builtins((*parsing)->str[0]) == 0 && (*parsing)->next == NULL
 		&& (*parsing)->redir_nb == 0)
 	{
 		if (builtins(parsing, data) == -1)
-			return (-1);
+			return ;
 	}
 	else
 	{
 		pid = fork();
 		if (pid == -1)
-			return (-1);
+			return ;
 		if (pid == 0)
 		{
+			init_signals(2, *data);
 			if (exec_cmd_minishell(parsing, data) == -1)
 				exit((*data)->exit_code);
 			exit((*data)->exit_code);
@@ -64,7 +67,6 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 		waitpid(pid, &status, 0);
 		(*data)->exit_code = exit_status(status, data);
 	}
-	return (0);
 }
 
 int	exec_cmd_minishell(t_cmd **parsing, t_env **data)

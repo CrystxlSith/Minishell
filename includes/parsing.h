@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: crycry <crycry@student.42.fr>              +#+  +:+       +#+        */
+/*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:32:22 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/06 20:19:39 by crycry           ###   ########.fr       */
+/*   Updated: 2024/11/07 17:41:22 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_env
 	char	*pwd;
 	char	*old_pwd;
 	int		exit_code;
+	int		heredoc;
 }			t_env;
 
 // Token structure

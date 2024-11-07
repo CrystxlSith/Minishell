@@ -6,7 +6,7 @@
 /*   By: agiliber <agiliber@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:04:40 by agiliber          #+#    #+#             */
-/*   Updated: 2024/11/07 12:23:01 by agiliber         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:46:07 by agiliber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int fd, t_env **data)
 
 	len = ft_strlen(cmd_parsing->hdc->break_word);
 	if (mini->line_read == NULL || ft_strncmp(cmd_parsing->hdc->break_word, \
-	mini->line_read, len) == 0)
+	mini->line_read, len + 1) == 0)
 	{
 		if (cmd_parsing->hdc->next != NULL)
 		{
@@ -104,10 +104,12 @@ int	handle_heredoc_input(t_cmd *cmd_parsing, t_env **data)
 	res = NULL;
 	status = 0;
 	pid = fork();
+	(*data)->heredoc = 0;
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
 		handle_heredoc_child(cmd_parsing, data, res);
+	(*data)->heredoc = 1;
 	waitpid(pid, &status, 0);
 	(*data)->exit_code = exit_status(status, data);
 	return (0);
