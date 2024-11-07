@@ -33,13 +33,17 @@ void	signal_sub_handler(int signum)
 	(void)signum;
 }
 
-void	sigquit_handler(int signum)
+void	signal_handler(int signum)
 {
-	write(2, "quit (core dumped)\n", 19);
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	g_sig_status = signum;
 	(void)signum;
 }
 
-void	init_signals(int is_heredoc)
+void	init_signals(int is_heredoc, t_env *data)
 {
 	if (is_heredoc == 1)
 	{
@@ -55,4 +59,6 @@ void	init_signals(int is_heredoc)
 		signal(SIGINT, signal_handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
+	(void)data;
+	g_sig_status = 0;
 }

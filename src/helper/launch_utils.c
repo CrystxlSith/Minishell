@@ -78,11 +78,12 @@ int	generate_minishell_prompt(t_env *data, t_lexer *tokens, t_cmd *cmd_parsing)
 	while (1)
 	{
 		remove_hdc_file();
-		init_signals(0);
+		init_signals(0, data);
 		minishell.line_read = readline("minishell> ");
-		add_history(minishell.line_read);
 		if (!minishell.line_read)
 			return (-1);
+		if (ft_strlen(minishell.line_read) > 0)
+			add_history(minishell.line_read);
 		if (start_error(minishell.line_read, cmd_parsing))
 		{
 			rl_on_new_line();

@@ -12,12 +12,25 @@
 
 #include "../../includes/minishell.h"
 
-void	signal_handler(int signum)
+void	sigquit_handler(int signum)
 {
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_sig_status = signum;
+	write(2, "quit (core dumped)\n", 19);
 	(void)signum;
+}
+
+void	verify_code(t_env **data, t_replace_params *params)
+{
+	(void)params;
+	if (g_sig_status == 2)
+	{
+		g_sig_status = 0;
+		(*data)->exit_code = 130;
+	}
+}
+
+void	parse_open(t_cmd *cmd_parsing)
+{
+	cmd_parsing->hdc = cmd_parsing->hdc->next;
+	cmd_parsing->hdc->hdc_fd = open(cmd_parsing->hdc->prev->file_name, \
+	O_CREAT | O_RDWR | O_APPEND, 0777);
 }

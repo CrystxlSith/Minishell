@@ -15,8 +15,16 @@
 int	exit_status(int status, t_env **data)
 {
 	(void)data;
-	if (WIFSIGNALED(g_sig_status))
-		return (g_sig_status + 128);
+	if (g_sig_status == 1)
+	{
+		g_sig_status = 0;
+		return (130);
+	}
+	else if (g_sig_status == 2)
+	{
+		g_sig_status = 0;
+		return (131);
+	}
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
@@ -35,7 +43,7 @@ int	execute_fork(t_cmd **parsing, t_env **data)
 	int		pid;
 	int		status;
 
-	init_signals(2);
+	init_signals(2, *data);
 	if (check_if_builtins((*parsing)->str[0]) == 0 && (*parsing)->next == NULL
 		&& (*parsing)->redir_nb == 0)
 	{

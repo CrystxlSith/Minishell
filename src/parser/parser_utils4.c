@@ -63,30 +63,29 @@ int	handle_question(t_replace_params *params, t_env **data)
 	char	*tmp2;
 	char	*new_res;
 
+	verify_code(data, params);
 	tmp2 = ft_itoa((*data)->exit_code);
 	if (!tmp2)
 		return (0);
 	if ((*params->input)[params->j] && (*params->input)[params->j + 1])
 	{
-		if ((*params->input)[params->j] == '$' && (*params->input)[params->j + 1] == '?')
+		if ((*params->input)[params->j] == '$' && ((*params->input) \
+		[params->j + 1] == '?' || (*params->input)[params->j + 1] == '0'))
 		{
-			new_res = ft_strjoin(params->res, tmp2);
-			if (!new_res)
+			if ((*params->input)[params->j + 1] == '0')
 			{
 				free(tmp2);
-				return (0);
+				tmp2 = ft_strdup("Minishell");
 			}
-			params->res = new_res;
+			new_res = ft_strjoin(params->res, tmp2);
+			if (!new_res)
+				return (free(tmp2), 0);
 			params->i += ft_strlen(tmp2);
-			params->j += 2;
-			free(tmp2);
-			return (1);
+			return (params->res = new_res, params->j += 2, free(tmp2), 1);
 		}
 	}
-	free(tmp2);
-	return (0);
+	return (free(tmp2), 0);
 }
-
 
 // int	handle_question(char **res, int *i, char **input, int *j)
 // {

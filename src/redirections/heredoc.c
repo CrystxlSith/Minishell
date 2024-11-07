@@ -77,9 +77,7 @@ int fd, t_env **data)
 		if (cmd_parsing->hdc->next != NULL)
 		{
 			ft_remove(cmd_parsing->hdc->file_name);
-			cmd_parsing->hdc = cmd_parsing->hdc->next;
-			cmd_parsing->hdc->hdc_fd = open(cmd_parsing->hdc->prev->file_name, \
-				O_CREAT | O_RDWR | O_APPEND, 0777);
+			parse_open(cmd_parsing);
 			if (cmd_parsing->hdc->hdc_fd == -1)
 				return (-1);
 			cmd_parsing->hdc->file_name = \

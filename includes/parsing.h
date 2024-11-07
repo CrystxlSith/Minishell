@@ -112,7 +112,7 @@ t_cmd	*create_new_cmd(void);
 void	init_cmd(t_cmd **head, t_cmd **current);
 void	setup_child_signals(void);
 int		add_count_elem(char **data);
-void	init_signals(int is_heredoc);
+void	init_signals(int is_heredoc, t_env *data);
 void	remove_next_space(t_lexer **tmp);
 void	print_cmd(t_cmd *head);
 void	print_error(char *error, char *token);
@@ -134,6 +134,6 @@ void	fill_nbr_element(t_cmd **parsing);
 void	handle_env_value(char **res, char *tmp, int *i, t_env **data);
 void	rep_d(t_lexer *tmp, char *res, t_env **data);
 void	replace_dollar(char **input, char *res, t_env **data);
-void	signal_handler(int signum);
+void	sigquit_handler(int signum);
 
 #endif

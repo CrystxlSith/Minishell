@@ -20,7 +20,6 @@ void	print_error(char *error, char *token)
 	ft_putstr_fd(token, STDERR_FILENO);
 	ft_putstr_fd("'", STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
-	g_sig_status = 258;
 }
 
 void	print_hdc_error(int i, char *token2)

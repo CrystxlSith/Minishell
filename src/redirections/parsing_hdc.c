@@ -43,7 +43,7 @@ void	handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res)
 	mini.i = 0;
 	while (1)
 	{
-		init_signals(1);
+		init_signals(1, *data);
 		mini.line_read = readline("> ");
 		replace_dollar_hdc(&mini.line_read, res, data);
 		mini.i++;

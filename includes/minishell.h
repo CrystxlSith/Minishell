@@ -53,6 +53,8 @@ typedef struct s_replace_params
 }	t_replace_params;
 
 //LEXER && PARSER
+void		verify_code(t_env **data, t_replace_params *params);
+void		parse_open(t_cmd *cmd_parsing);
 int			ft_exit_shell(t_cmd *cmd_parsing, t_env *data, t_lexer *tokens);
 t_lexer		*tokenize(char *str);
 void		create_new_token(t_lexer_type type, char *data, t_lexer **tokens);
@@ -69,7 +71,7 @@ int			check_break_word(t_cmd *cmd_parsing, \
 t_minishell *mini, int fd, t_env **data);
 void		handle_heredoc_child(t_cmd *cmd_parsing, t_env **data, char *res);
 void		hdc_force_exit(int i, t_cmd *cmd_parsing);
-int		handle_question(t_replace_params *params, t_env **data);
+int			handle_question(t_replace_params *params, t_env **data);
 
 //BUILTINS ---> GENERAL
 int			builtins(t_cmd **parsing, t_env **data);
